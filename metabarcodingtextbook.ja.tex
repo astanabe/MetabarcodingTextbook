@@ -1,0 +1,1564 @@
+\documentclass[titlepage,10pt,a4paper]{jsbook}
+
+\setcounter{tocdepth}{4}
+\setcounter{chapter}{-1}
+
+\usepackage[round,colon,authoryear]{natbib}
+
+\usepackage{atbegshi}
+\AtBeginShipoutFirst{\special{pdf:tounicode 90ms-RKSJ-UCS2}} % UTF-8
+% 日本語可能なしおりにする
+
+\usepackage[dvipdfmx]{color,graphicx}
+
+\usepackage[%
+dvipdfm,%
+pdfstartview={FitH -32768},%    描画領域の幅に合わせる
+bookmarks=true,%                しおり付き
+bookmarksnumbered=false,%        章や節の番号をふる
+bookmarkstype=toc,%             目次情報のファイル.tocを参照
+colorlinks=true,%              ハイパーリンクを色文字に
+linkcolor=black,%       link の枠の色 black
+citecolor=black,%       cite の枠の色 black
+urlcolor=black,%        url の枠の色 black
+pdftitle={生態学のためのメタバーコーディングとDNAバーコーディング},%
+pdfauthor={田辺晶史},
+pdfkeywords={メタゲノム, 環境DNA, 次世代シーケンサー, 454, IonTorrent, Illumina}%
+]{hyperref}
+
+\usepackage{pxfonts}
+
+\bibliographystyle{jecon}
+
+\makeatletter
+\def\maketitle{%
+  \includegraphics[scale=1.2,keepaspectratio]{metabarcodingtextbook.ja.eps}%
+  \cleardoublepage
+  \begin{titlepage}%
+    \let\footnotesize\small
+    \let\footnoterule\relax
+    \let\footnote\thanks
+    \null\vfil
+    \vskip 60\p@
+    \begin{center}%
+      {\LARGE \@title \par}%
+      \vskip 3em%
+      {\large
+        \lineskip .75em
+        \begin{tabular}[t]{c}%
+          \@author
+        \end{tabular}\par}%
+      \vskip 1.5em
+      {\large \@date \par}%
+    \end{center}%
+    \par
+    \@thanks\vfil\null
+  \end{titlepage}%
+  \setcounter{footnote}{0}%
+  \global\let\thanks\relax
+  \global\let\maketitle\relax
+  \global\let\@thanks\@empty
+  \global\let\@author\@empty
+  \global\let\@date\@empty
+  \global\let\@title\@empty
+  \global\let\title\relax
+  \global\let\author\relax
+  \global\let\date\relax
+  \global\let\and\relax
+}
+\makeatother
+
+\title{生態学のためのメタバーコーディングとDNAバーコーディング}
+\author{田辺晶史}
+\date{2016/02/01}
+
+%\renewcommand{\baselinestretch}{1.2}
+\renewcommand{\prepartname}{第}
+\renewcommand{\postpartname}{部}
+\renewcommand{\prechaptername}{第}
+\renewcommand{\postchaptername}{章}
+\renewcommand{\presectionname}{}%  第
+\renewcommand{\postsectionname}{}% 節
+\renewcommand{\contentsname}{目次}
+\renewcommand{\listfigurename}{図目次}
+\renewcommand{\listtablename}{表目次}
+\renewcommand{\refname}{引用文献}
+\renewcommand{\bibname}{引用文献}
+\renewcommand{\indexname}{索引}
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+\renewcommand{\appendixname}{付録}
+
+\usepackage{float}
+\usepackage{framed}
+\definecolor{shadecolor}{gray}{0.9}
+\newenvironment{content}{\begin{shaded}\vspace{-1em}\raggedright\ttfamily\footnotesize\setlength{\baselineskip}{1.4em}}{\end{shaded}\vspace{-1em}}
+\newenvironment{pre}{\begin{leftbar}\raggedright\ttfamily\footnotesize\setlength{\baselineskip}{1.4em}}{\end{leftbar}\vspace{-1em}}
+\newenvironment{cmd}{\begin{oframed}\raggedright\ttfamily\footnotesize\setlength{\baselineskip}{1.4em}}{\end{oframed}\vspace{-1em}}
+
+\setlength{\textwidth}{\fullwidth}
+\setlength{\evensidemargin}{\oddsidemargin}
+\addtolength{\evensidemargin}{-2.5 true mm}
+\addtolength{\oddsidemargin}{2.5 true mm}
+
+\makeatletter
+\renewcommand{\chapter}{%
+  \if@openright\cleardoublepage\else\clearpage\fi
+  \global\@topnum\z@
+  \secdef\@chapter\@schapter}
+\makeatother
+
+\begin{document}
+\thispagestyle{empty}
+\maketitle
+\cleardoublepage
+\pagenumbering{roman}
+\tableofcontents
+\cleardoublepage
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em plus 0.2em}
+\parindent=0em
+\parskip=1em plus 0.2em
+\pagenumbering{arabic}
+
+\chapter*{はじめに}
+\addcontentsline{toc}{chapter}{はじめに}
+
+本書は、筆者が開発した塩基配列アセンブラー「Assams」と、配列のクラスタリングとホスト生物同定のためのパッケージ「Claident」の利用を普及促進するために執筆を開始しました。これらのプログラムの利用方法のみならず、データの取得方法からDNAバーコーディングによる生物の同定方法まで解説しています。
+
+細菌などの研究においては既に広く利用されているメタバーコーディングですが、細菌以外の分類群でも幅広い応用が考えられます。例えば、土壌や動植物体内の真菌、水中の動植物プランクトンなどにも適用可能だと思います。水中の溶け出している大型動植物の環境DNAでも同様の解析が可能でしょう。本書では、環境DNAやメタゲノムから、DNAバーコーディングに利用される領域を増幅し、比較的長い解読長の第2世代以降のシーケンサーで配列を読み取って、DNAバーコーディングによって配列のホスト生物を特定することで生物の在・不在を調査する方法を解説します。また、メタバーコーディングに限らず、様々な分野で応用が進みつつあるDNAバーコーディングを用いて生物を同定する方法についても解説しています。
+
+本書はクリエイティブ・コモンズの表示-継承 2.1 日本ライセンスの下で配布します。このライセンスの下では、原著作者の明示を行う限り、利用者は自由に本書を複製・頒布・展示することができます。また、原著作者の明示と本ライセンスまたは互換性のあるライセンスの適用を行う限り、本書を改変した二次著作物の作成・配布も自由に行うことができます。詳しい使用許諾条件を見るには\\
+\href{http://creativecommons.org/licenses/by-sa/2.1/jp/}{http://creativecommons.org/licenses/by-sa/2.1/jp/}\\
+をチェックするか、クリエイティブ･コモンズに郵便にてお問い合わせください。住所は：171 Second Street, Suite 300, San Francisco, California 94105, USA です。
+
+本書が皆さんの役に立つことができましたら幸いです。この機会を与えて下さった京都大学大学院人間・環境学研究科の東樹宏和博士、水産総合研究センター・中央水産研究所の長井敏博士と、本書をお読みの皆さんに感謝します。
+
+\chapter*{凡例}
+\addcontentsline{toc}{chapter}{凡例}
+
+本書ではコンピュータに入力するコマンドやその結果を表記する際に以下のように記述しています。
+\begin{cmd}
+\# コメント\\
+{\textgreater} command option1 {\textbackslash}\\
+option2 {\textbackslash}\\
+option3↓\\
+output of command\\
+{\textgreater} command option1 option2 option3↓\\
+output of command
+\end{cmd}
+上記の例では\texttt{command option1 option2 option3}という全く同じコマンドを2回実行しており、コマンド実行後に\texttt{output of command}がコマンドにより表示されています。ここで、\#から改行まではコメントを表しており、入力の必要はありません。行頭の\texttt{\textgreater}とそれに続くスペースはコマンドの入力の開始を表しており、↓までがコマンドとオプションの入力内容になります。\texttt{\textgreater}とそれに続くスペースはあくまで入力の開始を示すためのものですので、入力しないで下さい。↓は入力の終端を表し、ここでEnterキーを押すことを指示する記号です。↓を入力しないようにして下さい。なお、コマンドとオプションを見やすくするためにコマンドやオプションの途中に改行を意図的に入れることがありますが、そのような改行の直前には\texttt{\textbackslash}を記してあります。したがって、\texttt{\textbackslash}が直前にある改行はコマンドの終端や改行入力の指示を意味しません。また、表示環境によってはワードラップ機能により筆者の意図しない改行が入ってしまうことがありますが、これもコマンドの終端や改行入力の指示を意味しませんので注意して下さい。
+
+また、本書では様々なファイルを使用しますが、その内容は以下のように記述しています。
+\begin{content}
+| 1行目の内容\\
+| 2行目の内容
+\end{content}
+この例では、行頭の\texttt{|}とそれに続くスペースはファイル内の行頭を表しており、ファイル作成の際は入力しないように注意して下さい。これは、ワードラップ機能による筆者の意図しない改行とファイルに入力すべき改行を区別できるようにするためのものです。
+
+\chapter{ソフトウェアのインストールと環境設定}
+
+本書では、Debian GNU/Linux wheezy (以下Debian)、Ubuntu Linux 14.04 LTS (以下Ubuntu)を利用環境として想定しています。Windows環境の方は、Linuxのどちらかをインストールして環境を整えて下さい。インストールには、インストール用CD・DVD・USBメモリが使えます。HDDやSSDが1台しかない場合、Windows用のEaseUS Partition Master Homeなどのパーティションリサイズが可能なソフトを使ったり、インストール用CD・DVD・USBメモリ内に用意されている機能を使ってWindows用の領域を縮小して容量を空ける必要があります。HDDまたはSSDを追加してスペースを確保していただいても良いでしょう。USBメモリやUSB接続HDDにインストールすることも可能です。Ubuntuは見た目・操作性の異なる何種類かがありますが、標準のUbuntuよりもXubuntuというのがおすすめです。
+
+Macでも、これらのOSがインストールできます。空きディスクがない場合はディスクユーティリティを用いてLinuxインストール用のスペースを空ける必要があります。ディスクユーティリティでHDD・SSDをクリックして、MacOS Xが使用している領域を縮小して下さい。そしてrEFItというソフトをインストールして起動時に起動デバイス・起動OS選択メニューが出るようにします(インストール後に2回の再起動が必要です)。そうすると、Linuxインストール用CD・DVD・USBメモリから起動できるようになりますので、そこから起動してインストールして下さい。くれぐれも既存のOS用領域を誤って削除しないようにご注意下さい。空いているディスク領域がある場合はディスクユーティリティでの操作は必要ありません。rEFItを導入してインストールCD・DVD・USBメモリから起動し、空いている領域にLinuxをインストールしていただければ結構です。またMacでも、インストール先をUSBメモリやUSB接続HDDにすることができます。
+
+なお、本書は64bit対応のIntel・AMD製CPU搭載機しか想定していません。それ以外の環境でも動作するでしょうが、自力で解決していただく必要があります。導入するLinuxは64bit版にして下さい。32bit版では大容量メモリを活かすことができません。
+
+\section{LinuxへのClaidentおよび同定用データベースと必要なプログラムのインストール}
+
+以下のコマンドをターミナルかコンソールで実行して下さい。必要なものが全てインストールされます。\texttt{sudo}を利用可能なユーザーである必要があります。途中、\texttt{sudo}の実行時に何回かパスワードを質問されますので、入力して下さい。
+\begin{cmd}
+{\textgreater} mkdir -p {\textasciitilde}/workingdirectory↓\\
+{\textgreater} cd {\textasciitilde}/workingdirectory↓\\
+{\textgreater} wget http://www.claident.org/installClaident{\textunderscore}Debian.sh↓\\
+{\textgreater} sh installClaident{\textunderscore}Debian.sh↓\\
+{\textgreater} wget http://www.claident.org/installOptions{\textunderscore}Debian.sh↓\\
+{\textgreater} sh installOptions{\textunderscore}Debian.sh↓\\
+{\textgreater} wget http://www.claident.org/installDB{\textunderscore}Debian.sh↓\\
+{\textgreater} sh installDB{\textunderscore}Debian.sh↓\\
+{\textgreater} wget http://www.claident.org/installUCHIMEDB{\textunderscore}Debian.sh↓\\
+{\textgreater} sh installUCHIMEDB{\textunderscore}Debian.sh↓\\
+{\textgreater} cd ..↓\\
+{\textgreater} rm -r workingdirectory↓
+\end{cmd}
+標準のインストール先は\texttt{/usr/local}以下になります。また、\texttt{Permission denied}と言われた直後にパスワードを尋ねられたりしますが、パスワードに答えることで進行する場合は問題ありません。これは、最初は\texttt{sudo}なしにユーザー権限でインストールを試み、うまく行かなかった場合(ここでエラーになる)に初めて\texttt{sudo}を使って管理者権限でインストールしようとする(ここでパスワードを尋ねられる)ためです。
+
+もしも外部ネットワークへのアクセスにプロキシを設定する必要がある場合は、上記のコマンド実行の前に以下のコマンドを実行して環境変数を設定しておいて下さい。これにより、外部へはプロキシを経由してアクセスが行われるようになります。
+\begin{cmd}
+{\textgreater} export http{\textunderscore}proxy=http://server.address:portnumber↓\\
+{\textgreater} export ftp{\textunderscore}proxy=http://server.address:portnumber↓
+\end{cmd}
+なお、ユーザー名とパスワードを用いた認証が必要なプロキシでは、以下のようにして下さい。
+\begin{cmd}
+{\textgreater} export http{\textunderscore}proxy=http://username:password@server.address:portnumber↓\\
+{\textgreater} export ftp{\textunderscore}proxy=http://username:password@server.address:portnumber↓
+\end{cmd}
+
+\subsection{バージョンアップの場合には}
+
+全てのプログラムとデータベースを更新する場合は、インストールと同様の手順でコマンドを実行して下さい。この手順では、Assams、Claident、PEAR、VSEARCH、Metaxa、ITSxが\texttt{/usr/local}以下へインストールされ、\texttt{/usr/local/share/claident}以下へNCBI BLAST+と同定用BLASTデータベース・Taxonomyデータベース、その他の依存プログラム等がインストールされます。NCBI BLAST+やBLASTデータベースが別途システムにインストールされている場合でも、Claidentが利用するBLAST+やデータベースとは共存可能です。
+
+なお、以下のコマンドを利用することで、一部の更新を無効化して他のものだけ更新することができます。
+\begin{cmd}
+{\textgreater} mkdir -p {\textasciitilde}/workingdirectory↓\\
+{\textgreater} cd {\textasciitilde}/workingdirectory↓\\
+\# Assamsの更新を無効化\\
+{\textgreater} touch .assams↓\\
+\# Claidentの更新を無効化\\
+{\textgreater} touch .claident↓\\
+\# PEARの更新を無効化\\
+{\textgreater} touch .pear↓\\
+\# VSEARCHの更新を無効化\\
+{\textgreater} touch .vsearch↓\\
+\# NCBI BLAST+の更新を無効化\\
+{\textgreater} touch .blast↓\\
+\# プログラムを更新
+{\textgreater} wget http://www.claident.org/installClaident{\textunderscore}Debian.sh↓\\
+{\textgreater} sh installClaident{\textunderscore}Debian.sh↓\\
+\# HMMerの更新を無効化\\
+{\textgreater} touch .hmmer↓\\
+\# MAFFTの更新を無効化\\
+{\textgreater} touch .mafft↓\\
+\# Metaxaの更新を無効化\\
+{\textgreater} touch .metaxa↓\\
+\# ITSxの更新を無効化\\
+{\textgreater} touch .itsx↓\\
+\# オプションプログラムを更新
+{\textgreater} wget http://www.claident.org/installOptions{\textunderscore}Debian.sh↓\\
+{\textgreater} sh installOptions{\textunderscore}Debian.sh↓\\
+\# 同定用データベース「overall」の更新を無効化\\
+{\textgreater} touch .overall↓\\
+\# 同定用データベース「prokaryota」の更新を無効化\\
+{\textgreater} touch .prokaryota↓\\
+\# 同定用データベースを更新
+{\textgreater} wget http://www.claident.org/installDB{\textunderscore}Debian.sh↓\\
+{\textgreater} sh installDB{\textunderscore}Debian.sh↓\\
+\# キメラ検出用データベース「rdp」の更新を無効化\\
+{\textgreater} touch .rdp↓\\
+\# キメラ検出用データベース「unite」の更新を無効化\\
+{\textgreater} touch .unite↓\\
+\# キメラ検出用データベースを更新
+{\textgreater} wget http://www.claident.org/installUCHIMEDB{\textunderscore}Debian.sh↓\\
+{\textgreater} sh installUCHIMEDB{\textunderscore}Debian.sh↓\\
+{\textgreater} cd ..↓\\
+{\textgreater} rm -r workingdirectory↓
+\end{cmd}
+
+\subsection{標準以外の場所にインストールする}
+
+前述の方法でインストールすると、標準では\texttt{/usr/local}以下へインストールされます。コマンドは\texttt{/usr/local/bin}にインストールされます。他のプログラム(特に旧バージョン)との共存を図りたい場合は、インストール場所を変更して、使用する場合に環境変数PATHを変更するのがいいでしょう。以下のコマンドで標準とは異なる場所へインストールすることができます。
+
+\begin{cmd}
+{\textgreater} mkdir -p {\textasciitilde}/workingdirectory↓\\
+{\textgreater} cd {\textasciitilde}/workingdirectory↓\\
+{\textgreater} export PREFIX=インストール先にしたい場所↓\\
+{\textgreater} wget http://www.claident.org/installClaident{\textunderscore}Debian.sh↓\\
+{\textgreater} sh installClaident{\textunderscore}Debian.sh↓\\
+{\textgreater} wget http://www.claident.org/installOptions{\textunderscore}Debian.sh↓\\
+{\textgreater} sh installOptions{\textunderscore}Debian.sh↓\\
+{\textgreater} wget http://www.claident.org/installDB{\textunderscore}Debian.sh↓\\
+{\textgreater} sh installDB{\textunderscore}Debian.sh↓\\
+{\textgreater} wget http://www.claident.org/installUCHIMEDB{\textunderscore}Debian.sh↓\\
+{\textgreater} sh installUCHIMEDB{\textunderscore}Debian.sh↓\\
+{\textgreater} cd ..↓\\
+{\textgreater} rm -r workingdirectory↓
+\end{cmd}
+
+なお、使用する際には、以下のコマンドを実行する必要があります。
+
+\begin{cmd}
+{\textgreater} export PATH=インストールした場所/bin:\$PATH↓
+\end{cmd}
+
+毎回上記コマンドを実行するのが面倒な場合は、\texttt{{\textasciitilde}/.bash{\textunderscore}profile}や\texttt{{\textasciitilde}/.bashrc}の末尾に上記コマンドを記述しておけばいいでしょう。
+
+\subsection{複数のバージョンを共存させる}
+
+Claidentは標準のインストール先にインストールすると以前のバージョンがあっても上書きされますが、前述の通り標準以外の場所にインストールすれば複数のバージョンを共存させることができます。ただし、ユーザーのホームディレクトリ(\texttt{/home/ユーザー名})の直下もしくは\texttt{/etc/claident}に作成される設定ファイル\texttt{.claident}は共存できませんので、本設定ファイルは使用するバージョンに合わせて切り替える必要があります。ユーザーのホームディレクトリの設定ファイルが優先的に読み込まれますので、複数バージョンを共存させる場合はそれぞれ別のユーザーを用意してそのユーザーのホームディレクトリ以下にインストールしていただければ、ユーザーを切り替えることでバージョンを切り替えることができます。
+
+\chapter{次世代シーケンサーによる大量サンプルの塩基配列決定}
+
+ここでは、Roche GSシリーズシーケンサーや、Life Technologies Ion PGM、Illumina MiSeqによるタグ付き塩基配列決定法について簡単に説明します。これらのシーケンサーは、いずれも400bp以上の長さの塩基配列解読能力があり、メタバーコーディング、DNAバーコーディングに適しています。ただし、MiSeqは両側から各300bpの長さで解読したもの(PE300リード)を連結する必要があります。したがって、両側の配列間で重複ができるよう、できれば400bp程度、長くても500bp程度のアンプリコンができるようにPCRしなくてはなりません。連結せずに片側ずつ解析することもできますが、reverse側配列は質がかなり低いため、あまり有用ではないと思います。
+
+次世代シーケンサーは非常に多くの塩基配列を解読できますが、かつてはランニングコストが高く、1度に多数のサンプル由来配列を由来サンプルがわかるように解読することができませんでした。しかし、ランニングコストはかなり下がってきた上、塩基配列に由来サンプル識別用の数塩基の「MID (multiplex identifier)タグ」を予め付加して解読することで、多数のサンプルの塩基配列を混合(multiplex)して1度に解読できるようになりました。これにより、1サンプル当たりのコストも劇的に低下しています。MIDタグをバーコードと呼ぶことも多いですが、DNAバーコーディングでは利用する塩基配列をバーコードと呼び、紛らわしいのでここでは単にタグに統一します。なお、インデックス配列と呼ぶ場合もあります。他の文書を読まれる場合は注意して下さい。
+
+なお、後の解析では、PCRの際に生成されるキメラ配列や読み間違いの多い配列が多様性の把握の際に問題となりますが、PCRのレプリケートを確保して塩基配列決定を行うことで、全レプリケートで共通して見られる配列のみをキメラでなく読み間違いも少ない配列と考えることができます。これは、キメラのできる配列の組み合わせとキメラ配列の「継ぎ目」は多数あるが、キメラでない配列は非常に限られていてしかもPCR前からあって観測される数がキメラより多くなりやすいため、真の配列は全てのレプリケートで検出されやすいが、キメラはそうではないこと、同様に読み間違いのパターンも無数にあるが真の配列はただ一通りで真の配列が全レプリケートで検出されやすいことを利用するものです。ソフトウェアによる処理だけではキメラや読み間違いを十分に除去できませんが、この方法を併用することで検出効率を改善できると期待できます。キメラと読み間違いの検出後、レプリケートは足し合わせて解析することができます。
+
+\section{タグ・アダプター配列付きプライマーを用いたPCR}
+
+タグを配列に付加するには、タグの付いたプライマーを用いてPCRを行うのが最も簡単で確実です。PCR方式では初期投資としてタグ付きプライマーを購入する必要があり、タグの種類を多くしようとするとこれに最大数十万円を要します。次世代シーケンサー用のサンプル調製キットでは、予めサンプル内のDNA末端に特定のアダプター配列のDNAが付加されていることを前提としています。そこで、以下のような配列のプライマーを用いてPCRを行います。なお、鋳型DNAはメタゲノムでも単一のゲノムでもどちらでも構いません。
+\begin{pre}
+5' ― アダプター配列 ― タグ配列 ― 本来のプライマー配列 ― 3'
+\end{pre}
+両側にタグを付けた場合は、増幅産物は以下のような形になります。
+\begin{pre}
+5' ― アダプター配列F ― タグ配列F ― 本来のプライマー配列F ― 解読したい配列 ― 本来のプライマー配列R逆相補 ― タグ配列R逆相補 ― アダプター配列R逆相補 ― 3'
+\end{pre}
+片側から解読する場合、読み始めがタグ配列Fで、本来のプライマー配列F、解読したい配列の順で読むことになります。
+
+どのようなタグを使うかは、\citet{Hamady2008}のSupplementなど、既存の文献を見て決めて下さい。ただし、タグが必要なのは解読開始側だけですので、片側からしか読まない場合には反対側はタグのないプライマーを使います。両側から読む場合でも、サンプル数が少ない場合は片側だけでいいのですが、解読ミスのためフォワード配列とリバース配列の対応がおかしくなることがあり、片側しかタグがないとそれが検出できませんので両側に付けることを推奨します。
+
+このようなプライマーを用いてPCRを行うと、プライマーは鋳型DNAにY字型にアニールし、アダプター配列とタグ配列が端に付加された増幅産物ができます。この増幅産物をできるだけ等濃度で混合してシーケンスサンプルを調製し、シーケンサーで塩基配列を解読します。シーケンスサンプル調整ステップ以降はメーカーから提供されている純正キットとそのプロトコルに従って下さい。メーカー提供のプロトコルにはいくつか改善すべき点があり、改善によってデータの品質が向上することもあるようです。詳しくはその筋の方にお問い合わせ下さい。濃度の測定は、Nanodropなどの分光光度計では十分な精度で行うことができません。そのため、最低でもLife Technologies (旧Invitrogen)のQubitや各社から出ているPicoGreenなどで測定して下さい。シーケンスサンプルのアダプター配列をターゲットとして定量PCRによって測定するタイプのキットが最も高精度ですが、これはランニングコストが非常に高いためサンプルが多い場合は適用できないと思います。
+
+なお、プライマー配列もサンプルを区別する用途に使うことができますので、例えば植物の\textit{rbcL}と\textit{matK}などの複数領域配列を同時に各サンプルから得ることもできます。もちろんこれらは塩基配列データを見ることでも区別できます。PCRでは、伸長時間を長めに取り、サイクル数を少なくするようにして下さい。シーケンスサンプル調製に必要なDNA量は多くありませんので、サイクル数をそれほど多くする必要はないのです。サイクル数が多く伸長時間が短いほど、「途中まで合成された産物」が生成され、それが次のサイクルで別の鋳型に基いて伸長する、ということが多くなります。このようにして生成されたDNAはキメラDNAと呼ばれ、「存在しない新奇生物の発見」や「多様性の過大評価」に繋がります。Finnzymes社のPhusionや東洋紡のKODなどの高正確性DNAポリメラーゼを用いるのも対策として有効です。キメラDNAの生成を抑制するためには、熱変性後にアニーリング温度へと下げるときの速度を下げることがよいという報告があります\citep{Stevens2013}ので、もし温度の変化速度を設定可能なサーマルサイクラーであれば温度変化速度を下げるようにして下さい。後述するプログラムによる処理によって除去することもできますが、完全ではありませんので生成を抑えるのに越したことはありません。
+
+増幅の難しい鋳型の場合、夾雑物があっても増えやすくする島津製作所のAmpdirectなどの試薬を用いてPCRを行ったり、そもそもDNAを抽出する段階でホモジナイザーやビーズ破砕機を用いて細胞を破砕した上でDNAを抽出することで収量を増やすなどの対策が必要になります。破砕の前にディープフリーザーで凍結して、凍結した状態で破砕するのも効果的です。ポリフェノール類や多糖類を除去するキットを用いる必要がある場合もあるかもしれません。この辺りの課題は従来の方法と違いはありません。タグ・アダプターの付いていないプライマーでは増幅できるがタグ・アダプター付きのプライマーだとうまくいかないことがありますが、その場合はタグ・アダプターなしのプライマーでPCRした増幅産物を用意し、プライマー除去・精製して(ExoSAP-ITなどでいいでしょう)から、タグ・アダプターの付いたプライマーで数サイクルのPCRを行い、増幅産物にタグ・アダプターを付加するというやり方でうまくいくことがあります。
+
+\subsection{中間アダプターを用いたコスト抑制方法}
+
+タグ・アダプター配列付きプライマーは非常に長いため、高価になりがちです。しかも、増幅するプライマーセットごとに用意しなくてはならず本数も多くなってしまいます。そこで、PCRを2回行うことで、1組のタグ・アダプター付きプライマーを使い回す方法を紹介します。まず、1回目は以下のプライマーセットを用いてPCRを行います。
+\begin{pre}
+フォワードプライマー\\
+5' ― 中間アダプター配列F ― 本来のプライマー配列F ― 3'\\
+リバースプライマー\\
+5' ― 中間アダプター配列R ― 本来のプライマー配列R ― 3'
+\end{pre}
+これで末端に中間アダプター配列の付いた増幅産物ができます。中間アダプター配列はシーケンスに必要なアダプター配列と異なるもので、非特異的増幅を起こさないものであれば何でも構いません。そういう配列は各種知られていますので、既に使用されているものを探してきて下さい。そして、この増幅産物を鋳型として以下のプライマーセットでさらにPCRを行います。
+\begin{pre}
+5' ― 本来のアダプター配列 ― タグ配列 ― 中間アダプター配列 ― 3'
+\end{pre}
+このような2段階PCRによって、1組のタグ・アダプター付きプライマーを使い回すことができるようになりますので、コスト削減になります。ただし、PCRを繰り返すため、PCRによる人工的な置換やPCRバイアスが増加しますし、解読できる長さも減少します。その点には注意が必要です。なお、増幅産物は以下のような形になります。
+\begin{pre}
+5' ― 本来のアダプター配列F ― タグ配列F ― 中間アダプター配列F ― 本来のプライマー配列F ― 解読したい配列 ― 本来のプライマー配列R逆相補 ― 中間アダプター配列R逆相補 ― タグ配列R逆相補 ― 本来のアダプター配列R逆相補 ― 3'
+\end{pre}
+IlluminaのNextera XT Index Kitを用いたmultiplex法\citep{Illumina2013}はこれをキットで実現しているものです。この方法で2つのタグ配列と両側からの解読を行う場合、最初に中間アダプター配列Fの後ろから、つまり本来のプライマー配列Fから読み始め、解読したい配列方向へ解読します。次に、中間アダプター配列R逆相補の後ろからタグ配列R逆相補を解読します。3番目にアダプター配列Fの後ろからタグ配列Fを解読し、方向を反転させて、最後に中間アダプター配列Rの後ろから本来のプライマー配列R、および解読したい配列(逆ストランド)を解読します。それぞれがR1、R2、R3、R4を含むファイル名で保存されます。R1、R2、R3は同じstrandで、R4だけ逆strandになります。R2はタグ配列R逆相補で、R3がタグ配列Fです。ややこしいので注意が必要です。なお、上記のキットではR1とR4のシーケンスプライマーは中間アダプター配列をターゲットとするものになっているため、本来のプライマー配列がR1とR4のデータ配列に入ってしまい、解読したい領域が500bp程度ある場合には長さが不足する可能性がありますが、本来のプライマーをシーケンスプライマーとして利用することでデータ配列にプライマー部分が入らないようすることも可能です。ただし、この方法では後述するNの挿入によるシーケンス品質の改善ができません。
+
+\subsection{Nの挿入によるシーケンス品質の改善}
+
+Illuminaでは、フローセル上の蛍光を光学センサーで読み取っていますが、メタゲノムを鋳型としたユニバーサルプライマーでのPCR増幅産物は配列が似ているため、フローセル上でDNAが近接していると区別が困難になります。また、読み始めに「ほとんどの配列がAであるため発光点が少なく真っ暗になる」と、異常と判断して解読を停止してしまうことがあるとのことです。ゲノムショットガンやRNA-seqでは近接しているDNAが非常によく似ている可能性がずっと低いために区別できる上、真っ暗になることもないのですが、同じ遺伝子座の増幅産物(しかも読み始めがほとんど変異のないプライマー領域)だとまずいわけです。そこで、本来のプライマー配列と中間アダプター配列の間にわざと\texttt{NNNNNN}を入れてしまうことにします。そうすると、この部分の解読時に近接したDNAも区別することができ、真っ暗になることもないため、シーケンス品質が改善するとのことです\citep{Nelson2014}。MiSeqやHiSeqをお使いの方はお試し下さい。さらに、この長さをサンプルごとに変えてしまうと、解読するゲノム上の位置がずれるため、全く同じ配列が隣接していても区別できるようになるためにシーケンス品質が改善するそうです\citep{Fadrosh2014}。これらの対処法により、PhiX標準配列を混ぜる量を減らすことができるので、一度に得られるデータ量も増加するはずです。
+
+\chapter{塩基配列データのクラスタリング}
+
+\section{塩基配列データの前処理}
+
+GSシリーズシーケンサーやIon PGMでは、最終出力として\texttt{*.sff}というファイルが得られます。Illumina MiSeqの場合は\texttt{*.fastq}となります。ここでは、これらのファイルに含まれる配列をサンプルごとに分別(demultiplex)して別々のファイルに分けた上で、低品質の配列の除去を行う方法を説明します。どの機種でもメーカーのプログラムの機能によるdemultiplexは品質の値を見ていなかったりするため、Claidentのコマンド\texttt{clsplitseq}を利用してdemultiplexを行います。以下ではコマンドは全てターミナルかコンソールで実行して下さい。基本的なターミナルの使い方の知識は持っているという前提で話を進めます。ターミナルの操作に慣れていない方は、最低でも付録\ref{chapter:terminalcommands}の内容を理解できるようになっておいて下さい。
+
+\subsection{GSシリーズシーケンサーやIon PGMの場合}
+
+\subsubsection{SFFからFASTQの生成}
+
+まずはSFFファイルからFASTQ形式のファイルを作成します。
+\begin{cmd}
+{\textgreater} sff{\textunderscore}extract -c SFFファイル名↓
+\end{cmd}
+\texttt{-c}オプションを付けることで、読み始めの\texttt{TCAG}が除去されてファイルが作成されます。もし後述するタグ配列の冒頭に\texttt{TCAG}を付けている場合には、このオプションは使用しないで下さい。SFFファイルが\texttt{HOGEHOGE.sff}だとすると、\texttt{HOGEHOGE.fastq}というFASTQ形式のファイルとして塩基配列は保存されます。\texttt{HOGEHOGE.xml}というファイルもできますが、ここでは使いませんので削除して構いません。出力される塩基配列はタグ配列で始まり、解読開始側プライマー配列、解読対象の塩基配列データと続き、反対側プライマー配列(の逆相補配列)で終わります。ただし、全域が読めるとは限りませんので、途中で読み終わっている配列も含んでいます。なお、ここでは\texttt{sff{\textunderscore}extract}コマンドを用いていますが、読み始めの\texttt{TCAG}を除いた塩基配列のFASTQ形式ファイルが得られれば、シーケンサーメーカーから提供される純正のコマンドを使っていただいても構いません。逆に後述する\texttt{clsplitseq}に与えるタグ配列の冒頭に\texttt{TCAG}を追加していただいても構いませんが、\texttt{TCAG}部分の品質値まで厳格にチェックされます。
+
+\subsubsection{塩基配列をサンプルごとに分ける}
+
+次に、タグ配列とプライマー配列に基づいてサンプルごとに配列を別々のファイルに分離(demultiplex)します。事前に以下のようなタグ配列を記したFASTAファイル、解読開始側プライマー配列を記したFASTAファイルがそれぞれ必要です。
+\begin{content}
+| {\textgreater}タグID\\
+| タグ配列\\
+| {\textgreater}examplesample1\\
+| ACGTACGT
+\end{content}
+\begin{content}
+| {\textgreater}プライマーID\\
+| プライマー配列\\
+| {\textgreater}exampleprimer1\\
+| ACGTACGTACGTACGTACGT
+\end{content}
+タグ配列には縮重コード表記は使えませんが、プライマー配列には縮重コード表記を利用可能です。タグ配列、プライマー配列ともに複数の配列を記述しておくことも可能です。なお、中間アダプターを用いたりした場合は、プライマー配列ファイルは以下のような内容で作成して下さい。
+\begin{content}
+| {\textgreater}プライマーID\\
+| 中間アダプター配列プライマー配列
+\end{content}
+つまり、プライマー配列ファイルには、タグ配列と解読対象の配列の間にある配列を記述して下さい。
+
+これらのファイルが用意できたら、以下のコマンドで塩基配列をサンプルごとに別ファイルへ分割します。
+\begin{cmd}
+{\textgreater} clsplitseq {\textbackslash}\\
+{-}{-}runname=ランID {\textbackslash}\\
+{-}{-}tagfile=タグ配列ファイル {\textbackslash}\\
+{-}{-}primerfile=プライマー配列ファイル {\textbackslash}\\
+{-}{-}minqualtag=27 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+ランIDはランごとに異なるように適当に決めて指定して下さい。通常はシーケンサーのメーカーが適当に付けているはずなので、それを記述します。ファイル名やファイル中の配列名などに含まれていますが、メーカーによってルールが異なりプログラムから自動的に取得することが面倒なため、ユーザー側で指定する必要があります。\texttt{{-}{-}minqualtag}はタグ配列部分の品質値の下限を指定するオプションです。この値より品質値が低い塩基がタグ配列に含まれる場合は、その配列は出力されません。品質値27という値は、Roche GSシリーズシーケンサーの読み取りミスをクラスタリング・コンセンサス配列作成によって除去するのに適した値です\citep{Kunin2010}。他機種では別の値の方が良い可能性があります。品質値30がかなり広く使用されていますので、30にしてもいいでしょう。
+
+タグを利用したマルチプレックスシーケンスを行っていない場合、\texttt{{-}{-}tagfile}オプションが不要となりますが、単に省略しただけだとこの後のClaidentのコマンドで処理可能な配列ファイルが作成されません。そのため、ダミーでも構いませんので\texttt{{-}{-}indexname=タグID}というオプションを付加して実行して下さい。
+
+出力される配列からは、タグとプライマーの配列部分は除去されています。タグ配列部分の認識は厳密一致です。1塩基の読み間違いを許すなどのオプションはありません。プライマー配列の認識は、Needleman-Wunschアルゴリズムを用いたアライメントを行い、14\%まで不一致を許容します(閾値は変更可能)。出力フォルダには、\texttt{ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.fastq.gz}という名前の塩基配列ファイルが保存されます。\texttt{clsplitseq}では並列処理によって多数のCPUを活かした高速化が可能です。CPUが4個の場合、\texttt{{-}{-}numthreads}オプションに4を指定すれば最も高速に処理ができるはずです。ただし、OSやディスクへの書き込み速度がボトルネックになって思うように速度が出ないこともあります。なお、出力ファイルはGZIPで圧縮されていますので、GZIP圧縮FASTQに対応していないプログラムで読み込むには\texttt{gzip -d}などで圧縮を解除しておく必要があります。これ以降のClaidentのコマンドは対応しているためそのまま使えます。
+
+DDBJ Sequence Read Archive (DRA)など、次世代シーケンサーの生データを登録するサイトには、ここで生成されたGZIP圧縮FASTQを登録します。
+
+\textbf{■数ラン分に分けて大量サンプルをシーケンスした場合　}
+\texttt{clsplitseq}による処理を複数回行います。ただし、\texttt{clsplitseq}は出力先フォルダが既に存在しているとエラーになり処理できません。そこで、2回目以降は\texttt{{-}{-}append}オプションを付けて実行します。例えば以下のようにして下さい。
+\begin{cmd}
+{\textgreater} clsplitseq {\textbackslash}\\
+{-}{-}runname=ランID {\textbackslash}\\
+{-}{-}tagfile=タグ配列ファイル {\textbackslash}\\
+{-}{-}primerfile=プライマー配列ファイル {\textbackslash}\\
+{-}{-}minqualtag=27 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+出力フォルダ↓\\
+{\textgreater} clsplitseq {\textbackslash}\\
+{-}{-}runname=ランID {\textbackslash}\\
+{-}{-}tagfile=タグ配列ファイル {\textbackslash}\\
+{-}{-}primerfile=プライマー配列ファイル {\textbackslash}\\
+{-}{-}minqualtag=27 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+{-}{-}append {\textbackslash}\\
+入力ファイル2 {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+
+\textbf{■異なる長さのタグが混在している場合について　}
+\texttt{clsplitseq}では、タグの長さは全て同一であることを仮定しています。その仮定を使うことで処理を高速化しています。そのため、タグの長さが不統一の場合は、長さの異なるタグごとに別々のFASTAファイルを準備し、以下のようにして複数回\texttt{clcplitseq}による処理を行って下さい。
+\begin{cmd}
+{\textgreater} clsplitseq {\textbackslash}\\
+{-}{-}runname=ランID {\textbackslash}\\
+{-}{-}tagfile=タグ配列ファイル1 {\textbackslash}\\
+{-}{-}primerfile=プライマー配列ファイル {\textbackslash}\\
+{-}{-}minqualtag=27 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力フォルダ↓\\
+{\textgreater} clsplitseq {\textbackslash}\\
+{-}{-}runname=ランID {\textbackslash}\\
+{-}{-}tagfile=タグ配列ファイル2 {\textbackslash}\\
+{-}{-}primerfile=プライマー配列ファイル {\textbackslash}\\
+{-}{-}minqualtag=27 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+{-}{-}append {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+
+\textbf{■リバースプライマー配列の認識と除去　}
+これまでの手順では、リバースプライマー配列がアニールする部分の配列は除去されていません。これもできれば除去した方が良いでしょう。それには、まず以下のような内容のリバースプライマー配列のファイルを用意します。
+\begin{content}
+| {\textgreater}プライマーID\\
+| プライマー配列\\
+| {\textgreater}exampleprimer1\\
+| TCAGTCAGTCAGTCAGTCAG
+\end{content}
+配列は複数記述できますが、フォワードプライマーと1対1対応していることを仮定していますので注意して下さい。フォワードプライマーと配列数が異なるとエラーになります。配列順序も対応していることを仮定していますので、リバースプライマーは同一でもフォワードプライマーが異なるサンプルがある場合、それぞれ異なるプライマーIDを割り当てて両方記述する必要があります。
+
+ファイルが用意できたら、\texttt{clsplitseq}を以下のように実行して下さい。
+\begin{cmd}
+{\textgreater} clsplitseq {\textbackslash}\\
+{-}{-}runname=ランID {\textbackslash}\\
+{-}{-}tagfile=タグ配列ファイル {\textbackslash}\\
+{-}{-}primerfile=プライマー配列ファイル {\textbackslash}\\
+{-}{-}reverseprimerfile=リバースプライマー配列ファイル {\textbackslash}\\
+{-}{-}reversecomplement {\textbackslash}\\
+{-}{-}minqualtag=27 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+このコマンドでは前述のコマンドの処理に加えて、さらにリバースプライマー逆相補配列をNeedleman-Wunschアルゴリズムを用いたアライメントによって15\%まで不一致を許して探します。該当する配列が見つかったら、該当箇所の先頭以降を元の配列から除去します。該当する配列が見つからなかった場合は、他の条件を満たしていればそのまま出力ファイルに保存されます。ただし、読み間違いなどによってリバースプライマーの付く部位以降が除去しきれないこともあります。なお、\texttt{{-}{-}needreverseprimer}というオプションを追加することで、リバースプライマー逆相補配列に一致する部位が見つからなかった配列は出力されなくなります。最後まで解読しきれた配列だけにしたい場合はこのオプションを付けて実行してみて下さい。
+
+\subsubsection{低品質配列の除去}\label{subsubsection:qualityfilteringfor454}
+
+FASTQ形式の塩基配列には、解読時のデータから推定された塩基の品質値がありますので、その情報に基づいて質の低い配列をこの時点である程度除去してしまうことができます。以下のように\texttt{clfilterseq}を実行して下さい。
+
+\begin{cmd}
+{\textgreater} clfilterseq {\textbackslash}\\
+{-}{-}minqual=27 {\textbackslash}\\
+{-}{-}minquallen=3 {\textbackslash}\\
+{-}{-}minlen=350 {\textbackslash}\\
+{-}{-}maxlen=400 {\textbackslash}\\
+{-}{-}maxplowqual=0.1 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+
+ここで、\texttt{{-}{-}minqual}は品質値の下限値で、終末端側からこの値以上の品質値が\texttt{{-}{-}minquallen}の値以上に連続して出現するまで配列を削っていきます。その上で、\texttt{{-}{-}minlen}の長さ未満の配列は除去し、\texttt{{-}{-}maxlen}より長い場合はこの値になるまで終末端を削ります。残った配列において、\texttt{{-}{-}minqual}未満の配列が\texttt{{-}{-}maxplowqual}の割合より多い場合はその配列は除去します。通常は出力はファイルになりますが、\texttt{{-}{-}output=folder}というオプションを与えた場合はフォルダを作成して入力ファイルと同じ名前のファイルに出力します。既存のフォルダに出力する場合は\texttt{{-}{-}append}を追加して下さい。
+
+\texttt{clsplitseq}の出力フォルダ内の全配列ファイルに対して同じ処理を行う場合は、以下のようなコマンドを実行して下さい。
+
+\begin{cmd}
+{\textgreater} for f in clsplitseqの出力フォルダ/*.fastq.gz↓\\
+do clfilterseq {\textbackslash}\\
+{-}{-}output=folder {\textbackslash}\\
+{-}{-}append {\textbackslash}\\
+{-}{-}minqual=27 {\textbackslash}\\
+{-}{-}minquallen=3 {\textbackslash}\\
+{-}{-}minlen=350 {\textbackslash}\\
+{-}{-}maxlen=400 {\textbackslash}\\
+{-}{-}maxplowqual=0.1 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+\$f {\textbackslash}\\
+出力フォルダ↓\\
+done↓
+\end{cmd}
+
+\subsection{Illumina社シーケンサーの場合}
+
+\subsubsection{BCLからFASTQの生成}
+
+Illumina社のシーケンサーでは、標準でdemultiplexする機能がありますが、タグ配列部分の品質値を一切見ていないため、タグ配列の品質が低い配列がファイルに含まれています。このため、生データであるBCLファイルから、Illuminaが配布しているbcl2fastq (1.x系と2.x系はどちらでも構いません)を用いて、demultiplexしていないFASTQ配列を生成し、\texttt{clsplitseq}でdemultiplexを行います。bcl2fastqのインストールは付録に書きましたのでそちらを参照願います。また、Illumina社のシーケンサーでは300bpのシーケンスでは301bp (150bpのシーケンスでは151bp)のデータが出力されるため、末尾の1塩基は除去する必要があります(何故最初から1塩基除いたデータを出力してくれないのかは知りません)。下記の例ではbcl2fastqでFASTQ配列生成の際に除去するようになっています。
+
+まず、シーケンサー付属マシンからBaseCallsフォルダを含むランデータフォルダをまるごとbcl2fastqをインストールしたPCへコピーします。なお、BaseCallsフォルダ内またはランデータフォルダ内に\texttt{SampleSheet.csv}が存在する場合は、これをリネームしておく必要があります。
+
+次に、bcl2fastqの1.x系では以下のようにコマンドを実行します。
+\begin{cmd}
+{\textgreater} cd BaseCallsフォルダの直上フォルダ↓\\
+{\textgreater} configureBclToFastq.pl {\textbackslash}\\
+{-}{-}fastq-cluster-count 0 {\textbackslash}\\
+{-}{-}use-bases-mask Y300n,Y8,Y8,Y300n {\textbackslash}\\
+{-}{-}input-dir BaseCallsフォルダ {\textbackslash}\\
+{-}{-}output-dir 出力フォルダ↓\\
+{\textgreater} make -j4↓
+\end{cmd}
+\texttt{{-}{-}fastq-cluster-count 0}でファイルの自動分割機能を無効にし、\texttt{{-}{-}use-bases-mask Y300n,Y8,Y8,Y300n}でフォワード側配列を300bp (末端1bpは切り捨て)、インデックス1 (タグ配列R逆相補)を8bp、インデックス2 (タグ配列F)を8bp、リバース側配列を300bp (末端1bpは切り捨て)とし、それぞれ\texttt{*{\textunderscore}R1{\textunderscore}001.fastq.gz}、\texttt{*{\textunderscore}R2{\textunderscore}001.fastq.gz}、\texttt{*{\textunderscore}R3{\textunderscore}001.fastq.gz}、\texttt{*{\textunderscore}R4{\textunderscore}001.fastq.gz}として出力するよう設定しています。これはDual Index (インデックスは各8bp)で両側から各300bpずつ解読する(PE300)設定でシーケンスした場合ですので、異なる設定でシーケンスした場合は値を適宜変更して下さい。\texttt{make -j4}を実行すると、4つのCPUを使用してBCLからFASTQの生成が行われます。生成されたFASTQはGZIPというプログラムで圧縮されたものになります。ファイル名の末尾の拡張子\texttt{.gz}はそれを示すものです。ClaidentはGZIPで圧縮されたFASTQをそのまま扱えるため、圧縮したままで構いません。Single Indexの場合や、片側からしか解読していない場合は\texttt{{-}{-}use-bases-mask}オプションを適宜変更する必要があります。Single Index (長さ6bp)で片側250bpの解読を行った場合は\texttt{{-}{-}use-bases-mask Y250n,Y6}となり、Dual Index (長さ各8bp)で片側300bpの場合は\texttt{{-}{-}use-bases-mask Y300n,Y8,Y8}となります。
+
+bcl2fastqの2.x系を使用している場合は以下のようにコマンドを実行します。
+\begin{cmd}
+{\textgreater} bcl2fastq {\textbackslash}\\
+{-}{-}processing-threads 4 {\textbackslash}\\
+{-}{-}use-bases-mask Y300n,Y8,Y8,Y300n {\textbackslash}\\
+{-}{-}runfolder-dir ランデータフォルダ {\textbackslash}\\
+{-}{-}output-dir 出力フォルダ↓
+\end{cmd}
+\texttt{{-}{-}processing-threads}は処理に使用するCPU数を指定するオプションです。CPUが16個あるPCで専有できるなら16を指定して下さい。\texttt{{-}{-}use-bases-mask}オプションの意味は1.x系と同じです。\texttt{{-}{-}runfolder-dir}にはランデータフォルダを指定します。1.xでは\texttt{{-}{-}input-dir}にBaseCallsフォルダを指定していましたが、2.xでは指定方法が異なりますので注意して下さい。
+
+\subsubsection{塩基配列をサンプルごとに分ける}
+
+FASTQファイルができたら、タグ配列とプライマー配列に基づいてサンプルごとに配列を別々のファイルに分離(demultiplex)します。事前に以下のようなタグ配列を記したFASTAファイル、解読開始側プライマー配列を記したFASTAファイルがそれぞれ必要です。ペアエンドの場合は、当然リバース側の配列を記したファイルも必要です。
+\begin{content}
+| {\textgreater}タグID\\
+| タグ配列\\
+| {\textgreater}examplesample1\\
+| ACGTACGT
+\end{content}
+\begin{content}
+| {\textgreater}プライマーID\\
+| プライマー配列\\
+| {\textgreater}exampleprimer1\\
+| ACGTACGTACGTACGTACGT
+\end{content}
+タグ配列には縮重コード表記は使えませんが、プライマー配列には縮重コード表記を利用可能です。タグ配列、プライマー配列ともに複数の配列を記述しておくことも可能ですが、フォワードプライマーとリバースプライマーは配列数も配列順序も対応していることを仮定しています。リバースプライマーは同一でもフォワードプライマーが異なるサンプルがある場合、それぞれ異なるプライマーIDを割り当てて両方記述する必要があります。タグに関しても同様です。なお、プライマーの前に\texttt{NNNNNN}を付加した場合は、それも含めてプライマーを記述して下さい。サンプルごとに\texttt{N}の長さを変化させている場合は最も長い場合だけを記述して下さい。
+
+これらのファイルが用意できたら、以下のコマンドで塩基配列をサンプルごとに別ファイルへ分割します。
+\begin{cmd}
+{\textgreater} clsplitseq {\textbackslash}\\
+{-}{-}runname=ランID {\textbackslash}\\
+{-}{-}index1file=インデックス1配列(タグ配列R逆相補)ファイル {\textbackslash}\\
+{-}{-}index2file=インデックス2配列(タグ配列F)ファイル {\textbackslash}\\
+{-}{-}primerfile=プライマー配列ファイル {\textbackslash}\\
+{-}{-}reverseprimerfile=リバースプライマー配列ファイル {\textbackslash}\\
+{-}{-}minqualtag=30 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+入力ファイル2 {\textbackslash}\\
+入力ファイル3 {\textbackslash}\\
+入力ファイル4 {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+入力ファイルは\texttt{*{\textunderscore}R1{\textunderscore}001.fastq.gz}、\texttt{*{\textunderscore}R2{\textunderscore}001.fastq.gz}、\texttt{*{\textunderscore}R3{\textunderscore}001.fastq.gz}、\texttt{*{\textunderscore}R4{\textunderscore}001.fastq.gz}の順で記述して下さい。\texttt{{-}{-}index1file}はIlluminaが言うところのインデックス1、つまりタグ配列R逆相補を指定し、\texttt{{-}{-}index2file}にはIlluminaが言うところのインデックス2、つまりタグ配列Fを指定して下さい。逆にしないように注意して下さい。フォワードプライマーは14\%まで、リバースプライマーは15\%まで不一致を許容して探します。なお、プライマーの前に\texttt{NNNNNN}を付加した場合は、\texttt{{-}{-}truncateN=enable}を付加して下さい。このオプションにより、プライマー配列先頭の\texttt{N}とデータ配列の対応する部位は削った上で不一致度を算出するようになります。\texttt{N}の長さを変化させていても、その部位を除いて不一致度が算出されるようになるためプライマー配列ファイルには\texttt{N}が最長の場合だけを記述しておけば全てヒットするようになります。処理が終わったら、各ファイルの配列数を確認し、Illumina純正のプログラムでdemultiplexしたファイルの配列数と比較して下さい。正しく処理できていれば、全てIllumina純正プログラムで処理した場合より少なくなっているはずです。
+
+本来のプライマー配列をシーケンスプライマーとして用いた場合、データ配列にはプライマー配列に当たる部位が含まれていません。この場合は\texttt{{-}{-}primerfile}と\texttt{{-}{-}reverseprimerfile}オプションが必要ないわけですが、配列の名前をこの後のClaidentのコマンドで処理可能な形式とするためにオプションとして\texttt{{-}{-}primername=プライマーID}を付加して実行して下さい。ダミーでも構いません。
+
+タグを利用したマルチプレックスシーケンスを行っていない場合、\texttt{{-}{-}index1file}と\texttt{{-}{-}index2file}オプションが不要となりますが、単に省略しただけだとこの後のClaidentのコマンドで処理可能な配列ファイルが作成されません。そのため、ダミーでも構いませんので\texttt{{-}{-}indexname=タグID}というオプションを付加して実行して下さい。
+
+出力されるファイルは\texttt{ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.forward.fastq.gz}と\texttt{ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.reverse.fastq.gz}になります。DDBJ Sequence Read Archive (DRA)など、次世代シーケンサーの生データを登録するサイトには、ここで生成されたGZIP圧縮FASTQを登録します。なお、DRAへの登録では配列の長さが揃っているかどうかを指定する箇所がありますが、長さが可変のプライマー部位の配列を除去していますから揃っていません(プライマーセットが1つであってもアライメント時にギャップが入る可能性があるため揃わない)ので誤って揃っていると指定しないようにして下さい。
+
+\subsubsection{フォワード配列とリバース配列の連結}
+
+フォワード配列とリバース配列にオーバーラップがある場合には、PEAR \citep{Zhang2014}またはVSEARCHを用いて連結します。PEARの場合はdemultiplexした配列ファイルのあるフォルダで、以下のコマンドを実行して下さい。
+\begin{cmd}
+{\textgreater} pear {\textbackslash}\\
+-p 0.0001 {\textbackslash}\\
+-u 0 {\textbackslash}\\
+-j 使用するCPU数 {\textbackslash}\\
+-f ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.forward.fastq.gz {\textbackslash}\\
+-r ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.reverse.fastq.gz {\textbackslash}\\
+-o ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID↓
+\end{cmd}
+正常に処理が終わると、以下のファイルができます。
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.assembled.fastq] 連結された配列
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.unassembled.forward.fastq] 連結されなかったフォワード配列
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.unassembled.reverse.fastq] 連結されなかったリバース配列
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.discarded.fastq] 検定で一致していると判定されなかった配列
+\end{description}
+この後で使用するのは\texttt{ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.assembled.fastq}だけです。また、出力は圧縮されていないため、ディスク容量の節約のためにも圧縮しておいた方がいいかもしれません。
+
+なお、フォルダ内の全てのファイルに対してPEARによる連結を連続して行うには、以下のようなコマンドをお使い下さい。
+
+\begin{cmd}
+{\textgreater} for f in `ls *.forward.fastq.gz | grep -P -o '{\textasciicircum}{\lbrack}{\textasciicircum}{\textbackslash}.{\rbrack}+'`↓\\
+do pear {\textbackslash}\\
+-p 0.0001 {\textbackslash}\\
+-u 0 {\textbackslash}\\
+-j 使用するCPU数 {\textbackslash}\\
+-f \$f.forward.fastq.gz {\textbackslash}\\
+-r \$f.reverse.fastq.gz {\textbackslash}\\
+-o \$f↓\\
+done↓
+\end{cmd}
+
+VSEARCHを用いて連結する場合には以下のようにコマンドを実行して下さい。
+
+\begin{cmd}
+{\textgreater} vsearch {\textbackslash}\\
+{-}{-}threads 使用するCPU数 {\textbackslash}\\
+{-}{-}fastq{\textunderscore}mergepairs ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.forward.fastq.gz {\textbackslash}\\
+{-}{-}reverse ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.reverse.fastq.gz {\textbackslash}\\
+{-}{-}fastq{\textunderscore}allowmergestagger {\textbackslash}\\
+{-}{-}fastqout ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.assembled.fastq↓
+\end{cmd}
+
+増幅産物長が解読長よりも短い場合、フォワード配列の読み終わりがリバース配列の読み始めを超えてしまったりリバース配列の読み終わりがフォワード配列の読み始めを超えてしまいますが、デフォルトではそのような配列が連結されません。\texttt{{-}{-}fastq{\textunderscore}allowmergestagger}はこれを許して連結するオプションです。反対側の読み始めを超えてしまったオーバーハング部分は人工配列なので切り捨てられます。上記のようなケースの可能性がないライブラリを解読した場合は指定する必要はありません。PEARでは\texttt{{-}{-}fastq{\textunderscore}allowmergestagger}を指定した場合と同じ処理がなされます。PEARと同様に連結できなかった配列を得たい場合は\texttt{{-}{-}fastqout{\textunderscore}notmerged{\textunderscore}fwd}オプションと\texttt{{-}{-}fastqout{\textunderscore}notmerged{\textunderscore}rev}オプションに保存先のファイル名を指定して下さい。そのほか、最小オーバーラップ長を\texttt{{-}{-}fastq{\textunderscore}minovlen}で、連結後の最小・最大配列長を\texttt{{-}{-}fastq{\textunderscore}minmergelen}・\texttt{{-}{-}fastq{\textunderscore}maxmergelen}で、オーバーラップ中の最大許容不一致数を\texttt{{-}{-}fastq{\textunderscore}maxdiffs}で、連結後の最大許容期待エラー数を\texttt{{-}{-}fastq{\textunderscore}maxee}で指定できます。
+
+フォルダ内の全てのファイルに対してVSEARCHによる連結を連続して行うには、以下のようなコマンドをお使い下さい。
+
+\begin{cmd}
+{\textgreater} for f in `ls *.forward.fastq.gz | grep -P -o '{\textasciicircum}{\lbrack}{\textasciicircum}{\textbackslash}.{\rbrack}+'`↓\\
+do vsearch {\textbackslash}\\
+{-}{-}threads 使用するCPU数 {\textbackslash}\\
+{-}{-}fastq{\textunderscore}mergepairs \$f.forward.fastq.gz {\textbackslash}\\
+{-}{-}reverse \$f.reverse.fastq.gz {\textbackslash}\\
+{-}{-}fastq{\textunderscore}allowmergestagger {\textbackslash}\\
+{-}{-}fastqout \$f.assembled.fastq↓\\
+done↓
+\end{cmd}
+
+\subsubsection{低品質配列の除去}
+
+FASTQ形式の塩基配列には、解読時のデータから推定された塩基の品質値がありますので、その情報に基づいて質の低い配列をこの時点である程度除去してしまうことができます。以下のように\texttt{clfilterseq}を実行して下さい。
+
+\begin{cmd}
+{\textgreater} clfilterseq {\textbackslash}\\
+{-}{-}minqual=30 {\textbackslash}\\
+{-}{-}maxplowqual=0.1 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+
+このコマンドでは、入力配列において\texttt{{-}{-}minqual}未満の配列が\texttt{{-}{-}maxplowqual}の割合より多い場合はその配列を除去します。通常は出力はファイルになりますが、\texttt{{-}{-}output=folder}というオプションを与えた場合はフォルダを作成して入力ファイルと同じ名前のファイルに出力します。既存のフォルダに出力する場合は\texttt{{-}{-}append}を追加して下さい。Illuminaでペアエンドを連結した場合は、両端は品質値が高く、重複部分も一致していれば品質値が高くなりますので、末端から品質値の低い配列を削るのはあまり意味がありません。連結したペアエンドではこのように品質値が低い配列が一定量を超えた配列を除去するのがよいでしょう。もちろん、既存のFASTQの品質確認を行うプログラムを利用されてもいいと思います。そのようなプログラムとしては、FastQC \citep{Andrews2010}やPRINSEQ \citep{Schmieder2011}があります。
+
+PEARで連結した全配列ファイルに対して同じ処理を行う場合は、以下のようなコマンドを実行して下さい。
+
+\begin{cmd}
+{\textgreater} for f in clsplitseqの出力フォルダ/*.assembled.fastq↓\\
+do clfilterseq {\textbackslash}\\
+{-}{-}output=folder {\textbackslash}\\
+{-}{-}append {\textbackslash}\\
+{-}{-}minqual=30 {\textbackslash}\\
+{-}{-}maxplowqual=0.1 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+\$f {\textbackslash}\\
+出力フォルダ↓\\
+done↓
+\end{cmd}
+
+VSEARCHの機能を用いて、品質値に基づいた配列全体での期待エラー数に上限を設定したフィルタリングも可能です。これは以下のようなコマンドで適用できます。
+
+\begin{cmd}
+{\textgreater} vsearch {\textbackslash}\\
+{-}{-}threads 使用するCPU数 {\textbackslash}\\
+{-}{-}fastq{\textunderscore}filter 入力ファイル {\textbackslash}\\
+{-}{-}fastq{\textunderscore}maxee 1.0 {\textbackslash}\\
+{-}{-}fastqout 出力ファイル↓
+\end{cmd}
+
+片側だけのシーケンスデータや、連結していないデータの場合は、Roche GSシリーズシーケンサやIon PGMの場合と同様の処理を行えばいいと思います。第\ref{subsubsection:qualityfilteringfor454}節をご参照下さい。ただし、品質値や長さの閾値は適宜変更する必要があると思います。
+
+\subsection{同じ鋳型を複数回PCRまたは複数回シーケンスした場合について}
+
+キメラ配列はPCRによって生成されますので、同一PCR由来配列なのか、異なるPCR由来配列なのかをプログラムに正しく認識させなくてはなりません。そのため、同じ鋳型を複数回PCRまたは複数回シーケンスした場合には、プログラムがデータを正しく扱えるようにいくつかの操作が必要になります。なお、ここでは、Nested PCRや、増幅のためのPCRとタグ配列付加のためのPCRはまとめて1回と数えることに注意して下さい。つまり、ここで「複数回PCR」とは、「増幅産物を鋳型にしてさらにPCRで増幅する」ことではなく、「同じ鋳型を使用したPCR」を複数回行うことです。
+
+\subsubsection{同じ鋳型を複数回PCRして同じタグ配列を付加して同じランでシーケンスした場合}
+
+実験デザインが間違っており、複数回PCRを活かしたキメラ検出・除去は行えません。通常の1回のPCRと同様にしか扱えません。
+
+\subsubsection{同じ鋳型を複数回PCRして別のタグ配列を付加して同じランでシーケンスした場合}
+
+ClaidentではサンプルID=ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーIDですから、同じ鋳型由来のサンプルが複数存在するデータとなります。わざと別サンプルのままにしておいて、1つ以上のサンプルで出現しないOTUはキメラや読み間違い(PCRの合成ミスも含む)のある配列と判断するというのも良い考えだと思います。ただ、キメラの生成や読み間違いがランダムであればこれはベストな方法でしょうが、できやすいキメラや起きやすい読み間違いというものがもしあれば(あるはずです)、同一のキメラ配列・読み間違いのある配列が全サンプルに出現する可能性があります。この方法がどの程度正確かという情報はまだ十分ではありませんので、プログラムによるキメラ検出も併用した方が良いかもしれません。この方法の効果を調べた研究\citep{Lange2015}も参照して下さい。この方法はClaidentでサポートしているため実施方法は後述します。サンプルごとの各OTUの配列数の集計表をこの後で作成しますが、集計表の加工コマンド\texttt{clfiltersum}により複数のサンプルを統合して1サンプルにすることが可能です(各OTUの配列数は和になります)。
+
+\subsubsection{同じ鋳型を1回PCRして同じタグ配列を付加して複数のランでシーケンスした場合}
+
+1回のランでは、たまたま得られる配列が少ないことがあります。そのため同一サンプルを複数のランでシーケンスし、全ランのデータを使いたいことがあります。ClaidentではサンプルID=ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーIDですから、同じ鋳型由来のサンプルが複数存在するデータとなります。そのような場合はそのまま別サンプルとして解析を進めることもできますし、1サンプルにまとめてから解析を進めることもできます。別サンプルのまま処理を進める方を推奨します。そして、サンプルごとの各OTUの配列数の集計表を作成する際に複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。後者の方法では旧パイプラインによる解析でサンプルごとにキメラ検出を行うことが可能ですが、それ以外特にメリットはありません。
+
+同じ鋳型由来の複数サンプルを別サンプルのまま解析を進めた場合、サンプルごとの各OTUの配列数の集計表を作成後に集計表の加工コマンド\texttt{clfiltersum}により複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。
+
+同じ鋳型由来の複数サンプルを1つのサンプルに統合してからこの後の解析に進む場合は、以下のように処理して下さい。
+\begin{cmd}
+{\textgreater} clsplitseq {\textbackslash}\\
+オプション省略 {\textbackslash}\\
+{-}{-}runname=HOGEHOGE {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+出力フォルダ↓\\
+{\textgreater} clsplitseq {\textbackslash}\\
+オプション省略 {\textbackslash}\\
+{-}{-}runname=HOGEHOGE {\textbackslash}\\
+{-}{-}append {\textbackslash}\\
+入力ファイル2 {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+このように\texttt{{-}{-}runname}オプションでランIDを置換し、2つの入力ファイルのラン名を同一にしてやることで、2つのファイルからの同一サンプルからの配列が\texttt{HOGEHOGE{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.fastq.gz}という1つのファイルに書き出されます。
+
+ClaidentではランIDとタグIDとプライマーIDが同じなら、同一PCR産物=同一サンプルの配列として扱います。PCRが1回でタグ配列ファイルとプライマー配列ファイルが同じなら、当然タグIDとプライマーIDは同じになっているはずですので、ランIDも同じにしてしまうことで、同一PCR産物の配列として認識させることができるようになります。
+
+\subsubsection{同じ鋳型を複数回PCRして同じタグ配列を付加して別々のランでシーケンスした場合}
+
+複数ラン分の配列ファイルがあるはずですので、\texttt{clsplitseq}によるサンプルごとの配列の分別と\texttt{clfilterseq}による低品質配列の除去を別々に実行し、別々のフォルダに出力します。この後のノイジー配列とキメラ配列の除去も別々に行い、クラスタリングの際に複数ラン分のデータをまとめて入力ファイルとして与えて下さい。そして、サンプルごとの各OTUの配列数の集計表を作成する際に複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。
+
+\subsubsection{同じ鋳型を複数回PCRして異なるタグ配列を付加して別々のランでシーケンスした場合}
+
+1回のランでは、たまたま得られる配列が少ないことがあります。そのため同一サンプルを複数のランでシーケンスし、全ランのデータを使いたいことがあります。ClaidentではサンプルID=ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーIDですから、同じ鋳型由来のサンプルが複数存在するデータとなります。そのような場合はそのまま別サンプルとして解析を進めることもできますし、1サンプルにまとめてから解析を進めることもできます。別サンプルのまま処理を進め、ノイジー配列とキメラ配列の除去の際に「同じ鋳型由来の複数のPCR産物に共通に出現しない塩基配列はキメラもしくはノイジー配列とみなす」方法を適用することを推奨します。そして、サンプルごとの各OTUの配列数の集計表を作成する際に複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。
+
+\texttt{clsplitseq}は、複数の配列ファイルがあるはずですので以下のように実行して下さい。ここではファイルが2つの場合を示します。
+\begin{cmd}
+{\textgreater} clsplitseq {\textbackslash}\\
+オプション省略 {\textbackslash}\\
+{-}{-}tagfile=タグ配列ファイル1 {\textbackslash}\\
+{-}{-}primerfile=プライマー配列ファイル {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+出力フォルダ↓\\
+{\textgreater} clsplitseq {\textbackslash}\\
+オプション省略 {\textbackslash}\\
+{-}{-}tagfile=タグ配列ファイル2 {\textbackslash}\\
+{-}{-}primerfile=プライマー配列ファイル {\textbackslash}\\
+{-}{-}append {\textbackslash}\\
+入力ファイル2 {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+プライマー配列ファイル、出力フォルダは同じものを与えて下さい。\texttt{{-}{-}runname}オプションでは異なるランIDを指定します。また、タグ配列ファイルは個別に用意して与えて下さい。ただし、同じ鋳型由来の配列に付加したタグIDは同じにして下さい。配列が同じタグであっても、異なる鋳型由来の配列に付加したタグのIDを同一にしてはいけません。例えば以下の2ファイルを用意したとします。
+\begin{content}
+| {\textgreater}sample1\\
+| ACGTACGT\\
+| {\textgreater}sample2\\
+| ATGCATGC
+\end{content}
+\begin{content}
+| {\textgreater}sample1\\
+| ATGCATGC\\
+| {\textgreater}sample2\\
+| ACGTACGT
+\end{content}
+この場合、sample1の鋳型には1ラン目には\texttt{ACGTACGT}を付加し、2ラン目では\texttt{ATGCATGC}を付加したことになります。sample2の鋳型では逆になります。もしも、ほぼ同じ領域を増幅してはいるがプライマー配列は異なる場合、タグと同様に同じIDを付けた別々のファイルを用意して与えて下さい。この後の解析に関しては後述します。
+
+\section{重複配列カウントによるノイジー配列とキメラ配列の除去}
+
+Claidentでは、配列のクラスタリング結果から読み間違いの多いノイジーな配列を推定して除去することができます。方法はCD-HIT-OTU \citep{Li2012}とほとんど同じです。また、旧パイプラインではVSEARCHに実装されたUCHIME \citep{Edgar2011}アルゴリズムを呼び出して結果を受け取ることで、キメラ配列の検出・除去も可能です。新パイプラインでは、クラスタリング処理が終わってからキメラ検出・除去処理を適用します。
+
+\subsection{VSEARCHを用いた新パイプラインの場合}
+
+以下のコマンドでノイジー配列の検出・除去が行えます。なお、多数のファイルを一度に与えることができますが、できるだけ1ラン分のファイルを与えて下さい。これは、ランごとに塩基配列決定の質にばらつきがあるためです。1ラン分の配列が非常に多く(1000万超)時間がかかってしまう場合は、1サンプルごとにこの処理を行って下さい。
+\begin{cmd}
+{\textgreater} clcleanseqv {\textbackslash}\\
+{-}{-}derepmode=PREFIX {\textbackslash}\\
+{-}{-}primarymaxnmismatch=0 {\textbackslash}\\
+{-}{-}secondarymaxnmismatch=1 {\textbackslash}\\
+{-}{-}pnoisycluster=0.5 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+中略 {\textbackslash}\\
+入力ファイルN {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+オプションのうち、\texttt{{-}{-}derepmode}は前処理において全長一致(\texttt{FULLLENGTH})で配列をまとめるか、前方一致(\texttt{PREFIX})で配列をまとめるかを指定します。オーバーラップのあるペアエンド配列を連結して得られた配列を処理する場合は\texttt{FULLLENGTH}を、シングルエンド配列を処理する場合は\texttt{PREFIX}を指定して下さい。\texttt{{-}{-}primarymaxnmismatch}はプライマリクラスタリングで許容するミスマッチ数で通常は0にします。\texttt{{-}{-}secondarymaxnmismatch}はセカンダリクラスタリングで許容するミスマッチ数で、通常は1にします。ただし、「先頭から末尾までに読み間違いが全くない配列」がほとんどないと思われるようなあまりにもノイズの多いデータでは、\texttt{{-}{-}primarymaxnmismatch}を1に、\texttt{{-}{-}secondarymaxnmismatch}を3にしてみて下さい。それでもダメなら\texttt{{-}{-}primarymaxnmismatch}を2に、\texttt{{-}{-}secondarymaxnmismatch}を5にして試します。\texttt{{-}{-}secondarymaxnmismatch}は\texttt{{-}{-}primarymaxnmismatch}の2倍より1大きい値に設定して下さい。\texttt{{-}{-}pnoisycluster}はノイジー配列と判定する感度に関するオプションです。0以上1以下で指定して下さい。大きいほど感度が上がります。デフォルト値・推奨値は0.5です。クラスタリングを最終的に97\%以下の閾値で行うのであればこれでいいと思いますが、99\%前後でクラスタリングする場合、\texttt{{-}{-}pnoisycluster}は0.9くらいにするといいかもしれません。ただし、レアOTUを捨ててしまう可能性が高くなるので、1サンプル当たりの配列数を多めに読んでおく必要があります。
+
+出力フォルダには、以下のファイル群が保存されます。
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[parameter.txt] プライマリクラスタをノイジーと判定するのに使用した所属配列数の下限値
+\item[primarycluster.denoised.fasta.gz] ノイジーと判定されなかったプライマリクラスタの代表配列
+\item[primarycluster.fasta.gz] プライマリクラスタの代表配列
+\item[secondarycluster.fasta.gz] セカンダリクラスタの代表配列
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.noisyreads.txt.gz] ノイジー配列と判定された配列のリスト
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.singletons.txt.gz] プライマリクラスタリングでシングルトンになった配列のリスト
+\end{description}
+他にも多くのファイルが出力されますが、後の解析に必要なものもありますので削除しないようにして下さい。
+
+\subsubsection{PCRレプリケート法によるノイジー配列・キメラ配列の除去}
+
+PCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去するには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。以下のような内容で用意して下さい。
+\begin{content}
+| sample1~ sample2~ sample3\\
+| sample4~ sample5\\
+| sample6~ sample7
+\end{content}
+同一の行内にタブ区切りで書かれたサンプルが、同一鋳型由来のPCRレプリケートであることを表しています。異なる鋳型由来のサンプルは別の行に記述して下さい。PCRレプリケートは3つ以上あっても構いません。また、レプリケート数が鋳型ごとに異なっても構いません。
+
+上記ファイルが用意できたら、以下のように\texttt{clcleanseqv}を実行することでレプリケート間で共通しないプライマリクラスタをキメラもしくはノイジーであると判断して除去します。
+\begin{cmd}
+{\textgreater} clcleanseqv {\textbackslash}\\
+{-}{-}replicatelist=PCRレプリケート指示ファイル {\textbackslash}\\
+{-}{-}derepmode=PREFIX {\textbackslash}\\
+{-}{-}primarymaxnmismatch=0 {\textbackslash}\\
+{-}{-}secondarymaxnmismatch=1 {\textbackslash}\\
+{-}{-}pnoisycluster=0.5 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+中略 {\textbackslash}\\
+入力ファイルN {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+レプリケートが3つ以上であっても、全てのレプリケートで検出されたプライマリクラスタのみがノイジーでもキメラでもないと判断されます。また、1つのプライマリクラスタが複数の鋳型から検出されていた場合、どれか1つの鋳型でノイジーまたはキメラと判定されていれば、他の鋳型でもノイジーまたはキメラとみなして除去します。これらの設定は以下のオプションで変更することができます。
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[\texttt{{-}{-}minnreplicate}] 整数値で指定。この値以上のレプリケートで観測されたプライマリクラスタはそのサンプルではノイジーでもキメラでもないと見なす。デフォルト値は\texttt{2}。
+\item[\texttt{{-}{-}minpreplicate}] 小数値で指定。プライマリクラスタが観測されたレプリケート数/サンプルの総レプリケート数がこの値以上であれば、そのサンプルではノイジーでもキメラでもないと見なす。デフォルト値は\texttt{1}。
+\item[\texttt{{-}{-}minnpositive}] 整数値で指定。この値以上の配列(サンプルではない)がノイジーまたはキメラと判定されていれば、全サンプルでノイジーまたはキメラと見なす。デフォルト値は\texttt{1}。
+\item[\texttt{{-}{-}minppositive}] 小数値で指定。ノイジーまたはキメラと判定された配列数/プライマリクラスタの総配列数がこの値以上であれば、全サンプルでノイジーまたはキメラと見なす。デフォルト値は\texttt{0}。
+\item[\texttt{{-}{-}runname}] ランIDを指定。サンプル名に含まれるランIDが全てこれに置換される。同一サンプル名になったサンプルは統合される。
+\end{description}
+\texttt{{-}{-}minnreplicate}と\texttt{{-}{-}minpreplicate}の値に基づく1サンプル内での判定と、\texttt{{-}{-}minnpositive}と\texttt{{-}{-}minppositive}の値に基づく全サンプルにまたがる判定が2段階で行われていることに注意して下さい。前者では2つの条件を両方満たすとノイジーでもキメラでもないと判定され、後者では2つの条件を両方満たすとノイジーまたはキメラであると判定されます。また、同一のプライマリクラスタが、あるサンプルではノイジーまたはキメラだが、別のサンプルではそうでない、といった判定は行えません。最終的な判定は全サンプル共通です。また、PCRレプリケート指示ファイルに記されていないサンプルでは判定が行われません。
+
+上記のように\texttt{clcleanseqv}を実行すると、以下のようなファイルも出力フォルダに保存されます。
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[primarycluster.chimeraremoved.fasta.gz] キメラと判定されなかったプライマリクラスタの代表配列
+\item[primarycluster.cleaned.fasta.gz] ノイジーでもキメラでもないと判定されたプライマリクラスタの代表配列
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.chimericreads.txt.gz] キメラ配列と判定された配列のリスト
+\end{description}
+
+\subsection{Assamsを用いた旧パイプラインの場合}
+
+以下のコマンドでノイジー配列とキメラ配列の検出・除去が行えます。なお、多数のファイルを一度に与えることができますが、できるだけ1ラン分のファイルを与えて下さい。これは、ランごとに塩基配列決定の質にばらつきがあるためです1ラン分の配列が非常に多く(100万超)時間がかかってしまう場合は、1サンプルごとにこの処理を行って下さい。
+\begin{cmd}
+{\textgreater} clcleanseq {\textbackslash}\\
+uchime {-}{-}minh 0.1 {-}{-}mindiv 0.8 end {\textbackslash}\\
+{-}{-}detectmode=N+C {\textbackslash}\\
+{-}{-}pnoisycluster=0.5 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+中略 {\textbackslash}\\
+入力ファイルN {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+オプションのうち、\texttt{uchime}から\texttt{end}の間はUCHIMEの実行オプションです。\texttt{{-}{-}minh}と\texttt{{-}{-}mindiv}はキメラ配列と判定する感度に関するオプションです。\texttt{{-}{-}minh}は値が小さいほど感度が高くなります。UCHIMEの作者は0.1以上5以下の範囲にするよう推奨しています。デフォルト値は0.1です。\texttt{{-}{-}mindiv}の指定値が0.8の場合、0.8\%以下の違いしかない配列間はキメラが形成されていても無視されます。最終的に97\%一致規準で配列をクラスタリングするとしたら、2\%程度の違いしかない配列間のキメラはクラスタリング・コンセンサス配列作成によって潰されるため、この値を大きくすることで計算が速くなります。また、\texttt{{-}{-}pnoisycluster}はノイジー配列と判定する感度に関するオプションです。0以上1以下で指定して下さい。大きいほど感度が上がります。デフォルト値・推奨値は0.5です。クラスタリングを最終的に97\%以下の閾値で行うのであればこれでいいと思いますが、99\%前後でクラスタリングする場合、\texttt{{-}{-}pnoisycluster}は0.9くらいにするといいかもしれません。ただし、レアOTUを捨ててしまう可能性が高くなるので、1サンプル当たりの配列数を多めに読んでおく必要があります。
+
+各入力ファイルは同一の鋳型を同一のチューブ内でPCRした配列群を含んでいる必要があります。Claidentがキメラ検出に利用しているUCHIMEでは、元配列数が多いコンセンサス配列ほどPCR当初から存在した＝キメラではないと仮定し、元配列数が少ないコンセンサス配列が、より元配列数の多いコンセンサス配列の部分配列の組み合わせで説明できるかどうかを検討します。したがって、UCHIMEに「同一の鋳型を同一のチューブ内でPCRした配列群内でのコンセンサス配列の元配列数」を正確に伝える必要があるため、1ファイルは同一の鋳型を同一のチューブ内でPCRした配列群でなくてはならないのです。これは1ラン分のファイルを一度に与えることよりもはるかに優先度が高いので、同一の鋳型を同一のチューブ内でPCRしたサンプルを複数回のランで塩基配列決定した場合などは複数ラン分のデータを入力しても構いません。
+
+UCHIMEによるキメラ判定はそれぞれのサンプルごとに行われ、複数のサンプルで観測されている完全一致配列の場合、どれか1つのサンプルでキメラと判定されていれば、他のサンプルでもキメラとみなして除去します。ただし、下記のオプションでこの動作を変更することができます。両オプションの両方を満たせばキメラと判定されます。
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[\texttt{{-}{-}minnpositive}] 整数値で指定。この値以上の配列(サンプルではない)がキメラと判定されていれば、全サンプルでキメラと見なす。デフォルト値は\texttt{1}。
+\item[\texttt{{-}{-}minppositive}] 小数値で指定。キメラと判定された配列数/完全一致した全配列数がこの値以上であれば、全サンプルでキメラと見なす。デフォルト値は\texttt{0}。
+\end{description}
+出力フォルダには、以下のファイル群が保存されます。
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.chimeraremoved.dereplicated.fastq.gz] キメラ配列除去し完全一致配列をまとめた配列
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.chimeraremoved.fastq.gz] キメラ配列除去した配列
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.denoised.dereplicated.fastq.gz] ノイジー配列除去し完全一致配列をまとめた配列
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.denoised.fastq.gz] ノイジー配列除去した配列
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.cleaned.dereplicated.fastq.gz] キメラ配列とノイジー配列を除去し完全一致配列をまとめた配列
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.cleaned.fastq.gz] キメラ配列とノイジー配列を除去した配列
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.chimericreads.txt.gz] キメラ配列と判定された配列のリスト
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.noisyreads.txt.gz] ノイジー配列と判定された配列のリスト
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.singletons.txt.gz] 完全一致配列をまとめたときにシングルトンになった配列のリスト
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.uchime.txt.gz] UCHIMEによるキメラ判定結果のログ
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.parameter.txt] まとまった完全一致配列をノイジーと判定するのに使用した所属配列数の下限値
+\end{description}
+他にも多くのファイルが出力されますが、後の解析に必要なものもありますので削除しないようにして下さい。キメラ配列除去を無効化してノイジー配列除去のみを行う場合は\texttt{{-}{-}detectmode=noise}、逆にノイジー配列除去を無効化してキメラ配列除去のみを行う場合は\texttt{{-}{-}detectmode=chimera}オプションを付けて実行して下さい。ただし、\texttt{{-}{-}detectmode=noise}で処理した結果を\texttt{{-}{-}detectmode=chimera}で処理しても、一度にノイジー配列・キメラ配列除去を行った場合(\texttt{{-}{-}detectmode=N+C}を指定した場合またはデフォルト設定)と結果は一致しませんのでご注意下さい。処理する場合は同時に行う必要があります。これは、キメラ配列もノイジー配列と判定するための情報を持っており、同時処理の場合にはそれを利用するためです。
+
+\subsubsection{PCRレプリケート法によるノイジー配列・キメラ配列の除去}
+
+PCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去するには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。以下のような内容で用意して下さい。
+\begin{content}
+| sample1~ sample2~ sample3\\
+| sample4~ sample5\\
+| sample6~ sample7
+\end{content}
+同一の行内にタブ区切りで書かれたサンプルが、同一鋳型由来のPCRレプリケートであることを表しています。異なる鋳型由来のサンプルは別の行に記述して下さい。PCRレプリケートは3つ以上あっても構いません。また、レプリケート数が鋳型ごとに異なっても構いません。
+
+上記ファイルが用意できたら、以下のように\texttt{clcleanseq}を実行することでレプリケート間で共通しないプライマリクラスタをキメラもしくはノイジーであると判断して除去します。
+\begin{cmd}
+{\textgreater} clcleanseq {\textbackslash}\\
+{-}{-}replicatelist=PCRレプリケート指示ファイル {\textbackslash}\\
+uchime {-}{-}minh 0.1 {-}{-}mindiv 0.8 end {\textbackslash}\\
+{-}{-}detectmode=N+C {\textbackslash}\\
+{-}{-}pnoisycluster=0.5 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+中略 {\textbackslash}\\
+入力ファイルN {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+レプリケートが3つ以上であっても、全てのレプリケートで検出されたプライマリクラスタのみがノイジーでもキメラでもないと判断されます。また、1つのプライマリクラスタが複数の鋳型から検出されていた場合、どれか1つの鋳型でノイジーまたはキメラと判定されていれば、他の鋳型でもノイジーまたはキメラとみなして除去します。これらの設定は以下のオプションで変更することができます。
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[\texttt{{-}{-}minnreplicate}] 整数値で指定。この値以上のレプリケートで観測されたプライマリクラスタはそのサンプルではノイジーでもキメラでもないと見なす。デフォルト値は\texttt{2}。
+\item[\texttt{{-}{-}minpreplicate}] 小数値で指定。プライマリクラスタが観測されたレプリケート数/サンプルの総レプリケート数がこの値以上であれば、そのサンプルではノイジーでもキメラでもないと見なす。デフォルト値は\texttt{1}。
+\item[\texttt{{-}{-}minnpositive}] 整数値で指定。この値以上の配列(サンプルではない)がノイジーまたはキメラと判定されていれば、全サンプルでノイジーまたはキメラと見なす。デフォルト値は\texttt{1}。
+\item[\texttt{{-}{-}minppositive}] 小数値で指定。ノイジーまたはキメラと判定された配列数/プライマリクラスタの総配列数がこの値以上であれば、全サンプルでノイジーまたはキメラと見なす。デフォルト値は\texttt{0}。
+\item[\texttt{{-}{-}runname}] ランIDを指定。サンプル名に含まれるランIDが全てこれに置換される。同一サンプル名になったサンプルは統合される。
+\end{description}
+\texttt{{-}{-}minnreplicate}と\texttt{{-}{-}minpreplicate}の値に基づく1サンプル内での判定と、\texttt{{-}{-}minnpositive}と\texttt{{-}{-}minppositive}の値に基づく全サンプルにまたがる判定が2段階で行われていることに注意して下さい。前者では2つの条件を両方満たすとノイジーでもキメラでもないと判定され、後者では2つの条件を両方満たすとノイジーまたはキメラであると判定されます。また、同一のプライマリクラスタが、あるサンプルではノイジーまたはキメラだが、別のサンプルではそうでない、といった判定は行えません。最終的な判定は全サンプル共通です。また、PCRレプリケート指示ファイルに記されていないサンプルでは判定が行われません。
+
+\section{サンプル内での配列クラスタリング}
+
+\subsection{VSEARCHを用いた新パイプラインの場合}
+
+新パイプラインではこのステップはありません。
+
+\subsection{Assamsを用いた旧パイプラインの場合}
+
+以下のコマンドで、同一の鋳型を同一のチューブ内でPCRした配列群のクラスタリングを行います。前節の結果得られる、完全一致配列をまとめた結果(\texttt{ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.cleaned.dereplicated.fastq.gz})を入力します。
+\begin{cmd}
+{\textgreater} clclassseq {\textbackslash}\\
+{-}{-}minident=0 {\textbackslash}\\
+{-}{-}strand=plus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+中略 {\textbackslash}\\
+入力ファイルN {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+前節の出力ファイルに対してこの処理を適用する場合、以下のようにコマンドを打てばいいでしょう。
+\begin{cmd}
+{\textgreater} clclassseq {\textbackslash}\\
+{-}{-}minident=0 {\textbackslash}\\
+{-}{-}strand=plus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+"前節の出力フォルダ/*.cleaned.dereplicated.fastq.gz" {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+オプションのうち、\texttt{{-}{-}minident=0}は不一致が1塩基以下の配列をまとめる設定です(実際には、類似度が(最短配列の長さ-11/最短配列の長さ-10)以上の配列をまとめます。最長配列の長さが400bpで最短配列の長さが350bpなら、0.997となり、400bpの配列でも1塩基しか不一致は許容されませんので意図通りになりますが、最短配列と最長配列の差が大きすぎると意図した通りになりません。そのため、最短配列は最長配列の半分より11塩基以上長くなくてはなりません)。最終的に97\%で配列をまとめる場合もこの時点では0にしておくのがおすすめです。最終的に99\%でまとめる場合にもここでは0にしておきます。\texttt{{-}{-}strand=plus}は同一ストランドの比較だけでクラスタリングを行うオプションです。片側からしか読んでいないので、両ストランドの比較をする必要はなく、比較するとかえって異常なクラスタリングをしかねません。両側から読んでいる場合も、連結した後はストランドは揃っているのでこれでいいはずです。出力フォルダ内の\texttt{*.assembled.fastq.gz}がクラスタリング後の配列です。
+
+\section{サンプル間での配列クラスタリング}
+
+\subsection{VSEARCHを用いた新パイプラインの場合}
+
+塩基配列のクラスタリングを行ってOTUを作成するには、以下のコマンドを実行して下さい。
+\begin{cmd}
+{\textgreater} clclassseqv {\textbackslash}\\
+{-}{-}minident=0.97 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+中略 {\textbackslash}\\
+入力ファイルN {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+入力ファイルには、\texttt{clcleanseqv}の実行時にPCRレプリケート法によるノイジー配列・キメラ配列の除去を併用した場合は\texttt{primarycluster.cleaned.fasta.gz}を、併用しなかった場合には\texttt{primarycluster.denoised.fasta.gz}を与えて下さい。
+
+出力フォルダには、以下のファイルが保存されています。
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[clustered.otu.gz] どの生配列がどのOTUに割り当てられたかを記録しているファイル
+\item[clustered.fasta.gz] OTUの代表配列
+\end{description}
+
+\subsection{Assamsを用いた旧パイプラインの場合}
+
+サンプル内クラスタリングデータを用いてサンプル間でのクラスタリングを行い、全体のクラスタリング結果を得るには以下のコマンドを実行します。1サンプルしかない場合も、上記のサンプル内配列クラスタリングを行ってからこの処理を行って下さい。
+\begin{cmd}
+{\textgreater} clclassclass {\textbackslash}\\
+{-}{-}minident=0 {\textbackslash}\\
+{-}{-}strand=plus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+中略 {\textbackslash}\\
+入力ファイルN {\textbackslash}\\
+出力フォルダ1↓\\
+{\textgreater} clreclassclass {\textbackslash}\\
+{-}{-}minident=0.99 {\textbackslash}\\
+{-}{-}strand=plus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+出力フォルダ1 {\textbackslash}\\
+出力フォルダ2↓\\
+{\textgreater} clreclassclass {\textbackslash}\\
+{-}{-}minident=0.97 {\textbackslash}\\
+{-}{-}strand=plus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+出力フォルダ2 {\textbackslash}\\
+出力フォルダ3↓
+\end{cmd}
+ここでの入力ファイルは前節の出力ファイル\texttt{*.assembled.fastq.gz}です。したがって、実際には以下のように入力することになるでしょう。
+\begin{cmd}
+{\textgreater} clclassclass {\textbackslash}\\
+{-}{-}minident=0 {\textbackslash}\\
+{-}{-}strand=plus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+"前節の出力フォルダ/*.assembled.fastq.gz" {\textbackslash}\\
+出力フォルダ1↓\\
+{\textgreater} clreclassclass {\textbackslash}\\
+{-}{-}minident=0.99 {\textbackslash}\\
+{-}{-}strand=plus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+出力フォルダ1 {\textbackslash}\\
+出力フォルダ2↓\\
+{\textgreater} clreclassclass {\textbackslash}\\
+{-}{-}minident=0.97 {\textbackslash}\\
+{-}{-}strand=plus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+出力フォルダ2 {\textbackslash}\\
+出力フォルダ3↓
+\end{cmd}
+1つ目の\texttt{clclassclass}でサンプル内配列クラスタリングでまとめられた配列において、不一致が1塩基以下の配列をまとめます。2つ目の\texttt{clreclassclass}で、99\%以上一致する配列をまとめ直します。さらに3つ目の\texttt{clreclassclass}で、97\%以上一致する配列をまとめ直します。こうすることで、より高速に、より正確にクラスタリングが行われます。\texttt{clreclassclass}を使用せずに\texttt{clclassclass}に97\%でまとめるよう指示してしまうと、アルゴリズム上「まとめすぎ」が発生しやすくなります。
+
+出力フォルダには、以下のファイルが保存されています。
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[assembled.contigmembers.gz] どの生配列がどのOTUに割り当てられたかを記録しているファイル
+\item[assembled.fastq.gz] OTUのコンセンサス配列
+\item[assembled.fasta] OTUのコンセンサス配列
+\end{description}
+
+\section{OTU代表配列への生配列のマッピング}
+
+ノイジー配列・キメラ配列と判定されてしまった配列でも、OTUの代表配列に対して指定した類似度の閾値で貼り付けることが可能なのであれば、復活させることができます。これにより、データの減少を抑えることができます。
+
+\subsection{VSEARCHを用いた新パイプラインの場合}
+
+以下のコマンドを実行して下さい。
+\begin{cmd}
+{\textgreater} clrecoverseqv {\textbackslash}\\
+{-}{-}minident=0.97 {\textbackslash}\\
+{-}{-}centroid=OTU代表配列のファイル {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+中略 {\textbackslash}\\
+入力ファイルN {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+OTU代表配列のファイルには\texttt{clclassseqv}の出力した\texttt{clustered.fasta.gz}を用います。入力ファイルとしては、\texttt{clcleanseqv}の出力した\texttt{primarycluster.fasta.gz}または\texttt{clcleanseqv}での処理や低品質配列の除去を行う前の配列ファイルを使用して下さい。出力フォルダには、\texttt{clclassseqv}と同様のファイル群が作成されます。
+
+\subsection{Assamsを用いた旧パイプラインの場合}
+
+旧パイプラインではこのステップはありません。
+
+\section{結果の要約と後処理}
+
+\subsection{集計表の作成}\label{subsection:makesummarytable}
+
+以下のコマンドで、クラスタリング結果から各サンプルにおける各OTUに割り当てられた生配列数を表にすることができます。
+\begin{cmd}
+{\textgreater} clsumclass {\textbackslash}\\
+{-}{-}output=Matrix {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+ここでの入力ファイルは、クラスタリング結果の出力フォルダに保存されている、\texttt{clustered.otu.gz} (新パイプライン)または\texttt{assembled.contigmembers.gz} (旧パイプライン)というファイルです。出力されるファイルは表\ref{table:exampletableofsummary}のようなタブ区切りのテキストファイルで、Excelなどの表計算ソフトやRで読み込むことができます。ただし、表計算ソフトは巨大な行列の全てを読み込むことができない可能性がありますので注意して下さい。このファイルに基づいて、群集生態学的な解析を行うことができます。
+\begin{table}[h]
+\begin{center}
+\footnotesize\setlength{\baselineskip}{0.9em}%
+\begin{tabular}{l|rrr} 
+samplename & amongsampleotu{\textunderscore}1 & amongsampleotu{\textunderscore}2 & amongsampleotu{\textunderscore}3 \\\hline\hline
+sampleA & 2371 & 0 & 0 \\
+sampleB & 0 & 1518 & 0 \\
+sampleC & 1398 & 0 & 0 \\
+sampleD & 0 & 1436 & 0 \\
+sampleE & 0 & 0 & 1360 \\
+sampleF & 0 & 0 & 977 \\
+\end{tabular}
+\end{center}
+\caption{集計表の例 --- 数値は各サンプルにおける各OTUの観測配列数です。}
+\label{table:exampletableofsummary}
+\end{table}
+
+\subsection{集計表からの特定のOTU・サンプルの除去}\label{subsection:clfiltersum}
+
+\texttt{clsumclass}では、1回だけ出現した配列も含めて全て出力されますが、以下のコマンドを用いてサンプルやOTUを選別することができます。入力ファイルは\texttt{clsumclass}の出力ファイルです。
+\begin{cmd}
+{\textgreater} clfiltersum {\textbackslash}\\
+オプション {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+使用できるオプションは以下の通りです。
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[\texttt{{-}{-}minnseqotu}] 整数値で指定。この値に基づいて「割り当てられた生配列数がどのサンプルでも指定値未満のOTU」を除去します。
+\item[\texttt{{-}{-}minpseqotu}] 小数値で指定。この値に基づいて「割り当てられた生配列数/サンプルの生配列総数がどのサンプルでも指定値未満のOTU」を除去します。
+\item[\texttt{{-}{-}minntotalseqotu}] 整数値で指定。この値に基づいて「割り当てられた生配列総数が指定値未満のOTU」を除去します。
+\item[\texttt{{-}{-}minnseqsample}] 整数値で指定。この値に基づいて「どのOTUの生配列数も指定値未満のサンプル」を除去します。
+\item[\texttt{{-}{-}minpseqsample}] 小数値で指定。この値に基づいて「そのサンプルのそのOTUに割り当てられた生配列数/OTUの生配列総数がどのOTUでも指定値未満のサンプル」を除去します。
+\item[\texttt{{-}{-}minntotalseqsample}] 整数値で指定。この値に基づいて「生配列総数が指定値未満のサンプル」を除去します。
+\item[\texttt{{-}{-}otu}] 残したいOTU名をカンマで区切って指定します。
+\item[\texttt{{-}{-}negativeotu}] 除去したいOTU名をカンマで区切って指定します。
+\item[\texttt{{-}{-}otulist}] ファイル名を指定。1行に1つのOTU名を記したテキストファイルとして残したいOTU名を指定します。
+\item[\texttt{{-}{-}negativeotulist}] ファイル名を指定。1行に1つのOTU名を記したテキストファイルとして除去したいOTU名を指定します。
+\item[\texttt{{-}{-}otuseq}] ファイル名を指定。FASTA形式の配列ファイルとして残したいOTU名を指定します。
+\item[\texttt{{-}{-}negativeotuseq}] ファイル名を指定。FASTA形式の配列ファイルとして除去したいOTU名を指定します。
+\item[\texttt{{-}{-}sample}] 残したいサンプル名をカンマで区切って指定します。
+\item[\texttt{{-}{-}negativesample}] 除去したいサンプル名をカンマで区切って指定します。
+\item[\texttt{{-}{-}samplelist}] ファイル名を指定。1行に1つのサンプル名を記したテキストファイルとして残したいサンプル名を指定します。
+\item[\texttt{{-}{-}negativesamplelist}] ファイル名を指定。1行に1つのサンプル名を記したテキストファイルとして除去したいサンプル名を指定します。
+\item[\texttt{{-}{-}replicatelist}] ファイル名を指定。PCRレプリケート関係にあるサンプルをタブ区切りで同一行に記述する。出力で1つのサンプルに統合される。
+\item[\texttt{{-}{-}runname}] ランIDを指定。集計表中のサンプル名に含まれるランIDが全てこれに置換される。同一サンプル名になったサンプルは統合される。
+\end{description}
+
+後述するノイジー配列・キメラ配列の除去や他領域配列の除去を行った上で、残った配列を用いて\texttt{{-}{-}otuseq}などのオプションを用いたOTUの選別を行う場合は、他の選別より先に行って下さい。
+
+\subsection{PCRレプリケート法によるノイジー配列・キメラ配列の除去}
+
+新パイプラインでは\texttt{clcleanseqv}の実行時に行っていますが、旧パイプラインでもPCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去することが可能です。それには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。以下のような内容で用意して下さい。
+\begin{content}
+| sample1~ sample2~ sample3\\
+| sample4~ sample5\\
+| sample6~ sample7
+\end{content}
+同一の行内にタブ区切りで書かれたサンプルが、同一鋳型由来のPCRレプリケートであることを表しています。異なる鋳型由来のサンプルは別の行に記述して下さい。PCRレプリケートは3つ以上あっても構いません。また、レプリケート数が鋳型ごとに異なっても構いません。
+
+上記ファイルが用意できたら、以下のコマンドでクラスタリング結果からレプリケート間で共通しない配列を除去します。
+\begin{cmd}
+{\textgreater} clfilterseq {\textbackslash}\\
+{-}{-}contigmembers=*.contigmembers.gz {\textbackslash}\\
+{-}{-}replicatelist=PCRレプリケート指示ファイル {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+レプリケートが3つ以上であっても、全てのレプリケートで検出された配列のみがノイジーでもキメラでもないと判断されます。また、1つのOTUが複数の鋳型から検出されていた場合、どれか1つの鋳型でノイジーまたはキメラと判定されていれば、他の鋳型でもノイジーまたはキメラとみなして除去します。これらの設定は以下のオプションで変更することができます。
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[\texttt{{-}{-}minnreplicate}] 整数値で指定。この値以上のレプリケートで観測されたOTUはそのサンプルではノイジーでもキメラでもないと見なす。デフォルト値は\texttt{2}。
+\item[\texttt{{-}{-}minpreplicate}] 小数値で指定。OTUが観測されたレプリケート数/サンプルの総レプリケート数がこの値以上であれば、そのサンプルではノイジーでもキメラでもないと見なす。デフォルト値は\texttt{1}。
+\item[\texttt{{-}{-}minnpositive}] 整数値で指定。この値以上の配列(サンプルではない)がノイジーまたはキメラと判定されていれば、全サンプルでノイジーまたはキメラと見なす。デフォルト値は\texttt{1}。
+\item[\texttt{{-}{-}minppositive}] 小数値で指定。ノイジーまたはキメラと判定された配列数/OTUの総配列数がこの値以上であれば、全サンプルでノイジーまたはキメラと見なす。デフォルト値は\texttt{0}。
+\item[\texttt{{-}{-}runname}] ランIDを指定。サンプル名に含まれるランIDが全てこれに置換される。同一サンプル名になったサンプルは統合される。
+\end{description}
+\texttt{{-}{-}minnreplicate}と\texttt{{-}{-}minpreplicate}の値に基づく1サンプル内での判定と、\texttt{{-}{-}minnpositive}と\texttt{{-}{-}minppositive}の値に基づく全サンプルにまたがる判定が2段階で行われていることに注意して下さい。前者では2つの条件を両方満たすとノイジーでもキメラでもないと判定され、後者では2つの条件を両方満たすとノイジーまたはキメラであると判定されます。また、同一のOTUが、あるサンプルではノイジーまたはキメラだが、別のサンプルではそうでない、といった判定は行えません。最終的な判定は全サンプル共通です。また、PCRレプリケート指示ファイルに記されていないサンプルでは判定が行われません。
+
+ここで作成したFASTA配列ファイルを第\ref{subsection:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルから除去されたOTUを集計表からも除去することができます。また、\texttt{{-}{-}replicatelist}オプションと\texttt{{-}{-}runname}オプションを\texttt{clfilterseq}と同様に指定すれば、PCRレプリケート関係にあるサンプルは1つのサンプルに統合されます(セルの値は合算されます)。
+
+\subsection{UCHIMEによるキメラ配列除去}
+
+旧パイプラインではクラスタリング前にもUCHIMEでキメラ配列除去は行っていますが、クラスタリング後の配列に対してリファレンスなしでのキメラ配列除去とリファレンスありでのキメラ配列除去を追加で行うことができます。両方行う場合は、リファレンスなしでのキメラ配列除去を先に行ってから、リファレンスありでのキメラ配列除去を行います。両方のキメラ配列除去を行う場合は、クラスタリング前のノイジー配列・キメラ配列除去において、キメラ配列除去を無効にしてもいいかもしれません。クラスタリング後のキメラ配列除去の方がずっと高速なので、1サンプル当たりの配列が膨大でクラスタリング前のキメラ配列除去では長時間を要する場合には、この方法の方が適しています。なお、PCRレプリケート法によるノイジー配列・キメラ配列の除去も併用する場合は、PCRレプリケート法によるノイジー配列・キメラ配列の除去を最初に行います。利用するコマンドは\texttt{clrunuchime}です。このコマンドでは、UCHIMEアルゴリズムを実装しているVSEARCHというプログラムを呼び出して、キメラ配列除去を行います。
+
+\subsubsection{リファレンスなしでのキメラ配列除去}
+
+\texttt{clrunuchime}を以下のように実行して下さい。
+\begin{cmd}
+{\textgreater} clrunuchime {\textbackslash}\\
+{-}{-}contigmembers=*.contigmembers.gz {\textbackslash}\\
+{-}{-}otufile=*.otu.gz {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+旧パイプラインを使用した場合は\texttt{{-}{-}contigmembers}オプションを、新パイプラインを使用した場合は\texttt{{-}{-}otufile}オプションを使用します。上記の例は一度に説明するためのもので、両方を指定してはいけません。なお、どちらも指定しなかった場合、\texttt{*.otu.gz}が入力ファイルと同じフォルダに存在すればそれを、\texttt{*.contigmembers.gz}が存在すればそれを見つけ出して使用しますので、普段は何も指定しなくてもいいでしょう。
+
+\subsubsection{リファレンスありでのキメラ配列除去}
+
+\texttt{clrunuchime}を以下のように実行して下さい。リファレンスなしでのキメラ配列除去を行った場合は、\texttt{nonchimeras.fasta}というファイルがあるはずですので、それを入力ファイルにすればいいでしょう。
+
+\begin{cmd}
+{\textgreater} clrunuchime {\textbackslash}\\
+{-}{-}referencedb=リファレンスデータベース名 {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+
+UCHIME用のリファレンスデータベース名と内容は以下の通りです。
+
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[rdpgoldv9] 細菌16S用のRDP Goldデータベース(v9版)
+\item[unite20160101] 真菌ITS用のUNITEデータベース(20160101版)
+\item[unite20160101untrim] 真菌ITS用のUNITEデータベース(20160101トリミングなし版)
+\item[unite20160101its1] 真菌ITS用のUNITEデータベース(20160101ITS1版)
+\item[unite20160101its2] 真菌ITS用のUNITEデータベース(20160101ITS2版)
+\end{description}
+
+\subsubsection{出力フォルダの内容について}
+
+出力フォルダに保存されるファイルは以下の4つです。
+
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[chimeras.fasta] キメラと判定された配列
+\item[nonchimeras.fasta] キメラでないと判定された配列
+\item[uchimealns.txt] 判定時のアライメント
+\item[uchimeout.txt] 判定時の親配列やスコアなど
+\end{description}
+
+\texttt{uchimeout.txt}の各項目の意味は\\
+\href{http://drive5.com/usearch/manual/uchimeout.html}{http://drive5.com/usearch/manual/uchimeout.html}\\
+をご覧下さい。
+
+\subsection{配列からの低頻度出現配列の除去}
+
+クラスタリングの出力フォルダには、\texttt{clustered.fasta.gz} (新パイプライン)または\texttt{assembled.fasta} (旧パイプライン)というファイルとして、最終的に得られた代表配列もしくはコンセンサス配列が保存されています。これを次章のDNAバーコーディングに用いますが、全サンプルを通して少量しか出現しないものまで含めると数が多すぎることがあります。そこで、以下のようにして5配列以上出現するものだけを抽出することができます。配列数の閾値を適当に変えてもいいでしょう。この閾値は慎重に決定して下さい。ノイジー配列・キメラ配列の除去を行なっている場合には必要ないかもしれません。
+\begin{cmd}
+{\textgreater} clfilterseq {\textbackslash}\\
+{-}{-}contigmembers=*.contigmembers.gz {\textbackslash}\\
+{-}{-}otufile=*.otu.gz {\textbackslash}\\
+{-}{-}minnseq=5 {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+旧パイプラインを使用した場合は\texttt{{-}{-}contigmembers}オプションを、新パイプラインを使用した場合は\texttt{{-}{-}otufile}オプションを使用します。上記の例は一度に説明するためのもので、両方を指定してはいけません。なお、どちらも指定しなかった場合、\texttt{*.otu.gz}が入力ファイルと同じフォルダに存在すればそれを、\texttt{*.contigmembers.gz}が存在すればそれを見つけ出して使用しますので、普段は何も指定しなくてもいいでしょう。ここで作成したFASTA配列ファイルを第\ref{subsection:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルから除去されたOTUを集計表からも除去することができます。
+
+\subsection{保存領域配列認識による領域分割}
+
+ここまでの配列が複数領域にまたがっている場合(たとえばITS1・5.8S rRNA・ITS2といった風に)、領域ごとに分割した方が良いかもしれません。領域間かその付近に保存的な領域があれば、それを境界の目印として領域を分割できます。特にユニバーサルプライマー配列などを使うといいでしょう。これは以下のコマンドで行うことができます。
+\begin{cmd}
+{\textgreater} cldivseq {\textbackslash}\\
+{-}{-}query=保存領域の配列 {\textbackslash}\\
+{-}{-}border=start {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力ファイル1 {\textbackslash}\\
+出力ファイル2↓
+\end{cmd}
+このコマンドでは、指定された配列をNeedleman-Wunschアルゴリズムを用いたアライメントによって15\%まで不一致を許して探します。該当する部位が見つかったら、その左端を境界として配列を2つに分け、それぞれ出力ファイル1と出力ファイル2に保存します。該当する部位が見つからなかった場合は、そのまま出力ファイル1だけに保存されます。信頼度配列ファイルがある場合には、こちらも塩基配列に合わせて分割されます。なお、指定する配列は対象配列と同一のストランドにしておいて下さい。ストランドが異なる場合は、\texttt{{-}{-}reversecomplement}オプションを付加して実行することで、\texttt{{-}{-}query}に指定された配列の逆相補配列をアライメントに用いるようになります。
+
+\texttt{{-}{-}border}オプションを\texttt{start}ではなく\texttt{end}にすることで、検索に一致した部位の右端を境界として分割することができます。検索した配列が見つからなかった場合は出力ファイル1のみに保存され、出力ファイル2には配列が保存されませんが、これでは都合が悪い場合は\texttt{{-}{-}makedummy}オプションを付加することでダミーの塩基配列が出力ファイル2に保存されます。分割した各領域の配列で別個にホスト生物を同定した上で同定結果を統合する場合など、配列間で対応がとれていないと困る場合にご利用下さい。ここでは2分割の例を挙げましたが、分割後にさらに分割を繰り返すことで3分割や4分割も可能です。
+
+\subsection{ITSxやMetaxaによるITS・SSU rRNA配列の抽出}
+
+ITSxは核ITS1・ITS2領域を認識してその部位だけを取り出すことができるプログラムです\citep{Bengtsson2013}。多くの分類群でITSは非常に変異に富んでいますが、ずっと保守的なSSU・LSU rRNAと隣接しているため、これらの配列が残っていると、その配列の影響でITSでは明確に区別できる遠縁な生物のSSU・LSU配列がBLAST検索時にヒットしてしまい、うまく同定できなくなってしまうことがあります。ITSxでITS領域のみを切り出して同定することでこのような問題に対処できます。
+
+MetaxaはITSxと同様にSSU (12S/16S/18S) rRNAを区別してそれぞれの部位だけを取り出すことができるプログラムです\citep{Bengtsson2011}。SSU rRNAは真核生物のメタバーコーディング・DNAバーコーディングに広く利用されている領域ですが、核だけでなくミトコンドリアや葉緑体、混入した細菌にも含まれているため、核のSSUを標的とするPCRを行った場合にも多少はミトコンドリアや細菌のSSU rRNAが混入してしまいます。そのような配列は群集生態学的解析の障害となるため、このプログラムで前もって除去しておくと後の解析が楽になります。
+
+いずれのプログラムもインストール方法、使用方法をここでは説明しません。それぞれのWebサイトとマニュアルをご覧下さい。これらのプログラムで作成したFASTA配列ファイルを第\ref{subsection:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。
+
+\subsection{非ターゲット領域の探索と削除}
+
+ITSxやMetaxaはITSとSSU rRNA領域にしか使用できませんが、もっと汎用的な非ターゲット領域の探索方法があります。一つはBLASTなどで検索して配列がどの遺伝子のものかを判定してくれるプログラムにかけることで、もう一つは多重整列プログラムを利用することです。ClustalW2・ClustalX2 \citep{Larkin2007}やMAFFT \citep{Katoh2013}には、多重整列した結果を系統的に近いものが近くになるように並び替えて出力することができます。この機能を使って並び替えた上で、多重整列の閲覧ソフトで表示して目で確認すればどれが非ターゲット領域かすぐわかります。非ターゲット領域のOTUを除去したFASTA配列ファイルを第\ref{subsection:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。
+
+\section{DRAへの登録}
+
+クラスタリング後の配列は従来通りDDBJなどに登録すればいいですが、新型シーケンサーの生データはDDBJ Sequence Read Archive (DRA)というところへ登録することになっています(サンガー法シーケンサーの生データはTrace Archive)。本書にあるように複数サンプルからのDNAにタグを付けてシーケンスした場合、サンプルごとのデータファイルに分割して登録することを求められます。これは\texttt{clsplitseq}によって分割したFASTQを使えば問題ありません。同一鋳型由来配列ファイルが複数ある場合は、GZIP圧縮を解除してから連結して再圧縮するだけで構いません。
+
+また、サンプルについての情報(メタデータ)を記述したXMLファイルを作成しなくてはなりません。データ登録を受け付けている側でも、XML作成を補助するツールが用意されていますが大量サンプルを扱っている場合は用意するのは大変です。そこで、DRA登録用XML作成を補助する\texttt{clmaketsv}および\texttt{clmakexml}というコマンドを用意しています。以下でこれらの使用法を説明します。
+
+DRAへの登録には、DDBJが管理するD-wayでのユーザーアカウント作成と公開鍵の登録が必要です。詳しくはDRA Handbook\\
+\href{http://trace.ddbj.nig.ac.jp/dra/submission.shtml}{http://trace.ddbj.nig.ac.jp/dra/submission.shtml}\\
+をご覧下さい。登録の際、Submission、Study、Experiment、Sample、Runの概念と対応関係を把握している必要がありますので、その部分を特に注意して読んで理解しておいて下さい。
+
+DRAでは、StudyはBioProjectという研究プロジェクトデータベースに登録して、それを参照することになります。BioProjectへの登録はBioProject Handbook\\
+\href{http://trace.ddbj.nig.ac.jp/bioproject/submission.html}{http://trace.ddbj.nig.ac.jp/bioproject/submission.html}\\
+を参照して予め済ませておいて下さい。
+
+さらに、SampleはBioSampleという研究サンプルデータベースに登録して、それを参照します。BioSampleへの登録はBioSample Handbook\\
+\href{http://trace.ddbj.nig.ac.jp/biosample/submission.html}{http://trace.ddbj.nig.ac.jp/biosample/submission.html}\\
+を参照して予め済ませておいて下さい。なお、メタゲノムを鋳型としてユニバーサルプライマーで増幅を行ったシーケンスサンプルの場合、MIMarks-SurveyをMIxSのタイプとして指定します。サンプルの採集された高度、水深、温度、湿度、pHなど、様々な情報を付加しておくことができます。後世のためにも、面倒がらずにできるだけ多くの情報を付加しておいて下さい。なお、各項目の意味は、Genomic Standards Consortiumから提供されているチェックリスト\\
+\href{http://wiki.gensc.org/index.php?title=MIMARKS}{http://wiki.gensc.org/index.php?title=MIMARKS}\\
+を確認して下さい。これを見てもわからない場合はDDBJに問い合わせて下さい。特に、地下や海底下のサンプルでは、平均海水面からサンプリング地点までの高さ・深さ、地面からサンプリング地点までの高さ・深さ、平均海水面から地面までの高さ・深さを入れる項目があってややこしいのでご注意下さい。
+
+\subsection{XML作成用タブ区切りテキストの作成}
+
+DRAに登録するXMLには、登録するFASTQファイルごとにそのファイルに含まれている配列の情報を記述します。これは非常に複雑で大変なため、一旦単純なタブ区切りテキストに書き出した上で、Excelなどを用いてそれを編集し、編集後のタブ区切りテキストからXMLを作成します。タブ区切りテキストを生成するコマンドは\texttt{clmaketsv}です。以下のように使って下さい。
+\begin{cmd}
+{\textgreater} clmaketsv {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+中略 {\textbackslash}\\
+入力ファイルN {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+入力ファイルは登録するものを指定して下さい。ワイルドカードも使えます。タブ区切りテキストができたら、表計算ソフトなどに読み込ませて、各セルを埋めていって下さい。なお、Excelでは特定の文字列を勝手に日時などと認識して変換してしまう機能(無効にする方法はありません)がありますので、十分注意して下さい。各セル内では、\texttt{{\lbrack}Hogehoge,Fugafuga{\rbrack}}とあった場合は\texttt{Hogehoge}または\texttt{Fugafuga}のどちらかを選んで括弧と選ばなかったものを消して下さい。\texttt{{\textless}Fill in this cell{\textgreater}}とあった場合は、\texttt{{\textless}{\textgreater}}内の指示に従ってセルを埋めて下さい(括弧は残さない)。その他のセルは適当に自分で考えて何とかして下さい。なお、BioProject IDやBioSample IDは、正式なアクセッション番号がまだ発行されていない場合、DDBJに申請したときのSubmission ID (BioProjectではPSUBから始まり、BioSampleではSSUBから始まるもの)を入力しておけば問題ありません。
+
+\subsection{タブ区切りテキストからのDRA登録用XMLファイルの生成}
+
+タブ区切りテキストの編集が終わったら、タブ区切りテキストとして保存した上で以下のように\texttt{clmakexml}を実行して下さい。登録に必要なXMLファイル群が生成されます。なお、タブ区切りテキストは一度に複数指定することも可能です。ただし、各ファイルの最初の3行に記述する内容は、最初のファイルのものしか利用されません。2ファイル目以降の最初の3行は無視されます。
+\begin{cmd}
+{\textgreater} clmakexml {\textbackslash}\\
+タブ区切りテキストファイル {\textbackslash}\\
+DRAから割り振られたsubmission-ID↓
+\end{cmd}
+DRAでは、「Create new submission(s)」によってsubmission-IDが割り振られます。\texttt{ユーザーID-0001}などとなっているはずです。\texttt{DRAから割り振られたsubmission-ID}にはこれを指定します。すると、\texttt{submission-ID.*.xml}という名前のファイルが3つ生成されます。これをDRAのXML Upload機能を利用して送信します。その他もろもろの処理が終わると、登録してあるメールアドレスに割り振られたアクセッション番号が送られてきます。論文にはそれを書いておけばいいでしょう。
+
+\chapter{DNAバーコーディングによる配列のホスト生物同定}
+
+DNAバーコーディングは、近年非常に多くの分野で応用が進められている、生物の同定方法です。しかし、既知配列データベースが不十分な上、それを前提とした同定アルゴリズムが欠けていました。そこで、筆者は「問い合わせ配列と最近隣配列との間の変異量＜分類群内の最大変異量」という規準を考案し、これを実現するアルゴリズムQCauto法\citep{Tanabe2013}をClaidentに実装しました。ただし、その配列のホストの可能性がある全生物が記載済みで、しかもそのバーコード配列もデータベースに登録済みである場合には、そのような難しいことを考えずに最近隣配列と同種とみなせばよいでしょう。そちらの方法もClaidentには実装してあります。以下のコマンドは全てターミナルかコンソールで実行して下さい。基本的なターミナルの使い方の知識は持っているものとして話を進めます。
+
+\section{BLAST検索による近隣既知配列群の取得}
+
+以下のコマンドで、「問い合わせ配列と最近隣配列との間の変異量＜分類群内の最大変異量」という条件を満たすために検討すべき近隣既知配列群(のGenBank ID)を取得できます。
+\begin{cmd}
+{\textgreater} clidentseq {\textbackslash}\\
+{-}{-}blastdb=overall{\textunderscore}genus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+入力ファイルにはFASTA形式の塩基配列ファイルを指定します。\texttt{{-}{-}blastdb}オプションでは、BLAST検索に用いるデータベース名を指定します。筆者が用意しているデータベースは以下の通りです。
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[animals{\textunderscore}COX1{\textunderscore}genus] 動物(Metazoa)のmtDNA \textit{COX1}配列で属以下の情報があるもの
+\item[animals{\textunderscore}COX1{\textunderscore}species] 同上だが種以下の情報があるもの
+\item[animals{\textunderscore}mt{\textunderscore}genus] 動物(Metazoa)のmtDNA配列で属以下の情報があるもの
+\item[animals{\textunderscore}mt{\textunderscore}species] 同上だが種以下の情報があるもの
+\item[eukaryota{\textunderscore}LSU{\textunderscore}genus] 真核生物のLSU (28S) rRNA配列で属以下の情報があるもの
+\item[eukaryota{\textunderscore}LSU{\textunderscore}species] 同上だが種以下の情報があるもの
+\item[eukaryota{\textunderscore}SSU{\textunderscore}genus] 真核生物のSSU (18S) rRNA配列で属以下の情報があるもの
+\item[eukaryota{\textunderscore}SSU{\textunderscore}species] 同上だが種以下の情報があるもの
+\item[fungi{\textunderscore}ITS{\textunderscore}genus] 真菌のITS配列で属以下の情報があるもの
+\item[fungi{\textunderscore}ITS{\textunderscore}species] 同上だが種以下の情報があるもの
+\item[overall{\textunderscore}class] NCBI ntの中で綱以下の情報があるもの
+\item[overall{\textunderscore}order] 同上だが目以下の情報があるもの
+\item[overall{\textunderscore}family] 同上だが科以下の情報があるもの
+\item[overall{\textunderscore}genus] 同上だが属以下の情報があるもの
+\item[overall{\textunderscore}species] 同上だが種以下の情報があるもの
+\item[plants{\textunderscore}matK{\textunderscore}genus] 緑色植物のcpDNA \textit{matK}配列で属以下の情報があるもの
+\item[plants{\textunderscore}matK{\textunderscore}species] 同上だが種以下の情報があるもの
+\item[plants{\textunderscore}rbcL{\textunderscore}genus] 緑色植物のcpDNA \textit{rbcL}配列で属以下の情報があるもの
+\item[plants{\textunderscore}rbcL{\textunderscore}species] 同上だが種以下の情報があるもの
+\item[plants{\textunderscore}trnH-psbA{\textunderscore}genus] 緑色植物のcpDNA \textit{trnH}--\textit{psbA}配列で属以下の情報があるもの
+\item[plants{\textunderscore}trnH-psbA{\textunderscore}species] 同上だが種以下の情報があるもの
+\item[prokaryota{\textunderscore}16S{\textunderscore}genus] 原核生物の16S rRNA配列で属以下の情報があるもの
+\item[prokaryota{\textunderscore}16S{\textunderscore}species] 同上だが種以下の情報があるもの
+\item[prokaryota{\textunderscore}all{\textunderscore}genus] 原核生物の配列で属以下の情報があるもの
+\item[prokaryota{\textunderscore}all{\textunderscore}species] 同上だが種以下の情報があるもの
+\item[semiall{\textunderscore}class] \texttt{overall{\textunderscore}class}から脊椎動物と\textit{Caenorhabditis}と\textit{Drosophila}を除いたもの
+\item[semiall{\textunderscore}order] \texttt{overall{\textunderscore}order}から脊椎動物と\textit{Caenorhabditis}と\textit{Drosophila}を除いたもの
+\item[semiall{\textunderscore}family] \texttt{overall{\textunderscore}family}から脊椎動物と\textit{Caenorhabditis}と\textit{Drosophila}を除いたもの
+\item[semiall{\textunderscore}genus] \texttt{overall{\textunderscore}genus}から脊椎動物と\textit{Caenorhabditis}と\textit{Drosophila}を除いたもの
+\item[semiall{\textunderscore}species] \texttt{overall{\textunderscore}species}から脊椎動物と\textit{Caenorhabditis}と\textit{Drosophila}を除いたもの
+\end{description}
+\texttt{overall{\textunderscore}*}と\texttt{semiall{\textunderscore}*}は非常に巨大なため、多くのメモリを必要とします。\texttt{overall{\textunderscore}*}で20GB、\texttt{semiall{\textunderscore}*}で10GBです。これらは万能なのでどんな配列にも使えますし、想定外の分類群や想定外の遺伝子座の配列の混入があってもとんでもない誤同定を避けることができます。しかしメモリ要求量が多いため、多くのCPUを使用しようとしてBLASTをたくさん起動すると、起動したBLAST数だけさらにメモリを多く必要とします。つまり、\texttt{overall{\textunderscore}*}を使ったBLAST検索で4つのCPUを使うには、80GBものメモリが必要になります。ただし、BLASTではメモリ不足でHDDやSSDにスワップしてしまってもそれほど遅くならないので、64GB程度のメモリと大きめのスワップ領域があれば実行可能です。また、\texttt{{-}{-}numthreads=4 {-}{-}hyperthreads=2}というオプションを使うと、BLASTを2つ起動して、2つのBLASTそれぞれに2つのCPUを使わせます。この場合は必要なメモリは\texttt{overall{\textunderscore}*}で40GB程度に減少します。スワップがあれば32GBでも実行可能だと思います。\texttt{{-}{-}numthreads=4 {-}{-}hyperthreads=4}とすれば、\texttt{overall{\textunderscore}*}でも20GB程度のメモリで実行可能です。スワップがあれば16GBでも何とかなるでしょう。\texttt{overall{\textunderscore}genus}と\texttt{semiall{\textunderscore}genus}では属以下の情報がある、つまりそれなりに分類群の情報が信頼できそうな配列を選別していますが、あまりにマイナーな分類群だとそれでは近隣配列が見つからないことがあります。その場合は、綱以下まで同定された配列のデータベース\texttt{overall{\textunderscore}class}か\texttt{semiall{\textunderscore}class}を使ってみて下さい。その他のデータベースは、\texttt{overall{\textunderscore}*}や\texttt{semiall{\textunderscore}*}よりもメモリ占有量がずっと少ないため、メモリの少ないコンピュータでも動作します。
+
+計算を高速化したり、BLAST検索のオプションを指定したりする場合は、以下のように記述します。
+\begin{cmd}
+{\textgreater} clidentseq {\textbackslash}\\
+blastn BLAST検索オプション end {\textbackslash}\\
+{-}{-}blastdb=overall{\textunderscore}genus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+
+BLAST検索オプションは、デフォルトでは\texttt{-task blastn -word{\textunderscore}size 9}となっていますが、高速化する場合は\texttt{-task dc-megablast -word{\textunderscore}size 11}などとすればいいでしょう。さらに高速化する場合、\texttt{-word{\textunderscore}size}の値を大きくするか、\texttt{-task megablast -word{\textunderscore}size 16}とすれば、デフォルト設定よりずっと高速になりますが、見逃す配列が多くなります。そのため、デフォルトのQCauto法での利用は避けた方がいいでしょう。
+
+問い合わせ配列のホストの可能性がある全生物が記載済みで、しかもそのバーコード配列もデータベースに登録済みである場合には、以下のようにして類似度99\%以上の上位1位(1位タイを含む)を近隣配列とすればいいでしょう。
+\begin{cmd}
+{\textgreater} clidentseq {\textbackslash}\\
+blastn -task megablast -word{\textunderscore}size 16 end {\textbackslash}\\
+{-}{-}method=1,99\% {\textbackslash}\\
+{-}{-}blastdb=overall{\textunderscore}genus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+
+類似度99\%以上の上位1位の配列を探し出す場合、BLAST検索オプションは\texttt{-task megablast -word{\textunderscore}size 16}としても見逃すことはまずないでしょうから、ここでは高速化のためにこのように指定しています。
+
+\section{近隣既知配列群に基づく同定}
+以下のコマンドで、近隣既知配列群の所属分類群が同一になるまで分類階層を上げていくことで配列を同定します。これはlowest common ancestor (LCA) algorithmと呼ばれています\citep{Huson2007}。
+\begin{cmd}
+{\textgreater} classigntax {\textbackslash}\\
+{-}{-}taxdb=overall{\textunderscore}genus {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+入力ファイルには前節で作成した\texttt{clidentseq}の出力ファイルを指定して下さい。\texttt{{-}{-}taxdb}は既知配列の所属分類群データベース指定オプションです。BLASTデータベースと同じ名前のものがインストールされていますので、それを指定して下さい。
+
+\texttt{classigntax}のデフォルト設定では、少なくとも2本以上の近隣既知配列がないと同定することができません。前節後半のように\texttt{clidentseq}の実行時に\texttt{{-}{-}method=1,99\%}を指定していると、近隣既知配列が1本しかないために一つも同定できないことになります。この場合は以下のようにして必要な近隣既知配列数を1にします。
+\begin{cmd}
+{\textgreater} classigntax {\textbackslash}\\
+{-}{-}taxdb=overall{\textunderscore}genus {\textbackslash}\\
+{-}{-}minnsupporter=1 {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+出力ファイルは表\ref{table:exampleresultsofidentification}のような形のタブ区切りのテキストになっています。
+\begin{table}[h]
+\begin{center}
+\footnotesize\setlength{\baselineskip}{0.9em}%
+\begin{tabular}{l|lll} 
+query & phylum & genus & species \\\hline\hline
+seqA & Ascomycota & \textit{Chloridium} & \textit{Chloridium virescens} \\
+seqB & Ascomycota & \textit{Chloridium} & \textit{Chloridium virescens} \\
+seqC & Ascomycota & \textit{Chloridium} & \textit{Chloridium virescens} \\
+seqD & Basidiomycota & \textit{Amanita} & \textit{Amanita fuliginea} \\
+seqE & Basidiomycota & \textit{Coltriciella} & \textit{Coltriciella dependens} \\
+seqF & Basidiomycota & \textit{Filobasidium} & \textit{Filobasidium uniguttulatum} \\
+seqG & Basidiomycota & \textit{Laccaria} & \textit{Laccaria bicolor} \\
+seqH & Basidiomycota & \textit{Lactarius} & \textit{Lactarius quietus} \\
+seqI & Basidiomycota & \textit{Russula} & \textit{Russula densifolia} \\
+seqJ & Basidiomycota & \textit{Russula} & \textit{Russula densifolia} \\
+seqK & Basidiomycota & \textit{Russula} & \textit{Russula densifolia} \\
+seqL & Basidiomycota & \textit{Russula} & \textit{Russula vesca} \\
+seqM & Basidiomycota & \textit{Agaricus} &  \\
+seqN & Basidiomycota & \textit{Amanita} &  \\
+seqO & Basidiomycota & \textit{Amanita} &  \\
+seqP & Ascomycota & \textit{Bisporella} &  \\
+seqQ & Ascomycota & \textit{Capronia} &  \\
+seqR & Ascomycota & \textit{Capronia} &  \\
+seqS & Ascomycota & \textit{Cenococcum} &  \\
+\end{tabular}
+\end{center}
+\caption{同定結果の例 --- 空欄はunidentified、つまり不明ということです。横幅を抑えるためいくつかの分類階層は省いてあります。}
+\label{table:exampleresultsofidentification}
+\end{table}
+
+\texttt{classigntax}のデフォルト設定では、全ての近隣既知配列の所属分類群が同一になるまで分類階層を上げていきますので、誤同定された配列が混ざっていたりした場合には下位の分類階層はほとんど不明になってしまいます。これは「ほぼ正しいと思われる」結果を得ることをデフォルト設定では優先しているためですが、近隣既知配列が多い場合、多少不一致を許容して誤同定の可能性が増してでもできるだけ下位の分類階層まで同定したい場合があります。そのような場合には以下のように\texttt{{-}{-}maxpopposer}と\texttt{{-}{-}minsoratio}を指定します。
+\begin{cmd}
+{\textgreater} classigntax {\textbackslash}\\
+{-}{-}taxdb=overall{\textunderscore}genus {\textbackslash}\\
+{-}{-}maxpopposer=0.05 {\textbackslash}\\
+{-}{-}minsoratio=19 {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+\texttt{classigntax}は結果として採用する分類群に該当する配列をsupporter配列とし、該当しない配列をopposer配列とします。\texttt{{-}{-}maxpopposer}にはopposer配列の存在を許容する割合を百分率で指定します。\texttt{{-}{-}minsoratio}はsupporter配列数とopposer配列数の比の下限値を指定します。supporter配列数とopposer配列数がこれを下回るような同定結果は許容せず分類階層を上げていきます。2つのオプションが必要なのは、その分類階層の情報がない配列が存在し得るためです。そのような配列はsupporterでもopposerでもないので、2つのオプションが必要になります。上記の例では、近隣既知配列中、5\%までのopposer配列を許容し、opposer配列の19倍以上のsupporter配列を必要とします。
+
+\section{複数の同定結果の統合}
+例えば植物の\textit{rbcL}と\textit{matK}など、複数のバーコード領域を併用しなければ同定できないこともありますし、\texttt{overall{\textunderscore}genus}と\texttt{overall{\textunderscore}class}での同定結果のいいとこ取りをしたい場合があります。また、厳密なLCAによる同定結果と5\%までopposerを許容するLCAの同定結果の組み合わせでいいとこ取りしたい場合もあるでしょう。そのようなことが、複数の同定結果を統合することで可能になります。
+
+植物の\textit{rbcL}と\textit{matK}を併用して同定する場合は、より深くまで同定できている方の結果を採用するのがいいでしょう。これは以下のコマンドでできます。
+\begin{cmd}
+{\textgreater} clmergeassign {\textbackslash}\\
+{-}{-}priority=equal {\textbackslash}\\
+{-}{-}preferlower {\textbackslash}\\
+rbcLでの同定結果 {\textbackslash}\\
+matKでの同定結果 {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+より保守的に考えるなら、以下のようにして、両方の同定結果が同一か、一方では未同定の場合だけ採用することもできます。ただし、上の階層で不一致だった場合には、同定結果が一方で未同定でも採用されません。
+\begin{cmd}
+{\textgreater} clmergeassign {\textbackslash}\\
+{-}{-}priority=equal {\textbackslash}\\
+rbcLでの同定結果 {\textbackslash}\\
+matKでの同定結果 {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+\textit{trnH}--\textit{psbA}も併用して、最も深くまで同定できているものを採用する場合は以下のようにします。
+\begin{cmd}
+{\textgreater} clmergeassign {\textbackslash}\\
+{-}{-}priority=equal {\textbackslash}\\
+{-}{-}preferlower {\textbackslash}\\
+rbcLでの同定結果 {\textbackslash}\\
+matKでの同定結果 {\textbackslash}\\
+trnH-psbAでの同定結果 {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+\texttt{overall{\textunderscore}genus}の結果を優先的に採用し、\texttt{overall{\textunderscore}genus}で同定できている分類階層までは一致しているが\texttt{overall{\textunderscore}class}の方がより下位まで同定できている場合だけ採用するには、以下のようにします。
+\begin{cmd}
+{\textgreater} clmergeassign {\textbackslash}\\
+{-}{-}priority=descend {\textbackslash}\\
+overall{\textunderscore}genusでの同定結果 {\textbackslash}\\
+overall{\textunderscore}classでの同定結果 {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+同様に、厳密なLCAによる結果を優先し、厳密なLCAで同定できている分類階層まで一致しているが制約を緩めたLCAによる結果の方がより下位まで同定できている場合にのみ採用するには、以下のようにします。
+\begin{cmd}
+{\textgreater} clmergeassign {\textbackslash}\\
+{-}{-}priority=descend {\textbackslash}\\
+厳密なLCAでの同定結果 {\textbackslash}\\
+制約を緩めたLCAでの同定結果 {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+
+\bibliography{metabarcodingtextbook.ja}
+\addcontentsline{toc}{chapter}{引用文献}
+
+\appendix
+
+\chapter{その他のプログラム・データベースのインストール}
+
+\section{bcl2fastqのインストール}
+
+Illuminaから提供されている、BCL形式のベースコールデータからFASTQを生成するプログラムbcl2fastqはMiSeq・HiSeq用のv1.8.4およびNextSeq 500・HiSeq X用のv2.17.1.14が\\
+\href{http://support.illumina.com/downloads/bcl2fastq_conversion_software.html}{http://support.illumina.com/downloads/bcl2fastq{\textunderscore}conversion{\textunderscore}software.html}\\
+からダウンロードできます。v1.8.4は以下のようにインストールできます。
+\begin{cmd}
+\# alienのインストール\\
+\$ sudo apt-get install alien\\
+\# bcl2fastq v1.8.4のダウンロード\\
+\$ wget {\textbackslash}\\
+ftp://webdata:webdata@ussd-ftp.illumina.com/Downloads/Software/bcl2fastq/bcl2fastq-1.8.4-Linux-x86{\textunderscore}64.rpm\\
+\# .rpmから.debへの変換とインストール\\
+\$ sudo alien -i {\textbackslash}\\
+bcl2fastq-1.8.4-Linux-x86{\textunderscore}64.rpm\\
+\# bcl2fastqに必要な追加パッケージのインストール\\
+\$ sudo apt-get install libxml-simple-perl xsltproc
+\end{cmd}
+
+Ubuntu・Xubuntu・Lubuntuの14.04LTSでは、Perlのバージョンが新しすぎ、より古いバージョンを前提として書かれたbcl2fastqが動作しません。そこで以下のようにして問題の部分を書き換えます。
+\begin{cmd}
+\$ sudo perl -i -npe {\textbackslash}\\
+'s/qw{\textbackslash}(ELAND{\textunderscore}FASTQ{\textunderscore}FILES{\textunderscore}PER{\textunderscore}PROCESS{\textbackslash})/{\textbackslash}("ELAND{\textunderscore}FASTQ{\textunderscore}FILES{\textunderscore}PER{\textunderscore}PROCESS"{\textbackslash})/' {\textbackslash}\\
+/usr/local/lib/bcl2fastq-1.8.4/perl/Casava/Alignment/Config.pm\\
+\$ sudo perl -i -npe {\textbackslash}\\
+'s/qw{\textbackslash}(ELAND{\textunderscore}GENOME{\textbackslash})/{\textbackslash}("ELAND{\textunderscore}GENOME"{\textbackslash})/' {\textbackslash}\\
+/usr/local/lib/bcl2fastq-1.8.4/perl/Casava/Alignment/Config.pm
+\end{cmd}
+テキストエディタで\\
+\texttt{/usr/local/lib/bcl2fastq-1.8.4/perl/Casava/Alignment/Config.pm}\\
+の747行目と751行目を手動で書き換えても構いません。\texttt{qw(HOGEHOGE)}を\texttt{("HOGEHOGE")}に書き換えて下さい。
+
+v2.17.1.14のインストールをする場合は以下のようにコマンドを実行して下さい。
+\begin{cmd}
+\# rpm2cpioとcpioのインストール\\
+{\textgreater} sudo apt-get install rpm2cpio cpio↓\\
+\# bcl2fastq2 v2.17のダウンロード\\
+{\textgreater} wget {\textbackslash}\\
+ftp://webdata2:webdata2@ussd-ftp.illumina.com/downloads/software/bcl2fastq/bcl2fastq2-v2.17.1.14-Linux-x86{\textunderscore}64.zip↓\\
+\# 圧縮ファイルの展開\\
+{\textgreater} unzip -qq bcl2fastq2-v2.17.1.14-Linux-x86{\textunderscore}64.zip↓\\
+\# .rpmを展開してコマンドを抽出\\
+{\textgreater} rpm2cpio {\textbackslash}\\
+bcl2fastq2-v2.17.1.14-Linux-x86{\textunderscore}64.rpm | cpio -id↓\\
+\# コマンドをインストール\\
+{\textgreater} sudo mv usr/local/bin/bcl2fastq /usr/local/bin/↓
+\end{cmd}
+
+\chapter{ターミナルコマンド集}\label{chapter:terminalcommands}
+
+\section{配列を数え上げる}
+
+\begin{cmd}
+\# FASTQの場合\\
+{\textgreater} grep -P -c '{\textasciicircum}{\textbackslash}+\$' inputfile↓\\
+\# GZIP圧縮FASTQの場合\\
+{\textgreater} gzip -dc inputfile {\textbar} grep -P -c '{\textasciicircum}{\textbackslash}+\$'↓\\
+\# BZIP2圧縮FASTQの場合\\
+{\textgreater} bzip2 -dc inputfile {\textbar} grep -P -c '{\textasciicircum}{\textbackslash}+\$'↓\\
+\# XZ圧縮FASTQの場合\\
+{\textgreater} xz -dc inputfile {\textbar} grep -P -c '{\textasciicircum}{\textbackslash}+\$'↓\\
+\# FASTAの場合\\
+{\textgreater} grep -P -c '{\textasciicircum}{\textgreater}' inputfile↓\\
+\# GZIP圧縮FASTAの場合\\
+{\textgreater} gzip -dc inputfile {\textbar} grep -P -c '{\textasciicircum}{\textgreater}'↓\\
+\# BZIP2圧縮FASTAの場合\\
+{\textgreater} bzip2 -dc inputfile {\textbar} grep -P -c '{\textasciicircum}{\textgreater}'↓\\
+\# XZ圧縮FASTAの場合\\
+{\textgreater} xz -dc inputfile {\textbar} grep -P -c '{\textasciicircum}{\textgreater}'↓
+\end{cmd}
+
+\section{配列を閲覧する}
+
+\begin{cmd}
+\# 無圧縮ファイル内容を画面に出力\\
+{\textgreater} cat inputfile↓\\
+\# 無圧縮ファイル内容をスクロールしながら見る\\
+{\textgreater} less inputfile↓\\
+\# GZIP圧縮ファイル内容を画面に出力\\
+{\textgreater} gzip -dc inputfile↓\\
+\# GZIP圧縮ファイル内容をスクロールしながら見る\\
+{\textgreater} gzip -dc inputfile {\textbar} less↓\\
+\# FASTQの最初の1配列を画面に出力\\
+{\textgreater} head -n 4 inputfile↓\\
+\# GZIP圧縮FASTQの最初の1配列を画面に出力\\
+{\textgreater} gzip -dc inputfile {\textbar} head -n 4↓\\
+\# FASTQの特定の配列を検索して画面に出力\\
+{\textgreater} grep -P -A 3 '{\textasciicircum}{\textbackslash}@配列名の正規表現' inputfile↓\\
+\# GZIP圧縮FASTQの特定の配列を検索して画面に出力\\
+{\textgreater} gzip -dc inputfile {\textbar} grep -P -A 3 '{\textasciicircum}{\textbackslash}@配列名の正規表現'↓
+\end{cmd}
+
+\section{圧縮・展開}
+
+\begin{cmd}
+\# フォルダ内の全.fastq.gzを展開\\
+{\textgreater} for f in *.fastq.gz↓\\
+do gzip -d \$f↓\\
+done↓\\
+\# フォルダ内の全.fastq.gzを展開(サブフォルダ含む)\\
+{\textgreater} for f in `find . -name *.fastq.gz`↓\\
+do gzip -d \$f↓\\
+done↓\\
+\# 4つのCPUを使用してフォルダ内の全.fastq.gzを展開\\
+{\textgreater} ls *.fastq.gz | xargs -L 1 -P 4 gzip -d↓\\
+\# 4つのCPUを使用してフォルダ内の全.fastq.gzを展開(サブフォルダ含む)\\
+{\textgreater} find . -name *.fastq.gz | xargs -L 1 -P 4 gzip -d↓\\
+\# フォルダ内の全.fastqを圧縮\\
+{\textgreater} for f in *.fastq↓\\
+do gzip \$f↓\\
+done↓\\
+\# フォルダ内の全.fastqを圧縮(サブフォルダ含む)\\
+{\textgreater} for f in `find . -name *.fastq`↓\\
+do gzip \$f↓\\
+done↓\\
+\# 4つのCPUを使用してフォルダ内の全.fastqを圧縮\\
+{\textgreater} ls *.fastq | xargs -L 1 -P 4 gzip↓\\
+\# 4つのCPUを使用してフォルダ内の全.fastqを圧縮(サブフォルダ含む)\\
+{\textgreater} find . -name *.fastq | xargs -L 1 -P 4 gzip↓
+\end{cmd}
+
+\section{抽出・保存}
+
+\begin{cmd}
+\# FASTQから最初の1万配列を抽出\\
+{\textgreater} head -n 40000 inputfile {\textgreater} outputfile↓\\
+\# FASTQから最後の1万配列を抽出\\
+{\textgreater} tail -n 40000 inputfile {\textgreater} outputfile↓\\
+\# GZIP圧縮FASTQから最初の1万配列を抽出してGZIP圧縮FASTQへ保存\\
+{\textgreater} gzip -dc inputfile {\textbar} head -n 40000 {\textbar} gzip -c {\textgreater} outputfile↓\\
+\# GZIP圧縮FASTQから最後の1万配列を抽出してGZIP圧縮FASTQへ保存\\
+{\textgreater} gzip -dc inputfile {\textbar} tail -n 40000 {\textbar} gzip -c {\textgreater} outputfile↓\\
+\# GZIP圧縮FASTQの特定の配列を検索してGZIP圧縮FASTQへ保存\\
+{\textgreater} gzip -dc inputfile {\textbar} grep -P -A 3 '{\textasciicircum}{\textbackslash}@配列名の正規表現' {\textbar} gzip -c {\textgreater} outputfile↓
+\end{cmd}
+\end{document}
