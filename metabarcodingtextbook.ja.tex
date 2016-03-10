@@ -70,7 +70,7 @@ pdfkeywords={メタゲノム, 環境DNA, 次世代シーケンサー, 454, IonTo
 
 \title{生態学のためのメタバーコーディングとDNAバーコーディング}
 \author{田辺晶史}
-\date{2016/02/01}
+\date{2016/03/11}
 
 %\renewcommand{\baselinestretch}{1.2}
 \renewcommand{\prepartname}{第}
@@ -158,7 +158,7 @@ output of command
 
 \chapter{ソフトウェアのインストールと環境設定}
 
-本書では、Debian GNU/Linux wheezy (以下Debian)、Ubuntu Linux 14.04 LTS (以下Ubuntu)を利用環境として想定しています。Windows環境の方は、Linuxのどちらかをインストールして環境を整えて下さい。インストールには、インストール用CD・DVD・USBメモリが使えます。HDDやSSDが1台しかない場合、Windows用のEaseUS Partition Master Homeなどのパーティションリサイズが可能なソフトを使ったり、インストール用CD・DVD・USBメモリ内に用意されている機能を使ってWindows用の領域を縮小して容量を空ける必要があります。HDDまたはSSDを追加してスペースを確保していただいても良いでしょう。USBメモリやUSB接続HDDにインストールすることも可能です。Ubuntuは見た目・操作性の異なる何種類かがありますが、標準のUbuntuよりもXubuntuというのがおすすめです。
+本書では、Debian GNU/Linux jessie (以下Debian)、Ubuntu Linux 14.04 LTS (以下Ubuntu)を利用環境として想定しています。Windows環境の方は、Linuxのどちらかをインストールして環境を整えて下さい。インストールには、インストール用CD・DVD・USBメモリが使えます。HDDやSSDが1台しかない場合、Windows用のEaseUS Partition Masterなどのパーティションリサイズが可能なソフトを使ったり、インストール用CD・DVD・USBメモリ内に用意されている機能を使ってWindows用の領域を縮小して容量を空ける必要があります。HDDまたはSSDを追加してスペースを確保していただいても良いでしょう。USBメモリやUSB接続HDDにインストールすることも可能です。Ubuntuは見た目・操作性の異なる何種類かがありますが、標準のUbuntuよりもXubuntuというのがおすすめです。
 
 Macでも、これらのOSがインストールできます。空きディスクがない場合はディスクユーティリティを用いてLinuxインストール用のスペースを空ける必要があります。ディスクユーティリティでHDD・SSDをクリックして、MacOS Xが使用している領域を縮小して下さい。そしてrEFItというソフトをインストールして起動時に起動デバイス・起動OS選択メニューが出るようにします(インストール後に2回の再起動が必要です)。そうすると、Linuxインストール用CD・DVD・USBメモリから起動できるようになりますので、そこから起動してインストールして下さい。くれぐれも既存のOS用領域を誤って削除しないようにご注意下さい。空いているディスク領域がある場合はディスクユーティリティでの操作は必要ありません。rEFItを導入してインストールCD・DVD・USBメモリから起動し、空いている領域にLinuxをインストールしていただければ結構です。またMacでも、インストール先をUSBメモリやUSB接続HDDにすることができます。
 
@@ -186,12 +186,16 @@ Macでも、これらのOSがインストールできます。空きディスク
 もしも外部ネットワークへのアクセスにプロキシを設定する必要がある場合は、上記のコマンド実行の前に以下のコマンドを実行して環境変数を設定しておいて下さい。これにより、外部へはプロキシを経由してアクセスが行われるようになります。
 \begin{cmd}
 {\textgreater} export http{\textunderscore}proxy=http://server.address:portnumber↓\\
-{\textgreater} export ftp{\textunderscore}proxy=http://server.address:portnumber↓
+{\textgreater} export https{\textunderscore}proxy=\$http{\textunderscore}proxy↓\\
+{\textgreater} export ftp{\textunderscore}proxy=\$http{\textunderscore}proxy↓\\
+{\textgreater} export all{\textunderscore}proxy=\$http{\textunderscore}proxy↓
 \end{cmd}
 なお、ユーザー名とパスワードを用いた認証が必要なプロキシでは、以下のようにして下さい。
 \begin{cmd}
 {\textgreater} export http{\textunderscore}proxy=http://username:password@server.address:portnumber↓\\
-{\textgreater} export ftp{\textunderscore}proxy=http://username:password@server.address:portnumber↓
+{\textgreater} export https{\textunderscore}proxy=\$http{\textunderscore}proxy↓\\
+{\textgreater} export ftp{\textunderscore}proxy=\$http{\textunderscore}proxy↓\\
+{\textgreater} export all{\textunderscore}proxy=\$http{\textunderscore}proxy↓
 \end{cmd}
 
 \subsection{バージョンアップの場合には}
