@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" xml:lang="ja" profile="http://www.idpf.org/epub/30/profile/package/">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:title>Matabarcoding and DNA barcoding for Ecologists</dc:title>
+        <dc:language>ja</dc:language>
+        <dc:creator>Akifumi S. Tanabe</dc:creator>
+        <dc:publisher>Akifumi S. Tanabe</dc:publisher>
+        <dc:subject>Ecology</dc:subject>
+        <dc:subject>Metabarcoding</dc:subject>
+        <dc:subject>DNA barcoding</dc:subject>
+        <dc:subject>HOWTO</dc:subject>
+        <dc:description>Introduction and practical guide about Metabarcoding and DNA barcoding</dc:description>
+        <dc:date>2016-06-23</dc:date>
+        <dc:type>Text</dc:type>
+    </metadata>
+</package>
