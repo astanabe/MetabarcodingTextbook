@@ -1807,6 +1807,7 @@ blastn -task megablast -word{\textunderscore}size 16 end {\textbackslash}\\
 類似度99\%以上の上位1位の配列を探し出す場合、BLAST検索オプションは\texttt{-task megablast -word{\textunderscore}size 16}としても見逃すことはまずないでしょうから、ここでは高速化のためにこのように指定しています。
 
 \section{近隣既知配列群に基づく同定}
+
 以下のコマンドで、近隣既知配列群の所属分類群が同一になるまで分類階層を上げていくことで配列を同定します。
 これはlowest common ancestor (LCA) algorithmと呼ばれています\citep{Huson2007}。
 \begin{cmd}
@@ -1881,6 +1882,7 @@ supporter配列数とopposer配列数がこれを下回るような同定結果�
 上記の例では、近隣既知配列中、5\%までのopposer配列を許容し、opposer配列の19倍以上のsupporter配列を必要とします。
 
 \section{複数の同定結果の統合}
+
 例えば植物の\textit{rbcL}と\textit{matK}など、複数のバーコード領域を併用しなければ同定できないこともありますし、\texttt{overall{\textunderscore}genus}と\texttt{overall{\textunderscore}class}での同定結果のいいとこ取りをしたい場合があります。
 また、厳密なLCAによる同定結果と5\%までopposerを許容するLCAの同定結果の組み合わせでいいとこ取りしたい場合もあるでしょう。
 そのようなことが、複数の同定結果を統合することで可能になります。
@@ -2075,4 +2077,5 @@ done↓\\
 \# GZIP圧縮FASTQの特定の配列を検索してGZIP圧縮FASTQへ保存\\
 {\textgreater} gzip -dc inputfile {\textbar} grep -P -A 3 '{\textasciicircum}{\textbackslash}@配列名の正規表現' {\textbar} gzip -c {\textgreater} outputfile↓
 \end{cmd}
+
 \end{document}
