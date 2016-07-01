@@ -334,7 +334,7 @@ Claidentは標準のインストール先にインストールすると以前の
 ここでは、Roche GSシリーズシーケンサーや、Ion PGM、Illumina MiSeqによるタグ付き塩基配列決定法について簡単に説明します。
 これらのシーケンサーは、いずれも400bp以上の長さの塩基配列解読能力があり、メタバーコーディング、DNAバーコーディングに適しています。
 ただし、MiSeqは両側から解読したもの(ペアエンドリード)を連結する必要があります。
-したがって、両側の配列間で重複ができるよう、できれば400bp程度、長くても500bp程度のアンプリコンができるようにPCRしなくてはなりません。
+したがって、両側の配列間でオーバーラップができるよう、できれば400bp程度、長くても500bp程度のアンプリコンができるようにPCRしなくてはなりません。
 連結せずに片側ずつ解析することもできますが、reverse側配列は質がかなり低いため、あまり有用ではないと思います。
 
 次世代シーケンサーは非常に多くの塩基配列を解読できますが、かつてはランニングコストが高く、1度に多数のサンプル由来配列を由来サンプルがわかるように解読することができませんでした。
@@ -439,9 +439,7 @@ MiSeqやHiSeqをお使いの方はお試し下さい。
 さらに、この長さをサンプルごとに変えてしまうと、解読するゲノム上の位置がずれるため、全く同じ配列が隣接していても区別できるようになるためにシーケンス品質が改善するそうです\citep{Fadrosh2014}。
 これらの対処法により、PhiX標準配列を混ぜる量を減らすことができるので、一度に得られるデータ量も増加するはずです。
 
-\chapter{塩基配列データのクラスタリング}
-
-\section{塩基配列データの前処理}
+\chapter{塩基配列データの前処理}
 
 GSシリーズシーケンサーやIon PGMでは、最終出力として\texttt{*.sff}というファイルが得られます。
 Illumina MiSeqの場合は\texttt{*.fastq}となります。
@@ -451,12 +449,12 @@ Illumina MiSeqの場合は\texttt{*.fastq}となります。
 基本的なターミナルの使い方の知識は持っているという前提で話を進めます。
 ターミナルの操作に慣れていない方は、最低でも付録\ref{chapter:terminalcommands}の内容を理解できるようになっておいて下さい。
 
-\subsection{SRA/DRA/ERAの登録データやdemultiplex済FASTQの変換}
+\section{SRA/DRA/ERAの登録データやdemultiplex済FASTQの変換}
 
 Claidentでは、配列の名前として\texttt{配列ID{\textunderscore}{\textunderscore}ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID}を、また拡張子を除いた入力ファイル名として\texttt{ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID}を仮定しています。
 そのため、SRA/DRA/ERAの登録データやdemultiplex済FASTQをそのまま用いることができません。
 そこで、\texttt{climportfastq}というコマンドを用いることで、上記の仮定を満たす入力ファイルに変換することができます。
-ペアエンドの場合は変換する前に第\ref{subsubsection:concatenatingpairedend}節の内容に従ってフィルタリングと連結を先に行っておきます。
+ペアエンドの場合は変換する前に第\ref{subsection:concatenatingpairedend}節の内容に従ってフィルタリングと連結を先に行っておきます。
 変換するには、以下のような入力ファイルを用意します。
 
 \begin{content}
@@ -479,11 +477,11 @@ Claidentでは、配列の名前として\texttt{配列ID{\textunderscore}{\text
 出力フォルダ↓
 \end{cmd}
 
-変換後、シングルエンドデータであれば第\ref{subsubsection:qualityfilteringfor454}節に従って低品質配列の除去を行って下さい。
+変換後、シングルエンドデータであれば第\ref{subsection:qualityfilteringfor454}節に従って低品質配列の除去を行って下さい。
 
-\subsection{GSシリーズシーケンサーやIon PGMの場合}
+\section{GSシリーズシーケンサーやIon PGMの場合}
 
-\subsubsection{SFFからFASTQの生成}
+\subsection{SFFからFASTQの生成}
 
 まずはSFFファイルからFASTQ形式のファイルを作成します。
 \begin{cmd}
@@ -498,7 +496,7 @@ SFFファイルが\texttt{HOGEHOGE.sff}だとすると、\texttt{HOGEHOGE.fastq}
 なお、ここでは\texttt{sff{\textunderscore}extract}コマンドを用いていますが、読み始めの\texttt{TCAG}を除いた塩基配列のFASTQ形式ファイルが得られれば、シーケンサーメーカーから提供される純正のコマンドを使っていただいても構いません。
 逆に後述する\texttt{clsplitseq}に与えるタグ配列の冒頭に\texttt{TCAG}を追加していただいても構いませんが、\texttt{TCAG}部分の品質値まで厳格にチェックされます。
 
-\subsubsection{塩基配列をサンプルごとに分ける}
+\subsection{塩基配列をサンプルごとに分ける}
 
 次に、タグ配列とプライマー配列に基づいてサンプルごとに配列を別々のファイルに分離(demultiplex)します。
 事前に以下のようなタグ配列を記したFASTAファイル、解読開始側プライマー配列を記したFASTAファイルがそれぞれ必要です。
@@ -559,7 +557,7 @@ CPUが4個の場合、\texttt{{-}{-}numthreads}オプションに4を指定す�
 
 DDBJ Sequence Read Archive (DRA)など、次世代シーケンサーの生データを登録するサイトには、ここで生成されたGZIP圧縮FASTQを登録します。
 
-\textbf{■数ラン分に分けて大量サンプルをシーケンスした場合　}
+\subsubsection{数ラン分に分けて大量サンプルをシーケンスした場合}
 \texttt{clsplitseq}による処理を複数回行います。
 ただし、\texttt{clsplitseq}は出力先フォルダが既に存在しているとエラーになり処理できません。
 そこで、2回目以降は\texttt{{-}{-}append}オプションを付けて実行します。
@@ -584,7 +582,7 @@ DDBJ Sequence Read Archive (DRA)など、次世代シーケンサーの生デー
 出力フォルダ↓
 \end{cmd}
 
-\textbf{■異なる長さのタグが混在している場合について　}
+\subsubsection{異なる長さのタグが混在している場合について}
 \texttt{clsplitseq}では、タグの長さは全て同一であることを仮定しています。
 その仮定を使うことで処理を高速化しています。
 そのため、タグの長さが不統一の場合は、長さの異なるタグごとに別々のFASTAファイルを準備し、以下のようにして複数回\texttt{clcplitseq}による処理を行って下さい。
@@ -608,7 +606,7 @@ DDBJ Sequence Read Archive (DRA)など、次世代シーケンサーの生デー
 出力フォルダ↓
 \end{cmd}
 
-\textbf{■リバースプライマー配列の認識と除去　}
+\subsubsection{リバースプライマー配列の認識と除去}
 これまでの手順では、リバースプライマー配列がアニールする部分の配列は除去されていません。
 これもできれば除去した方が良いでしょう。
 それには、まず以下のような内容のリバースプライマー配列のファイルを用意します。
@@ -642,7 +640,7 @@ DDBJ Sequence Read Archive (DRA)など、次世代シーケンサーの生デー
 なお、\texttt{{-}{-}needreverseprimer}というオプションを追加することで、リバースプライマー逆相補配列に一致する部位が見つからなかった配列は出力されなくなります。
 最後まで解読しきれた配列だけにしたい場合はこのオプションを付けて実行してみて下さい。
 
-\subsubsection{低品質配列の除去}\label{subsubsection:qualityfilteringfor454}
+\subsection{低品質配列の除去}\label{subsection:qualityfilteringfor454}
 
 FASTQ形式の塩基配列には、解読時のデータから推定された塩基の品質値がありますので、その情報に基づいて質の低い配列をこの時点である程度除去してしまうことができます。
 以下のように\texttt{clfilterseq}を実行して下さい。
@@ -683,9 +681,9 @@ do clfilterseq {\textbackslash}\\
 done↓
 \end{cmd}
 
-\subsection{Illumina社シーケンサーの場合}
+\section{Illumina社シーケンサーの場合}
 
-\subsubsection{BCLからFASTQの生成}
+\subsection{BCLからFASTQの生成}
 
 Illumina社のシーケンサーでは、標準でdemultiplexする機能がありますが、タグ配列部分の品質値を一切見ていないため、タグ配列の品質が低い配列がファイルに含まれています。
 このため、生データであるBCLファイルから、Illuminaが配布しているbcl2fastq (1.x系と2.x系はどちらでも構いません)を用いて、demultiplexしていないFASTQ配列を生成し、\texttt{clsplitseq}でdemultiplexを行います。
@@ -729,7 +727,7 @@ CPUが16個あるPCで専有できるなら16を指定して下さい。
 \texttt{{-}{-}runfolder-dir}にはランデータフォルダを指定します。
 1.xでは\texttt{{-}{-}input-dir}にBaseCallsフォルダを指定していましたが、2.xでは指定方法が異なりますので注意して下さい。
 
-\subsubsection{塩基配列をサンプルごとに分ける}
+\subsection{塩基配列をサンプルごとに分ける}
 
 FASTQファイルができたら、タグ配列とプライマー配列に基づいてサンプルごとに配列を別々のファイルに分離(demultiplex)します。
 事前に以下のようなタグ配列を記したFASTAファイル、解読開始側プライマー配列を記したFASTAファイルがそれぞれ必要です。
@@ -790,7 +788,7 @@ FASTQファイルができたら、タグ配列とプライマー配列に基づ
 DDBJ Sequence Read Archive (DRA)など、次世代シーケンサーの生データを登録するサイトには、ここで生成されたGZIP圧縮FASTQを登録します。
 なお、DRAへの登録では配列の長さが揃っているかどうかを指定する箇所がありますが、長さが可変のプライマー部位の配列を除去していますから揃っていません(プライマーセットが1つであってもアライメント時にギャップが入る可能性があるため揃わない)ので誤って揃っていると指定しないようにして下さい。
 
-\subsubsection{フォワード配列とリバース配列の連結}\label{subsubsection:concatenatingpairedend}
+\subsection{フォワード配列とリバース配列の連結}\label{subsection:concatenatingpairedend}
 
 ペアエンドでシーケンスを行った場合には、\texttt{clconcatpair}を用いてフォワード配列とリバース配列を連結します。
 フォワード配列とリバース配列にオーバーラップがある場合には、以下のように実行することでVSEARCHを呼び出して連結します。
@@ -950,6 +948,7 @@ done↓
 PEARでは\texttt{{-}{-}fastq{\textunderscore}allowmergestagger}を指定した場合と同じ処理がなされます。
 PEARと同様に連結できなかった配列を得たい場合は\texttt{{-}{-}fastqout{\textunderscore}notmerged{\textunderscore}fwd}オプションと\texttt{{-}{-}fastqout{\textunderscore}notmerged{\textunderscore}rev}オプションに保存先のファイル名を指定して下さい。
 そのほか、最小オーバーラップ長を\texttt{{-}{-}fastq{\textunderscore}minovlen}で、連結後の最小・最大配列長を\texttt{{-}{-}fastq{\textunderscore}minmergelen}・\texttt{{-}{-}fastq{\textunderscore}maxmergelen}で、オーバーラップ中の最大許容不一致数を\texttt{{-}{-}fastq{\textunderscore}maxdiffs}で、連結後の最大許容期待エラー数を\texttt{{-}{-}fastq{\textunderscore}maxee}で指定できます。
+\texttt{clconcatpair}からVSEARCHを呼び出す場合のデフォルト設定は\texttt{{-}{-}fastq{\textunderscore}minovlen 20 {-}{-}fastq{\textunderscore}maxdiffs 20}としていますが、VSEARCHのデフォルトでは\texttt{{-}{-}fastq{\textunderscore}minovlen 10 {-}{-}fastq{\textunderscore}maxdiffs 5}となっています。
 
 フォルダ内の全てのファイルに対してVSEARCHによる連結を連続して行うには、以下のようなコマンドをお使い下さい。
 
@@ -964,7 +963,7 @@ do vsearch {\textbackslash}\\
 done↓
 \end{cmd}
 
-\subsubsection{低品質配列の除去}
+\subsection{低品質配列の除去}
 
 FASTQ形式の塩基配列には、解読時のデータから推定された塩基の品質値がありますので、その情報に基づいて質の低い配列をこの時点である程度除去してしまうことができます。
 以下のように\texttt{clfilterseq}を実行して下さい。
@@ -981,7 +980,7 @@ FASTQ形式の塩基配列には、解読時のデータから推定された塩
 このコマンドでは、入力配列において\texttt{{-}{-}minqual}未満の配列が\texttt{{-}{-}maxplowqual}の割合より多い場合はその配列を除去します。
 通常は出力はファイルになりますが、\texttt{{-}{-}output=folder}というオプションを与えた場合はフォルダを作成して入力ファイルと同じ名前のファイルに出力します。
 既存のフォルダに出力する場合は\texttt{{-}{-}append}を追加して下さい。
-Illuminaでペアエンドを連結した場合は、両端は品質値が高く、重複部分も一致していれば品質値が高くなりますので、末端から品質値の低い配列を削るのはあまり意味がありません。
+Illuminaでペアエンドを連結した場合は、両端は品質値が高く、オーバーラップ部分も一致していれば品質値が高くなりますので、末端から品質値の低い配列を削るのはあまり意味がありません。
 連結したペアエンドではこのように品質値が低い配列が一定量を超えた配列を除去するのがよいでしょう。
 もちろん、既存のFASTQの品質確認を行うプログラムを利用されてもいいと思います。
 そのようなプログラムとしては、FastQC \citep{Andrews2010}やPRINSEQ \citep{Schmieder2011}があります。
@@ -1013,22 +1012,22 @@ VSEARCHの機能を用いて、品質値に基づいた配列全体での期待�
 \end{cmd}
 
 片側だけのシーケンスデータや、連結していないデータの場合は、Roche GSシリーズシーケンサやIon PGMの場合と同様の処理を行えばいいと思います。
-第\ref{subsubsection:qualityfilteringfor454}節をご参照下さい。
+第\ref{subsection:qualityfilteringfor454}節をご参照下さい。
 ただし、品質値や長さの閾値は適宜変更する必要があると思います。
 
-\subsection{同じ鋳型を複数回PCRまたは複数回シーケンスした場合について}
+\section{同じ鋳型を複数回PCRまたは複数回シーケンスした場合について}
 
 キメラ配列はPCRによって生成されますので、同一PCR由来配列なのか、異なるPCR由来配列なのかをプログラムに正しく認識させなくてはなりません。
 そのため、同じ鋳型を複数回PCRまたは複数回シーケンスした場合には、プログラムがデータを正しく扱えるようにいくつかの操作が必要になります。
 なお、ここでは、Nested PCRや、増幅のためのPCRとタグ配列付加のためのPCRはまとめて1回と数えることに注意して下さい。
 つまり、ここで「複数回PCR」とは、「増幅産物を鋳型にしてさらにPCRで増幅する」ことではなく、「同じ鋳型を使用したPCR」を複数回行うことです。
 
-\subsubsection{同じ鋳型を複数回PCRして同じタグ配列を付加して同じランでシーケンスした場合}
+\subsection{同じ鋳型を複数回PCRして同じタグ配列を付加して同じランでシーケンスした場合}
 
 実験デザインが間違っており、複数回PCRを活かしたキメラ検出・除去は行えません。
 通常の1回のPCRと同様にしか扱えません。
 
-\subsubsection{同じ鋳型を複数回PCRして別のタグ配列を付加して同じランでシーケンスした場合}
+\subsection{同じ鋳型を複数回PCRして別のタグ配列を付加して同じランでシーケンスした場合}
 
 ClaidentではサンプルID=ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーIDですから、同じ鋳型由来のサンプルが複数存在するデータとなります。
 わざと別サンプルのままにしておいて、1つ以上のサンプルで出現しないOTUはキメラや読み間違い(PCRの合成ミスも含む)のある配列と判断するというのも良い考えだと思います。
@@ -1038,7 +1037,7 @@ ClaidentではサンプルID=ランID{\textunderscore}{\textunderscore}タグID{
 この方法はClaidentでサポートしているため実施方法は後述します。
 サンプルごとの各OTUの配列数の集計表をこの後で作成しますが、集計表の加工コマンド\texttt{clfiltersum}により複数のサンプルを統合して1サンプルにすることが可能です(各OTUの配列数は和になります)。
 
-\subsubsection{同じ鋳型を1回PCRして同じタグ配列を付加して複数のランでシーケンスした場合}
+\subsection{同じ鋳型を1回PCRして同じタグ配列を付加して複数のランでシーケンスした場合}
 
 1回のランでは、たまたま得られる配列が少ないことがあります。
 そのため同一サンプルを複数のランでシーケンスし、全ランのデータを使いたいことがあります。
@@ -1069,13 +1068,13 @@ ClaidentではサンプルID=ランID{\textunderscore}{\textunderscore}タグID{
 ClaidentではランIDとタグIDとプライマーIDが同じなら、同一PCR産物=同一サンプルの配列として扱います。
 PCRが1回でタグ配列ファイルとプライマー配列ファイルが同じなら、当然タグIDとプライマーIDは同じになっているはずですので、ランIDも同じにしてしまうことで、同一PCR産物の配列として認識させることができるようになります。
 
-\subsubsection{同じ鋳型を複数回PCRして同じタグ配列を付加して別々のランでシーケンスした場合}
+\subsection{同じ鋳型を複数回PCRして同じタグ配列を付加して別々のランでシーケンスした場合}
 
 複数ラン分の配列ファイルがあるはずですので、\texttt{clsplitseq}によるサンプルごとの配列の分別と\texttt{clfilterseq}による低品質配列の除去を別々に実行し、別々のフォルダに出力します。
 この後のノイジー配列とキメラ配列の除去も別々に行い、クラスタリングの際に複数ラン分のデータをまとめて入力ファイルとして与えて下さい。
 そして、サンプルごとの各OTUの配列数の集計表を作成する際に複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。
 
-\subsubsection{同じ鋳型を複数回PCRして異なるタグ配列を付加して別々のランでシーケンスした場合}
+\subsection{同じ鋳型を複数回PCRして異なるタグ配列を付加して別々のランでシーケンスした場合}
 
 1回のランでは、たまたま得られる配列が少ないことがあります。
 そのため同一サンプルを複数のランでシーケンスし、全ランのデータを使いたいことがあります。
@@ -1124,14 +1123,14 @@ sample2の鋳型では逆になります。
 もしも、ほぼ同じ領域を増幅してはいるがプライマー配列は異なる場合、タグと同様に同じIDを付けた別々のファイルを用意して与えて下さい。
 この後の解析に関しては後述します。
 
-\section{重複配列カウントによるノイジー配列とキメラ配列の除去}
+\chapter{重複配列カウントによるノイジー配列とキメラ配列の除去}
 
 Claidentでは、配列のクラスタリング結果から読み間違いの多いノイジーな配列を推定して除去することができます。
 方法はCD-HIT-OTU \citep{Li2012}とほとんど同じです。
 また、旧パイプラインではVSEARCHに実装されたUCHIME \citep{Edgar2011}アルゴリズムを呼び出して結果を受け取ることで、キメラ配列の検出・除去も可能です。
 新パイプラインでは、クラスタリング処理が終わってからキメラ検出・除去処理を適用します。
 
-\subsection{VSEARCHを用いた新パイプラインの場合}
+\section{VSEARCHを用いた新パイプラインの場合}
 
 以下のコマンドでノイジー配列の検出・除去が行えます。
 なお、多数のファイルを一度に与えることができますが、できるだけ1ラン分のファイルを与えて下さい。
@@ -1174,7 +1173,7 @@ Claidentでは、配列のクラスタリング結果から読み間違いの多
 \end{description}
 他にも多くのファイルが出力されますが、後の解析に必要なものもありますので削除しないようにして下さい。
 
-\subsubsection{PCRレプリケート法によるノイジー配列・キメラ配列の除去}
+\subsection{PCRレプリケート法によるノイジー配列・キメラ配列の除去}
 
 PCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去するには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
 以下のような内容で用意して下さい。
@@ -1235,7 +1234,7 @@ PCRレプリケートは3つ以上あっても構いません。
 \item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.chimericreads.txt.gz] キメラ配列と判定された配列のリスト
 \end{description}
 
-\subsection{Assamsを用いた旧パイプラインの場合}
+\section{Assamsを用いた旧パイプラインの場合}
 
 以下のコマンドでノイジー配列とキメラ配列の検出・除去が行えます。
 なお、多数のファイルを一度に与えることができますが、できるだけ1ラン分のファイルを与えて下さい。
@@ -1301,7 +1300,7 @@ UCHIMEによるキメラ判定はそれぞれのサンプルごとに行われ�
 処理する場合は同時に行う必要があります。
 これは、キメラ配列もノイジー配列と判定するための情報を持っており、同時処理の場合にはそれを利用するためです。
 
-\subsubsection{PCRレプリケート法によるノイジー配列・キメラ配列の除去}
+\subsection{PCRレプリケート法によるノイジー配列・キメラ配列の除去}
 
 PCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去するには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
 以下のような内容で用意して下さい。
@@ -1353,6 +1352,8 @@ uchime {-}{-}minh 0.1 {-}{-}mindiv 0.8 end {\textbackslash}\\
 また、同一のプライマリクラスタが、あるサンプルではノイジーまたはキメラだが、別のサンプルではそうでない、といった判定は行えません。
 最終的な判定は全サンプル共通です。
 また、PCRレプリケート指示ファイルに記されていないサンプルでは判定が行われません。
+
+\chapter{塩基配列クラスタリングに基づくOTUピッキング}
 
 \section{サンプル内での配列クラスタリング}
 
@@ -1408,6 +1409,7 @@ uchime {-}{-}minh 0.1 {-}{-}mindiv 0.8 end {\textbackslash}\\
 出力フォルダ↓
 \end{cmd}
 入力ファイルには、\texttt{clcleanseqv}の実行時にPCRレプリケート法によるノイジー配列・キメラ配列の除去を併用した場合は\texttt{primarycluster.cleaned.fasta.gz}を、併用しなかった場合には\texttt{primarycluster.denoised.fasta.gz}を与えて下さい。
+オーバーラップのないペアエンドデータを\texttt{clconcatpair}を用いて連結した配列では、\texttt{{-}{-}paddinglen=16}をオプションとして加えて実行して下さい。
 
 出力フォルダには、以下のファイルが保存されています。
 \begin{description}\small\setlength{\baselineskip}{1.1em}
@@ -1497,14 +1499,15 @@ uchime {-}{-}minh 0.1 {-}{-}mindiv 0.8 end {\textbackslash}\\
 OTU代表配列のファイルには\texttt{clclassseqv}の出力した\texttt{clustered.fasta.gz}を用います。
 入力ファイルとしては、\texttt{clcleanseqv}の出力した\texttt{primarycluster.fasta.gz}または\texttt{clcleanseqv}での処理や低品質配列の除去を行う前の配列ファイルを使用して下さい。
 出力フォルダには、\texttt{clclassseqv}と同様のファイル群が作成されます。
+なお、オーバーラップのないペアエンドデータを\texttt{clconcatpair}を用いて連結した配列では、\texttt{{-}{-}paddinglen=16}をオプションとして加えて実行して下さい。
 
 \subsection{Assamsを用いた旧パイプラインの場合}
 
 旧パイプラインではこのステップはありません。
 
-\section{結果の要約と後処理}
+\chapter{OTUピッキング結果の要約と後処理}
 
-\subsection{集計表の作成}\label{subsection:makesummarytable}
+\section{集計表の作成}\label{section:makesummarytable}
 
 以下のコマンドで、クラスタリング結果から各サンプルにおける各OTUに割り当てられた生配列数を表にすることができます。
 \begin{cmd}
@@ -1534,7 +1537,7 @@ sampleF & 0 & 0 & 977 \\
 \label{table:exampletableofsummary}
 \end{table}
 
-\subsection{集計表からの特定のOTU・サンプルの除去}\label{subsection:clfiltersum}
+\section{集計表からの特定のOTU・サンプルの除去}\label{section:clfiltersum}
 
 \texttt{clsumclass}では、1回だけ出現した配列も含めて全て出力されますが、以下のコマンドを用いてサンプルやOTUを選別することができます。
 入力ファイルは\texttt{clsumclass}の出力ファイルです。
@@ -1584,7 +1587,7 @@ PCRレプリケート関係にあるサンプルをタブ区切りで同一行�
 
 後述するノイジー配列・キメラ配列の除去や他領域配列の除去を行った上で、残った配列を用いて\texttt{{-}{-}otuseq}などのオプションを用いたOTUの選別を行う場合は、他の選別より先に行って下さい。
 
-\subsection{PCRレプリケート法によるノイジー配列・キメラ配列の除去}
+\section{PCRレプリケート法によるノイジー配列・キメラ配列の除去}
 
 新パイプラインでは\texttt{clcleanseqv}の実行時に行っていますが、旧パイプラインでもPCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去することが可能です。
 それには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
@@ -1633,10 +1636,10 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 最終的な判定は全サンプル共通です。
 また、PCRレプリケート指示ファイルに記されていないサンプルでは判定が行われません。
 
-ここで作成したFASTA配列ファイルを第\ref{subsection:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルから除去されたOTUを集計表からも除去することができます。
+ここで作成したFASTA配列ファイルを第\ref{section:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルから除去されたOTUを集計表からも除去することができます。
 また、\texttt{{-}{-}replicatelist}オプションと\texttt{{-}{-}runname}オプションを\texttt{clfilterseq}と同様に指定すれば、PCRレプリケート関係にあるサンプルは1つのサンプルに統合されます(セルの値は合算されます)。
 
-\subsection{UCHIMEによるキメラ配列除去}
+\section{UCHIMEによるキメラ配列除去}
 
 旧パイプラインではクラスタリング前にもUCHIMEでキメラ配列除去は行っていますが、クラスタリング後の配列に対してリファレンスなしでのキメラ配列除去とリファレンスありでのキメラ配列除去を追加で行うことができます。
 両方行う場合は、リファレンスなしでのキメラ配列除去を先に行ってから、リファレンスありでのキメラ配列除去を行います。
@@ -1646,7 +1649,7 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 利用するコマンドは\texttt{clrunuchime}です。
 このコマンドでは、UCHIMEアルゴリズムを実装しているVSEARCHというプログラムを呼び出して、キメラ配列除去を行います。
 
-\subsubsection{リファレンスなしでのキメラ配列除去}
+\subsection{リファレンスなしでのキメラ配列除去}
 
 \texttt{clrunuchime}を以下のように実行して下さい。
 \begin{cmd}
@@ -1660,7 +1663,7 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 上記の例は一度に説明するためのもので、両方を指定してはいけません。
 なお、どちらも指定しなかった場合、\texttt{*.otu.gz}が入力ファイルと同じフォルダに存在すればそれを、\texttt{*.contigmembers.gz}が存在すればそれを見つけ出して使用しますので、普段は何も指定しなくてもいいでしょう。
 
-\subsubsection{リファレンスありでのキメラ配列除去}
+\subsection{リファレンスありでのキメラ配列除去}
 
 \texttt{clrunuchime}を以下のように実行して下さい。
 リファレンスなしでのキメラ配列除去を行った場合は、\texttt{nonchimeras.fasta}というファイルがあるはずですので、それを入力ファイルにすればいいでしょう。
@@ -1682,7 +1685,7 @@ UCHIME用のリファレンスデータベース名と内容は以下の通り�
 \item[unite20160101its2] 真菌ITS用のUNITEデータベース(20160101ITS2版)
 \end{description}
 
-\subsubsection{出力フォルダの内容について}
+\subsection{出力フォルダの内容について}
 
 出力フォルダに保存されるファイルは以下の4つです。
 
@@ -1697,7 +1700,7 @@ UCHIME用のリファレンスデータベース名と内容は以下の通り�
 \href{http://drive5.com/usearch/manual/uchimeout.html}{http://drive5.com/usearch/manual/uchimeout.html}\\
 をご覧下さい。
 
-\subsection{配列からの低頻度出現配列の除去}
+\section{配列からの低頻度出現配列の除去}
 
 クラスタリングの出力フォルダには、\texttt{clustered.fasta.gz} (新パイプライン)または\texttt{assembled.fasta} (旧パイプライン)というファイルとして、最終的に得られた代表配列もしくはコンセンサス配列が保存されています。
 これを次章のDNAバーコーディングに用いますが、全サンプルを通して少量しか出現しないものまで含めると数が多すぎることがあります。
@@ -1716,9 +1719,9 @@ UCHIME用のリファレンスデータベース名と内容は以下の通り�
 旧パイプラインを使用した場合は\texttt{{-}{-}contigmembers}オプションを、新パイプラインを使用した場合は\texttt{{-}{-}otufile}オプションを使用します。
 上記の例は一度に説明するためのもので、両方を指定してはいけません。
 なお、どちらも指定しなかった場合、\texttt{*.otu.gz}が入力ファイルと同じフォルダに存在すればそれを、\texttt{*.contigmembers.gz}が存在すればそれを見つけ出して使用しますので、普段は何も指定しなくてもいいでしょう。
-ここで作成したFASTA配列ファイルを第\ref{subsection:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルから除去されたOTUを集計表からも除去することができます。
+ここで作成したFASTA配列ファイルを第\ref{section:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルから除去されたOTUを集計表からも除去することができます。
 
-\subsection{保存領域配列認識による領域分割}
+\section{保存領域配列認識による領域分割}
 
 ここまでの配列が複数領域にまたがっている場合(たとえばITS1・5.8S rRNA・ITS2といった風に)、領域ごとに分割した方が良いかもしれません。
 領域間かその付近に保存的な領域があれば、それを境界の目印として領域を分割できます。
@@ -1740,11 +1743,12 @@ UCHIME用のリファレンスデータベース名と内容は以下の通り�
 ストランドが異なる場合は、\texttt{{-}{-}reversecomplement}オプションを付加して実行することで、\texttt{{-}{-}query}に指定された配列の逆相補配列をアライメントに用いるようになります。
 
 \texttt{{-}{-}border}オプションを\texttt{start}ではなく\texttt{end}にすることで、検索に一致した部位の右端を境界として分割することができます。
-検索した配列が見つからなかった場合は出力ファイル1のみに保存され、出力ファイル2には配列が保存されませんが、これでは都合が悪い場合は\texttt{{-}{-}makedummy}オプションを付加することでダミーの塩基配列が出力ファイル2に保存されます。
+\texttt{{-}{-}border=both}にした場合は、検索に一致した部位はどちらのファイルにも出力されません(これがデフォルト設定です)。
+検索した配列が見つからなかった場合は出力ファイル1のみに配列が保存され、出力ファイル2には配列が保存されませんが、これでは都合が悪い場合は\texttt{{-}{-}makedummy}オプションを付加することでダミーの塩基配列が出力ファイル2に保存されます。
 分割した各領域の配列で別個にホスト生物を同定した上で同定結果を統合する場合など、配列間で対応がとれていないと困る場合にご利用下さい。
 ここでは2分割の例を挙げましたが、分割後にさらに分割を繰り返すことで3分割や4分割も可能です。
 
-\subsection{ITSxやMetaxaによるITS・SSU rRNA配列の抽出}
+\section{ITSxやMetaxaによるITS・SSU rRNA配列の抽出}
 
 ITSxは核ITS1・ITS2領域を認識してその部位だけを取り出すことができるプログラムです\citep{Bengtsson2013}。
 多くの分類群でITSは非常に変異に富んでいますが、ずっと保守的なSSU・LSU rRNAと隣接しているため、これらの配列が残っていると、その配列の影響でITSでは明確に区別できる遠縁な生物のSSU・LSU配列がBLAST検索時にヒットしてしまい、うまく同定できなくなってしまうことがあります。
@@ -1756,17 +1760,17 @@ SSU rRNAは真核生物のメタバーコーディング・DNAバーコーディ
 
 いずれのプログラムもインストール方法、使用方法をここでは説明しません。
 それぞれのWebサイトとマニュアルをご覧下さい。
-これらのプログラムで作成したFASTA配列ファイルを第\ref{subsection:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。
+これらのプログラムで作成したFASTA配列ファイルを第\ref{section:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。
 
-\subsection{非ターゲット領域の探索と削除}
+\section{非ターゲット領域の探索と削除}
 
 ITSxやMetaxaはITSとSSU rRNA領域にしか使用できませんが、もっと汎用的な非ターゲット領域の探索方法があります。
 一つはBLASTなどで検索して配列がどの遺伝子のものかを判定してくれるプログラムにかけることで、もう一つは多重整列プログラムを利用することです。
 ClustalW2・ClustalX2 \citep{Larkin2007}やMAFFT \citep{Katoh2013}には、多重整列した結果を系統的に近いものが近くになるように並び替えて出力することができます。
 この機能を使って並び替えた上で、多重整列の閲覧ソフトで表示して目で確認すればどれが非ターゲット領域かすぐわかります。
-非ターゲット領域のOTUを除去したFASTA配列ファイルを第\ref{subsection:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。
+非ターゲット領域のOTUを除去したFASTA配列ファイルを第\ref{section:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。
 
-\section{DRAへの登録}
+\chapter{DRAへのデータ登録}
 
 クラスタリング後の配列は従来通りDDBJなどに登録すればいいですが、新型シーケンサーの生データはDDBJ Sequence Read Archive (DRA)というところへ登録することになっています(サンガー法シーケンサーの生データはTrace Archive)。
 本書にあるように複数サンプルからのDNAにタグを付けてシーケンスした場合、サンプルごとのデータファイルに分割して登録することを求められます。
@@ -1802,7 +1806,7 @@ BioSampleへの登録はBioSample Handbook\\
 これを見てもわからない場合はDDBJに問い合わせて下さい。
 特に、地下や海底下のサンプルでは、平均海水面からサンプリング地点までの高さ・深さ、地面からサンプリング地点までの高さ・深さ、平均海水面から地面までの高さ・深さを入れる項目があってややこしいのでご注意下さい。
 
-\subsection{XML作成用タブ区切りテキストの作成}
+\section{XML作成用タブ区切りテキストの作成}
 
 DRAに登録するXMLには、登録するFASTQファイルごとにそのファイルに含まれている配列の情報を記述します。
 これは非常に複雑で大変なため、一旦単純なタブ区切りテキストに書き出した上で、Excelなどを用いてそれを編集し、編集後のタブ区切りテキストからXMLを作成します。
@@ -1824,7 +1828,7 @@ DRAに登録するXMLには、登録するFASTQファイルごとにそのファ
 その他のセルは適当に自分で考えて何とかして下さい。
 なお、BioProject IDやBioSample IDは、正式なアクセッション番号がまだ発行されていない場合、DDBJに申請したときのSubmission ID (BioProjectではPSUBから始まり、BioSampleではSSUBから始まるもの)を入力しておけば問題ありません。
 
-\subsection{タブ区切りテキストからのDRA登録用XMLファイルの生成}
+\section{タブ区切りテキストからのDRA登録用XMLファイルの生成}
 
 タブ区切りテキストの編集が終わったら、タブ区切りテキストとして保存した上で以下のように\texttt{clmakexml}を実行して下さい。
 登録に必要なXMLファイル群が生成されます。
