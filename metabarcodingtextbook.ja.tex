@@ -451,6 +451,36 @@ Illumina MiSeqの場合は\texttt{*.fastq}となります。
 基本的なターミナルの使い方の知識は持っているという前提で話を進めます。
 ターミナルの操作に慣れていない方は、最低でも付録\ref{chapter:terminalcommands}の内容を理解できるようになっておいて下さい。
 
+\subsection{SRA/DRA/ERAの登録データやdemultiplex済FASTQの変換}
+
+Claidentでは、配列の名前として\texttt{配列ID{\textunderscore}{\textunderscore}ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID}を、また拡張子を除いた入力ファイル名として\texttt{ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID}を仮定しています。
+そのため、SRA/DRA/ERAの登録データやdemultiplex済FASTQをそのまま用いることができません。
+そこで、\texttt{climportfastq}というコマンドを用いることで、上記の仮定を満たす入力ファイルに変換することができます。
+ペアエンドの場合は変換する前に第\ref{subsubsection:concatenatingpairedend}節の内容に従ってフィルタリングと連結を先に行っておきます。
+変換するには、以下のような入力ファイルを用意します。
+
+\begin{content}
+| 配列ファイル名1 ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID\\
+| 配列ファイル名2 ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID\\
+| 配列ファイル名3 ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID
+\end{content}
+
+ランIDは適当にでっち上げていただいて構いません。
+プライマーIDは同じプライマーを用いたファイル間で同じになるようにすれば何でも構いません。
+タグIDはファイルごとに異なるものにします。
+配列ファイル名と同じでも構いません。
+
+上記の入力ファイルが用意できたら、以下のように\texttt{climportfastq}を実行することで、出力フォルダに変換後のファイルが作成されます。
+
+\begin{cmd}
+{\textgreater} climportfastq {\textbackslash}\\
+{-}{-}numthreads=CPU数 {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+
+変換後、シングルエンドデータであれば第\ref{subsubsection:qualityfilteringfor454}節に従って低品質配列の除去を行って下さい。
+
 \subsection{GSシリーズシーケンサーやIon PGMの場合}
 
 \subsubsection{SFFからFASTQの生成}
@@ -760,9 +790,114 @@ FASTQファイルができたら、タグ配列とプライマー配列に基づ
 DDBJ Sequence Read Archive (DRA)など、次世代シーケンサーの生データを登録するサイトには、ここで生成されたGZIP圧縮FASTQを登録します。
 なお、DRAへの登録では配列の長さが揃っているかどうかを指定する箇所がありますが、長さが可変のプライマー部位の配列を除去していますから揃っていません(プライマーセットが1つであってもアライメント時にギャップが入る可能性があるため揃わない)ので誤って揃っていると指定しないようにして下さい。
 
-\subsubsection{フォワード配列とリバース配列の連結}
+\subsubsection{フォワード配列とリバース配列の連結}\label{subsubsection:concatenatingpairedend}
 
-フォワード配列とリバース配列にオーバーラップがある場合には、PEAR \citep{Zhang2014}またはVSEARCHを用いて連結します。
+ペアエンドでシーケンスを行った場合には、\texttt{clconcatpair}を用いてフォワード配列とリバース配列を連結します。
+フォワード配列とリバース配列にオーバーラップがある場合には、以下のように実行することでVSEARCHを呼び出して連結します。
+
+\begin{cmd}
+{\textgreater} clconcatpair {\textbackslash}\\
+{-}{-}mode=OVL {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力フォルダ {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+
+以上のコマンドでは、入力フォルダから\texttt{*.forward.fastq}と\texttt{*.reverse.fastq}を探しだして自動的に連結します。
+末尾に\texttt{.gz}や\texttt{.bz2}が付く圧縮ファイルでも構いません。
+出力ファイルは指定したフォルダ内に\texttt{*.fastq.gz}として作成されます。
+
+入力ファイル名が\texttt{*.forward.fastq}と\texttt{*.reverse.fastq}になっていない場合は、以下のように実行することで1組のファイルの配列を連結可能です。
+
+\begin{cmd}
+{\textgreater} clconcatpair {\textbackslash}\\
+{-}{-}mode=OVL {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+入力ファイル2 {\textbackslash}\\
+出力ファイル↓
+\end{cmd}
+
+入力ファイル1にフォワード配列のFASTQファイル、入力ファイル2にリバース配列のFASTQファイルを指定して下さい。出力ファイルは末尾に\texttt{.gz}や\texttt{.bz2}を付けないと自動的に圧縮はされません。
+
+また、フォワード配列とリバース配列間にオーバーラップがない場合や、あるものとないものが入り混じっている場合には、先に以下のように\texttt{clfilterseq}を用いて低品質部位のトリミングや低品質配列の除去を行います。
+
+\begin{cmd}
+{\textgreater} clfilterseq {\textbackslash}\\
+{-}{-}minqual=30 {\textbackslash}\\
+{-}{-}minquallen=3 {\textbackslash}\\
+{-}{-}minlen=100 {\textbackslash}\\
+{-}{-}maxplowqual=0.1 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+入力ファイル2 {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+
+ここで、\texttt{{-}{-}minqual}は品質値の下限値で、終末端側からこの値以上の品質値が\texttt{{-}{-}minquallen}の値以上に連続して出現するまで配列を削っていきます。
+その上で、\texttt{{-}{-}minlen}の長さ未満の配列は除去します。
+残った配列において、\texttt{{-}{-}minqual}未満の配列が\texttt{{-}{-}maxplowqual}の割合より多い場合はその配列は除去します。
+この処理では、ペアエンドのどちらか一方でも除去される場合、ペアとなるもう一方も除去します。
+出力はフォルダを作成して入力ファイルと同じ名前のファイルになります。
+既存のフォルダに出力する場合は\texttt{{-}{-}append}を追加して下さい。
+フォルダ内の全ての\texttt{*.forward.fastq}と\texttt{*.reverse.fastq}に適用する場合は、以下のように実行して下さい。
+
+\begin{cmd}
+{\textgreater} for f in `ls *.forward.fastq.gz | grep -P -o '{\textasciicircum}{\lbrack}{\textasciicircum}{\textbackslash}.{\rbrack}+'`↓\\
+do clfilterseq {\textbackslash}\\
+{-}{-}minqual=30 {\textbackslash}\\
+{-}{-}minquallen=3 {\textbackslash}\\
+{-}{-}minlen=100 {\textbackslash}\\
+{-}{-}maxplowqual=0.1 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+\$f.forward.fastq.gz {\textbackslash}\\
+\$f.reverse.fastq.gz {\textbackslash}\\
+出力フォルダ↓\\
+done↓
+\end{cmd}
+
+このように低品質配列を除去した後、以下のように\texttt{clconcatpair}を用いて連結を行います。
+
+\begin{cmd}
+{\textgreater} clconcatpair {\textbackslash}\\
+{-}{-}mode=NON {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力フォルダ {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+
+この方法では、以下のようなフォワード配列とリバース配列を入力として仮定します。
+
+\begin{pre}
+5' ― フォワード配列 ― 3'\\
+5' ― リバース配列 ― 3'
+\end{pre}
+
+これらの配列を、\texttt{clconcatpair {-}{-}mode=NON}では以下のように連結します。
+
+\begin{pre}
+3' ― リバース配列(逆相補) ― 5' ― ACGTACGTTGCATGCA ― 5' ― フォワード配列 ― 3'
+\end{pre}
+
+ノイジー配列とキメラ配列の除去はそのまま通常の連結したペアエンドデータと全く同様に行い、配列のクラスタリングに用いる\texttt{clclassseqv}と代表配列への生配列のマッピングを行う\texttt{clrecoverseqv}の実行時に\texttt{{-}{-}paddinglen=16}を加えて実行します。
+上記の連結では、連結点を後から識別できるように人工配列である\texttt{ACGTACGTTGCATGCA}を加えているため、配列の類似度が過大になってしまいます。
+そこで、完全一致するはずの\texttt{ACGTACGTTGCATGCA}の長さ分を配列の類似度計算から除外することで正しい配列類似度に基づくクラスタリングを行います。
+
+ホスト生物の同定をする際には、\texttt{ACGTACGTTGCATGCA}を探して配列を分割し、フォワード配列とリバース配列で別々に同定し、第\ref{section:mergingmultipleassignment}節の内容に従って2つの同定結果を統合します。
+一般にフォワード配列の方が品質が高いはずですので、何も事前情報がない場合はフォワード配列に基づく同定結果を優先する設定で統合するのが良いでしょう。
+配列の分割は\texttt{cldivseq}を以下のように実行することで行えます。
+
+\begin{cmd}
+{\textgreater}cldivseq {\textbackslash}\\
+{-}{-}query=ACGTACGTTGCATGCA {\textbackslash}\\
+入力ファイル {\textbackslash}\\
+出力ファイル1 {\textbackslash}\\
+出力ファイル2
+\end{cmd}
+
+出力ファイル1がリバース配列の逆相補配列、出力ファイル2がフォワード配列になります。
+
+フォワード配列とリバース配列にオーバーラップがある場合には、PEAR \citep{Zhang2014}またはVSEARCHを用いて連結することもできます。
 PEARの場合はdemultiplexした配列ファイルのあるフォルダで、以下のコマンドを実行して下さい。
 \begin{cmd}
 {\textgreater} pear {\textbackslash}\\
@@ -797,7 +932,7 @@ do pear {\textbackslash}\\
 done↓
 \end{cmd}
 
-VSEARCHを用いて連結する場合には以下のようにコマンドを実行して下さい。
+直接VSEARCHを用いて連結する場合には以下のようにコマンドを実行して下さい。
 
 \begin{cmd}
 {\textgreater} vsearch {\textbackslash}\\
@@ -1764,36 +1899,30 @@ DNAバーコーディングは、近年非常に多くの分野で応用が進�
 \item[semiall{\textunderscore}genus] \texttt{overall{\textunderscore}genus}から脊椎動物と\textit{Caenorhabditis}と\textit{Drosophila}を除いたもの
 \item[semiall{\textunderscore}species] \texttt{overall{\textunderscore}species}から脊椎動物と\textit{Caenorhabditis}と\textit{Drosophila}を除いたもの
 \end{description}
-\texttt{overall{\textunderscore}*}と\texttt{semiall{\textunderscore}*}は非常に巨大なため、多くのメモリを必要とします。
-\texttt{overall{\textunderscore}*}で20GB、\texttt{semiall{\textunderscore}*}で10GBです。
-これらは万能なのでどんな配列にも使えますし、想定外の分類群や想定外の遺伝子座の配列の混入があってもとんでもない誤同定を避けることができます。
-しかしメモリ要求量が多いため、多くのCPUを使用しようとしてBLASTをたくさん起動すると、起動したBLAST数だけさらにメモリを多く必要とします。
-つまり、\texttt{overall{\textunderscore}*}を使ったBLAST検索で4つのCPUを使うには、80GBものメモリが必要になります。
-ただし、BLASTではメモリ不足でHDDやSSDにスワップしてしまってもそれほど遅くならないので、64GB程度のメモリと大きめのスワップ領域があれば実行可能です。
-また、\texttt{{-}{-}numthreads=4 {-}{-}hyperthreads=2}というオプションを使うと、BLASTを2つ起動して、2つのBLASTそれぞれに2つのCPUを使わせます。
-この場合は必要なメモリは\texttt{overall{\textunderscore}*}で40GB程度に減少します。
-スワップがあれば32GBでも実行可能だと思います。
-\texttt{{-}{-}numthreads=4 {-}{-}hyperthreads=4}とすれば、\texttt{overall{\textunderscore}*}でも20GB程度のメモリで実行可能です。
-スワップがあれば16GBでも何とかなるでしょう。
-\texttt{overall{\textunderscore}genus}と\texttt{semiall{\textunderscore}genus}では属以下の情報がある、つまりそれなりに分類群の情報が信頼できそうな配列を選別していますが、あまりにマイナーな分類群だとそれでは近隣配列が見つからないことがあります。
-その場合は、綱以下まで同定された配列のデータベース\texttt{overall{\textunderscore}class}か\texttt{semiall{\textunderscore}class}を使ってみて下さい。
-その他のデータベースは、\texttt{overall{\textunderscore}*}や\texttt{semiall{\textunderscore}*}よりもメモリ占有量がずっと少ないため、メモリの少ないコンピュータでも動作します。
+\texttt{overall{\textunderscore}*}は非常に巨大なため、多くのメモリを必要としますが、これらは万能なのでどんな配列にも使えますし、想定外の分類群や想定外の遺伝子座の配列の混入があってもとんでもない誤同定を避けることができます。
+\texttt{overall{\textunderscore}genus}では属以下の情報がある、つまりそれなりに分類群の情報が信頼できそうな配列を選別していますが、あまりにマイナーな分類群だとそれでは近隣配列が見つからないことがあります。
+その場合は、綱以下まで同定された配列のデータベース\texttt{overall{\textunderscore}class}を使ってみて下さい。
+その他のデータベースは、\texttt{overall{\textunderscore}*}よりもメモリ占有量がずっと少ないため、メモリの少ないコンピュータでも動作します。
 
-計算を高速化したり、BLAST検索のオプションを指定したりする場合は、以下のように記述します。
+\subsection{キャッシュデータベースの構築による高速化}
+
+\texttt{clidentseq}はBLAST検索は何度も繰り返しますが、それなりの時間と大量のメモリを必要とします。そこで、予め問い合わせ配列と類似した配列の上位1万本(設定で変更可)のヒットした部位のみをBLASTデータベースから取得してキャッシュとなるBLASTデータベースを作成しておき、\texttt{clidentseq}ではこれを対象として検索することで、劇的な高速化が可能です。これを行うのが\texttt{clmakecachedb}で、以下のように用います。
+
 \begin{cmd}
-{\textgreater} clidentseq {\textbackslash}\\
-blastn BLAST検索オプション end {\textbackslash}\\
+{\textgreater} clmakecachedb {\textbackslash}\\
 {-}{-}blastdb=overall{\textunderscore}genus {\textbackslash}\\
 {-}{-}numthreads=使用するCPU数 {\textbackslash}\\
 入力ファイル {\textbackslash}\\
-出力ファイル↓
+出力フォルダ↓
 \end{cmd}
 
-BLAST検索オプションは、デフォルトでは\texttt{-task blastn -word{\textunderscore}size 9}となっていますが、高速化する場合は\texttt{-task dc-megablast -word{\textunderscore}size 11}などとすればいいでしょう。
-さらに高速化する場合、\texttt{-word{\textunderscore}size}の値を大きくするか、\texttt{-task megablast -word{\textunderscore}size 16}とすれば、デフォルト設定よりずっと高速になりますが、見逃す配列が多くなります。
-そのため、デフォルトのQCauto法での利用は避けた方がいいでしょう。
+\texttt{clidentseq}の実行時には、\texttt{{-}{-}blastdb}オプションに上記コマンドの出力フォルダを指定することで、キャッシュデータベースが使われます。
+ただし、\texttt{clmakecachedb}と\texttt{clidentseq}の入力ファイルは同一である必要があります。
+メモリの使用量も大幅に減少しますので、\texttt{overall{\textunderscore}*}を使用してもメモリ16GB程度で済みます。
 
-問い合わせ配列のホストの可能性がある全生物が記載済みで、しかもそのバーコード配列もデータベースに登録済みである場合には、以下のようにして類似度99\%以上の上位1位(1位タイを含む)を近隣配列とすればいいでしょう。
+\subsection{参照配列データベースが全種を網羅している場合}
+
+問い合わせ配列のホストの可能性がある全生物が記載済みで、しかもそのバーコード配列も全て参照配列データベースに登録済みである場合には、以下のようにして類似度99\%以上の上位1位(1位タイを含む)を近隣配列とすればいいでしょう。
 \begin{cmd}
 {\textgreater} clidentseq {\textbackslash}\\
 blastn -task megablast -word{\textunderscore}size 16 end {\textbackslash}\\
@@ -1881,7 +2010,7 @@ supporter配列数とopposer配列数がこれを下回るような同定結果�
 そのような配列はsupporterでもopposerでもないので、2つのオプションが必要になります。
 上記の例では、近隣既知配列中、5\%までのopposer配列を許容し、opposer配列の19倍以上のsupporter配列を必要とします。
 
-\section{複数の同定結果の統合}
+\section{複数の同定結果の統合}\label{section:mergingmultipleassignment}
 
 例えば植物の\textit{rbcL}と\textit{matK}など、複数のバーコード領域を併用しなければ同定できないこともありますし、\texttt{overall{\textunderscore}genus}と\texttt{overall{\textunderscore}class}での同定結果のいいとこ取りをしたい場合があります。
 また、厳密なLCAによる同定結果と5\%までopposerを許容するLCAの同定結果の組み合わせでいいとこ取りしたい場合もあるでしょう。

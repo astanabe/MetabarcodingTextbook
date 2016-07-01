@@ -1,8 +1,8 @@
 <!DOCTYPE html><html prefix="dcterms: http://purl.org/dc/terms/">
 <head>
 <title>生態学のためのメタバーコーディングとDNAバーコーディング</title>
-<!--Generated on Thu Jun 23 01:23:16 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
-<!--Document created on June 23, 2016.-->
+<!--Generated on Fri Jul  1 18:19:45 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on July 1, 2016.-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="LaTeXML.css" type="text/css">
@@ -18,7 +18,7 @@
 <span class="ltx_personname">田辺晶史
 </span></span>
 </div>
-<div class="ltx_date ltx_role_creation">June 23, 2016</div>
+<div class="ltx_date ltx_role_creation">July 1, 2016</div>
 
 <section id="Chx1" class="ltx_chapter">
 <h2 class="ltx_title ltx_title_chapter">はじめに</h2>
@@ -575,12 +575,65 @@ Illumina MiSeqの場合は<span class="ltx_text ltx_font_typewriter">*.fastq</sp
 </div>
 <section id="Ch2.S1.SS1" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">2.1.1 </span>GSシリーズシーケンサーやIon PGMの場合</h4>
+<span class="ltx_tag ltx_tag_subsection">2.1.1 </span>SRA/DRA/ERAの登録データやdemultiplex済FASTQの変換</h4>
 
-<section id="Ch2.S1.SS1.SSSx1" class="ltx_subsubsection">
+<div id="Ch2.S1.SS1.p1" class="ltx_para">
+<p class="ltx_p">Claidentでは、配列の名前として<span class="ltx_text ltx_font_typewriter">配列ID__ランID__タグID__プライマーID</span>を、また拡張子を除いた入力ファイル名として<span class="ltx_text ltx_font_typewriter">ランID__タグID__プライマーID</span>を仮定しています。
+そのため、SRA/DRA/ERAの登録データやdemultiplex済FASTQをそのまま用いることができません。
+そこで、<span class="ltx_text ltx_font_typewriter">climportfastq</span>というコマンドを用いることで、上記の仮定を満たす入力ファイルに変換することができます。
+ペアエンドの場合は変換する前に第<a href="#Ch2.S1.SS3.SSSx3" title="フォワード配列とリバース配列の連結 ‣ 2.1.3 Illumina社シーケンサーの場合 ‣ 2.1 塩基配列データの前処理 ‣ 第2章 塩基配列データのクラスタリング ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.1.3</span></a>節の内容に従ってフィルタリングと連結を先に行っておきます。
+変換するには、以下のような入力ファイルを用意します。</p>
+</div>
+<div id="Ch2.S1.SS1.p2" class="ltx_para">
+<p class="ltx_p ltx_align_left" style="background-color:#E6E6E6;padding-top:12pt;padding-bottom:12pt;">
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| 配列ファイル名1 ランID__タグID__プライマーID</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| 配列ファイル名2 ランID__タグID__プライマーID</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| 配列ファイル名3 ランID__タグID__プライマーID</span>
+            </span>
+</p>
+</div>
+<div id="Ch2.S1.SS1.p3" class="ltx_para">
+<p class="ltx_p">ランIDは適当にでっち上げていただいて構いません。
+プライマーIDは同じプライマーを用いたファイル間で同じになるようにすれば何でも構いません。
+タグIDはファイルごとに異なるものにします。
+配列ファイル名と同じでも構いません。</p>
+</div>
+<div id="Ch2.S1.SS1.p4" class="ltx_para">
+<p class="ltx_p">上記の入力ファイルが用意できたら、以下のように<span class="ltx_text ltx_font_typewriter">climportfastq</span>を実行することで、出力フォルダに変換後のファイルが作成されます。</p>
+</div>
+<div id="Ch2.S1.SS1.p5" class="ltx_para">
+<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; climportfastq \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=CPU数 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
+            </span>
+</p>
+</div>
+<div id="Ch2.S1.SS1.p6" class="ltx_para">
+<p class="ltx_p">変換後、シングルエンドデータであれば第<a href="#Ch2.S1.SS2.SSSx3" title="低品質配列の除去 ‣ 2.1.2 GSシリーズシーケンサーやIon PGMの場合 ‣ 2.1 塩基配列データの前処理 ‣ 第2章 塩基配列データのクラスタリング ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.1.2</span></a>節に従って低品質配列の除去を行って下さい。</p>
+</div>
+</section>
+<section id="Ch2.S1.SS2" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.1.2 </span>GSシリーズシーケンサーやIon PGMの場合</h4>
+
+<section id="Ch2.S1.SS2.SSSx1" class="ltx_subsubsection">
 <h5 class="ltx_title ltx_title_subsubsection">SFFからFASTQの生成</h5>
 
-<div id="Ch2.S1.SS1.SSSx1.p1" class="ltx_para">
+<div id="Ch2.S1.SS2.SSSx1.p1" class="ltx_para">
 <p class="ltx_p">まずはSFFファイルからFASTQ形式のファイルを作成します。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; sff_extract -c SFFファイル名↓</span>
@@ -595,10 +648,10 @@ SFFファイルが<span class="ltx_text ltx_font_typewriter">HOGEHOGE.sff</span>
 逆に後述する<span class="ltx_text ltx_font_typewriter">clsplitseq</span>に与えるタグ配列の冒頭に<span class="ltx_text ltx_font_typewriter">TCAG</span>を追加していただいても構いませんが、<span class="ltx_text ltx_font_typewriter">TCAG</span>部分の品質値まで厳格にチェックされます。</p>
 </div>
 </section>
-<section id="Ch2.S1.SS1.SSSx2" class="ltx_subsubsection">
+<section id="Ch2.S1.SS2.SSSx2" class="ltx_subsubsection">
 <h5 class="ltx_title ltx_title_subsubsection">塩基配列をサンプルごとに分ける</h5>
 
-<div id="Ch2.S1.SS1.SSSx2.p1" class="ltx_para">
+<div id="Ch2.S1.SS2.SSSx2.p1" class="ltx_para">
 <p class="ltx_p">次に、タグ配列とプライマー配列に基づいてサンプルごとに配列を別々のファイルに分離(demultiplex)します。
 事前に以下のようなタグ配列を記したFASTAファイル、解読開始側プライマー配列を記したFASTAファイルがそれぞれ必要です。</p>
 <p class="ltx_p ltx_align_left" style="background-color:#E6E6E6;padding-top:12pt;padding-bottom:12pt;">
@@ -642,7 +695,7 @@ SFFファイルが<span class="ltx_text ltx_font_typewriter">HOGEHOGE.sff</span>
 </p>
 <p class="ltx_p">つまり、プライマー配列ファイルには、タグ配列と解読対象の配列の間にある配列を記述して下さい。</p>
 </div>
-<div id="Ch2.S1.SS1.SSSx2.p2" class="ltx_para">
+<div id="Ch2.S1.SS2.SSSx2.p2" class="ltx_para">
 <p class="ltx_p">これらのファイルが用意できたら、以下のコマンドで塩基配列をサンプルごとに別ファイルへ分割します。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
@@ -679,11 +732,11 @@ SFFファイルが<span class="ltx_text ltx_font_typewriter">HOGEHOGE.sff</span>
 他機種では別の値の方が良い可能性があります。
 品質値30がかなり広く使用されていますので、30にしてもいいでしょう。</p>
 </div>
-<div id="Ch2.S1.SS1.SSSx2.p3" class="ltx_para">
+<div id="Ch2.S1.SS2.SSSx2.p3" class="ltx_para">
 <p class="ltx_p">タグを利用したマルチプレックスシーケンスを行っていない場合、<span class="ltx_text ltx_font_typewriter">--tagfile</span>オプションが不要となりますが、単に省略しただけだとこの後のClaidentのコマンドで処理可能な配列ファイルが作成されません。
 そのため、ダミーでも構いませんので<span class="ltx_text ltx_font_typewriter">--indexname=タグID</span>というオプションを付加して実行して下さい。</p>
 </div>
-<div id="Ch2.S1.SS1.SSSx2.p4" class="ltx_para">
+<div id="Ch2.S1.SS2.SSSx2.p4" class="ltx_para">
 <p class="ltx_p">出力される配列からは、タグとプライマーの配列部分は除去されています。
 タグ配列部分の認識は厳密一致です。
 1塩基の読み間違いを許すなどのオプションはありません。
@@ -695,10 +748,10 @@ CPUが4個の場合、<span class="ltx_text ltx_font_typewriter">--numthreads</s
 なお、出力ファイルはGZIPで圧縮されていますので、GZIP圧縮FASTQに対応していないプログラムで読み込むには<span class="ltx_text ltx_font_typewriter">gzip -d</span>などで圧縮を解除しておく必要があります。
 これ以降のClaidentのコマンドは対応しているためそのまま使えます。</p>
 </div>
-<div id="Ch2.S1.SS1.SSSx2.p5" class="ltx_para">
+<div id="Ch2.S1.SS2.SSSx2.p5" class="ltx_para">
 <p class="ltx_p">DDBJ Sequence Read Archive (DRA)など、次世代シーケンサーの生データを登録するサイトには、ここで生成されたGZIP圧縮FASTQを登録します。</p>
 </div>
-<div id="Ch2.S1.SS1.SSSx2.p6" class="ltx_para">
+<div id="Ch2.S1.SS2.SSSx2.p6" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_bold">■数ラン分に分けて大量サンプルをシーケンスした場合　</span>
 <span class="ltx_text ltx_font_typewriter">clsplitseq</span>による処理を複数回行います。
 ただし、<span class="ltx_text ltx_font_typewriter">clsplitseq</span>は出力先フォルダが既に存在しているとエラーになり処理できません。
@@ -758,7 +811,7 @@ CPUが4個の場合、<span class="ltx_text ltx_font_typewriter">--numthreads</s
               </span>
 </p>
 </div>
-<div id="Ch2.S1.SS1.SSSx2.p7" class="ltx_para">
+<div id="Ch2.S1.SS2.SSSx2.p7" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_bold">■異なる長さのタグが混在している場合について　</span>
 <span class="ltx_text ltx_font_typewriter">clsplitseq</span>では、タグの長さは全て同一であることを仮定しています。
 その仮定を使うことで処理を高速化しています。
@@ -817,7 +870,7 @@ CPUが4個の場合、<span class="ltx_text ltx_font_typewriter">--numthreads</s
               </span>
 </p>
 </div>
-<div id="Ch2.S1.SS1.SSSx2.p8" class="ltx_para">
+<div id="Ch2.S1.SS2.SSSx2.p8" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_bold">■リバースプライマー配列の認識と除去　</span>
 これまでの手順では、リバースプライマー配列がアニールする部分の配列は除去されていません。
 これもできれば除去した方が良いでしょう。
@@ -840,7 +893,7 @@ CPUが4個の場合、<span class="ltx_text ltx_font_typewriter">--numthreads</s
 フォワードプライマーと配列数が異なるとエラーになります。
 配列順序も対応していることを仮定していますので、リバースプライマーは同一でもフォワードプライマーが異なるサンプルがある場合、それぞれ異なるプライマーIDを割り当てて両方記述する必要があります。</p>
 </div>
-<div id="Ch2.S1.SS1.SSSx2.p9" class="ltx_para">
+<div id="Ch2.S1.SS2.SSSx2.p9" class="ltx_para">
 <p class="ltx_p">ファイルが用意できたら、<span class="ltx_text ltx_font_typewriter">clsplitseq</span>を以下のように実行して下さい。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
@@ -882,14 +935,14 @@ CPUが4個の場合、<span class="ltx_text ltx_font_typewriter">--numthreads</s
 最後まで解読しきれた配列だけにしたい場合はこのオプションを付けて実行してみて下さい。</p>
 </div>
 </section>
-<section id="Ch2.S1.SS1.SSSx3" class="ltx_subsubsection">
+<section id="Ch2.S1.SS2.SSSx3" class="ltx_subsubsection">
 <h5 class="ltx_title ltx_title_subsubsection">低品質配列の除去</h5>
 
-<div id="Ch2.S1.SS1.SSSx3.p1" class="ltx_para">
+<div id="Ch2.S1.SS2.SSSx3.p1" class="ltx_para">
 <p class="ltx_p">FASTQ形式の塩基配列には、解読時のデータから推定された塩基の品質値がありますので、その情報に基づいて質の低い配列をこの時点である程度除去してしまうことができます。
 以下のように<span class="ltx_text ltx_font_typewriter">clfilterseq</span>を実行して下さい。</p>
 </div>
-<div id="Ch2.S1.SS1.SSSx3.p2" class="ltx_para">
+<div id="Ch2.S1.SS2.SSSx3.p2" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
                 <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clfilterseq \</span>
@@ -920,17 +973,17 @@ CPUが4個の場合、<span class="ltx_text ltx_font_typewriter">--numthreads</s
               </span>
 </p>
 </div>
-<div id="Ch2.S1.SS1.SSSx3.p3" class="ltx_para">
+<div id="Ch2.S1.SS2.SSSx3.p3" class="ltx_para">
 <p class="ltx_p">ここで、<span class="ltx_text ltx_font_typewriter">--minqual</span>は品質値の下限値で、終末端側からこの値以上の品質値が<span class="ltx_text ltx_font_typewriter">--minquallen</span>の値以上に連続して出現するまで配列を削っていきます。
 その上で、<span class="ltx_text ltx_font_typewriter">--minlen</span>の長さ未満の配列は除去し、<span class="ltx_text ltx_font_typewriter">--maxlen</span>より長い場合はこの値になるまで終末端を削ります。
 残った配列において、<span class="ltx_text ltx_font_typewriter">--minqual</span>未満の配列が<span class="ltx_text ltx_font_typewriter">--maxplowqual</span>の割合より多い場合はその配列は除去します。
 通常は出力はファイルになりますが、<span class="ltx_text ltx_font_typewriter">--output=folder</span>というオプションを与えた場合はフォルダを作成して入力ファイルと同じ名前のファイルに出力します。
 既存のフォルダに出力する場合は<span class="ltx_text ltx_font_typewriter">--append</span>を追加して下さい。</p>
 </div>
-<div id="Ch2.S1.SS1.SSSx3.p4" class="ltx_para">
+<div id="Ch2.S1.SS2.SSSx3.p4" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_typewriter">clsplitseq</span>の出力フォルダ内の全配列ファイルに対して同じ処理を行う場合は、以下のようなコマンドを実行して下さい。</p>
 </div>
-<div id="Ch2.S1.SS1.SSSx3.p5" class="ltx_para">
+<div id="Ch2.S1.SS2.SSSx3.p5" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
                 <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; for f in clsplitseqの出力フォルダ/*.fastq.gz↓</span>
@@ -975,25 +1028,25 @@ CPUが4個の場合、<span class="ltx_text ltx_font_typewriter">--numthreads</s
 </div>
 </section>
 </section>
-<section id="Ch2.S1.SS2" class="ltx_subsection">
+<section id="Ch2.S1.SS3" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">2.1.2 </span>Illumina社シーケンサーの場合</h4>
+<span class="ltx_tag ltx_tag_subsection">2.1.3 </span>Illumina社シーケンサーの場合</h4>
 
-<section id="Ch2.S1.SS2.SSSx1" class="ltx_subsubsection">
+<section id="Ch2.S1.SS3.SSSx1" class="ltx_subsubsection">
 <h5 class="ltx_title ltx_title_subsubsection">BCLからFASTQの生成</h5>
 
-<div id="Ch2.S1.SS2.SSSx1.p1" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx1.p1" class="ltx_para">
 <p class="ltx_p">Illumina社のシーケンサーでは、標準でdemultiplexする機能がありますが、タグ配列部分の品質値を一切見ていないため、タグ配列の品質が低い配列がファイルに含まれています。
 このため、生データであるBCLファイルから、Illuminaが配布しているbcl2fastq (1.x系と2.x系はどちらでも構いません)を用いて、demultiplexしていないFASTQ配列を生成し、<span class="ltx_text ltx_font_typewriter">clsplitseq</span>でdemultiplexを行います。
 bcl2fastqのインストールは付録に書きましたのでそちらを参照願います。
 また、Illumina社のシーケンサーでは300bpのシーケンスでは301bp (150bpのシーケンスでは151bp)のデータが出力されるため、末尾の1塩基は除去する必要があります(何故最初から1塩基除いたデータを出力してくれないのかは知りません)。
 下記の例ではbcl2fastqでFASTQ配列生成の際に除去するようになっています。</p>
 </div>
-<div id="Ch2.S1.SS2.SSSx1.p2" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx1.p2" class="ltx_para">
 <p class="ltx_p">まず、シーケンサー付属マシンからBaseCallsフォルダを含むランデータフォルダをまるごとbcl2fastqをインストールしたPCへコピーします。
 なお、BaseCallsフォルダ内またはランデータフォルダ内に<span class="ltx_text ltx_font_typewriter">SampleSheet.csv</span>が存在する場合は、これをリネームしておく必要があります。</p>
 </div>
-<div id="Ch2.S1.SS2.SSSx1.p3" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx1.p3" class="ltx_para">
 <p class="ltx_p">次に、bcl2fastqの1.x系では以下のようにコマンドを実行します。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
@@ -1027,7 +1080,7 @@ ClaidentはGZIPで圧縮されたFASTQをそのまま扱えるため、圧縮し
 Single Indexの場合や、片側からしか解読していない場合は<span class="ltx_text ltx_font_typewriter">--use-bases-mask</span>オプションを適宜変更する必要があります。
 Single Index (長さ6bp)で片側250bpの解読を行った場合は<span class="ltx_text ltx_font_typewriter">--use-bases-mask Y250n,Y6</span>となり、Dual Index (長さ各8bp)で片側300bpの場合は<span class="ltx_text ltx_font_typewriter">--use-bases-mask Y300n,Y8,Y8</span>となります。</p>
 </div>
-<div id="Ch2.S1.SS2.SSSx1.p4" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx1.p4" class="ltx_para">
 <p class="ltx_p">bcl2fastqの2.x系を使用している場合は以下のようにコマンドを実行します。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
@@ -1053,10 +1106,10 @@ CPUが16個あるPCで専有できるなら16を指定して下さい。
 1.xでは<span class="ltx_text ltx_font_typewriter">--input-dir</span>にBaseCallsフォルダを指定していましたが、2.xでは指定方法が異なりますので注意して下さい。</p>
 </div>
 </section>
-<section id="Ch2.S1.SS2.SSSx2" class="ltx_subsubsection">
+<section id="Ch2.S1.SS3.SSSx2" class="ltx_subsubsection">
 <h5 class="ltx_title ltx_title_subsubsection">塩基配列をサンプルごとに分ける</h5>
 
-<div id="Ch2.S1.SS2.SSSx2.p1" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx2.p1" class="ltx_para">
 <p class="ltx_p">FASTQファイルができたら、タグ配列とプライマー配列に基づいてサンプルごとに配列を別々のファイルに分離(demultiplex)します。
 事前に以下のようなタグ配列を記したFASTAファイル、解読開始側プライマー配列を記したFASTAファイルがそれぞれ必要です。
 ペアエンドの場合は、当然リバース側の配列を記したファイルも必要です。</p>
@@ -1095,7 +1148,7 @@ CPUが16個あるPCで専有できるなら16を指定して下さい。
 なお、プライマーの前に<span class="ltx_text ltx_font_typewriter">NNNNNN</span>を付加した場合は、それも含めてプライマーを記述して下さい。
 サンプルごとに<span class="ltx_text ltx_font_typewriter">N</span>の長さを変化させている場合は最も長い場合だけを記述して下さい。</p>
 </div>
-<div id="Ch2.S1.SS2.SSSx2.p2" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx2.p2" class="ltx_para">
 <p class="ltx_p">これらのファイルが用意できたら、以下のコマンドで塩基配列をサンプルごとに別ファイルへ分割します。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
@@ -1148,26 +1201,237 @@ CPUが16個あるPCで専有できるなら16を指定して下さい。
 処理が終わったら、各ファイルの配列数を確認し、Illumina純正のプログラムでdemultiplexしたファイルの配列数と比較して下さい。
 正しく処理できていれば、全てIllumina純正プログラムで処理した場合より少なくなっているはずです。</p>
 </div>
-<div id="Ch2.S1.SS2.SSSx2.p3" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx2.p3" class="ltx_para">
 <p class="ltx_p">本来のプライマー配列をシーケンスプライマーとして用いた場合、データ配列にはプライマー配列に当たる部位が含まれていません。
 この場合は<span class="ltx_text ltx_font_typewriter">--primerfile</span>と<span class="ltx_text ltx_font_typewriter">--reverseprimerfile</span>オプションが必要ないわけですが、配列の名前をこの後のClaidentのコマンドで処理可能な形式とするためにオプションとして<span class="ltx_text ltx_font_typewriter">--primername=プライマーID</span>を付加して実行して下さい。
 ダミーでも構いません。</p>
 </div>
-<div id="Ch2.S1.SS2.SSSx2.p4" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx2.p4" class="ltx_para">
 <p class="ltx_p">タグを利用したマルチプレックスシーケンスを行っていない場合、<span class="ltx_text ltx_font_typewriter">--index1file</span>と<span class="ltx_text ltx_font_typewriter">--index2file</span>オプションが不要となりますが、単に省略しただけだとこの後のClaidentのコマンドで処理可能な配列ファイルが作成されません。
 そのため、ダミーでも構いませんので<span class="ltx_text ltx_font_typewriter">--indexname=タグID</span>というオプションを付加して実行して下さい。</p>
 </div>
-<div id="Ch2.S1.SS2.SSSx2.p5" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx2.p5" class="ltx_para">
 <p class="ltx_p">出力されるファイルは<span class="ltx_text ltx_font_typewriter">ランID__タグID__プライマーID.forward.fastq.gz</span>と<span class="ltx_text ltx_font_typewriter">ランID__タグID__プライマーID.reverse.fastq.gz</span>になります。
 DDBJ Sequence Read Archive (DRA)など、次世代シーケンサーの生データを登録するサイトには、ここで生成されたGZIP圧縮FASTQを登録します。
 なお、DRAへの登録では配列の長さが揃っているかどうかを指定する箇所がありますが、長さが可変のプライマー部位の配列を除去していますから揃っていません(プライマーセットが1つであってもアライメント時にギャップが入る可能性があるため揃わない)ので誤って揃っていると指定しないようにして下さい。</p>
 </div>
 </section>
-<section id="Ch2.S1.SS2.SSSx3" class="ltx_subsubsection">
+<section id="Ch2.S1.SS3.SSSx3" class="ltx_subsubsection">
 <h5 class="ltx_title ltx_title_subsubsection">フォワード配列とリバース配列の連結</h5>
 
-<div id="Ch2.S1.SS2.SSSx3.p1" class="ltx_para">
-<p class="ltx_p">フォワード配列とリバース配列にオーバーラップがある場合には、PEAR <cite class="ltx_cite"><a href="#bib.bib19" title="" class="ltx_ref">(Zhang <span class="ltx_text ltx_font_italic">et al</span>., 2014)</a></cite>またはVSEARCHを用いて連結します。
+<div id="Ch2.S1.SS3.SSSx3.p1" class="ltx_para">
+<p class="ltx_p">ペアエンドでシーケンスを行った場合には、<span class="ltx_text ltx_font_typewriter">clconcatpair</span>を用いてフォワード配列とリバース配列を連結します。
+フォワード配列とリバース配列にオーバーラップがある場合には、以下のように実行することでVSEARCHを呼び出して連結します。</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p2" class="ltx_para">
+<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clconcatpair \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--mode=OVL \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力フォルダ \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
+              </span>
+</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p3" class="ltx_para">
+<p class="ltx_p">以上のコマンドでは、入力フォルダから<span class="ltx_text ltx_font_typewriter">*.forward.fastq</span>と<span class="ltx_text ltx_font_typewriter">*.reverse.fastq</span>を探しだして自動的に連結します。
+末尾に<span class="ltx_text ltx_font_typewriter">.gz</span>や<span class="ltx_text ltx_font_typewriter">.bz2</span>が付く圧縮ファイルでも構いません。
+出力ファイルは指定したフォルダ内に<span class="ltx_text ltx_font_typewriter">*.fastq.gz</span>として作成されます。</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p4" class="ltx_para">
+<p class="ltx_p">入力ファイル名が<span class="ltx_text ltx_font_typewriter">*.forward.fastq</span>と<span class="ltx_text ltx_font_typewriter">*.reverse.fastq</span>になっていない場合は、以下のように実行することで1組のファイルの配列を連結可能です。</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p5" class="ltx_para">
+<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clconcatpair \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--mode=OVL \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル2 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力ファイル↓</span>
+              </span>
+</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p6" class="ltx_para">
+<p class="ltx_p">入力ファイル1にフォワード配列のFASTQファイル、入力ファイル2にリバース配列のFASTQファイルを指定して下さい。出力ファイルは末尾に<span class="ltx_text ltx_font_typewriter">.gz</span>や<span class="ltx_text ltx_font_typewriter">.bz2</span>を付けないと自動的に圧縮はされません。</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p7" class="ltx_para">
+<p class="ltx_p">また、フォワード配列とリバース配列間にオーバーラップがない場合や、あるものとないものが入り混じっている場合には、先に以下のように<span class="ltx_text ltx_font_typewriter">clfilterseq</span>を用いて低品質部位のトリミングや低品質配列の除去を行います。</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p8" class="ltx_para">
+<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clfilterseq \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minqual=30 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minquallen=3 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minlen=100 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--maxplowqual=0.1 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル2 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
+              </span>
+</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p9" class="ltx_para">
+<p class="ltx_p">ここで、<span class="ltx_text ltx_font_typewriter">--minqual</span>は品質値の下限値で、終末端側からこの値以上の品質値が<span class="ltx_text ltx_font_typewriter">--minquallen</span>の値以上に連続して出現するまで配列を削っていきます。
+その上で、<span class="ltx_text ltx_font_typewriter">--minlen</span>の長さ未満の配列は除去します。
+残った配列において、<span class="ltx_text ltx_font_typewriter">--minqual</span>未満の配列が<span class="ltx_text ltx_font_typewriter">--maxplowqual</span>の割合より多い場合はその配列は除去します。
+この処理では、ペアエンドのどちらか一方でも除去される場合、ペアとなるもう一方も除去します。
+出力はフォルダを作成して入力ファイルと同じ名前のファイルになります。
+既存のフォルダに出力する場合は<span class="ltx_text ltx_font_typewriter">--append</span>を追加して下さい。
+フォルダ内の全ての<span class="ltx_text ltx_font_typewriter">*.forward.fastq</span>と<span class="ltx_text ltx_font_typewriter">*.reverse.fastq</span>に適用する場合は、以下のように実行して下さい。</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p10" class="ltx_para">
+<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; for f in `ls *.forward.fastq.gz | grep -P -o '^[^\.]+'`↓</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">do clfilterseq \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minqual=30 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minquallen=3 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minlen=100 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--maxplowqual=0.1 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">$f.forward.fastq.gz \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">$f.reverse.fastq.gz \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">done↓</span>
+              </span>
+</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p11" class="ltx_para">
+<p class="ltx_p">このように低品質配列を除去した後、以下のように<span class="ltx_text ltx_font_typewriter">clconcatpair</span>を用いて連結を行います。</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p12" class="ltx_para">
+<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clconcatpair \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--mode=NON \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力フォルダ \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
+              </span>
+</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p13" class="ltx_para">
+<p class="ltx_p">この方法では、以下のようなフォワード配列とリバース配列を入力として仮定します。</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p14" class="ltx_para">
+<p class="ltx_p ltx_align_left" style="border-left:0.5em solid #000000;padding:0.5em 1em 0.5em 1em;">
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">5' ― フォワード配列 ― 3'</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">5' ― リバース配列 ― 3'</span>
+              </span>
+</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p15" class="ltx_para">
+<p class="ltx_p">これらの配列を、<span class="ltx_text ltx_font_typewriter">clconcatpair --mode=NON</span>では以下のように連結します。</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p16" class="ltx_para">
+<p class="ltx_p ltx_align_left" style="border-left:0.5em solid #000000;padding:0.5em 1em 0.5em 1em;">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">3' ― リバース配列(逆相補) ― 5' ― ACGTACGTTGCATGCA ― 5' ― フォワード配列 ― 3'</span>
+            </p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p17" class="ltx_para">
+<p class="ltx_p">ノイジー配列とキメラ配列の除去はそのまま通常の連結したペアエンドデータと全く同様に行い、配列のクラスタリングに用いる<span class="ltx_text ltx_font_typewriter">clclassseqv</span>と代表配列への生配列のマッピングを行う<span class="ltx_text ltx_font_typewriter">clrecoverseqv</span>の実行時に<span class="ltx_text ltx_font_typewriter">--paddinglen=16</span>を加えて実行します。
+上記の連結では、連結点を後から識別できるように人工配列である<span class="ltx_text ltx_font_typewriter">ACGTACGTTGCATGCA</span>を加えているため、配列の類似度が過大になってしまいます。
+そこで、完全一致するはずの<span class="ltx_text ltx_font_typewriter">ACGTACGTTGCATGCA</span>の長さ分を配列の類似度計算から除外することで正しい配列類似度に基づくクラスタリングを行います。</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p18" class="ltx_para">
+<p class="ltx_p">ホスト生物の同定をする際には、<span class="ltx_text ltx_font_typewriter">ACGTACGTTGCATGCA</span>を探して配列を分割し、フォワード配列とリバース配列で別々に同定し、第<a href="#Ch3.S3" title="3.3 複数の同定結果の統合 ‣ 第3章 DNAバーコーディングによる配列のホスト生物同定 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.3</span></a>節の内容に従って2つの同定結果を統合します。
+一般にフォワード配列の方が品質が高いはずですので、何も事前情報がない場合はフォワード配列に基づく同定結果を優先する設定で統合するのが良いでしょう。
+配列の分割は<span class="ltx_text ltx_font_typewriter">cldivseq</span>を以下のように実行することで行えます。</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p19" class="ltx_para">
+<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt;cldivseq \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--query=ACGTACGTTGCATGCA \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力ファイル1 \</span>
+              </span>
+<span class="ltx_p ltx_align_left">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力ファイル2</span>
+              </span>
+</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p20" class="ltx_para">
+<p class="ltx_p">出力ファイル1がリバース配列の逆相補配列、出力ファイル2がフォワード配列になります。</p>
+</div>
+<div id="Ch2.S1.SS3.SSSx3.p21" class="ltx_para">
+<p class="ltx_p">フォワード配列とリバース配列にオーバーラップがある場合には、PEAR <cite class="ltx_cite"><a href="#bib.bib19" title="" class="ltx_ref">(Zhang <span class="ltx_text ltx_font_italic">et al</span>., 2014)</a></cite>またはVSEARCHを用いて連結することもできます。
 PEARの場合はdemultiplexした配列ファイルのあるフォルダで、以下のコマンドを実行して下さい。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
@@ -1238,10 +1502,10 @@ PEARの場合はdemultiplexした配列ファイルのあるフォルダで、�
 <p class="ltx_p">この後で使用するのは<span class="ltx_text ltx_font_typewriter">ランID__タグID__プライマーID.assembled.fastq</span>だけです。
 また、出力は圧縮されていないため、ディスク容量の節約のためにも圧縮しておいた方がいいかもしれません。</p>
 </div>
-<div id="Ch2.S1.SS2.SSSx3.p2" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx3.p22" class="ltx_para">
 <p class="ltx_p">なお、フォルダ内の全てのファイルに対してPEARによる連結を連続して行うには、以下のようなコマンドをお使い下さい。</p>
 </div>
-<div id="Ch2.S1.SS2.SSSx3.p3" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx3.p23" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
                 <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; for f in `ls *.forward.fastq.gz | grep -P -o '^[^\.]+'`↓</span>
@@ -1272,10 +1536,10 @@ PEARの場合はdemultiplexした配列ファイルのあるフォルダで、�
               </span>
 </p>
 </div>
-<div id="Ch2.S1.SS2.SSSx3.p4" class="ltx_para">
-<p class="ltx_p">VSEARCHを用いて連結する場合には以下のようにコマンドを実行して下さい。</p>
+<div id="Ch2.S1.SS3.SSSx3.p24" class="ltx_para">
+<p class="ltx_p">直接VSEARCHを用いて連結する場合には以下のようにコマンドを実行して下さい。</p>
 </div>
-<div id="Ch2.S1.SS2.SSSx3.p5" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx3.p25" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
                 <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; vsearch \</span>
@@ -1297,7 +1561,7 @@ PEARの場合はdemultiplexした配列ファイルのあるフォルダで、�
               </span>
 </p>
 </div>
-<div id="Ch2.S1.SS2.SSSx3.p6" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx3.p26" class="ltx_para">
 <p class="ltx_p">増幅産物長が解読長よりも短い場合、フォワード配列の読み終わりがリバース配列の読み始めを超えてしまったりリバース配列の読み終わりがフォワード配列の読み始めを超えてしまいますが、デフォルトではそのような配列が連結されません。
 <span class="ltx_text ltx_font_typewriter">--fastq_allowmergestagger</span>はこれを許して連結するオプションです。
 反対側の読み始めを超えてしまったオーバーハング部分は人工配列なので切り捨てられます。
@@ -1306,10 +1570,10 @@ PEARでは<span class="ltx_text ltx_font_typewriter">--fastq_allowmergestagger</
 PEARと同様に連結できなかった配列を得たい場合は<span class="ltx_text ltx_font_typewriter">--fastqout_notmerged_fwd</span>オプションと<span class="ltx_text ltx_font_typewriter">--fastqout_notmerged_rev</span>オプションに保存先のファイル名を指定して下さい。
 そのほか、最小オーバーラップ長を<span class="ltx_text ltx_font_typewriter">--fastq_minovlen</span>で、連結後の最小・最大配列長を<span class="ltx_text ltx_font_typewriter">--fastq_minmergelen</span>・<span class="ltx_text ltx_font_typewriter">--fastq_maxmergelen</span>で、オーバーラップ中の最大許容不一致数を<span class="ltx_text ltx_font_typewriter">--fastq_maxdiffs</span>で、連結後の最大許容期待エラー数を<span class="ltx_text ltx_font_typewriter">--fastq_maxee</span>で指定できます。</p>
 </div>
-<div id="Ch2.S1.SS2.SSSx3.p7" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx3.p27" class="ltx_para">
 <p class="ltx_p">フォルダ内の全てのファイルに対してVSEARCHによる連結を連続して行うには、以下のようなコマンドをお使い下さい。</p>
 </div>
-<div id="Ch2.S1.SS2.SSSx3.p8" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx3.p28" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
                 <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; for f in `ls *.forward.fastq.gz | grep -P -o '^[^\.]+'`↓</span>
@@ -1338,14 +1602,14 @@ PEARと同様に連結できなかった配列を得たい場合は<span class="
 </p>
 </div>
 </section>
-<section id="Ch2.S1.SS2.SSSx4" class="ltx_subsubsection">
+<section id="Ch2.S1.SS3.SSSx4" class="ltx_subsubsection">
 <h5 class="ltx_title ltx_title_subsubsection">低品質配列の除去</h5>
 
-<div id="Ch2.S1.SS2.SSSx4.p1" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx4.p1" class="ltx_para">
 <p class="ltx_p">FASTQ形式の塩基配列には、解読時のデータから推定された塩基の品質値がありますので、その情報に基づいて質の低い配列をこの時点である程度除去してしまうことができます。
 以下のように<span class="ltx_text ltx_font_typewriter">clfilterseq</span>を実行して下さい。</p>
 </div>
-<div id="Ch2.S1.SS2.SSSx4.p2" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx4.p2" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
                 <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clfilterseq \</span>
@@ -1367,7 +1631,7 @@ PEARと同様に連結できなかった配列を得たい場合は<span class="
               </span>
 </p>
 </div>
-<div id="Ch2.S1.SS2.SSSx4.p3" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx4.p3" class="ltx_para">
 <p class="ltx_p">このコマンドでは、入力配列において<span class="ltx_text ltx_font_typewriter">--minqual</span>未満の配列が<span class="ltx_text ltx_font_typewriter">--maxplowqual</span>の割合より多い場合はその配列を除去します。
 通常は出力はファイルになりますが、<span class="ltx_text ltx_font_typewriter">--output=folder</span>というオプションを与えた場合はフォルダを作成して入力ファイルと同じ名前のファイルに出力します。
 既存のフォルダに出力する場合は<span class="ltx_text ltx_font_typewriter">--append</span>を追加して下さい。
@@ -1376,10 +1640,10 @@ Illuminaでペアエンドを連結した場合は、両端は品質値が高く
 もちろん、既存のFASTQの品質確認を行うプログラムを利用されてもいいと思います。
 そのようなプログラムとしては、FastQC <cite class="ltx_cite"><a href="#bib.bib2" title="" class="ltx_ref">(Andrews, 2010)</a></cite>やPRINSEQ <cite class="ltx_cite"><a href="#bib.bib16" title="" class="ltx_ref">(Schmieder and Edwards, 2011)</a></cite>があります。</p>
 </div>
-<div id="Ch2.S1.SS2.SSSx4.p4" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx4.p4" class="ltx_para">
 <p class="ltx_p">PEARで連結した全配列ファイルに対して同じ処理を行う場合は、以下のようなコマンドを実行して下さい。</p>
 </div>
-<div id="Ch2.S1.SS2.SSSx4.p5" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx4.p5" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
                 <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; for f in clsplitseqの出力フォルダ/*.assembled.fastq↓</span>
@@ -1413,11 +1677,11 @@ Illuminaでペアエンドを連結した場合は、両端は品質値が高く
               </span>
 </p>
 </div>
-<div id="Ch2.S1.SS2.SSSx4.p6" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx4.p6" class="ltx_para">
 <p class="ltx_p">VSEARCHの機能を用いて、品質値に基づいた配列全体での期待エラー数に上限を設定したフィルタリングも可能です。
 これは以下のようなコマンドで適用できます。</p>
 </div>
-<div id="Ch2.S1.SS2.SSSx4.p7" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx4.p7" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
                 <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; vsearch \</span>
@@ -1436,35 +1700,35 @@ Illuminaでペアエンドを連結した場合は、両端は品質値が高く
               </span>
 </p>
 </div>
-<div id="Ch2.S1.SS2.SSSx4.p8" class="ltx_para">
+<div id="Ch2.S1.SS3.SSSx4.p8" class="ltx_para">
 <p class="ltx_p">片側だけのシーケンスデータや、連結していないデータの場合は、Roche GSシリーズシーケンサやIon PGMの場合と同様の処理を行えばいいと思います。
-第<a href="#Ch2.S1.SS1.SSSx3" title="低品質配列の除去 ‣ 2.1.1 GSシリーズシーケンサーやIon PGMの場合 ‣ 2.1 塩基配列データの前処理 ‣ 第2章 塩基配列データのクラスタリング ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.1.1</span></a>節をご参照下さい。
+第<a href="#Ch2.S1.SS2.SSSx3" title="低品質配列の除去 ‣ 2.1.2 GSシリーズシーケンサーやIon PGMの場合 ‣ 2.1 塩基配列データの前処理 ‣ 第2章 塩基配列データのクラスタリング ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.1.2</span></a>節をご参照下さい。
 ただし、品質値や長さの閾値は適宜変更する必要があると思います。</p>
 </div>
 </section>
 </section>
-<section id="Ch2.S1.SS3" class="ltx_subsection">
+<section id="Ch2.S1.SS4" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">2.1.3 </span>同じ鋳型を複数回PCRまたは複数回シーケンスした場合について</h4>
+<span class="ltx_tag ltx_tag_subsection">2.1.4 </span>同じ鋳型を複数回PCRまたは複数回シーケンスした場合について</h4>
 
-<div id="Ch2.S1.SS3.p1" class="ltx_para">
+<div id="Ch2.S1.SS4.p1" class="ltx_para">
 <p class="ltx_p">キメラ配列はPCRによって生成されますので、同一PCR由来配列なのか、異なるPCR由来配列なのかをプログラムに正しく認識させなくてはなりません。
 そのため、同じ鋳型を複数回PCRまたは複数回シーケンスした場合には、プログラムがデータを正しく扱えるようにいくつかの操作が必要になります。
 なお、ここでは、Nested PCRや、増幅のためのPCRとタグ配列付加のためのPCRはまとめて1回と数えることに注意して下さい。
 つまり、ここで「複数回PCR」とは、「増幅産物を鋳型にしてさらにPCRで増幅する」ことではなく、「同じ鋳型を使用したPCR」を複数回行うことです。</p>
 </div>
-<section id="Ch2.S1.SS3.SSSx1" class="ltx_subsubsection">
+<section id="Ch2.S1.SS4.SSSx1" class="ltx_subsubsection">
 <h5 class="ltx_title ltx_title_subsubsection">同じ鋳型を複数回PCRして同じタグ配列を付加して同じランでシーケンスした場合</h5>
 
-<div id="Ch2.S1.SS3.SSSx1.p1" class="ltx_para">
+<div id="Ch2.S1.SS4.SSSx1.p1" class="ltx_para">
 <p class="ltx_p">実験デザインが間違っており、複数回PCRを活かしたキメラ検出・除去は行えません。
 通常の1回のPCRと同様にしか扱えません。</p>
 </div>
 </section>
-<section id="Ch2.S1.SS3.SSSx2" class="ltx_subsubsection">
+<section id="Ch2.S1.SS4.SSSx2" class="ltx_subsubsection">
 <h5 class="ltx_title ltx_title_subsubsection">同じ鋳型を複数回PCRして別のタグ配列を付加して同じランでシーケンスした場合</h5>
 
-<div id="Ch2.S1.SS3.SSSx2.p1" class="ltx_para">
+<div id="Ch2.S1.SS4.SSSx2.p1" class="ltx_para">
 <p class="ltx_p">ClaidentではサンプルID=ランID__タグID__プライマーIDですから、同じ鋳型由来のサンプルが複数存在するデータとなります。
 わざと別サンプルのままにしておいて、1つ以上のサンプルで出現しないOTUはキメラや読み間違い(PCRの合成ミスも含む)のある配列と判断するというのも良い考えだと思います。
 ただ、キメラの生成や読み間違いがランダムであればこれはベストな方法でしょうが、できやすいキメラや起きやすい読み間違いというものがもしあれば(あるはずです)、同一のキメラ配列・読み間違いのある配列が全サンプルに出現する可能性があります。
@@ -1474,10 +1738,10 @@ Illuminaでペアエンドを連結した場合は、両端は品質値が高く
 サンプルごとの各OTUの配列数の集計表をこの後で作成しますが、集計表の加工コマンド<span class="ltx_text ltx_font_typewriter">clfiltersum</span>により複数のサンプルを統合して1サンプルにすることが可能です(各OTUの配列数は和になります)。</p>
 </div>
 </section>
-<section id="Ch2.S1.SS3.SSSx3" class="ltx_subsubsection">
+<section id="Ch2.S1.SS4.SSSx3" class="ltx_subsubsection">
 <h5 class="ltx_title ltx_title_subsubsection">同じ鋳型を1回PCRして同じタグ配列を付加して複数のランでシーケンスした場合</h5>
 
-<div id="Ch2.S1.SS3.SSSx3.p1" class="ltx_para">
+<div id="Ch2.S1.SS4.SSSx3.p1" class="ltx_para">
 <p class="ltx_p">1回のランでは、たまたま得られる配列が少ないことがあります。
 そのため同一サンプルを複数のランでシーケンスし、全ランのデータを使いたいことがあります。
 ClaidentではサンプルID=ランID__タグID__プライマーIDですから、同じ鋳型由来のサンプルが複数存在するデータとなります。
@@ -1486,10 +1750,10 @@ ClaidentではサンプルID=ランID__タグID__プライマーIDですから�
 そして、サンプルごとの各OTUの配列数の集計表を作成する際に複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。
 後者の方法では旧パイプラインによる解析でサンプルごとにキメラ検出を行うことが可能ですが、それ以外特にメリットはありません。</p>
 </div>
-<div id="Ch2.S1.SS3.SSSx3.p2" class="ltx_para">
+<div id="Ch2.S1.SS4.SSSx3.p2" class="ltx_para">
 <p class="ltx_p">同じ鋳型由来の複数サンプルを別サンプルのまま解析を進めた場合、サンプルごとの各OTUの配列数の集計表を作成後に集計表の加工コマンド<span class="ltx_text ltx_font_typewriter">clfiltersum</span>により複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。</p>
 </div>
-<div id="Ch2.S1.SS3.SSSx3.p3" class="ltx_para">
+<div id="Ch2.S1.SS4.SSSx3.p3" class="ltx_para">
 <p class="ltx_p">同じ鋳型由来の複数サンプルを1つのサンプルに統合してからこの後の解析に進む場合は、以下のように処理して下さい。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
@@ -1528,24 +1792,24 @@ ClaidentではサンプルID=ランID__タグID__プライマーIDですから�
 </p>
 <p class="ltx_p">このように<span class="ltx_text ltx_font_typewriter">--runname</span>オプションでランIDを置換し、2つの入力ファイルのラン名を同一にしてやることで、2つのファイルからの同一サンプルからの配列が<span class="ltx_text ltx_font_typewriter">HOGEHOGE__タグID__プライマーID.fastq.gz</span>という1つのファイルに書き出されます。</p>
 </div>
-<div id="Ch2.S1.SS3.SSSx3.p4" class="ltx_para">
+<div id="Ch2.S1.SS4.SSSx3.p4" class="ltx_para">
 <p class="ltx_p">ClaidentではランIDとタグIDとプライマーIDが同じなら、同一PCR産物=同一サンプルの配列として扱います。
 PCRが1回でタグ配列ファイルとプライマー配列ファイルが同じなら、当然タグIDとプライマーIDは同じになっているはずですので、ランIDも同じにしてしまうことで、同一PCR産物の配列として認識させることができるようになります。</p>
 </div>
 </section>
-<section id="Ch2.S1.SS3.SSSx4" class="ltx_subsubsection">
+<section id="Ch2.S1.SS4.SSSx4" class="ltx_subsubsection">
 <h5 class="ltx_title ltx_title_subsubsection">同じ鋳型を複数回PCRして同じタグ配列を付加して別々のランでシーケンスした場合</h5>
 
-<div id="Ch2.S1.SS3.SSSx4.p1" class="ltx_para">
+<div id="Ch2.S1.SS4.SSSx4.p1" class="ltx_para">
 <p class="ltx_p">複数ラン分の配列ファイルがあるはずですので、<span class="ltx_text ltx_font_typewriter">clsplitseq</span>によるサンプルごとの配列の分別と<span class="ltx_text ltx_font_typewriter">clfilterseq</span>による低品質配列の除去を別々に実行し、別々のフォルダに出力します。
 この後のノイジー配列とキメラ配列の除去も別々に行い、クラスタリングの際に複数ラン分のデータをまとめて入力ファイルとして与えて下さい。
 そして、サンプルごとの各OTUの配列数の集計表を作成する際に複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。</p>
 </div>
 </section>
-<section id="Ch2.S1.SS3.SSSx5" class="ltx_subsubsection">
+<section id="Ch2.S1.SS4.SSSx5" class="ltx_subsubsection">
 <h5 class="ltx_title ltx_title_subsubsection">同じ鋳型を複数回PCRして異なるタグ配列を付加して別々のランでシーケンスした場合</h5>
 
-<div id="Ch2.S1.SS3.SSSx5.p1" class="ltx_para">
+<div id="Ch2.S1.SS4.SSSx5.p1" class="ltx_para">
 <p class="ltx_p">1回のランでは、たまたま得られる配列が少ないことがあります。
 そのため同一サンプルを複数のランでシーケンスし、全ランのデータを使いたいことがあります。
 ClaidentではサンプルID=ランID__タグID__プライマーIDですから、同じ鋳型由来のサンプルが複数存在するデータとなります。
@@ -1553,7 +1817,7 @@ ClaidentではサンプルID=ランID__タグID__プライマーIDですから�
 別サンプルのまま処理を進め、ノイジー配列とキメラ配列の除去の際に「同じ鋳型由来の複数のPCR産物に共通に出現しない塩基配列はキメラもしくはノイジー配列とみなす」方法を適用することを推奨します。
 そして、サンプルごとの各OTUの配列数の集計表を作成する際に複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。</p>
 </div>
-<div id="Ch2.S1.SS3.SSSx5.p2" class="ltx_para">
+<div id="Ch2.S1.SS4.SSSx5.p2" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_typewriter">clsplitseq</span>は、複数の配列ファイルがあるはずですので以下のように実行して下さい。
 ここではファイルが2つの場合を示します。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
@@ -3921,78 +4185,77 @@ BioSampleへの登録はBioSample Handbook
 </div>
 </dd>
 </dl>
-<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">overall_*</span>と<span class="ltx_text ltx_font_typewriter">semiall_*</span>は非常に巨大なため、多くのメモリを必要とします。
-<span class="ltx_text ltx_font_typewriter">overall_*</span>で20GB、<span class="ltx_text ltx_font_typewriter">semiall_*</span>で10GBです。
-これらは万能なのでどんな配列にも使えますし、想定外の分類群や想定外の遺伝子座の配列の混入があってもとんでもない誤同定を避けることができます。
-しかしメモリ要求量が多いため、多くのCPUを使用しようとしてBLASTをたくさん起動すると、起動したBLAST数だけさらにメモリを多く必要とします。
-つまり、<span class="ltx_text ltx_font_typewriter">overall_*</span>を使ったBLAST検索で4つのCPUを使うには、80GBものメモリが必要になります。
-ただし、BLASTではメモリ不足でHDDやSSDにスワップしてしまってもそれほど遅くならないので、64GB程度のメモリと大きめのスワップ領域があれば実行可能です。
-また、<span class="ltx_text ltx_font_typewriter">--numthreads=4 --hyperthreads=2</span>というオプションを使うと、BLASTを2つ起動して、2つのBLASTそれぞれに2つのCPUを使わせます。
-この場合は必要なメモリは<span class="ltx_text ltx_font_typewriter">overall_*</span>で40GB程度に減少します。
-スワップがあれば32GBでも実行可能だと思います。
-<span class="ltx_text ltx_font_typewriter">--numthreads=4 --hyperthreads=4</span>とすれば、<span class="ltx_text ltx_font_typewriter">overall_*</span>でも20GB程度のメモリで実行可能です。
-スワップがあれば16GBでも何とかなるでしょう。
-<span class="ltx_text ltx_font_typewriter">overall_genus</span>と<span class="ltx_text ltx_font_typewriter">semiall_genus</span>では属以下の情報がある、つまりそれなりに分類群の情報が信頼できそうな配列を選別していますが、あまりにマイナーな分類群だとそれでは近隣配列が見つからないことがあります。
-その場合は、綱以下まで同定された配列のデータベース<span class="ltx_text ltx_font_typewriter">overall_class</span>か<span class="ltx_text ltx_font_typewriter">semiall_class</span>を使ってみて下さい。
-その他のデータベースは、<span class="ltx_text ltx_font_typewriter">overall_*</span>や<span class="ltx_text ltx_font_typewriter">semiall_*</span>よりもメモリ占有量がずっと少ないため、メモリの少ないコンピュータでも動作します。</p>
+<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">overall_*</span>は非常に巨大なため、多くのメモリを必要としますが、これらは万能なのでどんな配列にも使えますし、想定外の分類群や想定外の遺伝子座の配列の混入があってもとんでもない誤同定を避けることができます。
+<span class="ltx_text ltx_font_typewriter">overall_genus</span>では属以下の情報がある、つまりそれなりに分類群の情報が信頼できそうな配列を選別していますが、あまりにマイナーな分類群だとそれでは近隣配列が見つからないことがあります。
+その場合は、綱以下まで同定された配列のデータベース<span class="ltx_text ltx_font_typewriter">overall_class</span>を使ってみて下さい。
+その他のデータベースは、<span class="ltx_text ltx_font_typewriter">overall_*</span>よりもメモリ占有量がずっと少ないため、メモリの少ないコンピュータでも動作します。</p>
 </div>
-<div id="Ch3.S1.p2" class="ltx_para">
-<p class="ltx_p">計算を高速化したり、BLAST検索のオプションを指定したりする場合は、以下のように記述します。</p>
+<section id="Ch3.S1.SS1" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.1.1 </span>キャッシュデータベースの構築による高速化</h4>
+
+<div id="Ch3.S1.SS1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">clidentseq</span>はBLAST検索は何度も繰り返しますが、それなりの時間と大量のメモリを必要とします。そこで、予め問い合わせ配列と類似した配列の上位1万本(設定で変更可)のヒットした部位のみをBLASTデータベースから取得してキャッシュとなるBLASTデータベースを作成しておき、<span class="ltx_text ltx_font_typewriter">clidentseq</span>ではこれを対象として検索することで、劇的な高速化が可能です。これを行うのが<span class="ltx_text ltx_font_typewriter">clmakecachedb</span>で、以下のように用います。</p>
+</div>
+<div id="Ch3.S1.SS1.p2" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clidentseq \</span>
-          </span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clmakecachedb \</span>
+            </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">blastn BLAST検索オプション end \</span>
-          </span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--blastdb=overall_genus \</span>
+            </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--blastdb=overall_genus \</span>
-          </span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+            </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-          </span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル \</span>
+            </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル \</span>
-          </span>
-<span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力ファイル↓</span>
-          </span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
+            </span>
 </p>
 </div>
-<div id="Ch3.S1.p3" class="ltx_para">
-<p class="ltx_p">BLAST検索オプションは、デフォルトでは<span class="ltx_text ltx_font_typewriter">-task blastn -word_size 9</span>となっていますが、高速化する場合は<span class="ltx_text ltx_font_typewriter">-task dc-megablast -word_size 11</span>などとすればいいでしょう。
-さらに高速化する場合、<span class="ltx_text ltx_font_typewriter">-word_size</span>の値を大きくするか、<span class="ltx_text ltx_font_typewriter">-task megablast -word_size 16</span>とすれば、デフォルト設定よりずっと高速になりますが、見逃す配列が多くなります。
-そのため、デフォルトのQCauto法での利用は避けた方がいいでしょう。</p>
+<div id="Ch3.S1.SS1.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">clidentseq</span>の実行時には、<span class="ltx_text ltx_font_typewriter">--blastdb</span>オプションに上記コマンドの出力フォルダを指定することで、キャッシュデータベースが使われます。
+ただし、<span class="ltx_text ltx_font_typewriter">clmakecachedb</span>と<span class="ltx_text ltx_font_typewriter">clidentseq</span>の入力ファイルは同一である必要があります。
+メモリの使用量も大幅に減少しますので、<span class="ltx_text ltx_font_typewriter">overall_*</span>を使用してもメモリ16GB程度で済みます。</p>
 </div>
-<div id="Ch3.S1.p4" class="ltx_para">
-<p class="ltx_p">問い合わせ配列のホストの可能性がある全生物が記載済みで、しかもそのバーコード配列もデータベースに登録済みである場合には、以下のようにして類似度99%以上の上位1位(1位タイを含む)を近隣配列とすればいいでしょう。</p>
+</section>
+<section id="Ch3.S1.SS2" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.1.2 </span>参照配列データベースが全種を網羅している場合</h4>
+
+<div id="Ch3.S1.SS2.p1" class="ltx_para">
+<p class="ltx_p">問い合わせ配列のホストの可能性がある全生物が記載済みで、しかもそのバーコード配列も全て参照配列データベースに登録済みである場合には、以下のようにして類似度99%以上の上位1位(1位タイを含む)を近隣配列とすればいいでしょう。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clidentseq \</span>
-          </span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clidentseq \</span>
+            </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">blastn -task megablast -word_size 16 end \</span>
-          </span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">blastn -task megablast -word_size 16 end \</span>
+            </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--method=1,99% \</span>
-          </span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--method=1,99% \</span>
+            </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--blastdb=overall_genus \</span>
-          </span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--blastdb=overall_genus \</span>
+            </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-          </span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+            </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル \</span>
-          </span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル \</span>
+            </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力ファイル↓</span>
-          </span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力ファイル↓</span>
+            </span>
 </p>
 </div>
-<div id="Ch3.S1.p5" class="ltx_para">
+<div id="Ch3.S1.SS2.p2" class="ltx_para">
 <p class="ltx_p">類似度99%以上の上位1位の配列を探し出す場合、BLAST検索オプションは<span class="ltx_text ltx_font_typewriter">-task megablast -word_size 16</span>としても見逃すことはまずないでしょうから、ここでは高速化のためにこのように指定しています。</p>
 </div>
+</section>
 </section>
 <section id="Ch3.S2" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
