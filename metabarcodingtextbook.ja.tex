@@ -1846,7 +1846,7 @@ DRAでは、「Create new submission(s)」によってsubmission-IDが割り振�
 すると、\texttt{submission-ID.*.xml}という名前のファイルが3つ生成されます。
 これをDRAのXML Upload機能を利用して送信します。
 その他もろもろの処理が終わると、登録してあるメールアドレスに割り振られたアクセッション番号が送られてきます。
-論文にはそれを書いておけばいいでしょう。
+ただし、論文にはBioProject IDを書くことが多いと思います。
 
 \chapter{DNAバーコーディングによる配列のホスト生物同定}
 
@@ -1910,7 +1910,7 @@ DNAバーコーディングは、近年非常に多くの分野で応用が進�
 
 \subsection{キャッシュデータベースの構築による高速化}
 
-\texttt{clidentseq}はBLAST検索は何度も繰り返しますが、それなりの時間と大量のメモリを必要とします。そこで、予め問い合わせ配列と類似した配列の上位1万本(設定で変更可)のヒットした部位のみをBLASTデータベースから取得してキャッシュとなるBLASTデータベースを作成しておき、\texttt{clidentseq}ではこれを対象として検索することで、劇的な高速化が可能です。これを行うのが\texttt{clmakecachedb}で、以下のように用います。
+\texttt{clidentseq}はBLAST検索を何度も繰り返しますが、それなりの時間と大量のメモリを必要とします。そこで、予め問い合わせ配列と類似した配列の上位1万本(設定で変更可)のヒットした部位のみをBLASTデータベースから取得してキャッシュとなるBLASTデータベースを作成しておき、\texttt{clidentseq}ではこれを対象として検索することで、劇的な高速化が可能です。これを行うのが\texttt{clmakecachedb}で、以下のように用います。
 
 \begin{cmd}
 {\textgreater} clmakecachedb {\textbackslash}\\
@@ -1924,7 +1924,7 @@ DNAバーコーディングは、近年非常に多くの分野で応用が進�
 ただし、\texttt{clmakecachedb}と\texttt{clidentseq}の入力ファイルは同一である必要があります。
 メモリの使用量も大幅に減少しますので、\texttt{overall{\textunderscore}*}を使用してもメモリ16GB程度で済みます。
 
-\subsection{参照配列データベースが全種を網羅している場合}
+\subsection{参照配列データベースが全種を網羅している場合}\label{subsection:completereferencedatabase}
 
 問い合わせ配列のホストの可能性がある全生物が記載済みで、しかもそのバーコード配列も全て参照配列データベースに登録済みである場合には、以下のようにして類似度99\%以上の上位1位(1位タイを含む)を近隣配列とすればいいでしょう。
 \begin{cmd}
@@ -1954,7 +1954,7 @@ blastn -task megablast -word{\textunderscore}size 16 end {\textbackslash}\\
 BLASTデータベースと同じ名前のものがインストールされていますので、それを指定して下さい。
 
 \texttt{classigntax}のデフォルト設定では、少なくとも2本以上の近隣既知配列がないと同定することができません。
-前節後半のように\texttt{clidentseq}の実行時に\texttt{{-}{-}method=1,99\%}を指定していると、近隣既知配列が1本しかないために一つも同定できないことになります。
+第\ref{subsection:completereferencedatabase}節のように\texttt{clidentseq}の実行時に\texttt{{-}{-}method=1,99\%}を指定していると、近隣既知配列が1本しかないために一つも同定できないことになります。
 この場合は以下のようにして必要な近隣既知配列数を1にします。
 \begin{cmd}
 {\textgreater} classigntax {\textbackslash}\\
@@ -1996,7 +1996,7 @@ seqS & Ascomycota & \textit{Cenococcum} &  \\
 \end{table}
 
 \texttt{classigntax}のデフォルト設定では、全ての近隣既知配列の所属分類群が同一になるまで分類階層を上げていきますので、誤同定された配列が混ざっていたりした場合には下位の分類階層はほとんど不明になってしまいます。
-これは「ほぼ正しいと思われる」結果を得ることをデフォルト設定では優先しているためですが、近隣既知配列が多い場合、多少不一致を許容して誤同定の可能性が増してでもできるだけ下位の分類階層まで同定したい場合があります。
+これは「ほぼ正しいと思われる」結果を得る＝「間違えない」ことをデフォルト設定では優先しているためですが、近隣既知配列が多い場合、多少不一致を許容して誤同定の可能性を増やしてでもできるだけ下位の分類階層まで同定したい場合があります。
 そのような場合には以下のように\texttt{{-}{-}maxpopposer}と\texttt{{-}{-}minsoratio}を指定します。
 \begin{cmd}
 {\textgreater} classigntax {\textbackslash}\\

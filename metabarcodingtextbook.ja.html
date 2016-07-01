@@ -1,7 +1,7 @@
 <!DOCTYPE html><html prefix="dcterms: http://purl.org/dc/terms/">
 <head>
 <title>生態学のためのメタバーコーディングとDNAバーコーディング</title>
-<!--Generated on Fri Jul  1 18:57:37 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Generated on Fri Jul  1 19:24:58 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
 <!--Document created on July 1, 2016.-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -3835,7 +3835,7 @@ BioSampleへの登録はBioSample Handbook
 すると、<span class="ltx_text ltx_font_typewriter">submission-ID.*.xml</span>という名前のファイルが3つ生成されます。
 これをDRAのXML Upload機能を利用して送信します。
 その他もろもろの処理が終わると、登録してあるメールアドレスに割り振られたアクセッション番号が送られてきます。
-論文にはそれを書いておけばいいでしょう。</p>
+ただし、論文にはBioProject IDを書くことが多いと思います。</p>
 </div>
 </section>
 </section>
@@ -4225,7 +4225,7 @@ BioSampleへの登録はBioSample Handbook
 <span class="ltx_tag ltx_tag_subsection">7.1.1 </span>キャッシュデータベースの構築による高速化</h4>
 
 <div id="Ch7.S1.SS1.p1" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">clidentseq</span>はBLAST検索は何度も繰り返しますが、それなりの時間と大量のメモリを必要とします。そこで、予め問い合わせ配列と類似した配列の上位1万本(設定で変更可)のヒットした部位のみをBLASTデータベースから取得してキャッシュとなるBLASTデータベースを作成しておき、<span class="ltx_text ltx_font_typewriter">clidentseq</span>ではこれを対象として検索することで、劇的な高速化が可能です。これを行うのが<span class="ltx_text ltx_font_typewriter">clmakecachedb</span>で、以下のように用います。</p>
+<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">clidentseq</span>はBLAST検索を何度も繰り返しますが、それなりの時間と大量のメモリを必要とします。そこで、予め問い合わせ配列と類似した配列の上位1万本(設定で変更可)のヒットした部位のみをBLASTデータベースから取得してキャッシュとなるBLASTデータベースを作成しておき、<span class="ltx_text ltx_font_typewriter">clidentseq</span>ではこれを対象として検索することで、劇的な高速化が可能です。これを行うのが<span class="ltx_text ltx_font_typewriter">clmakecachedb</span>で、以下のように用います。</p>
 </div>
 <div id="Ch7.S1.SS1.p2" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
@@ -4314,7 +4314,7 @@ BLASTデータベースと同じ名前のものがインストールされてい
 </div>
 <div id="Ch7.S2.p2" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_typewriter">classigntax</span>のデフォルト設定では、少なくとも2本以上の近隣既知配列がないと同定することができません。
-前節後半のように<span class="ltx_text ltx_font_typewriter">clidentseq</span>の実行時に<span class="ltx_text ltx_font_typewriter">--method=1,99%</span>を指定していると、近隣既知配列が1本しかないために一つも同定できないことになります。
+第<a href="#Ch7.S1.SS2" title="7.1.2 参照配列データベースが全種を網羅している場合 ‣ 7.1 BLAST検索による近隣既知配列群の取得 ‣ 第7章 DNAバーコーディングによる配列のホスト生物同定 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1.2</span></a>節のように<span class="ltx_text ltx_font_typewriter">clidentseq</span>の実行時に<span class="ltx_text ltx_font_typewriter">--method=1,99%</span>を指定していると、近隣既知配列が1本しかないために一つも同定できないことになります。
 この場合は以下のようにして必要な近隣既知配列数を1にします。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
@@ -4613,7 +4613,7 @@ BLASTデータベースと同じ名前のものがインストールされてい
 </figure>
 <div id="Ch7.S2.p3" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_typewriter">classigntax</span>のデフォルト設定では、全ての近隣既知配列の所属分類群が同一になるまで分類階層を上げていきますので、誤同定された配列が混ざっていたりした場合には下位の分類階層はほとんど不明になってしまいます。
-これは「ほぼ正しいと思われる」結果を得ることをデフォルト設定では優先しているためですが、近隣既知配列が多い場合、多少不一致を許容して誤同定の可能性が増してでもできるだけ下位の分類階層まで同定したい場合があります。
+これは「ほぼ正しいと思われる」結果を得る＝「間違えない」ことをデフォルト設定では優先しているためですが、近隣既知配列が多い場合、多少不一致を許容して誤同定の可能性を増やしてでもできるだけ下位の分類階層まで同定したい場合があります。
 そのような場合には以下のように<span class="ltx_text ltx_font_typewriter">--maxpopposer</span>と<span class="ltx_text ltx_font_typewriter">--minsoratio</span>を指定します。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
