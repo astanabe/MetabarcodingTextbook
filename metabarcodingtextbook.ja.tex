@@ -790,6 +790,8 @@ DDBJ Sequence Read Archive (DRA)など、次世代シーケンサーの生デー
 
 \subsection{フォワード配列とリバース配列の連結}\label{subsection:concatenatingpairedend}
 
+\subsubsection{オーバーラップがある場合}
+
 ペアエンドでシーケンスを行った場合には、\texttt{clconcatpair}を用いてフォワード配列とリバース配列を連結します。
 フォワード配列とリバース配列にオーバーラップがある場合には、以下のように実行することでVSEARCHを呼び出して連結します。
 
@@ -818,7 +820,9 @@ DDBJ Sequence Read Archive (DRA)など、次世代シーケンサーの生デー
 
 入力ファイル1にフォワード配列のFASTQファイル、入力ファイル2にリバース配列のFASTQファイルを指定して下さい。出力ファイルは末尾に\texttt{.gz}や\texttt{.bz2}を付けないと自動的に圧縮はされません。
 
-また、フォワード配列とリバース配列間にオーバーラップがない場合や、あるものとないものが入り混じっている場合には、先に以下のように\texttt{clfilterseq}を用いて低品質部位のトリミングや低品質配列の除去を行います。
+\subsubsection{オーバーラップがない場合}
+
+フォワード配列とリバース配列間にオーバーラップがない場合には、先に以下のように\texttt{clfilterseq}を用いて低品質部位のトリミングや低品質配列の除去を行います。
 
 \begin{cmd}
 {\textgreater} clfilterseq {\textbackslash}\\
@@ -895,8 +899,11 @@ done↓
 
 出力ファイル1がリバース配列の逆相補配列、出力ファイル2がフォワード配列になります。
 
-フォワード配列とリバース配列にオーバーラップがある場合には、PEAR \citep{Zhang2014}またはVSEARCHを用いて連結することもできます。
+\subsubsection{PEARを用いて連結する場合}
+
+フォワード配列とリバース配列にオーバーラップがある場合には、PEAR \citep{Zhang2014}を用いて連結することもできます。
 PEARの場合はdemultiplexした配列ファイルのあるフォルダで、以下のコマンドを実行して下さい。
+
 \begin{cmd}
 {\textgreater} pear {\textbackslash}\\
 -p 0.0001 {\textbackslash}\\
@@ -906,13 +913,16 @@ PEARの場合はdemultiplexした配列ファイルのあるフォルダで、�
 -r ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.reverse.fastq.gz {\textbackslash}\\
 -o ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID↓
 \end{cmd}
+
 正常に処理が終わると、以下のファイルができます。
+
 \begin{description}\small\setlength{\baselineskip}{1.1em}
 \item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.assembled.fastq] 連結された配列
 \item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.unassembled.forward.fastq] 連結されなかったフォワード配列
 \item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.unassembled.reverse.fastq] 連結されなかったリバース配列
 \item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.discarded.fastq] 検定で一致していると判定されなかった配列
 \end{description}
+
 この後で使用するのは\texttt{ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.assembled.fastq}だけです。
 また、出力は圧縮されていないため、ディスク容量の節約のためにも圧縮しておいた方がいいかもしれません。
 
@@ -930,7 +940,10 @@ do pear {\textbackslash}\\
 done↓
 \end{cmd}
 
-直接VSEARCHを用いて連結する場合には以下のようにコマンドを実行して下さい。
+\subsubsection{VSEARCHを用いて連結する場合}
+
+フォワード配列とリバース配列にオーバーラップがあるなら、直接VSEARCHを用いて連結することも可能です。
+以下のようにコマンドを実行して下さい。
 
 \begin{cmd}
 {\textgreater} vsearch {\textbackslash}\\

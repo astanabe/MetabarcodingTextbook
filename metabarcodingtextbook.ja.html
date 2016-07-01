@@ -1,7 +1,7 @@
 <!DOCTYPE html><html prefix="dcterms: http://purl.org/dc/terms/">
 <head>
 <title>生態学のためのメタバーコーディングとDNAバーコーディング</title>
-<!--Generated on Fri Jul  1 19:24:58 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Generated on Fri Jul  1 20:51:14 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
 <!--Document created on July 1, 2016.-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -1230,97 +1230,104 @@ DDBJ Sequence Read Archive (DRA)など、次世代シーケンサーの生デー
 <h4 class="ltx_title ltx_title_subsection">
 <span class="ltx_tag ltx_tag_subsection">2.3.3 </span>フォワード配列とリバース配列の連結</h4>
 
-<div id="Ch2.S3.SS3.p1" class="ltx_para">
+<section id="Ch2.S3.SS3.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">オーバーラップがある場合</h5>
+
+<div id="Ch2.S3.SS3.SSSx1.p1" class="ltx_para">
 <p class="ltx_p">ペアエンドでシーケンスを行った場合には、<span class="ltx_text ltx_font_typewriter">clconcatpair</span>を用いてフォワード配列とリバース配列を連結します。
 フォワード配列とリバース配列にオーバーラップがある場合には、以下のように実行することでVSEARCHを呼び出して連結します。</p>
 </div>
-<div id="Ch2.S3.SS3.p2" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx1.p2" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clconcatpair \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clconcatpair \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--mode=OVL \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--mode=OVL \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力フォルダ \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力フォルダ \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
+              </span>
 </p>
 </div>
-<div id="Ch2.S3.SS3.p3" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx1.p3" class="ltx_para">
 <p class="ltx_p">以上のコマンドでは、入力フォルダから<span class="ltx_text ltx_font_typewriter">*.forward.fastq</span>と<span class="ltx_text ltx_font_typewriter">*.reverse.fastq</span>を探しだして自動的に連結します。
 末尾に<span class="ltx_text ltx_font_typewriter">.gz</span>や<span class="ltx_text ltx_font_typewriter">.bz2</span>が付く圧縮ファイルでも構いません。
 出力ファイルは指定したフォルダ内に<span class="ltx_text ltx_font_typewriter">*.fastq.gz</span>として作成されます。</p>
 </div>
-<div id="Ch2.S3.SS3.p4" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx1.p4" class="ltx_para">
 <p class="ltx_p">入力ファイル名が<span class="ltx_text ltx_font_typewriter">*.forward.fastq</span>と<span class="ltx_text ltx_font_typewriter">*.reverse.fastq</span>になっていない場合は、以下のように実行することで1組のファイルの配列を連結可能です。</p>
 </div>
-<div id="Ch2.S3.SS3.p5" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx1.p5" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clconcatpair \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clconcatpair \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--mode=OVL \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--mode=OVL \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル2 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル2 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力ファイル↓</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力ファイル↓</span>
+              </span>
 </p>
 </div>
-<div id="Ch2.S3.SS3.p6" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx1.p6" class="ltx_para">
 <p class="ltx_p">入力ファイル1にフォワード配列のFASTQファイル、入力ファイル2にリバース配列のFASTQファイルを指定して下さい。出力ファイルは末尾に<span class="ltx_text ltx_font_typewriter">.gz</span>や<span class="ltx_text ltx_font_typewriter">.bz2</span>を付けないと自動的に圧縮はされません。</p>
 </div>
-<div id="Ch2.S3.SS3.p7" class="ltx_para">
-<p class="ltx_p">また、フォワード配列とリバース配列間にオーバーラップがない場合や、あるものとないものが入り混じっている場合には、先に以下のように<span class="ltx_text ltx_font_typewriter">clfilterseq</span>を用いて低品質部位のトリミングや低品質配列の除去を行います。</p>
+</section>
+<section id="Ch2.S3.SS3.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">オーバーラップがない場合</h5>
+
+<div id="Ch2.S3.SS3.SSSx2.p1" class="ltx_para">
+<p class="ltx_p">フォワード配列とリバース配列間にオーバーラップがない場合には、先に以下のように<span class="ltx_text ltx_font_typewriter">clfilterseq</span>を用いて低品質部位のトリミングや低品質配列の除去を行います。</p>
 </div>
-<div id="Ch2.S3.SS3.p8" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx2.p2" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clfilterseq \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clfilterseq \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minqual=30 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minqual=30 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minquallen=3 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minquallen=3 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minlen=100 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minlen=100 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--maxplowqual=0.1 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--maxplowqual=0.1 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル2 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル2 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
+              </span>
 </p>
 </div>
-<div id="Ch2.S3.SS3.p9" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx2.p3" class="ltx_para">
 <p class="ltx_p">ここで、<span class="ltx_text ltx_font_typewriter">--minqual</span>は品質値の下限値で、終末端側からこの値以上の品質値が<span class="ltx_text ltx_font_typewriter">--minquallen</span>の値以上に連続して出現するまで配列を削っていきます。
 その上で、<span class="ltx_text ltx_font_typewriter">--minlen</span>の長さ未満の配列は除去します。
 残った配列において、<span class="ltx_text ltx_font_typewriter">--minqual</span>未満の配列が<span class="ltx_text ltx_font_typewriter">--maxplowqual</span>の割合より多い場合はその配列は除去します。
@@ -1329,250 +1336,267 @@ DDBJ Sequence Read Archive (DRA)など、次世代シーケンサーの生デー
 既存のフォルダに出力する場合は<span class="ltx_text ltx_font_typewriter">--append</span>を追加して下さい。
 フォルダ内の全ての<span class="ltx_text ltx_font_typewriter">*.forward.fastq</span>と<span class="ltx_text ltx_font_typewriter">*.reverse.fastq</span>に適用する場合は、以下のように実行して下さい。</p>
 </div>
-<div id="Ch2.S3.SS3.p10" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx2.p4" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; for f in `ls *.forward.fastq.gz | grep -P -o '^[^\.]+'`↓</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; for f in `ls *.forward.fastq.gz | grep -P -o '^[^\.]+'`↓</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">do clfilterseq \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">do clfilterseq \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minqual=30 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minqual=30 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minquallen=3 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minquallen=3 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minlen=100 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minlen=100 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--maxplowqual=0.1 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--maxplowqual=0.1 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">$f.forward.fastq.gz \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">$f.forward.fastq.gz \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">$f.reverse.fastq.gz \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">$f.reverse.fastq.gz \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">done↓</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">done↓</span>
+              </span>
 </p>
 </div>
-<div id="Ch2.S3.SS3.p11" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx2.p5" class="ltx_para">
 <p class="ltx_p">このように低品質配列を除去した後、以下のように<span class="ltx_text ltx_font_typewriter">clconcatpair</span>を用いて連結を行います。</p>
 </div>
-<div id="Ch2.S3.SS3.p12" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx2.p6" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clconcatpair \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clconcatpair \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--mode=NON \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--mode=NON \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力フォルダ \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力フォルダ \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
+              </span>
 </p>
 </div>
-<div id="Ch2.S3.SS3.p13" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx2.p7" class="ltx_para">
 <p class="ltx_p">この方法では、以下のようなフォワード配列とリバース配列を入力として仮定します。</p>
 </div>
-<div id="Ch2.S3.SS3.p14" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx2.p8" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border-left:0.5em solid #000000;padding:0.5em 1em 0.5em 1em;">
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">5' ― フォワード配列 ― 3'</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">5' ― フォワード配列 ― 3'</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">5' ― リバース配列 ― 3'</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">5' ― リバース配列 ― 3'</span>
+              </span>
 </p>
 </div>
-<div id="Ch2.S3.SS3.p15" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx2.p9" class="ltx_para">
 <p class="ltx_p">これらの配列を、<span class="ltx_text ltx_font_typewriter">clconcatpair --mode=NON</span>では以下のように連結します。</p>
 </div>
-<div id="Ch2.S3.SS3.p16" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx2.p10" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border-left:0.5em solid #000000;padding:0.5em 1em 0.5em 1em;">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">3' ― リバース配列(逆相補) ― 5' ― ACGTACGTTGCATGCA ― 5' ― フォワード配列 ― 3'</span>
-          </p>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">3' ― リバース配列(逆相補) ― 5' ― ACGTACGTTGCATGCA ― 5' ― フォワード配列 ― 3'</span>
+            </p>
 </div>
-<div id="Ch2.S3.SS3.p17" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx2.p11" class="ltx_para">
 <p class="ltx_p">ノイジー配列とキメラ配列の除去はそのまま通常の連結したペアエンドデータと全く同様に行い、配列のクラスタリングに用いる<span class="ltx_text ltx_font_typewriter">clclassseqv</span>と代表配列への生配列のマッピングを行う<span class="ltx_text ltx_font_typewriter">clrecoverseqv</span>の実行時に<span class="ltx_text ltx_font_typewriter">--paddinglen=16</span>を加えて実行します。
 上記の連結では、連結点を後から識別できるように人工配列である<span class="ltx_text ltx_font_typewriter">ACGTACGTTGCATGCA</span>を加えているため、配列の類似度が過大になってしまいます。
 そこで、完全一致するはずの<span class="ltx_text ltx_font_typewriter">ACGTACGTTGCATGCA</span>の長さ分を配列の類似度計算から除外することで正しい配列類似度に基づくクラスタリングを行います。</p>
 </div>
-<div id="Ch2.S3.SS3.p18" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx2.p12" class="ltx_para">
 <p class="ltx_p">ホスト生物の同定をする際には、<span class="ltx_text ltx_font_typewriter">ACGTACGTTGCATGCA</span>を探して配列を分割し、フォワード配列とリバース配列で別々に同定し、第<a href="#Ch7.S3" title="7.3 複数の同定結果の統合 ‣ 第7章 DNAバーコーディングによる配列のホスト生物同定 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.3</span></a>節の内容に従って2つの同定結果を統合します。
 一般にフォワード配列の方が品質が高いはずですので、何も事前情報がない場合はフォワード配列に基づく同定結果を優先する設定で統合するのが良いでしょう。
 配列の分割は<span class="ltx_text ltx_font_typewriter">cldivseq</span>を以下のように実行することで行えます。</p>
 </div>
-<div id="Ch2.S3.SS3.p19" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx2.p13" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt;cldivseq \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt;cldivseq \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--query=ACGTACGTTGCATGCA \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--query=ACGTACGTTGCATGCA \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力ファイル1 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力ファイル1 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力ファイル2</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力ファイル2</span>
+              </span>
 </p>
 </div>
-<div id="Ch2.S3.SS3.p20" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx2.p14" class="ltx_para">
 <p class="ltx_p">出力ファイル1がリバース配列の逆相補配列、出力ファイル2がフォワード配列になります。</p>
 </div>
-<div id="Ch2.S3.SS3.p21" class="ltx_para">
-<p class="ltx_p">フォワード配列とリバース配列にオーバーラップがある場合には、PEAR <cite class="ltx_cite"><a href="#bib.bib19" title="" class="ltx_ref">(Zhang <span class="ltx_text ltx_font_italic">et al</span>., 2014)</a></cite>またはVSEARCHを用いて連結することもできます。
+</section>
+<section id="Ch2.S3.SS3.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">PEARを用いて連結する場合</h5>
+
+<div id="Ch2.S3.SS3.SSSx3.p1" class="ltx_para">
+<p class="ltx_p">フォワード配列とリバース配列にオーバーラップがある場合には、PEAR <cite class="ltx_cite"><a href="#bib.bib19" title="" class="ltx_ref">(Zhang <span class="ltx_text ltx_font_italic">et al</span>., 2014)</a></cite>を用いて連結することもできます。
 PEARの場合はdemultiplexした配列ファイルのあるフォルダで、以下のコマンドを実行して下さい。</p>
+</div>
+<div id="Ch2.S3.SS3.SSSx3.p2" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; pear \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; pear \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-p 0.0001 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-p 0.0001 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-u 0 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-u 0 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-j 使用するCPU数 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-j 使用するCPU数 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-f ランID__タグID__プライマーID.forward.fastq.gz \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-f ランID__タグID__プライマーID.forward.fastq.gz \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-r ランID__タグID__プライマーID.reverse.fastq.gz \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-r ランID__タグID__プライマーID.reverse.fastq.gz \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-o ランID__タグID__プライマーID↓</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-o ランID__タグID__プライマーID↓</span>
+              </span>
 </p>
+</div>
+<div id="Ch2.S3.SS3.SSSx3.p3" class="ltx_para">
 <p class="ltx_p">正常に処理が終わると、以下のファイルができます。</p>
+</div>
+<div id="Ch2.S3.SS3.SSSx3.p4" class="ltx_para">
 <dl id="Ch2.I1" class="ltx_description">
 <dt id="Ch2.I1.ix1"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.assembled.fastq</span>
-              </span></dt>
+                  <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.assembled.fastq</span>
+                </span></dt>
 <dd>
 <div id="Ch2.I1.ix1.p1" class="ltx_para">
 <p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">連結された配列</span>
-                </p>
+                    <span class="ltx_text" style="font-size:90%;">連結された配列</span>
+                  </p>
 </div>
 </dd>
 <dt id="Ch2.I1.ix2"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.unassembled.forward.fastq</span>
-              </span></dt>
+                  <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.unassembled.forward.fastq</span>
+                </span></dt>
 <dd>
 <div id="Ch2.I1.ix2.p1" class="ltx_para">
 <p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">連結されなかったフォワード配列</span>
-                </p>
+                    <span class="ltx_text" style="font-size:90%;">連結されなかったフォワード配列</span>
+                  </p>
 </div>
 </dd>
 <dt id="Ch2.I1.ix3"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.unassembled.reverse.fastq</span>
-              </span></dt>
+                  <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.unassembled.reverse.fastq</span>
+                </span></dt>
 <dd>
 <div id="Ch2.I1.ix3.p1" class="ltx_para">
 <p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">連結されなかったリバース配列</span>
-                </p>
+                    <span class="ltx_text" style="font-size:90%;">連結されなかったリバース配列</span>
+                  </p>
 </div>
 </dd>
 <dt id="Ch2.I1.ix4"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.discarded.fastq</span>
-              </span></dt>
+                  <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.discarded.fastq</span>
+                </span></dt>
 <dd>
 <div id="Ch2.I1.ix4.p1" class="ltx_para">
 <p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">検定で一致していると判定されなかった配列</span>
-                </p>
+                    <span class="ltx_text" style="font-size:90%;">検定で一致していると判定されなかった配列</span>
+                  </p>
 </div>
 </dd>
 </dl>
+</div>
+<div id="Ch2.S3.SS3.SSSx3.p5" class="ltx_para">
 <p class="ltx_p">この後で使用するのは<span class="ltx_text ltx_font_typewriter">ランID__タグID__プライマーID.assembled.fastq</span>だけです。
 また、出力は圧縮されていないため、ディスク容量の節約のためにも圧縮しておいた方がいいかもしれません。</p>
 </div>
-<div id="Ch2.S3.SS3.p22" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx3.p6" class="ltx_para">
 <p class="ltx_p">なお、フォルダ内の全てのファイルに対してPEARによる連結を連続して行うには、以下のようなコマンドをお使い下さい。</p>
 </div>
-<div id="Ch2.S3.SS3.p23" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx3.p7" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; for f in `ls *.forward.fastq.gz | grep -P -o '^[^\.]+'`↓</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; for f in `ls *.forward.fastq.gz | grep -P -o '^[^\.]+'`↓</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">do pear \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">do pear \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-p 0.0001 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-p 0.0001 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-u 0 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-u 0 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-j 使用するCPU数 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-j 使用するCPU数 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-f $f.forward.fastq.gz \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-f $f.forward.fastq.gz \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-r $f.reverse.fastq.gz \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-r $f.reverse.fastq.gz \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-o $f↓</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">-o $f↓</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">done↓</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">done↓</span>
+              </span>
 </p>
 </div>
-<div id="Ch2.S3.SS3.p24" class="ltx_para">
-<p class="ltx_p">直接VSEARCHを用いて連結する場合には以下のようにコマンドを実行して下さい。</p>
+</section>
+<section id="Ch2.S3.SS3.SSSx4" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">VSEARCHを用いて連結する場合</h5>
+
+<div id="Ch2.S3.SS3.SSSx4.p1" class="ltx_para">
+<p class="ltx_p">フォワード配列とリバース配列にオーバーラップがあるなら、直接VSEARCHを用いて連結することも可能です。
+以下のようにコマンドを実行して下さい。</p>
 </div>
-<div id="Ch2.S3.SS3.p25" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx4.p2" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; vsearch \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; vsearch \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--threads 使用するCPU数 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--threads 使用するCPU数 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--fastq_mergepairs ランID__タグID__プライマーID.forward.fastq.gz \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--fastq_mergepairs ランID__タグID__プライマーID.forward.fastq.gz \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--reverse ランID__タグID__プライマーID.reverse.fastq.gz \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--reverse ランID__タグID__プライマーID.reverse.fastq.gz \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--fastq_allowmergestagger \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--fastq_allowmergestagger \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--fastqout ランID__タグID__プライマーID.assembled.fastq↓</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--fastqout ランID__タグID__プライマーID.assembled.fastq↓</span>
+              </span>
 </p>
 </div>
-<div id="Ch2.S3.SS3.p26" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx4.p3" class="ltx_para">
 <p class="ltx_p">増幅産物長が解読長よりも短い場合、フォワード配列の読み終わりがリバース配列の読み始めを超えてしまったりリバース配列の読み終わりがフォワード配列の読み始めを超えてしまいますが、デフォルトではそのような配列が連結されません。
 <span class="ltx_text ltx_font_typewriter">--fastq_allowmergestagger</span>はこれを許して連結するオプションです。
 反対側の読み始めを超えてしまったオーバーハング部分は人工配列なので切り捨てられます。
@@ -1582,37 +1606,38 @@ PEARと同様に連結できなかった配列を得たい場合は<span class="
 そのほか、最小オーバーラップ長を<span class="ltx_text ltx_font_typewriter">--fastq_minovlen</span>で、連結後の最小・最大配列長を<span class="ltx_text ltx_font_typewriter">--fastq_minmergelen</span>・<span class="ltx_text ltx_font_typewriter">--fastq_maxmergelen</span>で、オーバーラップ中の最大許容不一致数を<span class="ltx_text ltx_font_typewriter">--fastq_maxdiffs</span>で、連結後の最大許容期待エラー数を<span class="ltx_text ltx_font_typewriter">--fastq_maxee</span>で指定できます。
 <span class="ltx_text ltx_font_typewriter">clconcatpair</span>からVSEARCHを呼び出す場合のデフォルト設定は<span class="ltx_text ltx_font_typewriter">--fastq_minovlen 20 --fastq_maxdiffs 20</span>としていますが、VSEARCHのデフォルトでは<span class="ltx_text ltx_font_typewriter">--fastq_minovlen 10 --fastq_maxdiffs 5</span>となっています。</p>
 </div>
-<div id="Ch2.S3.SS3.p27" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx4.p4" class="ltx_para">
 <p class="ltx_p">フォルダ内の全てのファイルに対してVSEARCHによる連結を連続して行うには、以下のようなコマンドをお使い下さい。</p>
 </div>
-<div id="Ch2.S3.SS3.p28" class="ltx_para">
+<div id="Ch2.S3.SS3.SSSx4.p5" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; for f in `ls *.forward.fastq.gz | grep -P -o '^[^\.]+'`↓</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; for f in `ls *.forward.fastq.gz | grep -P -o '^[^\.]+'`↓</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">do vsearch \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">do vsearch \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--threads 使用するCPU数 \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--threads 使用するCPU数 \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--fastq_mergepairs $f.forward.fastq.gz \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--fastq_mergepairs $f.forward.fastq.gz \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--reverse $f.reverse.fastq.gz \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--reverse $f.reverse.fastq.gz \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--fastq_allowmergestagger \</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--fastq_allowmergestagger \</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--fastqout $f.assembled.fastq↓</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--fastqout $f.assembled.fastq↓</span>
+              </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">done↓</span>
-            </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">done↓</span>
+              </span>
 </p>
 </div>
+</section>
 </section>
 <section id="Ch2.S3.SS4" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
