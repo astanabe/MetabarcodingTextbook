@@ -1,8 +1,8 @@
 <!DOCTYPE html><html prefix="dcterms: http://purl.org/dc/terms/">
 <head>
 <title>生態学のためのメタバーコーディングとDNAバーコーディング</title>
-<!--Generated on Fri Jul  1 20:51:14 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
-<!--Document created on July 1, 2016.-->
+<!--Generated on Sat Sep 10 09:37:12 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on September 10, 2016.-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="LaTeXML.css" type="text/css">
@@ -18,7 +18,7 @@
 <span class="ltx_personname">田辺晶史
 </span></span>
 </div>
-<div class="ltx_date ltx_role_creation">July 1, 2016</div>
+<div class="ltx_date ltx_role_creation">2016年9月10日</div>
 
 <section id="Chx1" class="ltx_chapter">
 <h2 class="ltx_title ltx_title_chapter">はじめに</h2>
@@ -107,7 +107,8 @@
 <div id="Ch0.p1" class="ltx_para">
 <p class="ltx_p">本書では、Debian GNU/Linux jessie (以下Debian)、Ubuntu Linux 14.04 LTS (以下Ubuntu)を利用環境として想定しています。
 Windows環境の方は、Linuxのどちらかをインストールして環境を整えて下さい。
-インストールには、インストール用CD・DVD・USBメモリが使えます。
+動作が遅くても構わないなら、CygwinやWindows 10 build 14393以降で提供されているWindows Subsystem for LinuxなどのWindows上で動作するUNIX互換環境にインストールすることも可能です。
+Linuxのインストールには、インストール用CD・DVD・USBメモリが使えます。
 HDDやSSDが1台しかない場合、Windows用のEaseUS Partition Masterなどのパーティションリサイズが可能なソフトを使ったり、インストール用CD・DVD・USBメモリ内に用意されている機能を使ってWindows用の領域を縮小して容量を空ける必要があります。
 HDDまたはSSDを追加してスペースを確保していただいても良いでしょう。
 USBメモリやUSB接続HDDにインストールすることも可能です。
@@ -270,6 +271,12 @@ NCBI BLAST+やBLASTデータベースが別途システムにインストール�
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; sh installClaident_Debian.sh↓</span>
             </span>
 <span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;"># sff_extractの更新を無効化</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; touch .sffextract↓</span>
+            </span>
+<span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;"># HMMerの更新を無効化</span>
             </span>
 <span class="ltx_p ltx_align_left">
@@ -305,12 +312,6 @@ NCBI BLAST+やBLASTデータベースが別途システムにインストール�
             </span>
 <span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; touch .overall↓</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;"># 同定用データベース「prokaryota」の更新を無効化</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; touch .prokaryota↓</span>
             </span>
 <span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;"># 同定用データベースを更新
@@ -545,7 +546,7 @@ R2はタグ配列R逆相補で、R3がタグ配列Fです。
 
 <div id="Ch1.S1.SS2.p1" class="ltx_para">
 <p class="ltx_p">Illuminaでは、フローセル上の蛍光を光学センサーで読み取っていますが、メタゲノムを鋳型としたユニバーサルプライマーでのPCR増幅産物は配列が似ているため、フローセル上でDNAが近接していると区別が困難になります。
-また、読み始めに「ほとんどの配列がAであるため発光点が少なく真っ暗になる」と、異常と判断して解読を停止してしまうことがあるとのことです。
+また、読み始め(特に最初の12塩基)に「ほとんどの配列がAであるため発光点が少なく真っ暗になる」と、異常と判断して解読を停止してしまうことがあるとのことです。
 ゲノムショットガンやRNA-seqでは近接しているDNAが非常によく似ている可能性がずっと低いために区別できる上、真っ暗になることもないのですが、同じ遺伝子座の増幅産物(しかも読み始めがほとんど変異のないプライマー領域)だとまずいわけです。
 そこで、本来のプライマー配列と中間アダプター配列の間にわざと<span class="ltx_text ltx_font_typewriter">NNNNNN</span>を入れてしまうことにします。
 そうすると、この部分の解読時に近接したDNAも区別することができ、真っ暗になることもないため、シーケンス品質が改善するとのことです<cite class="ltx_cite"><a href="#bib.bib15" title="" class="ltx_ref">(Nelson <span class="ltx_text ltx_font_italic">et al</span>., 2014)</a></cite>。
@@ -682,13 +683,19 @@ SFFファイルが<span class="ltx_text ltx_font_typewriter">HOGEHOGE.sff</span>
 </p>
 <p class="ltx_p">タグ配列には縮重コード表記は使えませんが、プライマー配列には縮重コード表記を利用可能です。
 タグ配列、プライマー配列ともに複数の配列を記述しておくことも可能です。
-なお、中間アダプターを用いたりした場合は、プライマー配列ファイルは以下のような内容で作成して下さい。</p>
+なお、<a href="#Ch1.S1.SS1" title="1.1.1 中間アダプターを用いたコスト抑制方法 ‣ 1.1 タグ・アダプター配列付きプライマーを用いたPCR ‣ 第1章 次世代シーケンサーによる大量サンプルの塩基配列決定 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1.1.1</span></a>節で説明したような中間アダプターを用いたりした場合は、プライマー配列ファイルは以下のような内容で作成して下さい。</p>
 <p class="ltx_p ltx_align_left" style="background-color:#E6E6E6;padding-top:12pt;padding-bottom:12pt;">
 <span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| &gt;プライマーID</span>
             </span>
 <span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| 中間アダプター配列プライマー配列</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| &gt;exampleprimer1</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| TGATACTCGATACGTACGTACGTACGTACGTACGT</span>
             </span>
 </p>
 <p class="ltx_p">つまり、プライマー配列ファイルには、タグ配列と解読対象の配列の間にある配列を記述して下さい。</p>
@@ -1081,13 +1088,12 @@ bcl2fastqのインストールは付録に書きましたのでそちらを参�
             </span>
 </p>
 <p class="ltx_p"><span class="ltx_text ltx_font_typewriter">--fastq-cluster-count 0</span>でファイルの自動分割機能を無効にし、<span class="ltx_text ltx_font_typewriter">--use-bases-mask Y300n,Y8,Y8,Y300n</span>でフォワード側配列を300bp (末端1bpは切り捨て)、インデックス1 (タグ配列R逆相補)を8bp、インデックス2 (タグ配列F)を8bp、リバース側配列を300bp (末端1bpは切り捨て)とし、それぞれ<span class="ltx_text ltx_font_typewriter">*_R1_001.fastq.gz</span>、<span class="ltx_text ltx_font_typewriter">*_R2_001.fastq.gz</span>、<span class="ltx_text ltx_font_typewriter">*_R3_001.fastq.gz</span>、<span class="ltx_text ltx_font_typewriter">*_R4_001.fastq.gz</span>として出力するよう設定しています。
-これはDual Index (インデックスは各8bp)で両側から各300bpずつ解読する(PE300)設定でシーケンスした場合ですので、異なる設定でシーケンスした場合は値を適宜変更して下さい。
+これはDual Index (インデックスは各8bp)で両側から各300bpずつ解読する(300PE)設定でシーケンスした場合ですので、異なる設定でシーケンスした場合は値を適宜変更して下さい。
+Single Index (長さ6bp)で片側250bpの解読を行った場合は<span class="ltx_text ltx_font_typewriter">--use-bases-mask Y250n,Y6</span>となり、Dual Index (長さ各8bp)で片側300bpの場合は<span class="ltx_text ltx_font_typewriter">--use-bases-mask Y300n,Y8,Y8</span>となります。
 <span class="ltx_text ltx_font_typewriter">make -j4</span>を実行すると、4つのCPUを使用してBCLからFASTQの生成が行われます。
 生成されたFASTQはGZIPというプログラムで圧縮されたものになります。
 ファイル名の末尾の拡張子<span class="ltx_text ltx_font_typewriter">.gz</span>はそれを示すものです。
-ClaidentはGZIPで圧縮されたFASTQをそのまま扱えるため、圧縮したままで構いません。
-Single Indexの場合や、片側からしか解読していない場合は<span class="ltx_text ltx_font_typewriter">--use-bases-mask</span>オプションを適宜変更する必要があります。
-Single Index (長さ6bp)で片側250bpの解読を行った場合は<span class="ltx_text ltx_font_typewriter">--use-bases-mask Y250n,Y6</span>となり、Dual Index (長さ各8bp)で片側300bpの場合は<span class="ltx_text ltx_font_typewriter">--use-bases-mask Y300n,Y8,Y8</span>となります。</p>
+ClaidentはGZIPで圧縮されたFASTQをそのまま扱えるため、圧縮したままで構いません。</p>
 </div>
 <div id="Ch2.S3.SS1.p4" class="ltx_para">
 <p class="ltx_p">bcl2fastqの2.x系を使用している場合は以下のようにコマンドを実行します。</p>

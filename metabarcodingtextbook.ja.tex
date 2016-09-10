@@ -179,7 +179,8 @@ output of command
 
 本書では、Debian GNU/Linux jessie (以下Debian)、Ubuntu Linux 14.04 LTS (以下Ubuntu)を利用環境として想定しています。
 Windows環境の方は、Linuxのどちらかをインストールして環境を整えて下さい。
-インストールには、インストール用CD・DVD・USBメモリが使えます。
+動作が遅くても構わないなら、CygwinやWindows 10 build 14393以降で提供されているWindows Subsystem for LinuxなどのWindows上で動作するUNIX互換環境にインストールすることも可能です。
+Linuxのインストールには、インストール用CD・DVD・USBメモリが使えます。
 HDDやSSDが1台しかない場合、Windows用のEaseUS Partition Masterなどのパーティションリサイズが可能なソフトを使ったり、インストール用CD・DVD・USBメモリ内に用意されている機能を使ってWindows用の領域を縮小して容量を空ける必要があります。
 HDDまたはSSDを追加してスペースを確保していただいても良いでしょう。
 USBメモリやUSB接続HDDにインストールすることも可能です。
@@ -263,6 +264,8 @@ NCBI BLAST+やBLASTデータベースが別途システムにインストール�
 \# プログラムを更新
 {\textgreater} wget https://www.claident.org/installClaident{\textunderscore}Debian.sh↓\\
 {\textgreater} sh installClaident{\textunderscore}Debian.sh↓\\
+\# sff{\textunderscore}extractの更新を無効化\\
+{\textgreater} touch .sffextract↓\\
 \# HMMerの更新を無効化\\
 {\textgreater} touch .hmmer↓\\
 \# MAFFTの更新を無効化\\
@@ -276,8 +279,6 @@ NCBI BLAST+やBLASTデータベースが別途システムにインストール�
 {\textgreater} sh installOptions{\textunderscore}Debian.sh↓\\
 \# 同定用データベース「overall」の更新を無効化\\
 {\textgreater} touch .overall↓\\
-\# 同定用データベース「prokaryota」の更新を無効化\\
-{\textgreater} touch .prokaryota↓\\
 \# 同定用データベースを更新
 {\textgreater} wget https://www.claident.org/installDB{\textunderscore}Debian.sh↓\\
 {\textgreater} sh installDB{\textunderscore}Debian.sh↓\\
@@ -394,7 +395,7 @@ Finnzymes社のPhusionや東洋紡のKODなどの高正確性DNAポリメラー�
 この辺りの課題は従来の方法と違いはありません。
 タグ・アダプターの付いていないプライマーでは増幅できるがタグ・アダプター付きのプライマーだとうまくいかないことがありますが、その場合はタグ・アダプターなしのプライマーでPCRした増幅産物を用意し、プライマー除去・精製して(ExoSAP-ITなどでいいでしょう)から、タグ・アダプターの付いたプライマーで数サイクルのPCRを行い、増幅産物にタグ・アダプターを付加するというやり方でうまくいくことがあります。
 
-\subsection{中間アダプターを用いたコスト抑制方法}
+\subsection{中間アダプターを用いたコスト抑制方法}\label{subsection:interimadapter}
 
 タグ・アダプター配列付きプライマーは非常に長いため、高価になりがちです。
 しかも、増幅するプライマーセットごとに用意しなくてはならず本数も多くなってしまいます。
@@ -431,7 +432,7 @@ R2はタグ配列R逆相補で、R3がタグ配列Fです。
 \subsection{Nの挿入によるシーケンス品質の改善}
 
 Illuminaでは、フローセル上の蛍光を光学センサーで読み取っていますが、メタゲノムを鋳型としたユニバーサルプライマーでのPCR増幅産物は配列が似ているため、フローセル上でDNAが近接していると区別が困難になります。
-また、読み始めに「ほとんどの配列がAであるため発光点が少なく真っ暗になる」と、異常と判断して解読を停止してしまうことがあるとのことです。
+また、読み始め(特に最初の12塩基)に「ほとんどの配列がAであるため発光点が少なく真っ暗になる」と、異常と判断して解読を停止してしまうことがあるとのことです。
 ゲノムショットガンやRNA-seqでは近接しているDNAが非常によく似ている可能性がずっと低いために区別できる上、真っ暗になることもないのですが、同じ遺伝子座の増幅産物(しかも読み始めがほとんど変異のないプライマー領域)だとまずいわけです。
 そこで、本来のプライマー配列と中間アダプター配列の間にわざと\texttt{NNNNNN}を入れてしまうことにします。
 そうすると、この部分の解読時に近接したDNAも区別することができ、真っ暗になることもないため、シーケンス品質が改善するとのことです\citep{Nelson2014}。
@@ -514,10 +515,12 @@ SFFファイルが\texttt{HOGEHOGE.sff}だとすると、\texttt{HOGEHOGE.fastq}
 \end{content}
 タグ配列には縮重コード表記は使えませんが、プライマー配列には縮重コード表記を利用可能です。
 タグ配列、プライマー配列ともに複数の配列を記述しておくことも可能です。
-なお、中間アダプターを用いたりした場合は、プライマー配列ファイルは以下のような内容で作成して下さい。
+なお、\ref{subsection:interimadapter}節で説明したような中間アダプターを用いたりした場合は、プライマー配列ファイルは以下のような内容で作成して下さい。
 \begin{content}
 | {\textgreater}プライマーID\\
-| 中間アダプター配列プライマー配列
+| 中間アダプター配列プライマー配列\\
+| {\textgreater}exampleprimer1\\
+| TGATACTCGATACGTACGTACGTACGTACGTACGT
 \end{content}
 つまり、プライマー配列ファイルには、タグ配列と解読対象の配列の間にある配列を記述して下さい。
 
@@ -705,13 +708,12 @@ bcl2fastqのインストールは付録に書きましたのでそちらを参�
 {\textgreater} make -j4↓
 \end{cmd}
 \texttt{{-}{-}fastq-cluster-count 0}でファイルの自動分割機能を無効にし、\texttt{{-}{-}use-bases-mask Y300n,Y8,Y8,Y300n}でフォワード側配列を300bp (末端1bpは切り捨て)、インデックス1 (タグ配列R逆相補)を8bp、インデックス2 (タグ配列F)を8bp、リバース側配列を300bp (末端1bpは切り捨て)とし、それぞれ\texttt{*{\textunderscore}R1{\textunderscore}001.fastq.gz}、\texttt{*{\textunderscore}R2{\textunderscore}001.fastq.gz}、\texttt{*{\textunderscore}R3{\textunderscore}001.fastq.gz}、\texttt{*{\textunderscore}R4{\textunderscore}001.fastq.gz}として出力するよう設定しています。
-これはDual Index (インデックスは各8bp)で両側から各300bpずつ解読する(PE300)設定でシーケンスした場合ですので、異なる設定でシーケンスした場合は値を適宜変更して下さい。
+これはDual Index (インデックスは各8bp)で両側から各300bpずつ解読する(300PE)設定でシーケンスした場合ですので、異なる設定でシーケンスした場合は値を適宜変更して下さい。
+Single Index (長さ6bp)で片側250bpの解読を行った場合は\texttt{{-}{-}use-bases-mask Y250n,Y6}となり、Dual Index (長さ各8bp)で片側300bpの場合は\texttt{{-}{-}use-bases-mask Y300n,Y8,Y8}となります。
 \texttt{make -j4}を実行すると、4つのCPUを使用してBCLからFASTQの生成が行われます。
 生成されたFASTQはGZIPというプログラムで圧縮されたものになります。
 ファイル名の末尾の拡張子\texttt{.gz}はそれを示すものです。
 ClaidentはGZIPで圧縮されたFASTQをそのまま扱えるため、圧縮したままで構いません。
-Single Indexの場合や、片側からしか解読していない場合は\texttt{{-}{-}use-bases-mask}オプションを適宜変更する必要があります。
-Single Index (長さ6bp)で片側250bpの解読を行った場合は\texttt{{-}{-}use-bases-mask Y250n,Y6}となり、Dual Index (長さ各8bp)で片側300bpの場合は\texttt{{-}{-}use-bases-mask Y300n,Y8,Y8}となります。
 
 bcl2fastqの2.x系を使用している場合は以下のようにコマンドを実行します。
 \begin{cmd}
