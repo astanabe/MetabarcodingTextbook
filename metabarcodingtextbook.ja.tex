@@ -880,20 +880,20 @@ done↓
 これらの配列を、\texttt{clconcatpair {-}{-}mode=NON}では以下のように連結します。
 
 \begin{pre}
-3' ― リバース配列(逆相補) ― 5' ― ACGTACGTTGCATGCA ― 5' ― フォワード配列 ― 3'
+5' ― リバース配列(逆相補) ― ACGTACGTACGTACGT ― フォワード配列 ― 3'
 \end{pre}
 
 ノイジー配列とキメラ配列の除去はそのまま通常の連結したペアエンドデータと全く同様に行い、配列のクラスタリングに用いる\texttt{clclassseqv}と代表配列への生配列のマッピングを行う\texttt{clrecoverseqv}の実行時に\texttt{{-}{-}paddinglen=16}を加えて実行します。
-上記の連結では、連結点を後から識別できるように人工配列である\texttt{ACGTACGTTGCATGCA}を加えているため、配列の類似度が過大になってしまいます。
-そこで、完全一致するはずの\texttt{ACGTACGTTGCATGCA}の長さ分を配列の類似度計算から除外することで正しい配列類似度に基づくクラスタリングを行います。
+上記の連結では、連結点を後から識別できるように人工配列である\texttt{ACGTACGTACGTACGT}を加えているため、配列の類似度が過大になってしまいます。
+そこで、完全一致するはずの\texttt{ACGTACGTACGTACGT}の長さ分を配列の類似度計算から除外することで正しい配列類似度に基づくクラスタリングを行います。
 
-ホスト生物の同定をする際には、\texttt{ACGTACGTTGCATGCA}を探して配列を分割し、フォワード配列とリバース配列で別々に同定し、第\ref{section:mergingmultipleassignment}節の内容に従って2つの同定結果を統合します。
-一般にフォワード配列の方が品質が高いはずですので、何も事前情報がない場合はフォワード配列に基づく同定結果を優先する設定で統合するのが良いでしょう。
+ホスト生物の同定をする際には、\texttt{ACGTACGTACGTACGT}を探して配列を分割し、フォワード配列とリバース配列で別々に同定し、第\ref{section:mergingmultipleassignment}節の内容に従って2つの同定結果を統合します。
+一般にフォワード配列の方が品質が高いはずですので、フォワード配列とリバース配列の分子同定能力や変異性について何も事前情報がない場合はフォワード配列に基づく同定結果を優先する設定で統合するのが良いでしょう。
 配列の分割は\texttt{cldivseq}を以下のように実行することで行えます。
 
 \begin{cmd}
 {\textgreater}cldivseq {\textbackslash}\\
-{-}{-}query=ACGTACGTTGCATGCA {\textbackslash}\\
+{-}{-}query=ACGTACGTACGTACGT {\textbackslash}\\
 入力ファイル {\textbackslash}\\
 出力ファイル1 {\textbackslash}\\
 出力ファイル2
@@ -1003,7 +1003,7 @@ Illuminaでペアエンドを連結した場合は、両端は品質値が高く
 PEARで連結した全配列ファイルに対して同じ処理を行う場合は、以下のようなコマンドを実行して下さい。
 
 \begin{cmd}
-{\textgreater} for f in clsplitseqの出力フォルダ/*.assembled.fastq↓\\
+{\textgreater} for f in *.assembled.fastq↓\\
 do clfilterseq {\textbackslash}\\
 {-}{-}output=folder {\textbackslash}\\
 {-}{-}append {\textbackslash}\\

@@ -1,8 +1,8 @@
 <!DOCTYPE html><html prefix="dcterms: http://purl.org/dc/terms/">
 <head>
 <title>生態学のためのメタバーコーディングとDNAバーコーディング</title>
-<!--Generated on Sat Sep 10 09:37:12 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
-<!--Document created on September 10, 2016.-->
+<!--Generated on Fri Sep 16 14:13:22 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on September 16, 2016.-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="LaTeXML.css" type="text/css">
@@ -18,7 +18,7 @@
 <span class="ltx_personname">田辺晶史
 </span></span>
 </div>
-<div class="ltx_date ltx_role_creation">2016年9月10日</div>
+<div class="ltx_date ltx_role_creation">2016年9月16日</div>
 
 <section id="Chx1" class="ltx_chapter">
 <h2 class="ltx_title ltx_title_chapter">はじめに</h2>
@@ -1419,17 +1419,17 @@ DDBJ Sequence Read Archive (DRA)など、次世代シーケンサーの生デー
 </div>
 <div id="Ch2.S3.SS3.SSSx2.p10" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border-left:0.5em solid #000000;padding:0.5em 1em 0.5em 1em;">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">3' ― リバース配列(逆相補) ― 5' ― ACGTACGTTGCATGCA ― 5' ― フォワード配列 ― 3'</span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">5' ― リバース配列(逆相補) ― ACGTACGTACGTACGT ― フォワード配列 ― 3'</span>
             </p>
 </div>
 <div id="Ch2.S3.SS3.SSSx2.p11" class="ltx_para">
 <p class="ltx_p">ノイジー配列とキメラ配列の除去はそのまま通常の連結したペアエンドデータと全く同様に行い、配列のクラスタリングに用いる<span class="ltx_text ltx_font_typewriter">clclassseqv</span>と代表配列への生配列のマッピングを行う<span class="ltx_text ltx_font_typewriter">clrecoverseqv</span>の実行時に<span class="ltx_text ltx_font_typewriter">--paddinglen=16</span>を加えて実行します。
-上記の連結では、連結点を後から識別できるように人工配列である<span class="ltx_text ltx_font_typewriter">ACGTACGTTGCATGCA</span>を加えているため、配列の類似度が過大になってしまいます。
-そこで、完全一致するはずの<span class="ltx_text ltx_font_typewriter">ACGTACGTTGCATGCA</span>の長さ分を配列の類似度計算から除外することで正しい配列類似度に基づくクラスタリングを行います。</p>
+上記の連結では、連結点を後から識別できるように人工配列である<span class="ltx_text ltx_font_typewriter">ACGTACGTACGTACGT</span>を加えているため、配列の類似度が過大になってしまいます。
+そこで、完全一致するはずの<span class="ltx_text ltx_font_typewriter">ACGTACGTACGTACGT</span>の長さ分を配列の類似度計算から除外することで正しい配列類似度に基づくクラスタリングを行います。</p>
 </div>
 <div id="Ch2.S3.SS3.SSSx2.p12" class="ltx_para">
-<p class="ltx_p">ホスト生物の同定をする際には、<span class="ltx_text ltx_font_typewriter">ACGTACGTTGCATGCA</span>を探して配列を分割し、フォワード配列とリバース配列で別々に同定し、第<a href="#Ch7.S3" title="7.3 複数の同定結果の統合 ‣ 第7章 DNAバーコーディングによる配列のホスト生物同定 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.3</span></a>節の内容に従って2つの同定結果を統合します。
-一般にフォワード配列の方が品質が高いはずですので、何も事前情報がない場合はフォワード配列に基づく同定結果を優先する設定で統合するのが良いでしょう。
+<p class="ltx_p">ホスト生物の同定をする際には、<span class="ltx_text ltx_font_typewriter">ACGTACGTACGTACGT</span>を探して配列を分割し、フォワード配列とリバース配列で別々に同定し、第<a href="#Ch7.S3" title="7.3 複数の同定結果の統合 ‣ 第7章 DNAバーコーディングによる配列のホスト生物同定 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.3</span></a>節の内容に従って2つの同定結果を統合します。
+一般にフォワード配列の方が品質が高いはずですので、フォワード配列とリバース配列の分子同定能力や変異性について何も事前情報がない場合はフォワード配列に基づく同定結果を優先する設定で統合するのが良いでしょう。
 配列の分割は<span class="ltx_text ltx_font_typewriter">cldivseq</span>を以下のように実行することで行えます。</p>
 </div>
 <div id="Ch2.S3.SS3.SSSx2.p13" class="ltx_para">
@@ -1438,7 +1438,7 @@ DDBJ Sequence Read Archive (DRA)など、次世代シーケンサーの生デー
                 <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt;cldivseq \</span>
               </span>
 <span class="ltx_p ltx_align_left">
-                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--query=ACGTACGTTGCATGCA \</span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--query=ACGTACGTACGTACGT \</span>
               </span>
 <span class="ltx_p ltx_align_left">
                 <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル \</span>
@@ -1690,7 +1690,7 @@ Illuminaでペアエンドを連結した場合は、両端は品質値が高く
 <div id="Ch2.S3.SS4.p5" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; for f in clsplitseqの出力フォルダ/*.assembled.fastq↓</span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; for f in *.assembled.fastq↓</span>
             </span>
 <span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">do clfilterseq \</span>
