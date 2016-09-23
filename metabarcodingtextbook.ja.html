@@ -1,8 +1,8 @@
 <!DOCTYPE html><html prefix="dcterms: http://purl.org/dc/terms/">
 <head>
 <title>生態学のためのメタバーコーディングとDNAバーコーディング</title>
-<!--Generated on Fri Sep 16 14:13:22 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
-<!--Document created on September 16, 2016.-->
+<!--Generated on Sat Sep 24 01:08:58 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on September 24, 2016.-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="LaTeXML.css" type="text/css">
@@ -18,7 +18,7 @@
 <span class="ltx_personname">田辺晶史
 </span></span>
 </div>
-<div class="ltx_date ltx_role_creation">2016年9月16日</div>
+<div class="ltx_date ltx_role_creation">2016年9月24日</div>
 
 <section id="Chx1" class="ltx_chapter">
 <h2 class="ltx_title ltx_title_chapter">はじめに</h2>
@@ -1794,13 +1794,9 @@ Illuminaでペアエンドを連結した場合は、両端は品質値が高く
 ClaidentではサンプルID=ランID__タグID__プライマーIDですから、同じ鋳型由来のサンプルが複数存在するデータとなります。
 そのような場合はそのまま別サンプルとして解析を進めることもできますし、1サンプルにまとめてから解析を進めることもできます。
 別サンプルのまま処理を進める方を推奨します。
-そして、サンプルごとの各OTUの配列数の集計表を作成する際に複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。
-後者の方法では旧パイプラインによる解析でサンプルごとにキメラ検出を行うことが可能ですが、それ以外特にメリットはありません。</p>
+そして、サンプルごとの各OTUの配列数の集計表を作成後に集計表の加工コマンド<span class="ltx_text ltx_font_typewriter">clfiltersum</span>により複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。</p>
 </div>
 <div id="Ch2.S4.SS3.p2" class="ltx_para">
-<p class="ltx_p">同じ鋳型由来の複数サンプルを別サンプルのまま解析を進めた場合、サンプルごとの各OTUの配列数の集計表を作成後に集計表の加工コマンド<span class="ltx_text ltx_font_typewriter">clfiltersum</span>により複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。</p>
-</div>
-<div id="Ch2.S4.SS3.p3" class="ltx_para">
 <p class="ltx_p">同じ鋳型由来の複数サンプルを1つのサンプルに統合してからこの後の解析に進む場合は、以下のように処理して下さい。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
@@ -1839,7 +1835,7 @@ ClaidentではサンプルID=ランID__タグID__プライマーIDですから�
 </p>
 <p class="ltx_p">このように<span class="ltx_text ltx_font_typewriter">--runname</span>オプションでランIDを置換し、2つの入力ファイルのラン名を同一にしてやることで、2つのファイルからの同一サンプルからの配列が<span class="ltx_text ltx_font_typewriter">HOGEHOGE__タグID__プライマーID.fastq.gz</span>という1つのファイルに書き出されます。</p>
 </div>
-<div id="Ch2.S4.SS3.p4" class="ltx_para">
+<div id="Ch2.S4.SS3.p3" class="ltx_para">
 <p class="ltx_p">ClaidentではランIDとタグIDとプライマーIDが同じなら、同一PCR産物=同一サンプルの配列として扱います。
 PCRが1回でタグ配列ファイルとプライマー配列ファイルが同じなら、当然タグIDとプライマーIDは同じになっているはずですので、ランIDも同じにしてしまうことで、同一PCR産物の配列として認識させることができるようになります。</p>
 </div>

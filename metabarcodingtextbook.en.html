@@ -1,8 +1,8 @@
 <!DOCTYPE html><html prefix="dcterms: http://purl.org/dc/terms/">
 <head>
 <title>Matabarcoding and DNA barcoding for Ecologists</title>
-<!--Generated on Fri Sep 16 14:13:21 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
-<!--Document created on September 16, 2016.-->
+<!--Generated on Sat Sep 24 01:09:01 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on September 24, 2016.-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="LaTeXML.css" type="text/css">
@@ -18,7 +18,7 @@
 <span class="ltx_personname">Akifumi S. Tanabe
 </span></span>
 </div>
-<div class="ltx_date ltx_role_creation">September 16, 2016</div>
+<div class="ltx_date ltx_role_creation">September 24, 2016</div>
 
 <section id="Chx1" class="ltx_chapter">
 <h2 class="ltx_title ltx_title_chapter">Preface</h2>
@@ -1758,64 +1758,59 @@ Note that thresholds for quality values and read lengths should be changed.</p>
 </section>
 <section id="Ch2.S4" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">2.4 </span>同じ鋳型を複数回PCRまたは複数回シーケンスした場合について</h3>
+<span class="ltx_tag ltx_tag_section">2.4 </span>If you sequenced same PCR amplicons multiply or replicated PCR amplicons of same templates</h3>
 
 <div id="Ch2.S4.p1" class="ltx_para">
-<p class="ltx_p">キメラ配列はPCRによって生成されますので、同一PCR由来配列なのか、異なるPCR由来配列なのかをプログラムに正しく認識させなくてはなりません。
-そのため、同じ鋳型を複数回PCRまたは複数回シーケンスした場合には、プログラムがデータを正しく扱えるようにいくつかの操作が必要になります。
-なお、ここでは、Nested PCRや、増幅のためのPCRとタグ配列付加のためのPCRはまとめて1回と数えることに注意して下さい。
-つまり、ここで「複数回PCR」とは、「増幅産物を鋳型にしてさらにPCRで増幅する」ことではなく、「同じ鋳型を使用したPCR」を複数回行うことです。</p>
+<p class="ltx_p">Because chimeric sequences are constructed in each PCR tube, whether the sequences are came from same tube or not should be given to analysis programs.
+Therefore, several procedure is required to give such information to the programs in the cases of replicated sequencing of same PCR amplicons and sequencing of replicated PCR amplicons of same templates.</p>
 </div>
 <section id="Ch2.S4.SS1" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">2.4.1 </span>同じ鋳型を複数回PCRして同じタグ配列を付加して同じランでシーケンスした場合</h4>
+<span class="ltx_tag ltx_tag_subsection">2.4.1 </span>In the case of sequencing of replicated PCR amplicons of same templates using same tags in the same run</h4>
 
 <div id="Ch2.S4.SS1.p1" class="ltx_para">
-<p class="ltx_p">実験デザインが間違っており、複数回PCRを活かしたキメラ検出・除去は行えません。
-通常の1回のPCRと同様にしか扱えません。</p>
+<p class="ltx_p">In this case, chimera removal based on replicates of PCR cannot be applied.
+This case can treat as same as unreplicated PCR.</p>
 </div>
 </section>
 <section id="Ch2.S4.SS2" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">2.4.2 </span>同じ鋳型を複数回PCRして別のタグ配列を付加して同じランでシーケンスした場合</h4>
+<span class="ltx_tag ltx_tag_subsection">2.4.2 </span>In the case of sequencing of replicated PCR amplicons of same templates using different tags in the same run</h4>
 
 <div id="Ch2.S4.SS2.p1" class="ltx_para">
-<p class="ltx_p">ClaidentではサンプルID=RunID__TagID__PrimerIDですから、同じ鋳型由来のサンプルが複数存在するデータとなります。
-わざと別サンプルのままにしておいて、1つ以上のサンプルで出現しないOTUはキメラや読み間違い(PCRの合成ミスも含む)のある配列と判断するというのも良い考えだと思います。
-ただ、キメラの生成や読み間違いがランダムであればこれはベストな方法でしょうが、できやすいキメラや起きやすい読み間違いというものがもしあれば(あるはずです)、同一のキメラ配列・読み間違いのある配列が全サンプルに出現する可能性があります。
-この方法がどの程度正確かという情報はまだ十分ではありませんので、プログラムによるキメラ検出も併用した方が良いかもしれません。
-この方法の効果を調べた研究<cite class="ltx_cite"><a href="#bib.bib12" title="" class="ltx_ref">(Lange <span class="ltx_text ltx_font_italic">et al</span>., 2015)</a></cite>も参照して下さい。
-この方法はClaidentでサポートしているため実施方法は後述します。
-サンプルごとの各OTUの配列数の集計表をこの後で作成しますが、集計表の加工コマンド<span class="ltx_text ltx_font_typewriter">clfiltersum</span>により複数のサンプルを統合して1サンプルにすることが可能です(各OTUの配列数は和になります)。</p>
+<p class="ltx_p">In Claident, RunID__TagID__PrimerID is used as sample IDs.
+Therefore, there are multiple samples from the same templates in this case.
+It may be good idea that common sequences among replicated samples are treated as noiseless and nonchimeric, and uncommon sequences are treated as noisy and/or chimeric sequences if noise occurrence and chimera formation can be assumed as random.
+However, noise occurrence and chimera formation likely to be nonrandom.
+Noisy and/or chimeric sequences might be occurred across all replicates.
+The effectiveness of this method does not confirmed enough, and combination of noisy and/or chimeric sequence removal based on PCR replicates and algorithms can be recommended (see also <cite class="ltx_cite"><a href="#bib.bib12" title="" class="ltx_ref">Lange <span class="ltx_text ltx_font_italic">et al</span>. (2015)</a></cite>).
+Such combination is supported in Claident, it is explained later.
+One of the final output of Claident is a sample x OTU table containing the number of sequences in every cell.
+The table modification command <span class="ltx_text ltx_font_typewriter">clfiltersum</span> can be used for integration of multiple samples to one, and cell numbers will be summed up.</p>
 </div>
 </section>
 <section id="Ch2.S4.SS3" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">2.4.3 </span>同じ鋳型を1回PCRして同じタグ配列を付加して複数のランでシーケンスした場合</h4>
+<span class="ltx_tag ltx_tag_subsection">2.4.3 </span>In the case of sequencing of same PCR amplicons using same tags in different runs</h4>
 
 <div id="Ch2.S4.SS3.p1" class="ltx_para">
-<p class="ltx_p">1回のランでは、たまたま得られる配列が少ないことがあります。
-そのため同一サンプルを複数のランでシーケンスし、全ランのデータを使いたいことがあります。
-ClaidentではサンプルID=RunID__TagID__PrimerIDですから、同じ鋳型由来のサンプルが複数存在するデータとなります。
-そのような場合はそのまま別サンプルとして解析を進めることもできますし、1サンプルにまとめてから解析を進めることもできます。
-別サンプルのまま処理を進める方を推奨します。
-そして、サンプルごとの各OTUの配列数の集計表を作成する際に複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。
-後者の方法では旧パイプラインによる解析でサンプルごとにキメラ検出を行うことが可能ですが、それ以外特にメリットはありません。</p>
+<p class="ltx_p">In Claident, RunID__TagID__PrimerID is used as sample IDs.
+Therefore, there are multiple samples from the same templates in this case.
+Such samples can be treated as separate or integrated to one sample.
+It is recommended that separate samples have been used subsequent analysis without any change and such samples are finally integrated in a sample x OTU table.
+The table modification command <span class="ltx_text ltx_font_typewriter">clfiltersum</span> can be used for integration of multiple samples to one, and cell numbers will be summed up.</p>
 </div>
 <div id="Ch2.S4.SS3.p2" class="ltx_para">
-<p class="ltx_p">同じ鋳型由来の複数サンプルを別サンプルのまま解析を進めた場合、サンプルごとの各OTUの配列数の集計表を作成後に集計表の加工コマンド<span class="ltx_text ltx_font_typewriter">clfiltersum</span>により複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。</p>
-</div>
-<div id="Ch2.S4.SS3.p3" class="ltx_para">
-<p class="ltx_p">同じ鋳型由来の複数サンプルを1つのサンプルに統合してからこの後の解析に進む場合は、以下のように処理して下さい。</p>
+<p class="ltx_p">If you want to integrate multiple samples from the same templates at this time, execute the following commands.</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clsplitseq \</span>
             </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">オプション省略 \</span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">*snip* \</span>
             </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--runname=HOGEHOGE \</span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--runname=FOO \</span>
             </span>
 <span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">inputfile1 \</span>
@@ -1827,10 +1822,10 @@ ClaidentではサンプルID=RunID__TagID__PrimerIDですから、同じ鋳型�
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clsplitseq \</span>
             </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">オプション省略 \</span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">*snip* \</span>
             </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--runname=HOGEHOGE \</span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--runname=FOO \</span>
             </span>
 <span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--append \</span>
@@ -1842,16 +1837,19 @@ ClaidentではサンプルID=RunID__TagID__PrimerIDですから、同じ鋳型�
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">outputfolder↓</span>
             </span>
 </p>
-<p class="ltx_p">このように<span class="ltx_text ltx_font_typewriter">--runname</span>オプションでRunIDを置換し、2つの入力ファイルのラン名を同一にしてやることで、2つのファイルからの同一サンプルからの配列が<span class="ltx_text ltx_font_typewriter">HOGEHOGE__TagID__PrimerID.fastq.gz</span>という1つのファイルに書き出されます。</p>
+<p class="ltx_p">The inputfile1 and inputfile2 are the FASTQ files of first and second run, respectively.
+The <span class="ltx_text ltx_font_typewriter">--runname</span> argument replaces RunID of the sequence names to <span class="ltx_text ltx_font_typewriter">FOO</span>.
+Thus, all the sequences of both input files will be saved to <span class="ltx_text ltx_font_typewriter">FOO__TagID__PrimerID.fastq.gz</span> in the output folder.</p>
 </div>
-<div id="Ch2.S4.SS3.p4" class="ltx_para">
-<p class="ltx_p">ClaidentではRunIDとTagIDとPrimerIDが同じなら、同一PCR産物=同一サンプルの配列として扱います。
-PCRが1回でタグ配列ファイルとプライマー配列ファイルが同じなら、当然TagIDとPrimerIDは同じになっているはずですので、RunIDも同じにしてしまうことで、同一PCR産物の配列として認識させることができるようになります。</p>
+<div id="Ch2.S4.SS3.p3" class="ltx_para">
+<p class="ltx_p">In Claident, the sequences whose names contain the same RunID, TagID and PrimerID are treated as the sequences from the same samples.
+If tag and primer sequence files are the same, TagID and PrimerID of output sequences are the same.
+Replacing RunID to <span class="ltx_text ltx_font_typewriter">FOO</span>, all of RunID, TagID and PrimerID become the same in the sequences from the same samples.</p>
 </div>
 </section>
 <section id="Ch2.S4.SS4" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">2.4.4 </span>同じ鋳型を複数回PCRして同じタグ配列を付加して別々のランでシーケンスした場合</h4>
+<span class="ltx_tag ltx_tag_subsection">2.4.4 </span>In the case of sequencing of replicated PCR amplicons of same templates using same tags in different runs</h4>
 
 <div id="Ch2.S4.SS4.p1" class="ltx_para">
 <p class="ltx_p">複数ラン分の配列ファイルがあるはずですので、<span class="ltx_text ltx_font_typewriter">clsplitseq</span>によるサンプルごとの配列の分別と<span class="ltx_text ltx_font_typewriter">clfilterseq</span>による低品質配列の除去を別々に実行し、別々のフォルダに出力します。
@@ -1861,7 +1859,7 @@ PCRが1回でタグ配列ファイルとプライマー配列ファイルが同�
 </section>
 <section id="Ch2.S4.SS5" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">2.4.5 </span>同じ鋳型を複数回PCRして異なるタグ配列を付加して別々のランでシーケンスした場合</h4>
+<span class="ltx_tag ltx_tag_subsection">2.4.5 </span>In the case of sequencing of replicated PCR amplicons of same templates using different tags in different runs</h4>
 
 <div id="Ch2.S4.SS5.p1" class="ltx_para">
 <p class="ltx_p">1回のランでは、たまたま得られる配列が少ないことがあります。
@@ -1959,7 +1957,7 @@ sample2の鋳型では逆になります。
 </section>
 <section id="Ch3" class="ltx_chapter">
 <h2 class="ltx_title ltx_title_chapter">
-<span class="ltx_tag ltx_tag_chapter">Chapter 3 </span>重複配列カウントによるノイジー配列とキメラ配列の除去</h2>
+<span class="ltx_tag ltx_tag_chapter">Chapter 3 </span>Noisy and/or chimeric sequence removal based on sequence abundance</h2>
 
 <div id="Ch3.p1" class="ltx_para">
 <p class="ltx_p">Claidentでは、配列のクラスタリング結果から読み間違いの多いノイジーな配列を推定して除去することができます。
@@ -3838,7 +3836,7 @@ BioSampleへの登録はBioSample Handbook
 ワイルドカードも使えます。
 タブ区切りテキストができたら、表計算ソフトなどに読み込ませて、各セルを埋めていって下さい。
 なお、Excelでは特定の文字列を勝手に日時などと認識して変換してしまう機能(無効にする方法はありません)がありますので、十分注意して下さい。
-各セル内では、<span class="ltx_text ltx_font_typewriter">[Hogehoge,Fugafuga]</span>とあった場合は<span class="ltx_text ltx_font_typewriter">Hogehoge</span>または<span class="ltx_text ltx_font_typewriter">Fugafuga</span>のどちらかを選んで括弧と選ばなかったものを消して下さい。
+各セル内では、<span class="ltx_text ltx_font_typewriter">[Foo,Bar]</span>とあった場合は<span class="ltx_text ltx_font_typewriter">Foo</span>または<span class="ltx_text ltx_font_typewriter">Bar</span>のどちらかを選んで括弧と選ばなかったものを消して下さい。
 <span class="ltx_text ltx_font_typewriter">&lt;Fill in this cell&gt;</span>とあった場合は、<span class="ltx_text ltx_font_typewriter">&lt;&gt;</span>内の指示に従ってセルを埋めて下さい(括弧は残さない)。
 その他のセルは適当に自分で考えて何とかして下さい。
 なお、BioProject IDやBioSample IDは、正式なアクセッション番号がまだ発行されていない場合、DDBJに申請したときのSubmission ID (BioProjectではPSUBから始まり、BioSampleではSSUBから始まるもの)を入力しておけば問題ありません。</p>
@@ -5135,7 +5133,7 @@ v1.8.4は以下のようにインストールできます。</p>
 <p class="ltx_p">テキストエディタで
 <br class="ltx_break"><span class="ltx_text ltx_font_typewriter">/usr/local/lib/bcl2fastq-1.8.4/perl/Casava/Alignment/Config.pm
 <br class="ltx_break"></span>の747行目と751行目を手動で書き換えても構いません。
-<span class="ltx_text ltx_font_typewriter">qw(HOGEHOGE)</span>を<span class="ltx_text ltx_font_typewriter">("HOGEHOGE")</span>に書き換えて下さい。</p>
+<span class="ltx_text ltx_font_typewriter">qw(FOO)</span>を<span class="ltx_text ltx_font_typewriter">("FOO")</span>に書き換えて下さい。</p>
 </div>
 <div id="A1.S1.p3" class="ltx_para">
 <p class="ltx_p">v2.17.1.14のインストールをする場合は以下のようにコマンドを実行して下さい。</p>
