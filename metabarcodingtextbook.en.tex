@@ -1194,63 +1194,63 @@ Many other files might be generated and do not delete such files because those m
 
 \subsection{Noisy and/or chimeric sequence removal based on PCR replicates}
 
-PCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去するには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
-以下のような内容で用意して下さい。
+To detect and remove noisy and/or chimeric sequences using PCR replicates, which samples are from the same templates need to be provided as a text file like below.
 \begin{content}
 | sample1~ sample2~ sample3\\
 | sample4~ sample5\\
 | sample6~ sample7
 \end{content}
-同一の行内にタブ区切りで書かれたサンプルが、同一鋳型由来のPCRレプリケートであることを表しています。
-異なる鋳型由来のサンプルは別の行に記述して下さい。
-PCRレプリケートは3つ以上あっても構いません。
-また、レプリケート数が鋳型ごとに異なっても構いません。
+Tab-delimited sample list in a line indicates samples from the same templates.
+Samples from different templates must be placed in different lines.
+3 or more replicates are allowed.
+The number of replicates can vary among templates.
 
-上記ファイルが用意できたら、以下のように\texttt{clcleanseqv}を実行することでレプリケート間で共通しないプライマリクラスタをキメラもしくはノイジーであると判断して除去します。
+The above file are prepared, the following command removes uncommon primary cluster as noisy and/or chimeric.
 \begin{cmd}
 {\textgreater} clcleanseqv {\textbackslash}\\
-{-}{-}replicatelist=PCRレプリケート指示ファイル {\textbackslash}\\
+{-}{-}replicatelist=ListOfPCRreplicates {\textbackslash}\\
 {-}{-}derepmode=PREFIX {\textbackslash}\\
 {-}{-}primarymaxnmismatch=0 {\textbackslash}\\
 {-}{-}secondarymaxnmismatch=1 {\textbackslash}\\
 {-}{-}pnoisycluster=0.5 {\textbackslash}\\
 {-}{-}numthreads=NumberOfCPUs {\textbackslash}\\
 inputfile1 {\textbackslash}\\
-中略 {\textbackslash}\\
+*snip* {\textbackslash}\\
 inputfileN {\textbackslash}\\
 outputfolder↓
 \end{cmd}
-レプリケートが3つ以上であっても、全てのレプリケートで検出されたプライマリクラスタのみがノイジーでもキメラでもないと判断されます。
-また、1つのプライマリクラスタが複数の鋳型から検出されていた場合、どれか1つの鋳型でノイジーまたはキメラと判定されていれば、他の鋳型でもノイジーまたはキメラとみなして除去します。
-これらの設定は以下のオプションで変更することができます。
+If 3 or more replicates are available, only common sequences among all replicates are determined as non-noisy and nonchimeric.
+If a primary cluster occured among multiple templates and the cluster determined as noisy or chimeric in a template, the cluster determined as noisy or chimeric in the other templates and will be excluded from all the samples by default.
+However, the following arguments can change this decision method.
 \begin{description}\small\setlength{\baselineskip}{1.1em}
-\item[\texttt{{-}{-}minnreplicate}] 整数値で指定。
-この値以上のレプリケートで観測されたプライマリクラスタはそのサンプルではノイジーでもキメラでもないと見なす。
-デフォルト値は\texttt{2}。
-\item[\texttt{{-}{-}minpreplicate}] 小数値で指定。
-プライマリクラスタが観測されたレプリケート数/サンプルの総レプリケート数がこの値以上であれば、そのサンプルではノイジーでもキメラでもないと見なす。
-デフォルト値は\texttt{1}。
-\item[\texttt{{-}{-}minnpositive}] 整数値で指定。
-この値以上の配列(サンプルではない)がノイジーまたはキメラと判定されていれば、全サンプルでノイジーまたはキメラと見なす。
-デフォルト値は\texttt{1}。
-\item[\texttt{{-}{-}minppositive}] 小数値で指定。
-ノイジーまたはキメラと判定された配列数/プライマリクラスタの総配列数がこの値以上であれば、全サンプルでノイジーまたはキメラと見なす。
-デフォルト値は\texttt{0}。
-\item[\texttt{{-}{-}runname}] RunIDを指定。
-サンプル名に含まれるRunIDが全てこれに置換される。
-同一サンプル名になったサンプルは統合される。
+\item[\texttt{{-}{-}minnreplicate}] Specified as integer larger than 1.
+If the number of replicates occured is equal to or larger than this value, such primary cluster will be determined as non-noisy and nonchimeric.
+The default value is \texttt{2}.
+\item[\texttt{{-}{-}minpreplicate}] Specified as decimal larger than 0.
+If the proportion of replicates occured (number of replicates occured / total number of replicates of the same template) is equal to or larger than this value, such primary cluster will be determined as non-noisy and nonchimeric.
+The default value is \texttt{1}.
+\item[\texttt{{-}{-}minnpositive}] Specified as integer larger than 0.
+If the number of sequences determined as noisy or chimeric of a primary cluster is equal to or larger than this value, the cluster determined as noisy or chimeric in all the samples.
+The default value is \texttt{1}.
+\item[\texttt{{-}{-}minppositive}] Specified as decimal equal to or larger than 0.
+If the proportion of sequences determined as noisy or chimeric of a primary cluster (number of sequences determined as noisy or chimeric of a primary cluster / total number of sequences of a primary cluster) is equal to or larger than this value, the cluster determined as noisy or chimeric in all the samples.
+The default value is \texttt{0}.
+\item[\texttt{{-}{-}runname}] Specify RunID.
+RunIDs in all sample names will be replaced to this RunID.
+If multiple sample names become to the same, such samples will be integrated.
 \end{description}
-\texttt{{-}{-}minnreplicate}と\texttt{{-}{-}minpreplicate}の値に基づく1サンプル内での判定と、\texttt{{-}{-}minnpositive}と\texttt{{-}{-}minppositive}の値に基づく全サンプルにまたがる判定が2段階で行われていることに注意して下さい。
-前者では2つの条件を両方満たすとノイジーでもキメラでもないと判定され、後者では2つの条件を両方満たすとノイジーまたはキメラであると判定されます。
-また、同一のプライマリクラスタが、あるサンプルではノイジーまたはキメラだが、別のサンプルではそうでない、といった判定は行えません。
-最終的な判定は全サンプル共通です。
-また、PCRレプリケート指示ファイルに記されていないサンプルでは判定が行われません。
+The \texttt{{-}{-}minnreplicate} and \texttt{{-}{-}minpreplicate} are arguments about intrasample judgement.
+The \texttt{{-}{-}minnpositive} and \texttt{{-}{-}minppositive} are arguments about intersample judgement.
+If both of \texttt{{-}{-}minnreplicate} and \texttt{{-}{-}minpreplicate} are fullfilled, the primary cluster will be determined as non-noisy and nonchimeric.
+If both of \texttt{{-}{-}minnpositive} and \texttt{{-}{-}minppositive} are fullfilled, the primary cluster will be determined as noisy or chimeric.
+The decision is common among all samples and different decision among samples are not allowed.
+If there are samples that is not written in replicate list file, such sample is not used in this decision.
 
-上記のように\texttt{clcleanseqv}を実行すると、以下のようなファイルも出力フォルダに保存されます。
+If \texttt{clcleanseqv} is executed like above, the following files will be saved additionally.
 \begin{description}\small\setlength{\baselineskip}{1.1em}
-\item[primarycluster.chimeraremoved.fasta.gz] キメラと判定されなかったプライマリクラスタの代表配列
-\item[primarycluster.cleaned.fasta.gz] ノイジーでもキメラでもないと判定されたプライマリクラスタの代表配列
-\item[RunID{\textunderscore}{\textunderscore}TagID{\textunderscore}{\textunderscore}PrimerID.chimericreads.txt.gz] キメラ配列と判定された配列のリスト
+\item[primarycluster.chimeraremoved.fasta.gz] Representative sequences determined as nonchimeric.
+\item[primarycluster.cleaned.fasta.gz] Representative sequences determined as non-noisy and nonchimeric
+\item[RunID{\textunderscore}{\textunderscore}TagID{\textunderscore}{\textunderscore}PrimerID.chimericreads.txt.gz] List of sequences determined as chimeric
 \end{description}
 
 \section{Old pipeline using Assams}

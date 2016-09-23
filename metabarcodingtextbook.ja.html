@@ -1,7 +1,7 @@
 <!DOCTYPE html><html prefix="dcterms: http://purl.org/dc/terms/">
 <head>
 <title>生態学のためのメタバーコーディングとDNAバーコーディング</title>
-<!--Generated on Sat Sep 24 01:08:58 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Generated on Sat Sep 24 08:10:58 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
 <!--Document created on September 24, 2016.-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -1942,7 +1942,6 @@ ClaidentではサンプルID=ランID__タグID__プライマーIDですから�
 </p>
 <p class="ltx_p">この場合、sample1の鋳型には1ラン目には<span class="ltx_text ltx_font_typewriter">ACGTACGT</span>を付加し、2ラン目では<span class="ltx_text ltx_font_typewriter">ATGCATGC</span>を付加したことになります。
 sample2の鋳型では逆になります。
-もしも、ほぼ同じ領域を増幅してはいるがプライマー配列は異なる場合、タグと同様に同じIDを付けた別々のファイルを用意して与えて下さい。
 この後の解析に関しては後述します。</p>
 </div>
 </section>
@@ -2216,7 +2215,7 @@ PCRレプリケートは3つ以上あっても構いません。
 前者では2つの条件を両方満たすとノイジーでもキメラでもないと判定され、後者では2つの条件を両方満たすとノイジーまたはキメラであると判定されます。
 また、同一のプライマリクラスタが、あるサンプルではノイジーまたはキメラだが、別のサンプルではそうでない、といった判定は行えません。
 最終的な判定は全サンプル共通です。
-また、PCRレプリケート指示ファイルに記されていないサンプルでは判定が行われません。</p>
+また、PCRレプリケート指示ファイルに記されていないサンプルは判定に使われません。</p>
 </div>
 <div id="Ch3.S1.SS1.p3" class="ltx_para">
 <p class="ltx_p">上記のように<span class="ltx_text ltx_font_typewriter">clcleanseqv</span>を実行すると、以下のようなファイルも出力フォルダに保存されます。</p>
@@ -2599,7 +2598,7 @@ PCRレプリケートは3つ以上あっても構いません。
 前者では2つの条件を両方満たすとノイジーでもキメラでもないと判定され、後者では2つの条件を両方満たすとノイジーまたはキメラであると判定されます。
 また、同一のプライマリクラスタが、あるサンプルではノイジーまたはキメラだが、別のサンプルではそうでない、といった判定は行えません。
 最終的な判定は全サンプル共通です。
-また、PCRレプリケート指示ファイルに記されていないサンプルでは判定が行われません。</p>
+また、PCRレプリケート指示ファイルに記されていないサンプルは判定に使われません。</p>
 </div>
 </section>
 </section>
@@ -3454,7 +3453,7 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 前者では2つの条件を両方満たすとノイジーでもキメラでもないと判定され、後者では2つの条件を両方満たすとノイジーまたはキメラであると判定されます。
 また、同一のOTUが、あるサンプルではノイジーまたはキメラだが、別のサンプルではそうでない、といった判定は行えません。
 最終的な判定は全サンプル共通です。
-また、PCRレプリケート指示ファイルに記されていないサンプルでは判定が行われません。</p>
+また、PCRレプリケート指示ファイルに記されていないサンプルは判定に使われません。</p>
 </div>
 <div id="Ch5.S3.p3" class="ltx_para">
 <p class="ltx_p">ここで作成したFASTA配列ファイルを第<a href="#Ch5.S2" title="5.2 集計表からの特定のOTU・サンプルの除去 ‣ 第5章 OTUピッキング結果の要約と後処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>節の<span class="ltx_text ltx_font_typewriter">clfiltersum</span>の<span class="ltx_text ltx_font_typewriter">--otuseq</span>オプションに指定して集計表を加工することで、この配列ファイルから除去されたOTUを集計表からも除去することができます。
@@ -3644,7 +3643,7 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 </section>
 <section id="Ch5.S5" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">5.5 </span>配列からの低頻度出現配列の除去</h3>
+<span class="ltx_tag ltx_tag_section">5.5 </span>OTU配列からの低頻度出現OTU配列の除去</h3>
 
 <div id="Ch5.S5.p1" class="ltx_para">
 <p class="ltx_p">クラスタリングの出力フォルダには、<span class="ltx_text ltx_font_typewriter">clustered.fasta.gz</span> (新パイプライン)または<span class="ltx_text ltx_font_typewriter">assembled.fasta</span> (旧パイプライン)というファイルとして、最終的に得られた代表配列もしくはコンセンサス配列が保存されています。
@@ -3725,7 +3724,7 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 </section>
 <section id="Ch5.S7" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">5.7 </span>ITSxやMetaxaによるITS・SSU rRNA配列の抽出</h3>
+<span class="ltx_tag ltx_tag_section">5.7 </span>ITSxやMetaxaによるITS・SSU rRNA・LSU rRNA配列の抽出</h3>
 
 <div id="Ch5.S7.p1" class="ltx_para">
 <p class="ltx_p">ITSxは核ITS1・ITS2領域を認識してその部位だけを取り出すことができるプログラムです<cite class="ltx_cite"><a href="#bib.bib3" title="" class="ltx_ref">(Bengtsson-Palme <span class="ltx_text ltx_font_italic">et al</span>., 2013)</a></cite>。
@@ -5056,7 +5055,7 @@ accurate Illumina Paired-End reAd mergeR.”, <span class="ltx_text ltx_font_ita
 </section>
 <section id="A1" class="ltx_appendix">
 <h2 class="ltx_title ltx_title_appendix">
-<span class="ltx_tag ltx_tag_appendix">付録 A </span>その他のプログラム・データベースのインストール</h2>
+<span class="ltx_tag ltx_tag_appendix">付録 A </span>その他のプログラムのインストール</h2>
 
 <section id="A1.S1" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
