@@ -1,7 +1,7 @@
 <!DOCTYPE html><html prefix="dcterms: http://purl.org/dc/terms/">
 <head>
 <title>Matabarcoding and DNA barcoding for Ecologists</title>
-<!--Generated on Sat Sep 24 01:09:01 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Generated on Sat Sep 24 06:06:55 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
 <!--Document created on September 24, 2016.-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -471,7 +471,7 @@ Thus, the following tag- and adapter-jointed primer is used for PCR.</p>
 <p class="ltx_p">In the case of single-end read, tag-F leads specific primer-F and target sequence in the sequence data.</p>
 </div>
 <div id="Ch1.S1.p2" class="ltx_para">
-<p class="ltx_p">The supplement of <cite class="ltx_cite"><a href="#bib.bib7" title="" class="ltx_ref">Hamady <span class="ltx_text ltx_font_italic">et al</span>. (2008)</a></cite> may be useful for picking tag sequences.
+<p class="ltx_p">The supplement of <cite class="ltx_cite"><a href="#bib.bib7" title="" class="ltx_ref">Hamady <span class="ltx_text ltx_font_italic">et al.</span> (2008)</a></cite> may be useful for picking tag sequences.
 In the case of single-end sequencing, 3’-side tag is not required, and tagless primer can be used for PCR.
 In the case of paired-end sequencing, single index (tag) can be applied, but dual index (tag) is recommended for detecting unlikely tag combinations which means that forward and reverse sequences are mispaired.</p>
 </div>
@@ -492,7 +492,7 @@ The larger number of cycles and shorter extension time generates more incomplete
 Such sequences are called as “chimeric DNA”.
 Chimeric DNAs causes a discovery of non-existent novel species or a overestimation of species diversity.
 To reduce chimeric DNA construction, using high-fidelity DNA polymerase such as Phusion (Finnzymes) or KOD (TOYOBO) is effective.
-<cite class="ltx_cite"><a href="#bib.bib17" title="" class="ltx_ref">Stevens <span class="ltx_text ltx_font_italic">et al</span>. (2013)</a></cite> reported that slowing cooling-down from denaturation temperature to annealing temperature reduced chimeric DNA construction.
+<cite class="ltx_cite"><a href="#bib.bib17" title="" class="ltx_ref">Stevens <span class="ltx_text ltx_font_italic">et al.</span> (2013)</a></cite> reported that slowing cooling-down from denaturation temperature to annealing temperature reduced chimeric DNA construction.
 If your thermal cycler can change cooling speed, slowing cooling-down from denaturation temperature to annealing temperature can be recommended.
 Chimeric DNA sequences can also be eliminated by computer programs after sequencing.
 Because chimera removal by programs is incomplete and the nonchimeric sequences shrink, we cannot do better than reduce chimeric DNA construction.</p>
@@ -551,8 +551,8 @@ PCR amplicons of metagenomes are single locus and much more homogeneous than gen
 In such case, neighboring sequences on a flowcell is difficult to distinguish one from the other.
 In addition, if the nucleotide of the most sequences (especially first 12 nucleotides) are the same and nonluminescence, the Illumina platform sequencer will determined as failure and crash.
 To avoid this problem, insertion of <span class="ltx_text ltx_font_typewriter">NNNNNN</span> between specific primer and interim adapter is effective.
-<span class="ltx_text ltx_font_typewriter">NNNNNN</span> of the head of sequences enables sequencers to distinguish neighboring sequences and prevent black out, and the sequencing quality therefore will be improved <cite class="ltx_cite"><a href="#bib.bib15" title="" class="ltx_ref">(Nelson <span class="ltx_text ltx_font_italic">et al</span>., 2014)</a></cite>.
-The varied length of <span class="ltx_text ltx_font_typewriter">NNNNNN</span> causes artificial frameshift and also effective <cite class="ltx_cite"><a href="#bib.bib6" title="" class="ltx_ref">(Fadrosh <span class="ltx_text ltx_font_italic">et al</span>., 2014)</a></cite>.
+<span class="ltx_text ltx_font_typewriter">NNNNNN</span> of the head of sequences enables sequencers to distinguish neighboring sequences and prevent black out, and the sequencing quality therefore will be improved <cite class="ltx_cite"><a href="#bib.bib15" title="" class="ltx_ref">(Nelson <span class="ltx_text ltx_font_italic">et al.</span>, 2014)</a></cite>.
+The varied length of <span class="ltx_text ltx_font_typewriter">NNNNNN</span> causes artificial frameshift and also effective <cite class="ltx_cite"><a href="#bib.bib6" title="" class="ltx_ref">(Fadrosh <span class="ltx_text ltx_font_italic">et al.</span>, 2014)</a></cite>.
 PhiX control can be reduced by using the above methods, and the application sequences will increase.</p>
 </div>
 </section>
@@ -569,7 +569,7 @@ In this chapter, the procedures of demultiplexing, quality-trimming and quality-
 The <span class="ltx_text ltx_font_typewriter">clsplitseq</span> command of Claident is recommended for demultiplexing because the programs provided by manufacturer ignores the quality of tag positions.
 The following commands should be executed in the terminal or console.
 Fundamental knowledge of terminal operations is required.
-If you are unfamiliar with terminal operations, you need to become understandable about the contents of appendix <a href="#A2" title="Appendix B ターミナルコマンド集 ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">B</span></a>.</p>
+If you are unfamiliar with terminal operations, you need to become understandable about the contents of appendix <a href="#A2" title="Appendix B Terminal command examples ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">B</span></a>.</p>
 </div>
 <section id="Ch2.S1" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
@@ -736,7 +736,7 @@ RunID is usually contained in sequence file name or sequence name in sequence fi
 Therefore, <span class="ltx_text ltx_font_typewriter">clsplitseq</span> requires RunID given by user.
 <span class="ltx_text ltx_font_typewriter">--minqualtag</span> is an argument that specifies minimum quality threshold of tag position sequences.
 If 1 or more lower quality nucleotide than this threshold value is contained by a sequence, such sequence will be omitted from output sequences.
-27 for minimum quality threshold is proposed by <cite class="ltx_cite"><a href="#bib.bib11" title="" class="ltx_ref">Kunin <span class="ltx_text ltx_font_italic">et al</span>. (2010)</a></cite> for 3’-tail trimming of the sequences of Roche GS series sequencers.
+27 for minimum quality threshold is proposed by <cite class="ltx_cite"><a href="#bib.bib11" title="" class="ltx_ref">Kunin <span class="ltx_text ltx_font_italic">et al.</span> (2010)</a></cite> for 3’-tail trimming of the sequences of Roche GS series sequencers.
 The different value might be more suitable for the other sequencers.
 In many cases, 30 is used for minimum quality threshold and can be recommended.</p>
 </div>
@@ -1431,7 +1431,7 @@ The <span class="ltx_text ltx_font_typewriter">--paddinglen=16</span> argument w
 </div>
 <div id="Ch2.S3.SS3.SSSx2.p12" class="ltx_para">
 <p class="ltx_p">In the estimation of host organism, split concatenated sequences based on <span class="ltx_text ltx_font_typewriter">ACGTACGTACGTACGT</span>, assign taxonomy to forward and reverse sequences separately.
-Then, merge 2 taxonomy (see section <a href="#Ch7.S3" title="7.3 複数の同定結果の統合 ‣ Chapter 7 DNAバーコーディングによる配列のホスト生物同定 ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.3</span></a>).
+Then, merge 2 taxonomy (see section <a href="#Ch7.S3" title="7.3 Merging multiple taxonomic assignments based on consensus ‣ Chapter 7 Estimation of host organisms of nucleotide sequences (DNA barcoding) ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.3</span></a>).
 Generally speaking, forward sequences shows higher quality than reverse sequences, prefering forward sequence taxonomy is recommended if there is no <span class="ltx_text ltx_font_italic">a priori</span> infomations about identification power and variability of forward and reverse sequences.
 Sequence division based on <span class="ltx_text ltx_font_typewriter">ACGTACGTACGTACGT</span> can be applied to the sequences by the following command.</p>
 </div>
@@ -1462,7 +1462,7 @@ Sequence division based on <span class="ltx_text ltx_font_typewriter">ACGTACGTAC
 <h5 class="ltx_title ltx_title_subsubsection">Concatenating overlapping paired-end sequences using PEAR</h5>
 
 <div id="Ch2.S3.SS3.SSSx3.p1" class="ltx_para">
-<p class="ltx_p">PEAR <cite class="ltx_cite"><a href="#bib.bib19" title="" class="ltx_ref">(Zhang <span class="ltx_text ltx_font_italic">et al</span>., 2014)</a></cite> can also be used for concatenation of overlapped paired-end sequences.
+<p class="ltx_p">PEAR <cite class="ltx_cite"><a href="#bib.bib19" title="" class="ltx_ref">(Zhang <span class="ltx_text ltx_font_italic">et al.</span>, 2014)</a></cite> can also be used for concatenation of overlapped paired-end sequences.
 The following command will concatenate the pairs of sequences.</p>
 </div>
 <div id="Ch2.S3.SS3.SSSx3.p2" class="ltx_para">
@@ -1687,7 +1687,7 @@ If you want to save output file to existing folder, <span class="ltx_text ltx_fo
 In the case of concatenated sequences of overlapped paired-end sequences generated by Illumina platform sequencers, positions close to the both end is usually high quality and overlapped positions is also high quality if the same positions of forward and reverse sequences are matched.
 Therefore, trimming low quality positions close to the both end is needless.
 Filtering out sequences containing low quality positions is recommended for concatenated overlapped paired-end sequences.
-The existing sequence filtering programs such as FastQC <cite class="ltx_cite"><a href="#bib.bib2" title="" class="ltx_ref">(Andrews, 2010)</a></cite> or PRINSEQ <cite class="ltx_cite"><a href="#bib.bib16" title="" class="ltx_ref">(Schmieder and Edwards, 2011)</a></cite> are also recommended.</p>
+The existing sequence filtering programs such as FastQC <cite class="ltx_cite"><a href="#bib.bib2" title="" class="ltx_ref">(Andrews, 2010)</a></cite> or PRINSEQ <cite class="ltx_cite"><a href="#bib.bib16" title="" class="ltx_ref">(Schmieder &amp; Edwards, 2011)</a></cite> are also recommended.</p>
 </div>
 <div id="Ch2.S3.SS4.p4" class="ltx_para">
 <p class="ltx_p">To apply the same processing to the concatenated sequences by PEAR, execute the following command.</p>
@@ -1783,7 +1783,7 @@ Therefore, there are multiple samples from the same templates in this case.
 It may be good idea that common sequences among replicated samples are treated as noiseless and nonchimeric, and uncommon sequences are treated as noisy and/or chimeric sequences if noise occurrence and chimera formation can be assumed as random.
 However, noise occurrence and chimera formation likely to be nonrandom.
 Noisy and/or chimeric sequences might be occurred across all replicates.
-The effectiveness of this method does not confirmed enough, and combination of noisy and/or chimeric sequence removal based on PCR replicates and algorithms can be recommended (see also <cite class="ltx_cite"><a href="#bib.bib12" title="" class="ltx_ref">Lange <span class="ltx_text ltx_font_italic">et al</span>. (2015)</a></cite>).
+The effectiveness of this method does not confirmed enough, and combination of noisy and/or chimeric sequence removal based on PCR replicates and algorithms can be recommended (see also <cite class="ltx_cite"><a href="#bib.bib12" title="" class="ltx_ref">Lange <span class="ltx_text ltx_font_italic">et al.</span> (2015)</a></cite>).
 Such combination is supported in Claident, it is explained later.
 One of the final output of Claident is a sample x OTU table containing the number of sequences in every cell.
 The table modification command <span class="ltx_text ltx_font_typewriter">clfiltersum</span> can be used for integration of multiple samples to one, and cell numbers will be summed up.</p>
@@ -1852,9 +1852,11 @@ Replacing RunID to <span class="ltx_text ltx_font_typewriter">FOO</span>, all of
 <span class="ltx_tag ltx_tag_subsection">2.4.4 </span>In the case of sequencing of replicated PCR amplicons of same templates using same tags in different runs</h4>
 
 <div id="Ch2.S4.SS4.p1" class="ltx_para">
-<p class="ltx_p">複数ラン分の配列ファイルがあるはずですので、<span class="ltx_text ltx_font_typewriter">clsplitseq</span>によるサンプルごとの配列の分別と<span class="ltx_text ltx_font_typewriter">clfilterseq</span>による低品質配列の除去を別々に実行し、別々のフォルダに出力します。
-この後のノイジー配列とキメラ配列の除去も別々に行い、クラスタリングの際に複数ラン分のデータをまとめて入力ファイルとして与えて下さい。
-そして、サンプルごとの各OTUの配列数の集計表を作成する際に複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。</p>
+<p class="ltx_p">You should have multiple FASTQ files.
+Run demultiplexing by <span class="ltx_text ltx_font_typewriter">clsplitseq</span> and quality-trimming and quality-filtering by <span class="ltx_text ltx_font_typewriter">clfilterseq</span> separately, and save processed sequences to different folders.
+After separate processing of noisy and/or chimeric sequence removal, give all processed sequence files to clustering programs at once.
+One of the final output of Claident is a sample x OTU table containing the number of sequences in every cell.
+The table modification command <span class="ltx_text ltx_font_typewriter">clfiltersum</span> can be used for integration of multiple samples to one, and cell numbers will be summed up.</p>
 </div>
 </section>
 <section id="Ch2.S4.SS5" class="ltx_subsection">
@@ -1862,28 +1864,31 @@ Replacing RunID to <span class="ltx_text ltx_font_typewriter">FOO</span>, all of
 <span class="ltx_tag ltx_tag_subsection">2.4.5 </span>In the case of sequencing of replicated PCR amplicons of same templates using different tags in different runs</h4>
 
 <div id="Ch2.S4.SS5.p1" class="ltx_para">
-<p class="ltx_p">1回のランでは、たまたま得られる配列が少ないことがあります。
-そのため同一サンプルを複数のランでシーケンスし、全ランのデータを使いたいことがあります。
-ClaidentではサンプルID=RunID__TagID__PrimerIDですから、同じ鋳型由来のサンプルが複数存在するデータとなります。
-そのような場合はそのまま別サンプルとして解析を進めることもできますし、1サンプルにまとめてから解析を進めることもできます。
-別サンプルのまま処理を進め、ノイジー配列とキメラ配列の除去の際に「同じ鋳型由来の複数のPCR産物に共通に出現しない塩基配列はキメラもしくはノイジー配列とみなす」方法を適用することを推奨します。
-そして、サンプルごとの各OTUの配列数の集計表を作成する際に複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。</p>
+<p class="ltx_p">In Claident, RunID__TagID__PrimerID is used as sample IDs.
+Therefore, there are multiple replicated samples from the same templates in this case.
+Such samples can be treated as separate or integrated to one sample.
+It is recommended that separate samples have been used subsequent analysis without any change and such samples are finally integrated in a sample x OTU table.
+It may be good idea that common sequences among replicated samples are treated as noiseless and nonchimeric, and uncommon sequences are treated as noisy and/or chimeric sequences if noise occurrence and chimera formation can be assumed as random.
+Noisy and/or chimeric sequences might be occurred across all replicates.
+The effectiveness of this method does not confirmed enough, and combination of noisy and/or chimeric sequence removal based on PCR replicates and algorithms can be recommended (see also <cite class="ltx_cite"><a href="#bib.bib12" title="" class="ltx_ref">Lange <span class="ltx_text ltx_font_italic">et al.</span> (2015)</a></cite>).
+Such combination is supported in Claident, it is explained later.
+One of the final output of Claident is a sample x OTU table containing the number of sequences in every cell.
+The table modification command <span class="ltx_text ltx_font_typewriter">clfiltersum</span> can be used for integration of multiple samples to one, and cell numbers will be summed up.</p>
 </div>
 <div id="Ch2.S4.SS5.p2" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">clsplitseq</span>は、複数の配列ファイルがあるはずですので以下のように実行して下さい。
-ここではファイルが2つの場合を示します。</p>
+<p class="ltx_p">In the demultiplexing using <span class="ltx_text ltx_font_typewriter">clsplitseq</span>, process multiple FASTQ files like the following.</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clsplitseq \</span>
             </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">オプション省略 \</span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">*snip* \</span>
             </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--tagfile=タグ配列ファイル1 \</span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--tagfile=TagSequenceFile1 \</span>
             </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--primerfile=プライマー配列ファイル \</span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--primerfile=PrimerSequenceFile \</span>
             </span>
 <span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">inputfile1 \</span>
@@ -1895,13 +1900,13 @@ ClaidentではサンプルID=RunID__TagID__PrimerIDですから、同じ鋳型�
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clsplitseq \</span>
             </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">オプション省略 \</span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">*snip* \</span>
             </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--tagfile=タグ配列ファイル2 \</span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--tagfile=TagSequenceFile2 \</span>
             </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--primerfile=プライマー配列ファイル \</span>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--primerfile=PrimerSequenceFile \</span>
             </span>
 <span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--append \</span>
@@ -1913,12 +1918,12 @@ ClaidentではサンプルID=RunID__TagID__PrimerIDですから、同じ鋳型�
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">outputfolder↓</span>
             </span>
 </p>
-<p class="ltx_p">プライマー配列ファイル、出力フォルダは同じものを与えて下さい。
-<span class="ltx_text ltx_font_typewriter">--runname</span>オプションでは異なるRunIDを指定します。
-また、タグ配列ファイルは個別に用意して与えて下さい。
-ただし、同じ鋳型由来の配列に付加したTagIDは同じにして下さい。
-配列が同じタグであっても、異なる鋳型由来の配列に付加したタグのIDを同一にしてはいけません。
-例えば以下の2ファイルを用意したとします。</p>
+<p class="ltx_p">The sequence file of primer and the output folder should be the same.
+The different RunID should be given for <span class="ltx_text ltx_font_typewriter">--runname</span> argument.
+The different tag sequence files should be prepared and given.
+Note that the same TagID should be specified for the replicated samples from the same templates even if tag/index sequence is different.
+In addition, different TagID should be specified for the samples from different templates even if tag/index sequence is the same.
+In the case of the following tag sequence files, the sequences of sample1 were added <span class="ltx_text ltx_font_typewriter">ACGTACGT</span> as a tag in the first run, and <span class="ltx_text ltx_font_typewriter">ATGCATGC</span> in the second run.</p>
 <p class="ltx_p ltx_align_left" style="background-color:#E6E6E6;padding-top:12pt;padding-bottom:12pt;">
 <span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| &gt;sample1</span>
@@ -1947,33 +1952,30 @@ ClaidentではサンプルID=RunID__TagID__PrimerIDですから、同じ鋳型�
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| ACGTACGT</span>
             </span>
 </p>
-<p class="ltx_p">この場合、sample1の鋳型には1ラン目には<span class="ltx_text ltx_font_typewriter">ACGTACGT</span>を付加し、2ラン目では<span class="ltx_text ltx_font_typewriter">ATGCATGC</span>を付加したことになります。
-sample2の鋳型では逆になります。
-もしも、ほぼ同じ領域を増幅してはいるがプライマー配列は異なる場合、タグと同様に同じIDを付けた別々のファイルを用意して与えて下さい。
-この後の解析に関しては後述します。</p>
+<p class="ltx_p">The sequences of sample2 were added <span class="ltx_text ltx_font_typewriter">ATGCATGC</span> as a tag in the first run, and <span class="ltx_text ltx_font_typewriter">ACGTACGT</span> in the second run.
+The subsequent analysis is explained later.</p>
 </div>
 </section>
 </section>
 </section>
 <section id="Ch3" class="ltx_chapter">
 <h2 class="ltx_title ltx_title_chapter">
-<span class="ltx_tag ltx_tag_chapter">Chapter 3 </span>Noisy and/or chimeric sequence removal based on sequence abundance</h2>
+<span class="ltx_tag ltx_tag_chapter">Chapter 3 </span>Noisy and/or chimeric sequence removal</h2>
 
 <div id="Ch3.p1" class="ltx_para">
-<p class="ltx_p">Claidentでは、配列のクラスタリング結果から読み間違いの多いノイジーな配列を推定して除去することができます。
-方法はCD-HIT-OTU <cite class="ltx_cite"><a href="#bib.bib14" title="" class="ltx_ref">(Li <span class="ltx_text ltx_font_italic">et al</span>., 2012)</a></cite>とほとんど同じです。
-また、旧パイプラインではVSEARCHに実装されたUCHIME <cite class="ltx_cite"><a href="#bib.bib5" title="" class="ltx_ref">(Edgar <span class="ltx_text ltx_font_italic">et al</span>., 2011)</a></cite>アルゴリズムを呼び出して結果を受け取ることで、キメラ配列の検出・除去も可能です。
-新パイプラインでは、クラスタリング処理が終わってからキメラ検出・除去処理を適用します。</p>
+<p class="ltx_p">Claident can detect noisy sequences containing read errors and/or copy errors based on sequence abandance.
+This method is similar to the method implemented in CD-HIT-OTU <cite class="ltx_cite"><a href="#bib.bib14" title="" class="ltx_ref">(Li <span class="ltx_text ltx_font_italic">et al.</span>, 2012)</a></cite>.
+In the old pipeline using Assams for dereplication and clustering, chimera removal based on UCHIME <cite class="ltx_cite"><a href="#bib.bib5" title="" class="ltx_ref">(Edgar <span class="ltx_text ltx_font_italic">et al.</span>, 2011)</a></cite> algorithm can be applied.
+Chimera removal based on UCHIME <cite class="ltx_cite"><a href="#bib.bib5" title="" class="ltx_ref">(Edgar <span class="ltx_text ltx_font_italic">et al.</span>, 2011)</a></cite> algorithm is applied after OTU picking in the new pipeline using VSEARCH for dereplication and clustering.</p>
 </div>
 <section id="Ch3.S1" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">3.1 </span>VSEARCHを用いた新パイプラインの場合</h3>
+<span class="ltx_tag ltx_tag_section">3.1 </span>New pipeline using VSEARCH</h3>
 
 <div id="Ch3.S1.p1" class="ltx_para">
-<p class="ltx_p">以下のコマンドでノイジー配列の検出・除去が行えます。
-なお、多数のファイルを一度に与えることができますが、できるだけ1ラン分のファイルを与えて下さい。
-これは、ランごとに塩基配列決定の質にばらつきがあるためです。
-1ラン分の配列が非常に多く(1000万超)時間がかかってしまう場合は、1サンプルごとにこの処理を行って下さい。</p>
+<p class="ltx_p">Run the following command to perform noisy sequence detection and removal.
+Note that multiple input files can be given, and all sequence files of the same run should be given at once because sequencing quality varied among different runs.
+If there are too many sequences and the processing requires long time, give one sequence file and run the following command several times.</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clcleanseqv \</span>
@@ -2006,22 +2008,22 @@ sample2の鋳型では逆になります。
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">outputfolder↓</span>
           </span>
 </p>
-<p class="ltx_p">オプションのうち、<span class="ltx_text ltx_font_typewriter">--derepmode</span>は前処理において全長一致(<span class="ltx_text ltx_font_typewriter">FULLLENGTH</span>)で配列をまとめるか、前方一致(<span class="ltx_text ltx_font_typewriter">PREFIX</span>)で配列をまとめるかを指定します。
-オーバーラップのあるペアエンド配列を連結して得られた配列を処理する場合は<span class="ltx_text ltx_font_typewriter">FULLLENGTH</span>を、シングルエンド配列を処理する場合は<span class="ltx_text ltx_font_typewriter">PREFIX</span>を指定して下さい。
-<span class="ltx_text ltx_font_typewriter">--primarymaxnmismatch</span>はプライマリクラスタリングで許容するミスマッチ数で通常は0にします。
-<span class="ltx_text ltx_font_typewriter">--secondarymaxnmismatch</span>はセカンダリクラスタリングで許容するミスマッチ数で、通常は1にします。
-ただし、「先頭から末尾までに読み間違いが全くない配列」がほとんどないと思われるようなあまりにもノイズの多いデータでは、<span class="ltx_text ltx_font_typewriter">--primarymaxnmismatch</span>を1に、<span class="ltx_text ltx_font_typewriter">--secondarymaxnmismatch</span>を3にしてみて下さい。
-それでもダメなら<span class="ltx_text ltx_font_typewriter">--primarymaxnmismatch</span>を2に、<span class="ltx_text ltx_font_typewriter">--secondarymaxnmismatch</span>を5にして試します。
-<span class="ltx_text ltx_font_typewriter">--secondarymaxnmismatch</span>は<span class="ltx_text ltx_font_typewriter">--primarymaxnmismatch</span>の2倍より1大きい値に設定して下さい。
-<span class="ltx_text ltx_font_typewriter">--pnoisycluster</span>はノイジー配列と判定する感度に関するオプションです。
-0以上1以下で指定して下さい。
-大きいほど感度が上がります。
-デフォルト値・推奨値は0.5です。
-クラスタリングを最終的に97%以下の閾値で行うのであればこれでいいと思いますが、99%前後でクラスタリングする場合、<span class="ltx_text ltx_font_typewriter">--pnoisycluster</span>は0.9くらいにするといいかもしれません。
-ただし、レアOTUを捨ててしまう可能性が高くなるので、1サンプル当たりの配列数を多めに読んでおく必要があります。</p>
+<p class="ltx_p">Whether full-length perfect matching (<span class="ltx_text ltx_font_typewriter">FULLLENGTH</span>) or prefix search (<span class="ltx_text ltx_font_typewriter">PREFIX</span>) applied in dereplication is given for the <span class="ltx_text ltx_font_typewriter">--derepmode</span> argument.
+<span class="ltx_text ltx_font_typewriter">FULLLENGTH</span> is recommended for concatenated sequences of overlapped paired-end sequencing.
+<span class="ltx_text ltx_font_typewriter">PREFIX</span> is recommended for single-end or concatenated sequences of non-overlapped paired-end sequencing.
+The <span class="ltx_text ltx_font_typewriter">--primarymaxnmismatch</span> argument indicates the number of mismatches in primary clustering and 0 is recommended for the most cases.
+The <span class="ltx_text ltx_font_typewriter">--secondarymaxnmismatch</span> argument describes the number of mismatches in secondary clustering and 1 is recommended for the most cases.
+For the noisy data, use <span class="ltx_text ltx_font_typewriter">--primarymaxnmismatch=1 --secondarymaxnmismatch=3</span> or <span class="ltx_text ltx_font_typewriter">--primarymaxnmismatch=2 --secondarymaxnmismatch=5</span>.
+Twice as <span class="ltx_text ltx_font_typewriter">--primarymaxnmismatch</span> plus one should be specified for <span class="ltx_text ltx_font_typewriter">--secondarymaxnmismatch</span>.
+The <span class="ltx_text ltx_font_typewriter">--pnoisycluster</span> argument determines sensitivity of noise detection.
+Decimal value larger than 0 and smaller than 1 must be specified for this argument.
+The larger value acquire higher sensitivity.
+If you use 97% identity cutoff in clustering, 0.5 is recommended and this is the default value.
+If you use 99% or larger identity cutoff in clustering, 0.9 or larger value might be more suitable.
+The larger value causes exclusion of more low abundance sequences, more sequences should be obtained per sample.</p>
 </div>
 <div id="Ch3.S1.p2" class="ltx_para">
-<p class="ltx_p">outputfolderには、以下のファイル群が保存されます。</p>
+<p class="ltx_p">The following files should be saved in the output folder.</p>
 <dl id="Ch3.I1" class="ltx_description">
 <dt id="Ch3.I1.ix1"><span class="ltx_tag ltx_tag_description">
               <span class="ltx_text" style="font-size:90%;">parameter.txt</span>
@@ -2029,7 +2031,7 @@ sample2の鋳型では逆になります。
 <dd>
 <div id="Ch3.I1.ix1.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">プライマリクラスタをノイジーと判定するのに使用した所属配列数の下限値</span>
+                <span class="ltx_text" style="font-size:90%;">the minimum size of primary clusters remained</span>
               </p>
 </div>
 </dd>
@@ -2039,7 +2041,7 @@ sample2の鋳型では逆になります。
 <dd>
 <div id="Ch3.I1.ix2.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">ノイジーと判定されなかったプライマリクラスタの代表配列</span>
+                <span class="ltx_text" style="font-size:90%;">representative sequences of primary clusters determined as non-noisy</span>
               </p>
 </div>
 </dd>
@@ -2049,7 +2051,7 @@ sample2の鋳型では逆になります。
 <dd>
 <div id="Ch3.I1.ix3.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">プライマリクラスタの代表配列</span>
+                <span class="ltx_text" style="font-size:90%;">representative sequences of primary clusters</span>
               </p>
 </div>
 </dd>
@@ -2059,7 +2061,7 @@ sample2の鋳型では逆になります。
 <dd>
 <div id="Ch3.I1.ix4.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">セカンダリクラスタの代表配列</span>
+                <span class="ltx_text" style="font-size:90%;">representative sequences of secondary clusters</span>
               </p>
 </div>
 </dd>
@@ -2069,7 +2071,7 @@ sample2の鋳型では逆になります。
 <dd>
 <div id="Ch3.I1.ix5.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">ノイジー配列と判定された配列のリスト</span>
+                <span class="ltx_text" style="font-size:90%;">list of sequences determined as noisy</span>
               </p>
 </div>
 </dd>
@@ -2079,16 +2081,16 @@ sample2の鋳型では逆になります。
 <dd>
 <div id="Ch3.I1.ix6.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">プライマリクラスタリングでシングルトンになった配列のリスト</span>
+                <span class="ltx_text" style="font-size:90%;">list of singletons after primary clustering</span>
               </p>
 </div>
 </dd>
 </dl>
-<p class="ltx_p">他にも多くのファイルが出力されますが、後の解析に必要なものもありますので削除しないようにして下さい。</p>
+<p class="ltx_p">Many other files might be generated and do not delete such files because those might be required in subsequent analysis.</p>
 </div>
 <section id="Ch3.S1.SS1" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">3.1.1 </span>PCRレプリケート法によるノイジー配列・キメラ配列の除去</h4>
+<span class="ltx_tag ltx_tag_subsection">3.1.1 </span>Noisy and/or chimeric sequence removal based on PCR replicates</h4>
 
 <div id="Ch3.S1.SS1.p1" class="ltx_para">
 <p class="ltx_p">PCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去するには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
@@ -2264,7 +2266,7 @@ PCRレプリケートは3つ以上あっても構いません。
 </section>
 <section id="Ch3.S2" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">3.2 </span>Assamsを用いた旧パイプラインの場合</h3>
+<span class="ltx_tag ltx_tag_section">3.2 </span>Old pipeline using Assams</h3>
 
 <div id="Ch3.S2.p1" class="ltx_para">
 <p class="ltx_p">以下のコマンドでノイジー配列とキメラ配列の検出・除去が行えます。
@@ -2474,7 +2476,7 @@ Claidentがキメラ検出に利用しているUCHIMEでは、元配列数が多
 </div>
 <section id="Ch3.S2.SS1" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">3.2.1 </span>PCRレプリケート法によるノイジー配列・キメラ配列の除去</h4>
+<span class="ltx_tag ltx_tag_subsection">3.2.1 </span>Noisy and/or chimeric sequence removal based on PCR replicates</h4>
 
 <div id="Ch3.S2.SS1.p1" class="ltx_para">
 <p class="ltx_p">PCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去するには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
@@ -2613,15 +2615,15 @@ PCRレプリケートは3つ以上あっても構いません。
 </section>
 <section id="Ch4" class="ltx_chapter">
 <h2 class="ltx_title ltx_title_chapter">
-<span class="ltx_tag ltx_tag_chapter">Chapter 4 </span>塩基配列クラスタリングに基づくOTUピッキング</h2>
+<span class="ltx_tag ltx_tag_chapter">Chapter 4 </span>OTU picking based on nucleotide sequence clustering</h2>
 
 <section id="Ch4.S1" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">4.1 </span>サンプル内での配列クラスタリング</h3>
+<span class="ltx_tag ltx_tag_section">4.1 </span>Intra-sample clustering</h3>
 
 <section id="Ch4.S1.SS1" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">4.1.1 </span>VSEARCHを用いた新パイプラインの場合</h4>
+<span class="ltx_tag ltx_tag_subsection">4.1.1 </span>New pipeline using VSEARCH</h4>
 
 <div id="Ch4.S1.SS1.p1" class="ltx_para">
 <p class="ltx_p">新パイプラインではこのステップはありません。</p>
@@ -2629,7 +2631,7 @@ PCRレプリケートは3つ以上あっても構いません。
 </section>
 <section id="Ch4.S1.SS2" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">4.1.2 </span>Assamsを用いた旧パイプラインの場合</h4>
+<span class="ltx_tag ltx_tag_subsection">4.1.2 </span>Old pipeline using Assams</h4>
 
 <div id="Ch4.S1.SS2.p1" class="ltx_para">
 <p class="ltx_p">以下のコマンドで、同一の鋳型を同一のチューブ内でPCRした配列群のクラスタリングを行います。
@@ -2695,11 +2697,11 @@ PCRレプリケートは3つ以上あっても構いません。
 </section>
 <section id="Ch4.S2" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">4.2 </span>サンプル間での配列クラスタリング</h3>
+<span class="ltx_tag ltx_tag_section">4.2 </span>Inter-sample clustering</h3>
 
 <section id="Ch4.S2.SS1" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">4.2.1 </span>VSEARCHを用いた新パイプラインの場合</h4>
+<span class="ltx_tag ltx_tag_subsection">4.2.1 </span>New pipeline using VSEARCH</h4>
 
 <div id="Ch4.S2.SS1.p1" class="ltx_para">
 <p class="ltx_p">塩基配列のクラスタリングを行ってOTUを作成するには、以下のコマンドを実行して下さい。</p>
@@ -2757,7 +2759,7 @@ PCRレプリケートは3つ以上あっても構いません。
 </section>
 <section id="Ch4.S2.SS2" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">4.2.2 </span>Assamsを用いた旧パイプラインの場合</h4>
+<span class="ltx_tag ltx_tag_subsection">4.2.2 </span>Old pipeline using Assams</h4>
 
 <div id="Ch4.S2.SS2.p1" class="ltx_para">
 <p class="ltx_p">サンプル内クラスタリングデータを用いてサンプル間でのクラスタリングを行い、全体のクラスタリング結果を得るには以下のコマンドを実行します。
@@ -2927,7 +2929,7 @@ PCRレプリケートは3つ以上あっても構いません。
 </section>
 <section id="Ch4.S3" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">4.3 </span>OTU代表配列への生配列のマッピング</h3>
+<span class="ltx_tag ltx_tag_section">4.3 </span>Mapping raw sequencing reads to representative sequences of the clusters</h3>
 
 <div id="Ch4.S3.p1" class="ltx_para">
 <p class="ltx_p">ノイジー配列・キメラ配列と判定されてしまった配列でも、OTUの代表配列に対して指定した類似度の閾値で貼り付けることが可能なのであれば、復活させることができます。
@@ -2935,7 +2937,7 @@ PCRレプリケートは3つ以上あっても構いません。
 </div>
 <section id="Ch4.S3.SS1" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">4.3.1 </span>VSEARCHを用いた新パイプラインの場合</h4>
+<span class="ltx_tag ltx_tag_subsection">4.3.1 </span>New pipeline using VSEARCH</h4>
 
 <div id="Ch4.S3.SS1.p1" class="ltx_para">
 <p class="ltx_p">以下のコマンドを実行して下さい。</p>
@@ -2973,7 +2975,7 @@ PCRレプリケートは3つ以上あっても構いません。
 </section>
 <section id="Ch4.S3.SS2" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">4.3.2 </span>Assamsを用いた旧パイプラインの場合</h4>
+<span class="ltx_tag ltx_tag_subsection">4.3.2 </span>Old pipeline using Assams</h4>
 
 <div id="Ch4.S3.SS2.p1" class="ltx_para">
 <p class="ltx_p">旧パイプラインではこのステップはありません。</p>
@@ -2983,11 +2985,11 @@ PCRレプリケートは3つ以上あっても構いません。
 </section>
 <section id="Ch5" class="ltx_chapter">
 <h2 class="ltx_title ltx_title_chapter">
-<span class="ltx_tag ltx_tag_chapter">Chapter 5 </span>OTUピッキング結果の要約と後処理</h2>
+<span class="ltx_tag ltx_tag_chapter">Chapter 5 </span>Summarizing and post-processing of OTU picking results</h2>
 
 <section id="Ch5.S1" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">5.1 </span>集計表の作成</h3>
+<span class="ltx_tag ltx_tag_section">5.1 </span>Making summary table</h3>
 
 <div id="Ch5.S1.p1" class="ltx_para">
 <p class="ltx_p">以下のコマンドで、クラスタリング結果から各サンプルにおける各OTUに割り当てられた生配列数を表にすることができます。</p>
@@ -3006,7 +3008,7 @@ PCRレプリケートは3つ以上あっても構いません。
           </span>
 </p>
 <p class="ltx_p">ここでの入力ファイルは、クラスタリング結果の出力フォルダに保存されている、<span class="ltx_text ltx_font_typewriter">clustered.otu.gz</span> (新パイプライン)または<span class="ltx_text ltx_font_typewriter">assembled.contigmembers.gz</span> (旧パイプライン)というファイルです。
-出力されるファイルは表<a href="#Ch5.T1" title="Table  5.1 ‣ 5.1 集計表の作成 ‣ Chapter 5 OTUピッキング結果の要約と後処理 ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.1</span></a>のようなタブ区切りのテキストファイルで、Excelなどの表計算ソフトやRで読み込むことができます。
+出力されるファイルは表<a href="#Ch5.T1" title="Table  5.1 ‣ 5.1 Making summary table ‣ Chapter 5 Summarizing and post-processing of OTU picking results ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.1</span></a>のようなタブ区切りのテキストファイルで、Excelなどの表計算ソフトやRで読み込むことができます。
 ただし、表計算ソフトは巨大な行列の全てを読み込むことができない可能性がありますので注意して下さい。
 このファイルに基づいて、群集生態学的な解析を行うことができます。</p>
 </div>
@@ -3118,7 +3120,7 @@ PCRレプリケートは3つ以上あっても構いません。
 </section>
 <section id="Ch5.S2" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">5.2 </span>集計表からの特定のOTU・サンプルの除去</h3>
+<span class="ltx_tag ltx_tag_section">5.2 </span>Excluding specified OTUs and/or samples from summary table</h3>
 
 <div id="Ch5.S2.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_typewriter">clsumclass</span>では、1回だけ出現した配列も含めて全て出力されますが、以下のコマンドを用いてサンプルやOTUを選別することができます。
@@ -3343,7 +3345,7 @@ PCRレプリケート関係にあるサンプルをタブ区切りで同一行�
 </section>
 <section id="Ch5.S3" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">5.3 </span>PCRレプリケート法によるノイジー配列・キメラ配列の除去</h3>
+<span class="ltx_tag ltx_tag_section">5.3 </span>Noisy and/or chimeric sequence removal based on PCR replicates after OTU picking</h3>
 
 <div id="Ch5.S3.p1" class="ltx_para">
 <p class="ltx_p">新パイプラインでは<span class="ltx_text ltx_font_typewriter">clcleanseqv</span>の実行時に行っていますが、旧パイプラインでもPCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去することが可能です。
@@ -3464,13 +3466,13 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 また、PCRレプリケート指示ファイルに記されていないサンプルでは判定が行われません。</p>
 </div>
 <div id="Ch5.S3.p3" class="ltx_para">
-<p class="ltx_p">ここで作成したFASTA配列ファイルを第<a href="#Ch5.S2" title="5.2 集計表からの特定のOTU・サンプルの除去 ‣ Chapter 5 OTUピッキング結果の要約と後処理 ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>節の<span class="ltx_text ltx_font_typewriter">clfiltersum</span>の<span class="ltx_text ltx_font_typewriter">--otuseq</span>オプションに指定して集計表を加工することで、この配列ファイルから除去されたOTUを集計表からも除去することができます。
+<p class="ltx_p">ここで作成したFASTA配列ファイルを第<a href="#Ch5.S2" title="5.2 Excluding specified OTUs and/or samples from summary table ‣ Chapter 5 Summarizing and post-processing of OTU picking results ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>節の<span class="ltx_text ltx_font_typewriter">clfiltersum</span>の<span class="ltx_text ltx_font_typewriter">--otuseq</span>オプションに指定して集計表を加工することで、この配列ファイルから除去されたOTUを集計表からも除去することができます。
 また、<span class="ltx_text ltx_font_typewriter">--replicatelist</span>オプションと<span class="ltx_text ltx_font_typewriter">--runname</span>オプションを<span class="ltx_text ltx_font_typewriter">clfilterseq</span>と同様に指定すれば、PCRレプリケート関係にあるサンプルは1つのサンプルに統合されます(セルの値は合算されます)。</p>
 </div>
 </section>
 <section id="Ch5.S4" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">5.4 </span>UCHIMEによるキメラ配列除去</h3>
+<span class="ltx_tag ltx_tag_section">5.4 </span>Chimera removal using UCHIME algorithm</h3>
 
 <div id="Ch5.S4.p1" class="ltx_para">
 <p class="ltx_p">旧パイプラインではクラスタリング前にもUCHIMEでキメラ配列除去は行っていますが、クラスタリング後の配列に対してリファレンスなしでのキメラ配列除去とリファレンスありでのキメラ配列除去を追加で行うことができます。
@@ -3483,7 +3485,7 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 </div>
 <section id="Ch5.S4.SS1" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">5.4.1 </span>リファレンスなしでのキメラ配列除去</h4>
+<span class="ltx_tag ltx_tag_subsection">5.4.1 </span><span class="ltx_text ltx_font_italic">De novo</span> chimera removal</h4>
 
 <div id="Ch5.S4.SS1.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_typewriter">clrunuchime</span>を以下のように実行して下さい。</p>
@@ -3511,7 +3513,7 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 </section>
 <section id="Ch5.S4.SS2" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">5.4.2 </span>リファレンスありでのキメラ配列除去</h4>
+<span class="ltx_tag ltx_tag_subsection">5.4.2 </span>Reference-based chimera removal</h4>
 
 <div id="Ch5.S4.SS2.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_typewriter">clrunuchime</span>を以下のように実行して下さい。
@@ -3593,7 +3595,7 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 </section>
 <section id="Ch5.S4.SS3" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">5.4.3 </span>出力フォルダの内容について</h4>
+<span class="ltx_tag ltx_tag_subsection">5.4.3 </span>About contents of output folder</h4>
 
 <div id="Ch5.S4.SS3.p1" class="ltx_para">
 <p class="ltx_p">出力フォルダに保存されるファイルは以下の4つです。</p>
@@ -3651,7 +3653,7 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 </section>
 <section id="Ch5.S5" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">5.5 </span>配列からの低頻度出現配列の除去</h3>
+<span class="ltx_tag ltx_tag_section">5.5 </span>Excluding low-abundance OTUs from OTU sequences</h3>
 
 <div id="Ch5.S5.p1" class="ltx_para">
 <p class="ltx_p">クラスタリングの出力フォルダには、<span class="ltx_text ltx_font_typewriter">clustered.fasta.gz</span> (新パイプライン)または<span class="ltx_text ltx_font_typewriter">assembled.fasta</span> (旧パイプライン)というファイルとして、最終的に得られた代表配列もしくはコンセンサス配列が保存されています。
@@ -3683,12 +3685,12 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 <p class="ltx_p">旧パイプラインを使用した場合は<span class="ltx_text ltx_font_typewriter">--contigmembers</span>オプションを、新パイプラインを使用した場合は<span class="ltx_text ltx_font_typewriter">--otufile</span>オプションを使用します。
 上記の例は一度に説明するためのもので、両方を指定してはいけません。
 なお、どちらも指定しなかった場合、<span class="ltx_text ltx_font_typewriter">*.otu.gz</span>がinputfileと同じフォルダに存在すればそれを、<span class="ltx_text ltx_font_typewriter">*.contigmembers.gz</span>が存在すればそれを見つけ出して使用しますので、普段は何も指定しなくてもいいでしょう。
-ここで作成したFASTA配列ファイルを第<a href="#Ch5.S2" title="5.2 集計表からの特定のOTU・サンプルの除去 ‣ Chapter 5 OTUピッキング結果の要約と後処理 ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>節の<span class="ltx_text ltx_font_typewriter">clfiltersum</span>の<span class="ltx_text ltx_font_typewriter">--otuseq</span>オプションに指定して集計表を加工することで、この配列ファイルから除去されたOTUを集計表からも除去することができます。</p>
+ここで作成したFASTA配列ファイルを第<a href="#Ch5.S2" title="5.2 Excluding specified OTUs and/or samples from summary table ‣ Chapter 5 Summarizing and post-processing of OTU picking results ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>節の<span class="ltx_text ltx_font_typewriter">clfiltersum</span>の<span class="ltx_text ltx_font_typewriter">--otuseq</span>オプションに指定して集計表を加工することで、この配列ファイルから除去されたOTUを集計表からも除去することができます。</p>
 </div>
 </section>
 <section id="Ch5.S6" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">5.6 </span>保存領域配列認識による領域分割</h3>
+<span class="ltx_tag ltx_tag_section">5.6 </span>Sequence splitting based on conservative motif recognition</h3>
 
 <div id="Ch5.S6.p1" class="ltx_para">
 <p class="ltx_p">ここまでの配列が複数領域にまたがっている場合(たとえばITS1・5.8S rRNA・ITS2といった風に)、領域ごとに分割した方が良いかもしれません。
@@ -3732,40 +3734,40 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 </section>
 <section id="Ch5.S7" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">5.7 </span>ITSxやMetaxaによるITS・SSU rRNA配列の抽出</h3>
+<span class="ltx_tag ltx_tag_section">5.7 </span>ITS, SSU rRNA or LSU rRNA sequence extraction using ITSx or Metaxa</h3>
 
 <div id="Ch5.S7.p1" class="ltx_para">
-<p class="ltx_p">ITSxは核ITS1・ITS2領域を認識してその部位だけを取り出すことができるプログラムです<cite class="ltx_cite"><a href="#bib.bib3" title="" class="ltx_ref">(Bengtsson-Palme <span class="ltx_text ltx_font_italic">et al</span>., 2013)</a></cite>。
+<p class="ltx_p">ITSxは核ITS1・ITS2領域を認識してその部位だけを取り出すことができるプログラムです<cite class="ltx_cite"><a href="#bib.bib4" title="" class="ltx_ref">(Bengtsson-Palme <span class="ltx_text ltx_font_italic">et al.</span>, 2013)</a></cite>。
 多くの分類群でITSは非常に変異に富んでいますが、ずっと保守的なSSU・LSU rRNAと隣接しているため、これらの配列が残っていると、その配列の影響でITSでは明確に区別できる遠縁な生物のSSU・LSU配列がBLAST検索時にヒットしてしまい、うまく同定できなくなってしまうことがあります。
 ITSxでITS領域のみを切り出して同定することでこのような問題に対処できます。</p>
 </div>
 <div id="Ch5.S7.p2" class="ltx_para">
-<p class="ltx_p">MetaxaはITSxと同様にSSU (12S/16S/18S) rRNAを区別してそれぞれの部位だけを取り出すことができるプログラムです<cite class="ltx_cite"><a href="#bib.bib4" title="" class="ltx_ref">(Bengtsson <span class="ltx_text ltx_font_italic">et al</span>., 2011)</a></cite>。
+<p class="ltx_p">MetaxaはITSxと同様にSSU (12S/16S/18S) rRNAを区別してそれぞれの部位だけを取り出すことができるプログラムです<cite class="ltx_cite"><a href="#bib.bib3" title="" class="ltx_ref">(Bengtsson <span class="ltx_text ltx_font_italic">et al.</span>, 2011)</a></cite>。
 SSU rRNAは真核生物のメタバーコーディング・DNAバーコーディングに広く利用されている領域ですが、核だけでなくミトコンドリアや葉緑体、混入した細菌にも含まれているため、核のSSUを標的とするPCRを行った場合にも多少はミトコンドリアや細菌のSSU rRNAが混入してしまいます。
 そのような配列は群集生態学的解析の障害となるため、このプログラムで前もって除去しておくと後の解析が楽になります。</p>
 </div>
 <div id="Ch5.S7.p3" class="ltx_para">
 <p class="ltx_p">いずれのプログラムもインストール方法、使用方法をここでは説明しません。
 それぞれのWebサイトとマニュアルをご覧下さい。
-これらのプログラムで作成したFASTA配列ファイルを第<a href="#Ch5.S2" title="5.2 集計表からの特定のOTU・サンプルの除去 ‣ Chapter 5 OTUピッキング結果の要約と後処理 ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>節の<span class="ltx_text ltx_font_typewriter">clfiltersum</span>の<span class="ltx_text ltx_font_typewriter">--otuseq</span>オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。</p>
+これらのプログラムで作成したFASTA配列ファイルを第<a href="#Ch5.S2" title="5.2 Excluding specified OTUs and/or samples from summary table ‣ Chapter 5 Summarizing and post-processing of OTU picking results ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>節の<span class="ltx_text ltx_font_typewriter">clfiltersum</span>の<span class="ltx_text ltx_font_typewriter">--otuseq</span>オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。</p>
 </div>
 </section>
 <section id="Ch5.S8" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">5.8 </span>非ターゲット領域の探索と削除</h3>
+<span class="ltx_tag ltx_tag_section">5.8 </span>Searching and excluding non-target sequences</h3>
 
 <div id="Ch5.S8.p1" class="ltx_para">
 <p class="ltx_p">ITSxやMetaxaはITSとSSU rRNA領域にしか使用できませんが、もっと汎用的な非ターゲット領域の探索方法があります。
 一つはBLASTなどで検索して配列がどの遺伝子のものかを判定してくれるプログラムにかけることで、もう一つは多重整列プログラムを利用することです。
-ClustalW2・ClustalX2 <cite class="ltx_cite"><a href="#bib.bib13" title="" class="ltx_ref">(Larkin <span class="ltx_text ltx_font_italic">et al</span>., 2007)</a></cite>やMAFFT <cite class="ltx_cite"><a href="#bib.bib10" title="" class="ltx_ref">(Katoh and Standley, 2013)</a></cite>には、多重整列した結果を系統的に近いものが近くになるように並び替えて出力することができます。
+ClustalW2・ClustalX2 <cite class="ltx_cite"><a href="#bib.bib13" title="" class="ltx_ref">(Larkin <span class="ltx_text ltx_font_italic">et al.</span>, 2007)</a></cite>やMAFFT <cite class="ltx_cite"><a href="#bib.bib10" title="" class="ltx_ref">(Katoh &amp; Standley, 2013)</a></cite>には、多重整列した結果を系統的に近いものが近くになるように並び替えて出力することができます。
 この機能を使って並び替えた上で、多重整列の閲覧ソフトで表示して目で確認すればどれが非ターゲット領域かすぐわかります。
-非ターゲット領域のOTUを除去したFASTA配列ファイルを第<a href="#Ch5.S2" title="5.2 集計表からの特定のOTU・サンプルの除去 ‣ Chapter 5 OTUピッキング結果の要約と後処理 ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>節の<span class="ltx_text ltx_font_typewriter">clfiltersum</span>の<span class="ltx_text ltx_font_typewriter">--otuseq</span>オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。</p>
+非ターゲット領域のOTUを除去したFASTA配列ファイルを第<a href="#Ch5.S2" title="5.2 Excluding specified OTUs and/or samples from summary table ‣ Chapter 5 Summarizing and post-processing of OTU picking results ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>節の<span class="ltx_text ltx_font_typewriter">clfiltersum</span>の<span class="ltx_text ltx_font_typewriter">--otuseq</span>オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。</p>
 </div>
 </section>
 </section>
 <section id="Ch6" class="ltx_chapter">
 <h2 class="ltx_title ltx_title_chapter">
-<span class="ltx_tag ltx_tag_chapter">Chapter 6 </span>DRAへのデータ登録</h2>
+<span class="ltx_tag ltx_tag_chapter">Chapter 6 </span>Data deposition to DRA</h2>
 
 <div id="Ch6.p1" class="ltx_para">
 <p class="ltx_p">クラスタリング後の配列は従来通りDDBJなどに登録すればいいですが、新型シーケンサーの生データはDDBJ Sequence Read Archive (DRA)というところへ登録することになっています(サンガー法シーケンサーの生データはTrace Archive)。
@@ -3808,7 +3810,7 @@ BioSampleへの登録はBioSample Handbook
 </div>
 <section id="Ch6.S1" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">6.1 </span>XML作成用タブ区切りテキストの作成</h3>
+<span class="ltx_tag ltx_tag_section">6.1 </span>Preparing tab-delimited text file for XML generation</h3>
 
 <div id="Ch6.S1.p1" class="ltx_para">
 <p class="ltx_p">DRAに登録するXMLには、登録するFASTQファイルごとにそのファイルに含まれている配列の情報を記述します。
@@ -3844,7 +3846,7 @@ BioSampleへの登録はBioSample Handbook
 </section>
 <section id="Ch6.S2" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">6.2 </span>タブ区切りテキストからのDRA登録用XMLファイルの生成</h3>
+<span class="ltx_tag ltx_tag_section">6.2 </span>XML generation from tab-delimited text</h3>
 
 <div id="Ch6.S2.p1" class="ltx_para">
 <p class="ltx_p">タブ区切りテキストの編集が終わったら、タブ区切りテキストとして保存した上で以下のように<span class="ltx_text ltx_font_typewriter">clmakexml</span>を実行して下さい。
@@ -3875,12 +3877,12 @@ BioSampleへの登録はBioSample Handbook
 </section>
 <section id="Ch7" class="ltx_chapter">
 <h2 class="ltx_title ltx_title_chapter">
-<span class="ltx_tag ltx_tag_chapter">Chapter 7 </span>DNAバーコーディングによる配列のホスト生物同定</h2>
+<span class="ltx_tag ltx_tag_chapter">Chapter 7 </span>Estimation of host organisms of nucleotide sequences (DNA barcoding)</h2>
 
 <div id="Ch7.p1" class="ltx_para">
 <p class="ltx_p">DNAバーコーディングは、近年非常に多くの分野で応用が進められている、生物の同定方法です。
 しかし、既知配列データベースが不十分な上、それを前提とした同定アルゴリズムが欠けていました。
-そこで、筆者は「問い合わせ配列と最近隣配列との間の変異量＜分類群内の最大変異量」という規準を考案し、これを実現するアルゴリズムQCauto法<cite class="ltx_cite"><a href="#bib.bib18" title="" class="ltx_ref">(Tanabe and Toju, 2013)</a></cite>をClaidentに実装しました。
+そこで、筆者は「問い合わせ配列と最近隣配列との間の変異量＜分類群内の最大変異量」という規準を考案し、これを実現するアルゴリズムQCauto法<cite class="ltx_cite"><a href="#bib.bib18" title="" class="ltx_ref">(Tanabe &amp; Toju, 2013)</a></cite>をClaidentに実装しました。
 ただし、その配列のホストの可能性がある全生物が記載済みで、しかもそのバーコード配列もデータベースに登録済みである場合には、そのような難しいことを考えずに最近隣配列と同種とみなせばよいでしょう。
 そちらの方法もClaidentには実装してあります。
 以下のコマンドは全てターミナルかコンソールで実行して下さい。
@@ -3888,7 +3890,7 @@ BioSampleへの登録はBioSample Handbook
 </div>
 <section id="Ch7.S1" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">7.1 </span>BLAST検索による近隣既知配列群の取得</h3>
+<span class="ltx_tag ltx_tag_section">7.1 </span>Retrieval of neighborhood sequences based on BLAST search</h3>
 
 <div id="Ch7.S1.p1" class="ltx_para">
 <p class="ltx_p">以下のコマンドで、「問い合わせ配列と最近隣配列との間の変異量＜分類群内の最大変異量」という条件を満たすために検討すべき近隣既知配列群(のGenBank ID)を取得できます。</p>
@@ -4256,7 +4258,7 @@ BioSampleへの登録はBioSample Handbook
 </div>
 <section id="Ch7.S1.SS1" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">7.1.1 </span>キャッシュデータベースの構築による高速化</h4>
+<span class="ltx_tag ltx_tag_subsection">7.1.1 </span>Accelerating BLAST search using cache databases</h4>
 
 <div id="Ch7.S1.SS1.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_typewriter">clidentseq</span>はBLAST検索を何度も繰り返しますが、それなりの時間と大量のメモリを必要とします。そこで、予め問い合わせ配列と類似した配列の上位1万本(設定で変更可)のヒットした部位のみをBLASTデータベースから取得してキャッシュとなるBLASTデータベースを作成しておき、<span class="ltx_text ltx_font_typewriter">clidentseq</span>ではこれを対象として検索することで、劇的な高速化が可能です。これを行うのが<span class="ltx_text ltx_font_typewriter">clmakecachedb</span>で、以下のように用います。</p>
@@ -4288,7 +4290,7 @@ BioSampleへの登録はBioSample Handbook
 </section>
 <section id="Ch7.S1.SS2" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">7.1.2 </span>参照配列データベースが全種を網羅している場合</h4>
+<span class="ltx_tag ltx_tag_subsection">7.1.2 </span>In the case of perfect reference database</h4>
 
 <div id="Ch7.S1.SS2.p1" class="ltx_para">
 <p class="ltx_p">問い合わせ配列のホストの可能性がある全生物が記載済みで、しかもそのバーコード配列も全て参照配列データベースに登録済みである場合には、以下のようにして類似度99%以上の上位1位(1位タイを含む)を近隣配列とすればいいでしょう。</p>
@@ -4323,11 +4325,11 @@ BioSampleへの登録はBioSample Handbook
 </section>
 <section id="Ch7.S2" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">7.2 </span>近隣既知配列群に基づく同定</h3>
+<span class="ltx_tag ltx_tag_section">7.2 </span>Taxonomic assignment based on neighborhood sequences</h3>
 
 <div id="Ch7.S2.p1" class="ltx_para">
 <p class="ltx_p">以下のコマンドで、近隣既知配列群の所属分類群が同一になるまで分類階層を上げていくことで配列を同定します。
-これはlowest common ancestor (LCA) algorithmと呼ばれています<cite class="ltx_cite"><a href="#bib.bib8" title="" class="ltx_ref">(Huson <span class="ltx_text ltx_font_italic">et al</span>., 2007)</a></cite>。</p>
+これはlowest common ancestor (LCA) algorithmと呼ばれています<cite class="ltx_cite"><a href="#bib.bib8" title="" class="ltx_ref">(Huson <span class="ltx_text ltx_font_italic">et al.</span>, 2007)</a></cite>。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; classigntax \</span>
@@ -4348,7 +4350,7 @@ BLASTデータベースと同じ名前のものがインストールされてい
 </div>
 <div id="Ch7.S2.p2" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_typewriter">classigntax</span>のデフォルト設定では、少なくとも2本以上の近隣既知配列がないと同定することができません。
-第<a href="#Ch7.S1.SS2" title="7.1.2 参照配列データベースが全種を網羅している場合 ‣ 7.1 BLAST検索による近隣既知配列群の取得 ‣ Chapter 7 DNAバーコーディングによる配列のホスト生物同定 ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1.2</span></a>節のように<span class="ltx_text ltx_font_typewriter">clidentseq</span>の実行時に<span class="ltx_text ltx_font_typewriter">--method=1,99%</span>を指定していると、近隣既知配列が1本しかないために一つも同定できないことになります。
+第<a href="#Ch7.S1.SS2" title="7.1.2 In the case of perfect reference database ‣ 7.1 Retrieval of neighborhood sequences based on BLAST search ‣ Chapter 7 Estimation of host organisms of nucleotide sequences (DNA barcoding) ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1.2</span></a>節のように<span class="ltx_text ltx_font_typewriter">clidentseq</span>の実行時に<span class="ltx_text ltx_font_typewriter">--method=1,99%</span>を指定していると、近隣既知配列が1本しかないために一つも同定できないことになります。
 この場合は以下のようにして必要な近隣既知配列数を1にします。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
@@ -4367,7 +4369,7 @@ BLASTデータベースと同じ名前のものがインストールされてい
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">outputfile↓</span>
           </span>
 </p>
-<p class="ltx_p">出力ファイルは表<a href="#Ch7.T1" title="Table  7.1 ‣ 7.2 近隣既知配列群に基づく同定 ‣ Chapter 7 DNAバーコーディングによる配列のホスト生物同定 ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1</span></a>のような形のタブ区切りのテキストになっています。</p>
+<p class="ltx_p">出力ファイルは表<a href="#Ch7.T1" title="Table  7.1 ‣ 7.2 Taxonomic assignment based on neighborhood sequences ‣ Chapter 7 Estimation of host organisms of nucleotide sequences (DNA barcoding) ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1</span></a>のような形のタブ区切りのテキストになっています。</p>
 </div>
 <figure id="Ch7.T1" class="ltx_table">
 <table class="ltx_tabular ltx_centering ltx_align_middle">
@@ -4680,7 +4682,7 @@ supporter配列数とopposer配列数がこれを下回るような同定結果�
 </section>
 <section id="Ch7.S3" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">7.3 </span>複数の同定結果の統合</h3>
+<span class="ltx_tag ltx_tag_section">7.3 </span>Merging multiple taxonomic assignments based on consensus</h3>
 
 <div id="Ch7.S3.p1" class="ltx_para">
 <p class="ltx_p">例えば植物の<span class="ltx_text ltx_font_italic">rbcL</span>と<span class="ltx_text ltx_font_italic">matK</span>など、複数のバーコード領域を併用しなければ同定できないこともありますし、<span class="ltx_text ltx_font_typewriter">overall_genus</span>と<span class="ltx_text ltx_font_typewriter">overall_class</span>での同定結果のいいとこ取りをしたい場合があります。
@@ -4804,8 +4806,8 @@ supporter配列数とopposer配列数がこれを下回るような同定結果�
         
         
 <span class="ltx_bibblock">
-Andrews, S., 2010, “Software distributed by the author at
-http://www.bioinformatics.babraham.ac.uk/projects/fastqc/.”.
+Andrews, S. (2010) Software distributed by the author at
+http://www.bioinformatics.babraham.ac.uk/projects/fastqc/.
 
 </span>
       </li>
@@ -4817,14 +4819,12 @@ http://www.bioinformatics.babraham.ac.uk/projects/fastqc/.”.
         
         
 <span class="ltx_bibblock">
-Bengtsson-Palme, J., Ryberg, M., Hartmann, M., Branco, S., Wang, Z., Godhe, A.,
-De Wit, P., Sánchez-García, M., Ebersberger, I., de Sousa, F., Amend,
-A., Jumpponen, A., Unterseher, M., Kristiansson, E., Abarenkov, K., Bertrand,
-Y. J. K., Sanli, K., Eriksson, K. M., Vik, U., Veldre, V., and Nilsson,
-R. H., 2013, “Improved software detection and extraction of ITS1 and ITS2
-from ribosomal ITS sequences of fungi and other eukaryotes for analysis of
-environmental sequencing data”, <span class="ltx_text ltx_font_italic">Methods in Ecology and Evolution</span>,
-<span class="ltx_text ltx_font_bold">4</span>, No. 10, 914–919.
+Bengtsson, J., Eriksson, K. M., Hartmann, M., Wang, Z., Shenoy, B. D., Grelet,
+G.-A., Abarenkov, K., Petri, A., Rosenblad, M. A., Nilsson, R. H. (2011)
+Metaxa: a software tool for automated detection and discrimination among
+ribosomal small subunit (12S/16S/18S) sequences of archaea, bacteria,
+eukaryotes, mitochondria, and chloroplasts in metagenomes and environmental
+sequencing datasets. <span class="ltx_text ltx_font_italic">Antonie Van Leeuwenhoek</span>, <span class="ltx_text ltx_font_bold">100</span>, 471–475.
 
 </span>
       </li>
@@ -4836,13 +4836,14 @@ environmental sequencing data”, <span class="ltx_text ltx_font_italic">Methods
         
         
 <span class="ltx_bibblock">
-Bengtsson, J., Eriksson, K. M., Hartmann, M., Wang, Z., Shenoy, B. D., Grelet,
-G.-A., Abarenkov, K., Petri, A., Rosenblad, M. A., and Nilsson, R. H., 2011,
-“Metaxa: a software tool for automated detection and discrimination among
-ribosomal small subunit (12S/16S/18S) sequences of archaea, bacteria,
-eukaryotes, mitochondria, and chloroplasts in metagenomes and environmental
-sequencing datasets.”, <span class="ltx_text ltx_font_italic">Antonie Van Leeuwenhoek</span>, <span class="ltx_text ltx_font_bold">100</span>, No. 3,
-471–475, Oct.
+Bengtsson-Palme, J., Ryberg, M., Hartmann, M., Branco, S., Wang, Z., Godhe, A.,
+De Wit, P., Sánchez-García, M., Ebersberger, I., de Sousa, F., Amend,
+A., Jumpponen, A., Unterseher, M., Kristiansson, E., Abarenkov, K., Bertrand,
+Y. J. K., Sanli, K., Eriksson, K. M., Vik, U., Veldre, V., Nilsson, R. H.
+(2013) Improved software detection and extraction of ITS1 and ITS2 from
+ribosomal ITS sequences of fungi and other eukaryotes for analysis of
+environmental sequencing data <span class="ltx_text ltx_font_italic">Methods in Ecology and Evolution</span>,
+<span class="ltx_text ltx_font_bold">4</span>, 914–919.
 
 </span>
       </li>
@@ -4854,8 +4855,8 @@ sequencing datasets.”, <span class="ltx_text ltx_font_italic">Antonie Van Leeu
         
         
 <span class="ltx_bibblock">
-Edgar, R. C., Haas, B. J., Clemente, J. C., Quince, C., and Knight, R., 2011,
-“UCHIME improves sensitivity and speed of chimera detection.”, <span class="ltx_text ltx_font_italic">Bioinformatics</span>, <span class="ltx_text ltx_font_bold">27</span>, No. 16, 2194–2200, Aug.
+Edgar, R. C., Haas, B. J., Clemente, J. C., Quince, C., Knight, R. (2011)
+UCHIME improves sensitivity and speed of chimera detection. <span class="ltx_text ltx_font_italic">Bioinformatics</span>, <span class="ltx_text ltx_font_bold">27</span>, 2194–2200.
 
 </span>
       </li>
@@ -4867,10 +4868,10 @@ Edgar, R. C., Haas, B. J., Clemente, J. C., Quince, C., and Knight, R., 2011,
         
         
 <span class="ltx_bibblock">
-Fadrosh, D. W., Ma, B., Gajer, P., Sengamalay, N., Ott, S., Brotman, R. M., and
-Ravel, J., 2014, “An improved dual-indexing approach for multiplexed 16S
-rRNA gene sequencing on the Illumina MiSeq platform.”, <span class="ltx_text ltx_font_italic">Microbiome</span>,
-<span class="ltx_text ltx_font_bold">2</span>, No. 1,  6.
+Fadrosh, D. W., Ma, B., Gajer, P., Sengamalay, N., Ott, S., Brotman, R. M.,
+Ravel, J. (2014) An improved dual-indexing approach for multiplexed 16S rRNA
+gene sequencing on the Illumina MiSeq platform. <span class="ltx_text ltx_font_italic">Microbiome</span>,
+<span class="ltx_text ltx_font_bold">2</span>,  6.
 
 </span>
       </li>
@@ -4882,9 +4883,9 @@ rRNA gene sequencing on the Illumina MiSeq platform.”, <span class="ltx_text l
         
         
 <span class="ltx_bibblock">
-Hamady, M., Walker, J. J., Harris, J. K., Gold, N. J., and Knight, R., 2008,
-“Error-correcting barcoded primers for pyrosequencing hundreds of samples in
-multiplex.”, <span class="ltx_text ltx_font_italic">Nature Methods</span>, <span class="ltx_text ltx_font_bold">5</span>, No. 3, 235–237, Mar.
+Hamady, M., Walker, J. J., Harris, J. K., Gold, N. J., Knight, R. (2008)
+Error-correcting barcoded primers for pyrosequencing hundreds of samples in
+multiplex. <span class="ltx_text ltx_font_italic">Nature Methods</span>, <span class="ltx_text ltx_font_bold">5</span>, 235–237.
 
 </span>
       </li>
@@ -4896,9 +4897,8 @@ multiplex.”, <span class="ltx_text ltx_font_italic">Nature Methods</span>, <sp
         
         
 <span class="ltx_bibblock">
-Huson, D. H., Auch, A. F., Qi, J., and Schuster, S. C., 2007, “MEGAN analysis
-of metagenomic data.”, <span class="ltx_text ltx_font_italic">Genome Research</span>, <span class="ltx_text ltx_font_bold">17</span>, No. 3, 377–386,
-Mar.
+Huson, D. H., Auch, A. F., Qi, J., Schuster, S. C. (2007) MEGAN analysis of
+metagenomic data. <span class="ltx_text ltx_font_italic">Genome Research</span>, <span class="ltx_text ltx_font_bold">17</span>, 377–386.
 
 </span>
       </li>
@@ -4910,8 +4910,7 @@ Mar.
         
         
 <span class="ltx_bibblock">
-Illumina corporation, 2013, “16S metagenomic sequencing library
-preparation.”.
+Illumina corporation (2013) 16S metagenomic sequencing library preparation.
 
 </span>
       </li>
@@ -4923,8 +4922,9 @@ preparation.”.
         
         
 <span class="ltx_bibblock">
-Katoh, K. and Standley, D. M., 2013, “MAFFT multiple sequence alignment
-software version 7: improvements in performance and usability.”, <span class="ltx_text ltx_font_italic">Molecular Biology and Evolution</span>, <span class="ltx_text ltx_font_bold">30</span>, No. 4, 772–780, Apr.
+Katoh, K., Standley, D. M. (2013) MAFFT multiple sequence alignment software
+version 7: improvements in performance and usability. <span class="ltx_text ltx_font_italic">Molecular Biology
+and Evolution</span>, <span class="ltx_text ltx_font_bold">30</span>, 772–780.
 
 </span>
       </li>
@@ -4936,10 +4936,10 @@ software version 7: improvements in performance and usability.”, <span class="
         
         
 <span class="ltx_bibblock">
-Kunin, V., Engelbrektson, A., Ochman, H., and Hugenholtz, P., 2010, “Wrinkles
-in the rare biosphere: pyrosequencing errors can lead to artificial inflation
-of diversity estimates.”, <span class="ltx_text ltx_font_italic">Environmental Microbiology</span>, <span class="ltx_text ltx_font_bold">12</span>, No.
-1, 118–123, Jan.
+Kunin, V., Engelbrektson, A., Ochman, H., Hugenholtz, P. (2010) Wrinkles in the
+rare biosphere: pyrosequencing errors can lead to artificial inflation of
+diversity estimates. <span class="ltx_text ltx_font_italic">Environmental Microbiology</span>, <span class="ltx_text ltx_font_bold">12</span>,
+118–123.
 
 </span>
       </li>
@@ -4952,9 +4952,9 @@ of diversity estimates.”, <span class="ltx_text ltx_font_italic">Environmental
         
 <span class="ltx_bibblock">
 Lange, A., Jost, S., Heider, D., Bock, C., Budeus, B., Schilling, E.,
-Strittmatter, A., Boenigk, J., and Hoffmann, D., 2015, “AmpliconDuo: A
+Strittmatter, A., Boenigk, J., Hoffmann, D. (2015) AmpliconDuo: A
 Split-Sample Filtering Protocol for High-Throughput Amplicon Sequencing of
-Microbial Communities.”, <span class="ltx_text ltx_font_italic">PLoS One</span>, <span class="ltx_text ltx_font_bold">10</span>, No. 11, e0141590.
+Microbial Communities. <span class="ltx_text ltx_font_italic">PLoS One</span>, <span class="ltx_text ltx_font_bold">10</span>, e0141590.
 
 </span>
       </li>
@@ -4968,8 +4968,8 @@ Microbial Communities.”, <span class="ltx_text ltx_font_italic">PLoS One</span
 <span class="ltx_bibblock">
 Larkin, M. A., Blackshields, G., Brown, N. P., Chenna, R., McGettigan, P. A.,
 McWilliam, H., Valentin, F., Wallace, I. M., Wilm, A., Lopez, R., Thompson,
-J. D., Gibson, T. J., and Higgins, D. G., 2007, “Clustal W and Clustal X
-version 2.0.”, <span class="ltx_text ltx_font_italic">Bioinformatics</span>, <span class="ltx_text ltx_font_bold">23</span>, No. 21, 2947–2948, Nov.
+J. D., Gibson, T. J., Higgins, D. G. (2007) Clustal W and Clustal X version
+2.0. <span class="ltx_text ltx_font_italic">Bioinformatics</span>, <span class="ltx_text ltx_font_bold">23</span>, 2947–2948.
 
 </span>
       </li>
@@ -4981,9 +4981,9 @@ version 2.0.”, <span class="ltx_text ltx_font_italic">Bioinformatics</span>, <
         
         
 <span class="ltx_bibblock">
-Li, W., Fu, L., Niu, B., Wu, S., and Wooley, J., 2012, “Ultrafast clustering
-algorithms for metagenomic sequence analysis.”, <span class="ltx_text ltx_font_italic">Briefings in
-Bioinformatics</span>, <span class="ltx_text ltx_font_bold">13</span>, No. 6, 656–668, Nov.
+Li, W., Fu, L., Niu, B., Wu, S., Wooley, J. (2012) Ultrafast clustering
+algorithms for metagenomic sequence analysis. <span class="ltx_text ltx_font_italic">Briefings in
+Bioinformatics</span>, <span class="ltx_text ltx_font_bold">13</span>, 656–668.
 
 </span>
       </li>
@@ -4995,9 +4995,9 @@ Bioinformatics</span>, <span class="ltx_text ltx_font_bold">13</span>, No. 6, 65
         
         
 <span class="ltx_bibblock">
-Nelson, M. C., Morrison, H. G., Benjamino, J., Grim, S. L., and Graf, J., 2014,
-“Analysis, optimization and verification of Illumina-generated 16S rRNA gene
-amplicon surveys.”, <span class="ltx_text ltx_font_italic">PLoS One</span>, <span class="ltx_text ltx_font_bold">9</span>, No. 4, e94249.
+Nelson, M. C., Morrison, H. G., Benjamino, J., Grim, S. L., Graf, J. (2014)
+Analysis, optimization and verification of Illumina-generated 16S rRNA gene
+amplicon surveys. <span class="ltx_text ltx_font_italic">PLoS One</span>, <span class="ltx_text ltx_font_bold">9</span>, e94249.
 
 </span>
       </li>
@@ -5009,9 +5009,8 @@ amplicon surveys.”, <span class="ltx_text ltx_font_italic">PLoS One</span>, <s
         
         
 <span class="ltx_bibblock">
-Schmieder, R. and Edwards, R., 2011, “Quality control and preprocessing of
-metagenomic datasets.”, <span class="ltx_text ltx_font_italic">Bioinformatics</span>, <span class="ltx_text ltx_font_bold">27</span>, No. 6, 863–864,
-Mar.
+Schmieder, R., Edwards, R. (2011) Quality control and preprocessing of
+metagenomic datasets. <span class="ltx_text ltx_font_italic">Bioinformatics</span>, <span class="ltx_text ltx_font_bold">27</span>, 863–864.
 
 </span>
       </li>
@@ -5023,9 +5022,9 @@ Mar.
         
         
 <span class="ltx_bibblock">
-Stevens, J. L., Jackson, R. L., and Olson, J. B., 2013, “Slowing PCR ramp
-speed reduces chimera formation from environmental samples.”, <span class="ltx_text ltx_font_italic">Journal
-of Microbiological Methods</span>, <span class="ltx_text ltx_font_bold">93</span>, No. 3, 203–205, Jun.
+Stevens, J. L., Jackson, R. L., Olson, J. B. (2013) Slowing PCR ramp speed
+reduces chimera formation from environmental samples. <span class="ltx_text ltx_font_italic">Journal of
+Microbiological Methods</span>, <span class="ltx_text ltx_font_bold">93</span>, 203–205.
 
 </span>
       </li>
@@ -5037,10 +5036,9 @@ of Microbiological Methods</span>, <span class="ltx_text ltx_font_bold">93</span
         
         
 <span class="ltx_bibblock">
-Tanabe, A. S. and Toju, H., 2013, “Two new computational methods for universal
-DNA barcoding: a benchmark using barcode sequences of bacteria, archaea,
-animals, fungi, and land plants.”, <span class="ltx_text ltx_font_italic">PLoS One</span>, <span class="ltx_text ltx_font_bold">8</span>, No. 10,
-e76910.
+Tanabe, A. S., Toju, H. (2013) Two new computational methods for universal DNA
+barcoding: a benchmark using barcode sequences of bacteria, archaea, animals,
+fungi, and land plants. <span class="ltx_text ltx_font_italic">PLoS One</span>, <span class="ltx_text ltx_font_bold">8</span>, e76910.
 
 </span>
       </li>
@@ -5052,9 +5050,9 @@ e76910.
         
         
 <span class="ltx_bibblock">
-Zhang, J., Kobert, K., Flouri, T., and Stamatakis, A., 2014, “PEAR: a fast and
-accurate Illumina Paired-End reAd mergeR.”, <span class="ltx_text ltx_font_italic">Bioinformatics</span>,
-<span class="ltx_text ltx_font_bold">30</span>, No. 5, 614–620, Mar.
+Zhang, J., Kobert, K., Flouri, T., Stamatakis, A. (2014) PEAR: a fast and
+accurate Illumina Paired-End reAd mergeR. <span class="ltx_text ltx_font_italic">Bioinformatics</span>, <span class="ltx_text ltx_font_bold">30</span>,
+614–620.
 
 </span>
       </li>
@@ -5063,11 +5061,11 @@ accurate Illumina Paired-End reAd mergeR.”, <span class="ltx_text ltx_font_ita
 </section>
 <section id="A1" class="ltx_appendix">
 <h2 class="ltx_title ltx_title_appendix">
-<span class="ltx_tag ltx_tag_appendix">Appendix A </span>その他のプログラム・データベースのインストール</h2>
+<span class="ltx_tag ltx_tag_appendix">Appendix A </span>Instllation of optional programs</h2>
 
 <section id="A1.S1" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">A.1 </span>bcl2fastqのインストール</h3>
+<span class="ltx_tag ltx_tag_section">A.1 </span>Installation of bcl2fastq</h3>
 
 <div id="A1.S1.p1" class="ltx_para">
 <p class="ltx_p">Illuminaから提供されている、BCL形式のベースコールデータからFASTQを生成するプログラムbcl2fastqはMiSeq・HiSeq用のv1.8.4およびNextSeq 500・HiSeq X用のv2.17.1.14が
@@ -5180,11 +5178,11 @@ v1.8.4は以下のようにインストールできます。</p>
 </section>
 <section id="A2" class="ltx_appendix">
 <h2 class="ltx_title ltx_title_appendix">
-<span class="ltx_tag ltx_tag_appendix">Appendix B </span>ターミナルコマンド集</h2>
+<span class="ltx_tag ltx_tag_appendix">Appendix B </span>Terminal command examples</h2>
 
 <section id="A2.S1" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">B.1 </span>配列を数え上げる</h3>
+<span class="ltx_tag ltx_tag_section">B.1 </span>Counting sequences in a file</h3>
 
 <div id="A2.S1.p1" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
@@ -5241,7 +5239,7 @@ v1.8.4は以下のようにインストールできます。</p>
 </section>
 <section id="A2.S2" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">B.2 </span>配列を閲覧する</h3>
+<span class="ltx_tag ltx_tag_section">B.2 </span>Viewing sequence files</h3>
 
 <div id="A2.S2.p1" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
@@ -5298,7 +5296,7 @@ v1.8.4は以下のようにインストールできます。</p>
 </section>
 <section id="A2.S3" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">B.3 </span>圧縮・展開</h3>
+<span class="ltx_tag ltx_tag_section">B.3 </span>Compression and decompression</h3>
 
 <div id="A2.S3.p1" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
@@ -5379,7 +5377,7 @@ v1.8.4は以下のようにインストールできます。</p>
 </section>
 <section id="A2.S4" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">B.4 </span>抽出・保存</h3>
+<span class="ltx_tag ltx_tag_section">B.4 </span>Extraction and output of sequences</h3>
 
 <div id="A2.S4.p1" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">

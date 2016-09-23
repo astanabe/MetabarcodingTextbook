@@ -1132,7 +1132,6 @@ ClaidentではサンプルID=ランID{\textunderscore}{\textunderscore}タグID{
 \end{content}
 この場合、sample1の鋳型には1ラン目には\texttt{ACGTACGT}を付加し、2ラン目では\texttt{ATGCATGC}を付加したことになります。
 sample2の鋳型では逆になります。
-もしも、ほぼ同じ領域を増幅してはいるがプライマー配列は異なる場合、タグと同様に同じIDを付けた別々のファイルを用意して与えて下さい。
 この後の解析に関しては後述します。
 
 \chapter{重複配列カウントによるノイジー配列とキメラ配列の除去}
@@ -1712,7 +1711,7 @@ UCHIME用のリファレンスデータベース名と内容は以下の通り�
 \href{http://drive5.com/usearch/manual/uchimeout.html}{http://drive5.com/usearch/manual/uchimeout.html}\\
 をご覧下さい。
 
-\section{配列からの低頻度出現配列の除去}
+\section{OTU配列からの低頻度出現OTU配列の除去}
 
 クラスタリングの出力フォルダには、\texttt{clustered.fasta.gz} (新パイプライン)または\texttt{assembled.fasta} (旧パイプライン)というファイルとして、最終的に得られた代表配列もしくはコンセンサス配列が保存されています。
 これを次章のDNAバーコーディングに用いますが、全サンプルを通して少量しか出現しないものまで含めると数が多すぎることがあります。
@@ -1760,7 +1759,7 @@ UCHIME用のリファレンスデータベース名と内容は以下の通り�
 分割した各領域の配列で別個にホスト生物を同定した上で同定結果を統合する場合など、配列間で対応がとれていないと困る場合にご利用下さい。
 ここでは2分割の例を挙げましたが、分割後にさらに分割を繰り返すことで3分割や4分割も可能です。
 
-\section{ITSxやMetaxaによるITS・SSU rRNA配列の抽出}
+\section{ITSxやMetaxaによるITS・SSU rRNA・LSU rRNA配列の抽出}
 
 ITSxは核ITS1・ITS2領域を認識してその部位だけを取り出すことができるプログラムです\citep{Bengtsson2013}。
 多くの分類群でITSは非常に変異に富んでいますが、ずっと保守的なSSU・LSU rRNAと隣接しているため、これらの配列が残っていると、その配列の影響でITSでは明確に区別できる遠縁な生物のSSU・LSU配列がBLAST検索時にヒットしてしまい、うまく同定できなくなってしまうことがあります。
@@ -2083,7 +2082,7 @@ overall{\textunderscore}classでの同定結果 {\textbackslash}\\
 
 \appendix
 
-\chapter{その他のプログラム・データベースのインストール}
+\chapter{その他のプログラムのインストール}
 
 \section{bcl2fastqのインストール}
 

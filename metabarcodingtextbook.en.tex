@@ -1087,42 +1087,47 @@ Replacing RunID to \texttt{FOO}, all of RunID, TagID and PrimerID become the sam
 
 \subsection{In the case of sequencing of replicated PCR amplicons of same templates using same tags in different runs}
 
-複数ラン分の配列ファイルがあるはずですので、\texttt{clsplitseq}によるサンプルごとの配列の分別と\texttt{clfilterseq}による低品質配列の除去を別々に実行し、別々のフォルダに出力します。
-この後のノイジー配列とキメラ配列の除去も別々に行い、クラスタリングの際に複数ラン分のデータをまとめて入力ファイルとして与えて下さい。
-そして、サンプルごとの各OTUの配列数の集計表を作成する際に複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。
+You should have multiple FASTQ files.
+Run demultiplexing by \texttt{clsplitseq} and quality-trimming and quality-filtering by \texttt{clfilterseq} separately, and save processed sequences to different folders.
+After separate processing of noisy and/or chimeric sequence removal, give all processed sequence files to clustering programs at once.
+One of the final output of Claident is a sample x OTU table containing the number of sequences in every cell.
+The table modification command \texttt{clfiltersum} can be used for integration of multiple samples to one, and cell numbers will be summed up.
 
 \subsection{In the case of sequencing of replicated PCR amplicons of same templates using different tags in different runs}
 
-1回のランでは、たまたま得られる配列が少ないことがあります。
-そのため同一サンプルを複数のランでシーケンスし、全ランのデータを使いたいことがあります。
-ClaidentではサンプルID=RunID{\textunderscore}{\textunderscore}TagID{\textunderscore}{\textunderscore}PrimerIDですから、同じ鋳型由来のサンプルが複数存在するデータとなります。
-そのような場合はそのまま別サンプルとして解析を進めることもできますし、1サンプルにまとめてから解析を進めることもできます。
-別サンプルのまま処理を進め、ノイジー配列とキメラ配列の除去の際に「同じ鋳型由来の複数のPCR産物に共通に出現しない塩基配列はキメラもしくはノイジー配列とみなす」方法を適用することを推奨します。
-そして、サンプルごとの各OTUの配列数の集計表を作成する際に複数のサンプルを統合して1サンプルにまとめて下さい(各OTUの配列数は和になります)。
+In Claident, RunID{\textunderscore}{\textunderscore}TagID{\textunderscore}{\textunderscore}PrimerID is used as sample IDs.
+Therefore, there are multiple replicated samples from the same templates in this case.
+Such samples can be treated as separate or integrated to one sample.
+It is recommended that separate samples have been used subsequent analysis without any change and such samples are finally integrated in a sample x OTU table.
+It may be good idea that common sequences among replicated samples are treated as noiseless and nonchimeric, and uncommon sequences are treated as noisy and/or chimeric sequences if noise occurrence and chimera formation can be assumed as random.
+Noisy and/or chimeric sequences might be occurred across all replicates.
+The effectiveness of this method does not confirmed enough, and combination of noisy and/or chimeric sequence removal based on PCR replicates and algorithms can be recommended (see also \citet{Lange2015}).
+Such combination is supported in Claident, it is explained later.
+One of the final output of Claident is a sample x OTU table containing the number of sequences in every cell.
+The table modification command \texttt{clfiltersum} can be used for integration of multiple samples to one, and cell numbers will be summed up.
 
-\texttt{clsplitseq}は、複数の配列ファイルがあるはずですので以下のように実行して下さい。
-ここではファイルが2つの場合を示します。
+In the demultiplexing using \texttt{clsplitseq}, process multiple FASTQ files like the following.
 \begin{cmd}
 {\textgreater} clsplitseq {\textbackslash}\\
-オプション省略 {\textbackslash}\\
-{-}{-}tagfile=タグ配列ファイル1 {\textbackslash}\\
-{-}{-}primerfile=プライマー配列ファイル {\textbackslash}\\
+*snip* {\textbackslash}\\
+{-}{-}tagfile=TagSequenceFile1 {\textbackslash}\\
+{-}{-}primerfile=PrimerSequenceFile {\textbackslash}\\
 inputfile1 {\textbackslash}\\
 outputfolder↓\\
 {\textgreater} clsplitseq {\textbackslash}\\
-オプション省略 {\textbackslash}\\
-{-}{-}tagfile=タグ配列ファイル2 {\textbackslash}\\
-{-}{-}primerfile=プライマー配列ファイル {\textbackslash}\\
+*snip* {\textbackslash}\\
+{-}{-}tagfile=TagSequenceFile2 {\textbackslash}\\
+{-}{-}primerfile=PrimerSequenceFile {\textbackslash}\\
 {-}{-}append {\textbackslash}\\
 inputfile2 {\textbackslash}\\
 outputfolder↓
 \end{cmd}
-プライマー配列ファイル、出力フォルダは同じものを与えて下さい。
-\texttt{{-}{-}runname}オプションでは異なるRunIDを指定します。
-また、タグ配列ファイルは個別に用意して与えて下さい。
-ただし、同じ鋳型由来の配列に付加したTagIDは同じにして下さい。
-配列が同じタグであっても、異なる鋳型由来の配列に付加したタグのIDを同一にしてはいけません。
-例えば以下の2ファイルを用意したとします。
+The sequence file of primer and the output folder should be the same.
+The different RunID should be given for \texttt{{-}{-}runname} argument.
+The different tag sequence files should be prepared and given.
+Note that the same TagID should be specified for the replicated samples from the same templates even if tag/index sequence is different.
+In addition, different TagID should be specified for the samples from different templates even if tag/index sequence is the same.
+In the case of the following tag sequence files, the sequences of sample1 were added \texttt{ACGTACGT} as a tag in the first run, and \texttt{ATGCATGC} in the second run.
 \begin{content}
 | {\textgreater}sample1\\
 | ACGTACGT\\
@@ -1135,24 +1140,21 @@ outputfolder↓
 | {\textgreater}sample2\\
 | ACGTACGT
 \end{content}
-この場合、sample1の鋳型には1ラン目には\texttt{ACGTACGT}を付加し、2ラン目では\texttt{ATGCATGC}を付加したことになります。
-sample2の鋳型では逆になります。
-もしも、ほぼ同じ領域を増幅してはいるがプライマー配列は異なる場合、タグと同様に同じIDを付けた別々のファイルを用意して与えて下さい。
-この後の解析に関しては後述します。
+The sequences of sample2 were added \texttt{ATGCATGC} as a tag in the first run, and \texttt{ACGTACGT} in the second run.
+The subsequent analysis is explained later.
 
-\chapter{Noisy and/or chimeric sequence removal based on sequence abundance}
+\chapter{Noisy and/or chimeric sequence removal}
 
-Claidentでは、配列のクラスタリング結果から読み間違いの多いノイジーな配列を推定して除去することができます。
-方法はCD-HIT-OTU \citep{Li2012}とほとんど同じです。
-また、旧パイプラインではVSEARCHに実装されたUCHIME \citep{Edgar2011}アルゴリズムを呼び出して結果を受け取ることで、キメラ配列の検出・除去も可能です。
-新パイプラインでは、クラスタリング処理が終わってからキメラ検出・除去処理を適用します。
+Claident can detect noisy sequences containing read errors and/or copy errors based on sequence abandance.
+This method is similar to the method implemented in CD-HIT-OTU \citep{Li2012}.
+In the old pipeline using Assams for dereplication and clustering, chimera removal based on UCHIME \citep{Edgar2011} algorithm can be applied.
+Chimera removal based on UCHIME \citep{Edgar2011} algorithm is applied after OTU picking in the new pipeline using VSEARCH for dereplication and clustering.
 
-\section{VSEARCHを用いた新パイプラインの場合}
+\section{New pipeline using VSEARCH}
 
-以下のコマンドでノイジー配列の検出・除去が行えます。
-なお、多数のファイルを一度に与えることができますが、できるだけ1ラン分のファイルを与えて下さい。
-これは、ランごとに塩基配列決定の質にばらつきがあるためです。
-1ラン分の配列が非常に多く(1000万超)時間がかかってしまう場合は、1サンプルごとにこの処理を行って下さい。
+Run the following command to perform noisy sequence detection and removal.
+Note that multiple input files can be given, and all sequence files of the same run should be given at once because sequencing quality varied among different runs.
+If there are too many sequences and the processing requires long time, give one sequence file and run the following command several times.
 \begin{cmd}
 {\textgreater} clcleanseqv {\textbackslash}\\
 {-}{-}derepmode=PREFIX {\textbackslash}\\
@@ -1165,32 +1167,32 @@ inputfile1 {\textbackslash}\\
 inputfileN {\textbackslash}\\
 outputfolder↓
 \end{cmd}
-オプションのうち、\texttt{{-}{-}derepmode}は前処理において全長一致(\texttt{FULLLENGTH})で配列をまとめるか、前方一致(\texttt{PREFIX})で配列をまとめるかを指定します。
-オーバーラップのあるペアエンド配列を連結して得られた配列を処理する場合は\texttt{FULLLENGTH}を、シングルエンド配列を処理する場合は\texttt{PREFIX}を指定して下さい。
-\texttt{{-}{-}primarymaxnmismatch}はプライマリクラスタリングで許容するミスマッチ数で通常は0にします。
-\texttt{{-}{-}secondarymaxnmismatch}はセカンダリクラスタリングで許容するミスマッチ数で、通常は1にします。
-ただし、「先頭から末尾までに読み間違いが全くない配列」がほとんどないと思われるようなあまりにもノイズの多いデータでは、\texttt{{-}{-}primarymaxnmismatch}を1に、\texttt{{-}{-}secondarymaxnmismatch}を3にしてみて下さい。
-それでもダメなら\texttt{{-}{-}primarymaxnmismatch}を2に、\texttt{{-}{-}secondarymaxnmismatch}を5にして試します。
-\texttt{{-}{-}secondarymaxnmismatch}は\texttt{{-}{-}primarymaxnmismatch}の2倍より1大きい値に設定して下さい。
-\texttt{{-}{-}pnoisycluster}はノイジー配列と判定する感度に関するオプションです。
-0以上1以下で指定して下さい。
-大きいほど感度が上がります。
-デフォルト値・推奨値は0.5です。
-クラスタリングを最終的に97\%以下の閾値で行うのであればこれでいいと思いますが、99\%前後でクラスタリングする場合、\texttt{{-}{-}pnoisycluster}は0.9くらいにするといいかもしれません。
-ただし、レアOTUを捨ててしまう可能性が高くなるので、1サンプル当たりの配列数を多めに読んでおく必要があります。
+Whether full-length perfect matching (\texttt{FULLLENGTH}) or prefix search (\texttt{PREFIX}) applied in dereplication is given for the \texttt{{-}{-}derepmode} argument.
+\texttt{FULLLENGTH} is recommended for concatenated sequences of overlapped paired-end sequencing.
+\texttt{PREFIX} is recommended for single-end or concatenated sequences of non-overlapped paired-end sequencing.
+The \texttt{{-}{-}primarymaxnmismatch} argument indicates the number of mismatches in primary clustering and 0 is recommended for the most cases.
+The \texttt{{-}{-}secondarymaxnmismatch} argument describes the number of mismatches in secondary clustering and 1 is recommended for the most cases.
+For the noisy data, use \texttt{{-}{-}primarymaxnmismatch=1 {-}{-}secondarymaxnmismatch=3} or \texttt{{-}{-}primarymaxnmismatch=2 {-}{-}secondarymaxnmismatch=5}.
+Twice as \texttt{{-}{-}primarymaxnmismatch} plus one should be specified for \texttt{{-}{-}secondarymaxnmismatch}.
+The \texttt{{-}{-}pnoisycluster} argument determines sensitivity of noise detection.
+Decimal value larger than 0 and smaller than 1 must be specified for this argument.
+The larger value acquire higher sensitivity.
+If you use 97\% identity cutoff in clustering, 0.5 is recommended and this is the default value.
+If you use 99\% or larger identity cutoff in clustering, 0.9 or larger value might be more suitable.
+The larger value causes exclusion of more low abundance sequences, more sequences should be obtained per sample.
 
-outputfolderには、以下のファイル群が保存されます。
+The following files should be saved in the output folder.
 \begin{description}\small\setlength{\baselineskip}{1.1em}
-\item[parameter.txt] プライマリクラスタをノイジーと判定するのに使用した所属配列数の下限値
-\item[primarycluster.denoised.fasta.gz] ノイジーと判定されなかったプライマリクラスタの代表配列
-\item[primarycluster.fasta.gz] プライマリクラスタの代表配列
-\item[secondarycluster.fasta.gz] セカンダリクラスタの代表配列
-\item[RunID{\textunderscore}{\textunderscore}TagID{\textunderscore}{\textunderscore}PrimerID.noisyreads.txt.gz] ノイジー配列と判定された配列のリスト
-\item[RunID{\textunderscore}{\textunderscore}TagID{\textunderscore}{\textunderscore}PrimerID.singletons.txt.gz] プライマリクラスタリングでシングルトンになった配列のリスト
+\item[parameter.txt] the minimum size of primary clusters remained
+\item[primarycluster.denoised.fasta.gz] representative sequences of primary clusters determined as non-noisy
+\item[primarycluster.fasta.gz] representative sequences of primary clusters
+\item[secondarycluster.fasta.gz] representative sequences of secondary clusters
+\item[RunID{\textunderscore}{\textunderscore}TagID{\textunderscore}{\textunderscore}PrimerID.noisyreads.txt.gz] list of sequences determined as noisy
+\item[RunID{\textunderscore}{\textunderscore}TagID{\textunderscore}{\textunderscore}PrimerID.singletons.txt.gz] list of singletons after primary clustering
 \end{description}
-他にも多くのファイルが出力されますが、後の解析に必要なものもありますので削除しないようにして下さい。
+Many other files might be generated and do not delete such files because those might be required in subsequent analysis.
 
-\subsection{PCRレプリケート法によるノイジー配列・キメラ配列の除去}
+\subsection{Noisy and/or chimeric sequence removal based on PCR replicates}
 
 PCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去するには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
 以下のような内容で用意して下さい。
@@ -1251,7 +1253,7 @@ outputfolder↓
 \item[RunID{\textunderscore}{\textunderscore}TagID{\textunderscore}{\textunderscore}PrimerID.chimericreads.txt.gz] キメラ配列と判定された配列のリスト
 \end{description}
 
-\section{Assamsを用いた旧パイプラインの場合}
+\section{Old pipeline using Assams}
 
 以下のコマンドでノイジー配列とキメラ配列の検出・除去が行えます。
 なお、多数のファイルを一度に与えることができますが、できるだけ1ラン分のファイルを与えて下さい。
@@ -1317,7 +1319,7 @@ UCHIMEによるキメラ判定はそれぞれのサンプルごとに行われ�
 処理する場合は同時に行う必要があります。
 これは、キメラ配列もノイジー配列と判定するための情報を持っており、同時処理の場合にはそれを利用するためです。
 
-\subsection{PCRレプリケート法によるノイジー配列・キメラ配列の除去}
+\subsection{Noisy and/or chimeric sequence removal based on PCR replicates}
 
 PCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去するには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
 以下のような内容で用意して下さい。
@@ -1370,15 +1372,15 @@ outputfolder↓
 最終的な判定は全サンプル共通です。
 また、PCRレプリケート指示ファイルに記されていないサンプルでは判定が行われません。
 
-\chapter{塩基配列クラスタリングに基づくOTUピッキング}
+\chapter{OTU picking based on nucleotide sequence clustering}
 
-\section{サンプル内での配列クラスタリング}
+\section{Intra-sample clustering}
 
-\subsection{VSEARCHを用いた新パイプラインの場合}
+\subsection{New pipeline using VSEARCH}
 
 新パイプラインではこのステップはありません。
 
-\subsection{Assamsを用いた旧パイプラインの場合}
+\subsection{Old pipeline using Assams}
 
 以下のコマンドで、同一の鋳型を同一のチューブ内でPCRした配列群のクラスタリングを行います。
 前節の結果得られる、完全一致配列をまとめた結果(\texttt{RunID{\textunderscore}{\textunderscore}TagID{\textunderscore}{\textunderscore}PrimerID.cleaned.dereplicated.fastq.gz})を入力します。
@@ -1411,9 +1413,9 @@ outputfolder↓
 両側から読んでいる場合も、連結した後はストランドは揃っているのでこれでいいはずです。
 出力フォルダ内の\texttt{*.assembled.fastq.gz}がクラスタリング後の配列です。
 
-\section{サンプル間での配列クラスタリング}
+\section{Inter-sample clustering}
 
-\subsection{VSEARCHを用いた新パイプラインの場合}
+\subsection{New pipeline using VSEARCH}
 
 塩基配列のクラスタリングを行ってOTUを作成するには、以下のコマンドを実行して下さい。
 \begin{cmd}
@@ -1434,7 +1436,7 @@ outputfolder↓
 \item[clustered.fasta.gz] OTUの代表配列
 \end{description}
 
-\subsection{Assamsを用いた旧パイプラインの場合}
+\subsection{Old pipeline using Assams}
 
 サンプル内クラスタリングデータを用いてサンプル間でのクラスタリングを行い、全体のクラスタリング結果を得るには以下のコマンドを実行します。
 1サンプルしかない場合も、上記のサンプル内配列クラスタリングを行ってからこの処理を行って下さい。
@@ -1495,12 +1497,12 @@ outputfolder3↓
 \item[assembled.fasta] OTUのコンセンサス配列
 \end{description}
 
-\section{OTU代表配列への生配列のマッピング}
+\section{Mapping raw sequencing reads to representative sequences of the clusters}
 
 ノイジー配列・キメラ配列と判定されてしまった配列でも、OTUの代表配列に対して指定した類似度の閾値で貼り付けることが可能なのであれば、復活させることができます。
 これにより、データの減少を抑えることができます。
 
-\subsection{VSEARCHを用いた新パイプラインの場合}
+\subsection{New pipeline using VSEARCH}
 
 以下のコマンドを実行して下さい。
 \begin{cmd}
@@ -1518,13 +1520,13 @@ OTU代表配列のファイルには\texttt{clclassseqv}の出力した\texttt{c
 出力フォルダには、\texttt{clclassseqv}と同様のファイル群が作成されます。
 なお、オーバーラップのないペアエンドデータを\texttt{clconcatpair}を用いて連結した配列では、\texttt{{-}{-}paddinglen=16}をオプションとして加えて実行して下さい。
 
-\subsection{Assamsを用いた旧パイプラインの場合}
+\subsection{Old pipeline using Assams}
 
 旧パイプラインではこのステップはありません。
 
-\chapter{OTUピッキング結果の要約と後処理}
+\chapter{Summarizing and post-processing of OTU picking results}
 
-\section{集計表の作成}\label{section:makesummarytable}
+\section{Making summary table}\label{section:makesummarytable}
 
 以下のコマンドで、クラスタリング結果から各サンプルにおける各OTUに割り当てられた生配列数を表にすることができます。
 \begin{cmd}
@@ -1554,7 +1556,7 @@ sampleF & 0 & 0 & 977 \\
 \label{table:exampletableofsummary}
 \end{table}
 
-\section{集計表からの特定のOTU・サンプルの除去}\label{section:clfiltersum}
+\section{Excluding specified OTUs and/or samples from summary table}\label{section:clfiltersum}
 
 \texttt{clsumclass}では、1回だけ出現した配列も含めて全て出力されますが、以下のコマンドを用いてサンプルやOTUを選別することができます。
 入力ファイルは\texttt{clsumclass}の出力ファイルです。
@@ -1604,7 +1606,7 @@ PCRレプリケート関係にあるサンプルをタブ区切りで同一行�
 
 後述するノイジー配列・キメラ配列の除去や他領域配列の除去を行った上で、残った配列を用いて\texttt{{-}{-}otuseq}などのオプションを用いたOTUの選別を行う場合は、他の選別より先に行って下さい。
 
-\section{PCRレプリケート法によるノイジー配列・キメラ配列の除去}
+\section{Noisy and/or chimeric sequence removal based on PCR replicates after OTU picking}
 
 新パイプラインでは\texttt{clcleanseqv}の実行時に行っていますが、旧パイプラインでもPCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去することが可能です。
 それには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
@@ -1656,7 +1658,7 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 ここで作成したFASTA配列ファイルを第\ref{section:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルから除去されたOTUを集計表からも除去することができます。
 また、\texttt{{-}{-}replicatelist}オプションと\texttt{{-}{-}runname}オプションを\texttt{clfilterseq}と同様に指定すれば、PCRレプリケート関係にあるサンプルは1つのサンプルに統合されます(セルの値は合算されます)。
 
-\section{UCHIMEによるキメラ配列除去}
+\section{Chimera removal using UCHIME algorithm}
 
 旧パイプラインではクラスタリング前にもUCHIMEでキメラ配列除去は行っていますが、クラスタリング後の配列に対してリファレンスなしでのキメラ配列除去とリファレンスありでのキメラ配列除去を追加で行うことができます。
 両方行う場合は、リファレンスなしでのキメラ配列除去を先に行ってから、リファレンスありでのキメラ配列除去を行います。
@@ -1666,7 +1668,7 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 利用するコマンドは\texttt{clrunuchime}です。
 このコマンドでは、UCHIMEアルゴリズムを実装しているVSEARCHというプログラムを呼び出して、キメラ配列除去を行います。
 
-\subsection{リファレンスなしでのキメラ配列除去}
+\subsection{\textit{De novo} chimera removal}
 
 \texttt{clrunuchime}を以下のように実行して下さい。
 \begin{cmd}
@@ -1680,7 +1682,7 @@ outputfolder↓
 上記の例は一度に説明するためのもので、両方を指定してはいけません。
 なお、どちらも指定しなかった場合、\texttt{*.otu.gz}が入力ファイルと同じフォルダに存在すればそれを、\texttt{*.contigmembers.gz}が存在すればそれを見つけ出して使用しますので、普段は何も指定しなくてもいいでしょう。
 
-\subsection{リファレンスありでのキメラ配列除去}
+\subsection{Reference-based chimera removal}
 
 \texttt{clrunuchime}を以下のように実行して下さい。
 リファレンスなしでのキメラ配列除去を行った場合は、\texttt{nonchimeras.fasta}というファイルがあるはずですので、それを入力ファイルにすればいいでしょう。
@@ -1702,7 +1704,7 @@ UCHIME用のリファレンスデータベース名と内容は以下の通り�
 \item[unite20160101its2] 真菌ITS用のUNITEデータベース(20160101ITS2版)
 \end{description}
 
-\subsection{出力フォルダの内容について}
+\subsection{About contents of output folder}
 
 出力フォルダに保存されるファイルは以下の4つです。
 
@@ -1717,7 +1719,7 @@ UCHIME用のリファレンスデータベース名と内容は以下の通り�
 \href{http://drive5.com/usearch/manual/uchimeout.html}{http://drive5.com/usearch/manual/uchimeout.html}\\
 をご覧下さい。
 
-\section{配列からの低頻度出現配列の除去}
+\section{Excluding low-abundance OTUs from OTU sequences}
 
 クラスタリングの出力フォルダには、\texttt{clustered.fasta.gz} (新パイプライン)または\texttt{assembled.fasta} (旧パイプライン)というファイルとして、最終的に得られた代表配列もしくはコンセンサス配列が保存されています。
 これを次章のDNAバーコーディングに用いますが、全サンプルを通して少量しか出現しないものまで含めると数が多すぎることがあります。
@@ -1738,7 +1740,7 @@ outputfile↓
 なお、どちらも指定しなかった場合、\texttt{*.otu.gz}がinputfileと同じフォルダに存在すればそれを、\texttt{*.contigmembers.gz}が存在すればそれを見つけ出して使用しますので、普段は何も指定しなくてもいいでしょう。
 ここで作成したFASTA配列ファイルを第\ref{section:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルから除去されたOTUを集計表からも除去することができます。
 
-\section{保存領域配列認識による領域分割}
+\section{Sequence splitting based on conservative motif recognition}
 
 ここまでの配列が複数領域にまたがっている場合(たとえばITS1・5.8S rRNA・ITS2といった風に)、領域ごとに分割した方が良いかもしれません。
 領域間かその付近に保存的な領域があれば、それを境界の目印として領域を分割できます。
@@ -1765,7 +1767,7 @@ outputfile2↓
 分割した各領域の配列で別個にホスト生物を同定した上で同定結果を統合する場合など、配列間で対応がとれていないと困る場合にご利用下さい。
 ここでは2分割の例を挙げましたが、分割後にさらに分割を繰り返すことで3分割や4分割も可能です。
 
-\section{ITSxやMetaxaによるITS・SSU rRNA配列の抽出}
+\section{ITS, SSU rRNA or LSU rRNA sequence extraction using ITSx or Metaxa}
 
 ITSxは核ITS1・ITS2領域を認識してその部位だけを取り出すことができるプログラムです\citep{Bengtsson2013}。
 多くの分類群でITSは非常に変異に富んでいますが、ずっと保守的なSSU・LSU rRNAと隣接しているため、これらの配列が残っていると、その配列の影響でITSでは明確に区別できる遠縁な生物のSSU・LSU配列がBLAST検索時にヒットしてしまい、うまく同定できなくなってしまうことがあります。
@@ -1779,7 +1781,7 @@ SSU rRNAは真核生物のメタバーコーディング・DNAバーコーディ
 それぞれのWebサイトとマニュアルをご覧下さい。
 これらのプログラムで作成したFASTA配列ファイルを第\ref{section:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。
 
-\section{非ターゲット領域の探索と削除}
+\section{Searching and excluding non-target sequences}
 
 ITSxやMetaxaはITSとSSU rRNA領域にしか使用できませんが、もっと汎用的な非ターゲット領域の探索方法があります。
 一つはBLASTなどで検索して配列がどの遺伝子のものかを判定してくれるプログラムにかけることで、もう一つは多重整列プログラムを利用することです。
@@ -1787,7 +1789,7 @@ ClustalW2・ClustalX2 \citep{Larkin2007}やMAFFT \citep{Katoh2013}には、多�
 この機能を使って並び替えた上で、多重整列の閲覧ソフトで表示して目で確認すればどれが非ターゲット領域かすぐわかります。
 非ターゲット領域のOTUを除去したFASTA配列ファイルを第\ref{section:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。
 
-\chapter{DRAへのデータ登録}
+\chapter{Data deposition to DRA}
 
 クラスタリング後の配列は従来通りDDBJなどに登録すればいいですが、新型シーケンサーの生データはDDBJ Sequence Read Archive (DRA)というところへ登録することになっています(サンガー法シーケンサーの生データはTrace Archive)。
 本書にあるように複数サンプルからのDNAにタグを付けてシーケンスした場合、サンプルごとのデータファイルに分割して登録することを求められます。
@@ -1823,7 +1825,7 @@ BioSampleへの登録はBioSample Handbook\\
 これを見てもわからない場合はDDBJに問い合わせて下さい。
 特に、地下や海底下のサンプルでは、平均海水面からサンプリング地点までの高さ・深さ、地面からサンプリング地点までの高さ・深さ、平均海水面から地面までの高さ・深さを入れる項目があってややこしいのでご注意下さい。
 
-\section{XML作成用タブ区切りテキストの作成}
+\section{Preparing tab-delimited text file for XML generation}
 
 DRAに登録するXMLには、登録するFASTQファイルごとにそのファイルに含まれている配列の情報を記述します。
 これは非常に複雑で大変なため、一旦単純なタブ区切りテキストに書き出した上で、Excelなどを用いてそれを編集し、編集後のタブ区切りテキストからXMLを作成します。
@@ -1845,7 +1847,7 @@ outputfile↓
 その他のセルは適当に自分で考えて何とかして下さい。
 なお、BioProject IDやBioSample IDは、正式なアクセッション番号がまだ発行されていない場合、DDBJに申請したときのSubmission ID (BioProjectではPSUBから始まり、BioSampleではSSUBから始まるもの)を入力しておけば問題ありません。
 
-\section{タブ区切りテキストからのDRA登録用XMLファイルの生成}
+\section{XML generation from tab-delimited text}
 
 タブ区切りテキストの編集が終わったら、タブ区切りテキストとして保存した上で以下のように\texttt{clmakexml}を実行して下さい。
 登録に必要なXMLファイル群が生成されます。
@@ -1865,7 +1867,7 @@ DRAでは、「Create new submission(s)」によってsubmission-IDが割り振�
 その他もろもろの処理が終わると、登録してあるメールアドレスに割り振られたアクセッション番号が送られてきます。
 ただし、論文にはBioProject IDを書くことが多いと思います。
 
-\chapter{DNAバーコーディングによる配列のホスト生物同定}
+\chapter{Estimation of host organisms of nucleotide sequences (DNA barcoding)}
 
 DNAバーコーディングは、近年非常に多くの分野で応用が進められている、生物の同定方法です。
 しかし、既知配列データベースが不十分な上、それを前提とした同定アルゴリズムが欠けていました。
@@ -1875,7 +1877,7 @@ DNAバーコーディングは、近年非常に多くの分野で応用が進�
 以下のコマンドは全てターミナルかコンソールで実行して下さい。
 基本的なターミナルの使い方の知識は持っているものとして話を進めます。
 
-\section{BLAST検索による近隣既知配列群の取得}
+\section{Retrieval of neighborhood sequences based on BLAST search}
 
 以下のコマンドで、「問い合わせ配列と最近隣配列との間の変異量＜分類群内の最大変異量」という条件を満たすために検討すべき近隣既知配列群(のGenBank ID)を取得できます。
 \begin{cmd}
@@ -1925,7 +1927,7 @@ outputfile↓
 その場合は、綱以下まで同定された配列のデータベース\texttt{overall{\textunderscore}class}を使ってみて下さい。
 その他のデータベースは、\texttt{overall{\textunderscore}*}よりもメモリ占有量がずっと少ないため、メモリの少ないコンピュータでも動作します。
 
-\subsection{キャッシュデータベースの構築による高速化}
+\subsection{Accelerating BLAST search using cache databases}
 
 \texttt{clidentseq}はBLAST検索を何度も繰り返しますが、それなりの時間と大量のメモリを必要とします。そこで、予め問い合わせ配列と類似した配列の上位1万本(設定で変更可)のヒットした部位のみをBLASTデータベースから取得してキャッシュとなるBLASTデータベースを作成しておき、\texttt{clidentseq}ではこれを対象として検索することで、劇的な高速化が可能です。これを行うのが\texttt{clmakecachedb}で、以下のように用います。
 
@@ -1941,7 +1943,7 @@ outputfolder↓
 ただし、\texttt{clmakecachedb}と\texttt{clidentseq}の入力ファイルは同一である必要があります。
 メモリの使用量も大幅に減少しますので、\texttt{overall{\textunderscore}*}を使用してもメモリ16GB程度で済みます。
 
-\subsection{参照配列データベースが全種を網羅している場合}\label{subsection:completereferencedatabase}
+\subsection{In the case of perfect reference database}\label{subsection:completereferencedatabase}
 
 問い合わせ配列のホストの可能性がある全生物が記載済みで、しかもそのバーコード配列も全て参照配列データベースに登録済みである場合には、以下のようにして類似度99\%以上の上位1位(1位タイを含む)を近隣配列とすればいいでしょう。
 \begin{cmd}
@@ -1956,7 +1958,7 @@ outputfile↓
 
 類似度99\%以上の上位1位の配列を探し出す場合、BLAST検索オプションは\texttt{-task megablast -word{\textunderscore}size 16}としても見逃すことはまずないでしょうから、ここでは高速化のためにこのように指定しています。
 
-\section{近隣既知配列群に基づく同定}
+\section{Taxonomic assignment based on neighborhood sequences}
 
 以下のコマンドで、近隣既知配列群の所属分類群が同一になるまで分類階層を上げていくことで配列を同定します。
 これはlowest common ancestor (LCA) algorithmと呼ばれています\citep{Huson2007}。
@@ -2031,7 +2033,7 @@ supporter配列数とopposer配列数がこれを下回るような同定結果�
 そのような配列はsupporterでもopposerでもないので、2つのオプションが必要になります。
 上記の例では、近隣既知配列中、5\%までのopposer配列を許容し、opposer配列の19倍以上のsupporter配列を必要とします。
 
-\section{複数の同定結果の統合}\label{section:mergingmultipleassignment}
+\section{Merging multiple taxonomic assignments based on consensus}\label{section:mergingmultipleassignment}
 
 例えば植物の\textit{rbcL}と\textit{matK}など、複数のバーコード領域を併用しなければ同定できないこともありますし、\texttt{overall{\textunderscore}genus}と\texttt{overall{\textunderscore}class}での同定結果のいいとこ取りをしたい場合があります。
 また、厳密なLCAによる同定結果と5\%までopposerを許容するLCAの同定結果の組み合わせでいいとこ取りしたい場合もあるでしょう。
@@ -2083,14 +2085,14 @@ outputfile↓
 outputfile↓
 \end{cmd}
 
-\bibliography{metabarcodingtextbook.ja}
-\addcontentsline{toc}{chapter}{引用文献}
+\bibliography{metabarcodingtextbook.en}
+\addcontentsline{toc}{chapter}{References}
 
 \appendix
 
-\chapter{その他のプログラム・データベースのインストール}
+\chapter{Instllation of optional programs}
 
-\section{bcl2fastqのインストール}
+\section{Installation of bcl2fastq}
 
 Illuminaから提供されている、BCL形式のベースコールデータからFASTQを生成するプログラムbcl2fastqはMiSeq・HiSeq用のv1.8.4およびNextSeq 500・HiSeq X用のv2.17.1.14が\\
 \href{http://support.illumina.com/downloads/bcl2fastq_conversion_software.html}{http://support.illumina.com/downloads/bcl2fastq{\textunderscore}conversion{\textunderscore}software.html}\\
@@ -2140,9 +2142,9 @@ bcl2fastq2-v2.17.1.14-Linux-x86{\textunderscore}64.rpm | cpio -id↓\\
 {\textgreater} sudo mv usr/local/bin/bcl2fastq /usr/local/bin/↓
 \end{cmd}
 
-\chapter{ターミナルコマンド集}\label{chapter:terminalcommands}
+\chapter{Terminal command examples}\label{chapter:terminalcommands}
 
-\section{配列を数え上げる}
+\section{Counting sequences in a file}
 
 \begin{cmd}
 \# FASTQの場合\\
@@ -2163,7 +2165,7 @@ bcl2fastq2-v2.17.1.14-Linux-x86{\textunderscore}64.rpm | cpio -id↓\\
 {\textgreater} xz -dc inputfile {\textbar} grep -P -c '{\textasciicircum}{\textgreater}'↓
 \end{cmd}
 
-\section{配列を閲覧する}
+\section{Viewing sequence files}
 
 \begin{cmd}
 \# 無圧縮ファイル内容を画面に出力\\
@@ -2184,7 +2186,7 @@ bcl2fastq2-v2.17.1.14-Linux-x86{\textunderscore}64.rpm | cpio -id↓\\
 {\textgreater} gzip -dc inputfile {\textbar} grep -P -A 3 '{\textasciicircum}{\textbackslash}@配列名の正規表現'↓
 \end{cmd}
 
-\section{圧縮・展開}
+\section{Compression and decompression}
 
 \begin{cmd}
 \# フォルダ内の全.fastq.gzを展開\\
@@ -2213,7 +2215,7 @@ done↓\\
 {\textgreater} find . -name *.fastq | xargs -L 1 -P 4 gzip↓
 \end{cmd}
 
-\section{抽出・保存}
+\section{Extraction and output of sequences}
 
 \begin{cmd}
 \# FASTQから最初の1万配列を抽出\\
