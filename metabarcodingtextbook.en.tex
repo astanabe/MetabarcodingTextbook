@@ -1499,46 +1499,44 @@ After the filtering sequences by this method, \texttt{clfiltersum} with \texttt{
 
 \chapter{Data deposition to DRA}
 
-クラスタリング後の配列は従来通りDDBJなどに登録すればいいですが、新型シーケンサーの生データはDDBJ Sequence Read Archive (DRA)というところへ登録することになっています(サンガー法シーケンサーの生データはTrace Archive)。
-本書にあるように複数サンプルからのDNAにタグを付けてシーケンスした場合、サンプルごとのデータファイルに分割して登録することを求められます。
-これは\texttt{clsplitseq}によって分割したFASTQを使えば問題ありません。
-同一鋳型由来配列ファイルが複数ある場合は、GZIP圧縮を解除してから連結して再圧縮するだけで構いません。
+Representative sequences can be deposited to DDBJ, EMBL or GenBank if required, but raw sequencing reads should be deposited to Sequence Read Archive such as DDBJ Sequence Read Archive (DRA).
+If you sequenced multiple samples with tag sequences in a NGS run like above, demultiplexed (tag and primer positions are trimmed) sequence files should be deposited.
+FASTQ files made by \texttt{clsplitseq} command can be used for deposition.
 
-また、サンプルについての情報(メタデータ)を記述したXMLファイルを作成しなくてはなりません。
-データ登録を受け付けている側でも、XML作成を補助するツールが用意されていますが大量サンプルを扱っている場合は用意するのは大変です。
-そこで、DRA登録用XML作成を補助する\texttt{clmaketsv}および\texttt{clmakexml}というコマンドを用意しています。
-以下でこれらの使用法を説明します。
+XML files recoding metadata about sample information need to be created.
+DRA provides XML creation support tool, but such tools is not easy-to-use in a case of many samples.
+To reduce time and effort to make XML, \texttt{clmaketsv} and \texttt{clmakexml} can be used.
 
-DRAへの登録には、DDBJが管理するD-wayでのユーザーアカウント作成と公開鍵の登録が必要です。
-詳しくはDRA Handbook\\
-\href{http://trace.ddbj.nig.ac.jp/dra/submission.shtml}{http://trace.ddbj.nig.ac.jp/dra/submission.shtml}\\
-をご覧下さい。
-登録の際、Submission、Study、Experiment、Sample、Runの概念と対応関係を把握している必要がありますので、その部分を特に注意して読んで理解しておいて下さい。
+To deposit raw sequences to DRA, user account of D-way of DDBJ and public key registration are required.
+Read DRA Handbook\\
+\href{http://trace.ddbj.nig.ac.jp/dra/submission_e.shtml}{http://trace.ddbj.nig.ac.jp/dra/submission{\textunderscore}e.shtml}\\
+to know detailed procedures.
+In the deposition process, concept of Submission, Study, Experiment, Sample and Run, and association of those are important and need to be understood.
 
-DRAでは、StudyはBioProjectという研究プロジェクトデータベースに登録して、それを参照することになります。
-BioProjectへの登録はBioProject Handbook\\
-\href{http://trace.ddbj.nig.ac.jp/bioproject/submission.html}{http://trace.ddbj.nig.ac.jp/bioproject/submission.html}\\
-を参照して予め済ませておいて下さい。
+In DRA, Study need to be registered to BioProject database which is a research project database, and to be referred to BioProject ID (accession number).
+Read BioProject Handbook\\
+\href{http://trace.ddbj.nig.ac.jp/bioproject/submission_e.html}{http://trace.ddbj.nig.ac.jp/bioproject/submission{\textunderscore}e.html}\\
+and register Study to BioProject before data deposition to DRA.
 
-さらに、SampleはBioSampleという研究サンプルデータベースに登録して、それを参照します。
-BioSampleへの登録はBioSample Handbook\\
-\href{http://trace.ddbj.nig.ac.jp/biosample/submission.html}{http://trace.ddbj.nig.ac.jp/biosample/submission.html}\\
-を参照して予め済ませておいて下さい。
-なお、メタゲノムを鋳型としてユニバーサルプライマーで増幅を行ったシーケンスサンプルの場合、MIMarks-SurveyをMIxSのタイプとして指定します。
-サンプルの採集された高度、水深、温度、湿度、pHなど、様々な情報を付加しておくことができます。
-後世のためにも、面倒がらずにできるだけ多くの情報を付加しておいて下さい。
-なお、各項目の意味は、Genomic Standards Consortiumから提供されているチェックリスト\\
+Sample also need to be registered to BioSample database which is a biological specimen database, and to be referred to BioSample ID (accession number).
+You need to read BioSample Handbook\\
+\href{http://trace.ddbj.nig.ac.jp/biosample/submission_e.html}{http://trace.ddbj.nig.ac.jp/biosample/submission{\textunderscore}e.html}\\
+and to register Sample to BioSample before data deposition to DRA.
+In the cases of metabarcoding using amplicon sequences amplified by universal primer set, MIMarks-Survey should be specified as type of MIxS.
+In BioSample database, sampling locality, elevation, depth, temperature, humidity, pH etc. can be added as metadata.
+Sample information should be added as many as possible for future generations and yourself.
+Meaning of each item is explained in checklist\\
 \href{http://wiki.gensc.org/index.php?title=MIMARKS}{http://wiki.gensc.org/index.php?title=MIMARKS}\\
-を確認して下さい。
-これを見てもわからない場合はDDBJに問い合わせて下さい。
-特に、地下や海底下のサンプルでは、平均海水面からサンプリング地点までの高さ・深さ、地面からサンプリング地点までの高さ・深さ、平均海水面から地面までの高さ・深さを入れる項目があってややこしいのでご注意下さい。
+provided by Genomic Standards Consortium.
+If you cannot understand meaning of each item, ask to DDBJ.
+In the cases of underground samples and underseafloor samples, hight or depth of sampling point from mean sea level, hight or depth of sampling point from ground/seafloor surface and hight or depth of ground/seafloor surface from mean sea level need to be distinguished.
+Because it is very confusing, please be careful.
 
 \section{Preparing tab-delimited text file for XML generation}
 
-DRAに登録するXMLには、登録するFASTQファイルごとにそのファイルに含まれている配列の情報を記述します。
-これは非常に複雑で大変なため、一旦単純なタブ区切りテキストに書き出した上で、Excelなどを用いてそれを編集し、編集後のタブ区切りテキストからXMLを作成します。
-タブ区切りテキストを生成するコマンドは\texttt{clmaketsv}です。
-以下のように使って下さい。
+In the XML files, contained sequence infomation need to be provided for each FASTQ files.
+Because this is very costful, \texttt{clmaketsv} generates simple tab-delimited text file, and \texttt{clmakexml} creates XML files from edited tab-delimited text file.
+The \texttt{clmaketsv} command can run like below.
 \begin{cmd}
 {\textgreater} clmaketsv {\textbackslash}\\
 inputfile1 {\textbackslash}\\
@@ -1546,48 +1544,45 @@ inputfile1 {\textbackslash}\\
 inputfileN {\textbackslash}\\
 outputfile↓
 \end{cmd}
-入力ファイルは登録するものを指定して下さい。
-ワイルドカードも使えます。
-タブ区切りテキストができたら、表計算ソフトなどに読み込ませて、各セルを埋めていって下さい。
-なお、Excelでは特定の文字列を勝手に日時などと認識して変換してしまう機能(無効にする方法はありません)がありますので、十分注意して下さい。
-各セル内では、\texttt{{\lbrack}Foo,Bar{\rbrack}}とあった場合は\texttt{Foo}または\texttt{Bar}のどちらかを選んで括弧と選ばなかったものを消して下さい。
-\texttt{{\textless}Fill in this cell{\textgreater}}とあった場合は、\texttt{{\textless}{\textgreater}}内の指示に従ってセルを埋めて下さい(括弧は残さない)。
-その他のセルは適当に自分で考えて何とかして下さい。
-なお、BioProject IDやBioSample IDは、正式なアクセッション番号がまだ発行されていない場合、DDBJに申請したときのSubmission ID (BioProjectではPSUBから始まり、BioSampleではSSUBから始まるもの)を入力しておけば問題ありません。
+FASTQ files to deposit to DRA should be specified as input files.
+Wild cards can be used in input file name.
+Once tab-delimited text generated, use spreadsheet softwares such as Microsoft Excel to edit this file, and fill in the blank cells.
+Note that Microsoft Excel automatically convert several types of characters and this function cannot be disabled.
+If \texttt{{\lbrack}Foo,Bar{\rbrack}} is found in a cell, select \texttt{Foo} or \texttt{Bar} and delete bracket, comma and alternatives.
+If you find \texttt{{\textless}Fill in this cell{\textgreater}} in a cell, fill this cell according to written instruction in \texttt{{\textless}{\textgreater}} and delete \texttt{{\textless}{\textgreater}}.
+You might do something with the other cells.
+If you do not have BioProject ID and/or BioSample ID because of assignment delay, you can use Submission ID with prefix PSUB for BioProject and SSUB for BioSample.
 
 \section{XML generation from tab-delimited text}
 
-タブ区切りテキストの編集が終わったら、タブ区切りテキストとして保存した上で以下のように\texttt{clmakexml}を実行して下さい。
-登録に必要なXMLファイル群が生成されます。
-なお、タブ区切りテキストは一度に複数指定することも可能です。
-ただし、各ファイルの最初の3行に記述する内容は、最初のファイルのものしか利用されません。
-2ファイル目以降の最初の3行は無視されます。
+After editing tab-delimited text, run \texttt{clmakexml} like below.
 \begin{cmd}
 {\textgreater} clmakexml {\textbackslash}\\
-タブ区切りテキストファイル {\textbackslash}\\
-DRAから割り振られたsubmission-ID↓
+Tab-DelimitedTextFile {\textbackslash}\\
+Submission-ID↓
 \end{cmd}
-DRAでは、「Create new submission(s)」によってsubmission-IDが割り振られます。
-\texttt{ユーザーID-0001}などとなっているはずです。
-\texttt{DRAから割り振られたsubmission-ID}にはこれを指定します。
-すると、\texttt{submission-ID.*.xml}という名前のファイルが3つ生成されます。
-これをDRAのXML Upload機能を利用して送信します。
-その他もろもろの処理が終わると、登録してあるメールアドレスに割り振られたアクセッション番号が送られてきます。
-ただし、論文にはBioProject IDを書くことが多いと思います。
+Then, XML files required to deposit FASTQ files will be created.
+Multiple tab-delimited text files can be given to \texttt{clmakexml}.
+In such cases, the contents of first 3 lines in tab-delimited text of secondary or n-ary files will be ignored.
 
-\chapter{Estimation of host organisms of nucleotide sequences (DNA barcoding)}
+Submission-ID is assigned by DRA when [Create new submission(s)] button is pushed.
+Submission-ID is compliant with \texttt{UserID-0001} and should be given for last argument of \texttt{clmakexml}.
+The execution of \texttt{clmakexml} is completed, 3 \texttt{Submission-ID.*.xml} files will be generated.
+These files can be upload to DRA using XML Upload.
+All processes were completed, DRA accession number is assigned and is sent from DRA to your Email address.
+Note that BioProject ID (accession number) was written in manuscript in most cases.
 
-DNAバーコーディングは、近年非常に多くの分野で応用が進められている、生物の同定方法です。
-しかし、既知配列データベースが不十分な上、それを前提とした同定アルゴリズムが欠けていました。
-そこで、筆者は「問い合わせ配列と最近隣配列との間の変異量＜分類群内の最大変異量」という規準を考案し、これを実現するアルゴリズムQCauto法\citep{Tanabe2013}をClaidentに実装しました。
-ただし、その配列のホストの可能性がある全生物が記載済みで、しかもそのバーコード配列もデータベースに登録済みである場合には、そのような難しいことを考えずに最近隣配列と同種とみなせばよいでしょう。
-そちらの方法もClaidentには実装してあります。
-以下のコマンドは全てターミナルかコンソールで実行して下さい。
-基本的なターミナルの使い方の知識は持っているものとして話を進めます。
+\chapter{Estimation of host organisms of nucleotide sequences (a.k.a. DNA barcoding)}
+
+DNA barcoding is a taxonomic identification method of biological specimens using nucleotide sequences and becoming widely applied to broad area.
+However, our reference sequence database is not enough for species level identification and algorithm that is suitable for incomplete reference database is lacking.
+To solve this problem, I proposed a new criterion that sequence distance between query and nearest-neighbor must be smaller than maximum distance within resulting taxon, developed QCauto algorithm which fullfills this criterion \citep{Tanabe2013} and implemented in Claident.
+Note that we can expect that host organism of query is same as nearest-neighbor in the case that potentially observable species are completely described and barcode DNA sequences are completely sequenced and registered to reference database.
+For such case, 1-nearest-neighbor (closest match) method is also implemented in Claident.
 
 \section{Retrieval of neighborhood sequences based on BLAST search}
 
-以下のコマンドで、「問い合わせ配列と最近隣配列との間の変異量＜分類群内の最大変異量」という条件を満たすために検討すべき近隣既知配列群(のGenBank ID)を取得できます。
+The GenBank IDs of neighborhood sequences required to fullfill ``sequence distance between query and nearest-neighbor must be smaller than maximum distance within resulting taxon'' can be retrieved by the following command.
 \begin{cmd}
 {\textgreater} clidentseq {\textbackslash}\\
 {-}{-}blastdb=overall{\textunderscore}genus {\textbackslash}\\
@@ -1595,50 +1590,53 @@ DNAバーコーディングは、近年非常に多くの分野で応用が進�
 inputfile {\textbackslash}\\
 outputfile↓
 \end{cmd}
-入力ファイルにはFASTA形式の塩基配列ファイルを指定します。
-\texttt{{-}{-}blastdb}オプションでは、BLAST検索に用いるデータベース名を指定します。
-筆者が用意しているデータベースは以下の通りです。
+Give FASTA formatted nucleotide sequence file as an input file.
+Specify reference sequence database for BLAST search to \texttt{{-}{-}blastdb} argument.
+The following databases should be installed with Claident.
 \begin{description}\small\setlength{\baselineskip}{1.1em}
-\item[animals{\textunderscore}COX1{\textunderscore}genus] 動物(Metazoa)のmtDNA \textit{COX1}配列で属以下の情報があるもの
-\item[animals{\textunderscore}COX1{\textunderscore}species] 同上だが種以下の情報があるもの
-\item[animals{\textunderscore}mt{\textunderscore}genus] 動物(Metazoa)のmtDNA配列で属以下の情報があるもの
-\item[animals{\textunderscore}mt{\textunderscore}species] 同上だが種以下の情報があるもの
-\item[eukaryota{\textunderscore}LSU{\textunderscore}genus] 真核生物のLSU (28S) rRNA配列で属以下の情報があるもの
-\item[eukaryota{\textunderscore}LSU{\textunderscore}species] 同上だが種以下の情報があるもの
-\item[eukaryota{\textunderscore}SSU{\textunderscore}genus] 真核生物のSSU (18S) rRNA配列で属以下の情報があるもの
-\item[eukaryota{\textunderscore}SSU{\textunderscore}species] 同上だが種以下の情報があるもの
-\item[fungi{\textunderscore}ITS{\textunderscore}genus] 真菌のITS配列で属以下の情報があるもの
-\item[fungi{\textunderscore}ITS{\textunderscore}species] 同上だが種以下の情報があるもの
-\item[overall{\textunderscore}class] NCBI ntの中で綱以下の情報があるもの
-\item[overall{\textunderscore}order] 同上だが目以下の情報があるもの
-\item[overall{\textunderscore}family] 同上だが科以下の情報があるもの
-\item[overall{\textunderscore}genus] 同上だが属以下の情報があるもの
-\item[overall{\textunderscore}species] 同上だが種以下の情報があるもの
-\item[plants{\textunderscore}matK{\textunderscore}genus] 緑色植物のcpDNA \textit{matK}配列で属以下の情報があるもの
-\item[plants{\textunderscore}matK{\textunderscore}species] 同上だが種以下の情報があるもの
-\item[plants{\textunderscore}rbcL{\textunderscore}genus] 緑色植物のcpDNA \textit{rbcL}配列で属以下の情報があるもの
-\item[plants{\textunderscore}rbcL{\textunderscore}species] 同上だが種以下の情報があるもの
-\item[plants{\textunderscore}trnH-psbA{\textunderscore}genus] 緑色植物のcpDNA \textit{trnH}--\textit{psbA}配列で属以下の情報があるもの
-\item[plants{\textunderscore}trnH-psbA{\textunderscore}species] 同上だが種以下の情報があるもの
-\item[prokaryota{\textunderscore}16S{\textunderscore}genus] 原核生物の16S rRNA配列で属以下の情報があるもの
-\item[prokaryota{\textunderscore}16S{\textunderscore}species] 同上だが種以下の情報があるもの
-\item[prokaryota{\textunderscore}all{\textunderscore}genus] 原核生物の配列で属以下の情報があるもの
-\item[prokaryota{\textunderscore}all{\textunderscore}species] 同上だが種以下の情報があるもの
-\item[semiall{\textunderscore}class] \texttt{overall{\textunderscore}class}から脊椎動物と\textit{Caenorhabditis}と\textit{Drosophila}を除いたもの
-\item[semiall{\textunderscore}order] \texttt{overall{\textunderscore}order}から脊椎動物と\textit{Caenorhabditis}と\textit{Drosophila}を除いたもの
-\item[semiall{\textunderscore}family] \texttt{overall{\textunderscore}family}から脊椎動物と\textit{Caenorhabditis}と\textit{Drosophila}を除いたもの
-\item[semiall{\textunderscore}genus] \texttt{overall{\textunderscore}genus}から脊椎動物と\textit{Caenorhabditis}と\textit{Drosophila}を除いたもの
-\item[semiall{\textunderscore}species] \texttt{overall{\textunderscore}species}から脊椎動物と\textit{Caenorhabditis}と\textit{Drosophila}を除いたもの
+\item[animals{\textunderscore}COX1{\textunderscore}genus] Animal (Metazoa) \textit{COX1} sequences which have genus or lower level taxonomic information
+\item[animals{\textunderscore}COX1{\textunderscore}species] Animal (Metazoa) \textit{COX1} sequences which have species or lower level taxonomic information
+\item[animals{\textunderscore}mt{\textunderscore}genus] Animal (Metazoa) mitochondrial sequences which have genus or lower level taxonomic information
+\item[animals{\textunderscore}mt{\textunderscore}species] Animal (Metazoa) mitochondrial sequences which have species or lower level taxonomic information
+\item[eukaryota{\textunderscore}LSU{\textunderscore}genus] Eukaryotic LSU (28S) rRNA sequences which have genus or lower level taxonomic information
+\item[eukaryota{\textunderscore}LSU{\textunderscore}species] Eukaryotic LSU (28S) rRNA sequences which have species or lower level taxonomic information
+\item[eukaryota{\textunderscore}SSU{\textunderscore}genus] Eukaryotic SSU (18S) rRNA sequences which have genus or lower level taxonomic information
+\item[eukaryota{\textunderscore}SSU{\textunderscore}species] Eukaryotic SSU (18S) rRNA sequences which have species or lower level taxonomic information
+\item[fungi{\textunderscore}ITS{\textunderscore}genus] Fungal ITS sequences which have genus or lower level taxonomic information
+\item[fungi{\textunderscore}ITS{\textunderscore}species] Fungal ITS sequences which have species or lower level taxonomic information
+\item[overall{\textunderscore}class] NCBI nt sequences which have class or lower level taxonomic information
+\item[overall{\textunderscore}order] NCBI nt sequences which have order or lower level taxonomic information
+\item[overall{\textunderscore}family] NCBI nt sequences which have family or lower level taxonomic information
+\item[overall{\textunderscore}genus] NCBI nt sequences which have genus or lower level taxonomic information
+\item[overall{\textunderscore}species] NCBI nt sequences which have species or lower level taxonomic information
+\item[plants{\textunderscore}matK{\textunderscore}genus] Plant \textit{matK} sequences which have genus or lower level taxonomic information
+\item[plants{\textunderscore}matK{\textunderscore}species] Plant \textit{matK} sequences which have species or lower level taxonomic information
+\item[plants{\textunderscore}rbcL{\textunderscore}genus] Plant \textit{rbcL} sequences which have genus or lower level taxonomic information
+\item[plants{\textunderscore}rbcL{\textunderscore}species] Plant \textit{rbcL} sequences which have species or lower level taxonomic information
+\item[plants{\textunderscore}trnH-psbA{\textunderscore}genus] Plant \textit{trnH}--\textit{psbA} sequences which have genus or lower level taxonomic information
+\item[plants{\textunderscore}trnH-psbA{\textunderscore}species] Plant \textit{trnH}--\textit{psbA} sequences which have species or lower level taxonomic information
+\item[prokaryota{\textunderscore}16S{\textunderscore}genus] Prokaryotic (Bacterial and Archaeal) 16S rRNA sequences which have genus or lower level taxonomic information
+\item[prokaryota{\textunderscore}16S{\textunderscore}species] Prokaryotic (Bacterial and Archaeal) 16S rRNA sequences which have species or lower level taxonomic information
+\item[prokaryota{\textunderscore}all{\textunderscore}genus] Prokaryotic (Bacterial and Archaeal) sequences which have genus or lower level taxonomic information
+\item[prokaryota{\textunderscore}all{\textunderscore}species] Prokaryotic (Bacterial and Archaeal) sequences which have species or lower level taxonomic information
+\item[semiall{\textunderscore}class] Reduced database excluding all sequences of vertebrates, \textit{Caenorhabditis} and \textit{Drosophila} from \texttt{overall{\textunderscore}class}
+\item[semiall{\textunderscore}order] Reduced database excluding all sequences of vertebrates, \textit{Caenorhabditis} and \textit{Drosophila} from \texttt{overall{\textunderscore}order}
+\item[semiall{\textunderscore}family] Reduced database excluding all sequences of vertebrates, \textit{Caenorhabditis} and \textit{Drosophila} from \texttt{overall{\textunderscore}family}
+\item[semiall{\textunderscore}genus] Reduced database excluding all sequences of vertebrates, \textit{Caenorhabditis} and \textit{Drosophila} from \texttt{overall{\textunderscore}genus}
+\item[semiall{\textunderscore}species] Reduced database excluding all sequences of vertebrates, \textit{Caenorhabditis} and \textit{Drosophila} from \texttt{overall{\textunderscore}species}
 \end{description}
-\texttt{overall{\textunderscore}*}は非常に巨大なため、多くのメモリを必要としますが、これらは万能なのでどんな配列にも使えますし、想定外の分類群や想定外の遺伝子座の配列の混入があってもとんでもない誤同定を避けることができます。
-\texttt{overall{\textunderscore}genus}では属以下の情報がある、つまりそれなりに分類群の情報が信頼できそうな配列を選別していますが、あまりにマイナーな分類群だとそれでは近隣配列が見つからないことがあります。
-その場合は、綱以下まで同定された配列のデータベース\texttt{overall{\textunderscore}class}を使ってみて下さい。
-その他のデータベースは、\texttt{overall{\textunderscore}*}よりもメモリ占有量がずっと少ないため、メモリの少ないコンピュータでも動作します。
+The \texttt{overall{\textunderscore}*} databases are very large and require large memory but are versatile and robust to contamination of sequences of unexpected taxa or loci.
+Thus, the \texttt{overall{\textunderscore}*} are strongly recommended in most cases.
+In the \texttt{overall{\textunderscore}genus} database, the sequences which have genus or lower level taxonomic information are kept and the other sequences are excluded and nearest-neighbor often cannot be found in minor taxa.
+The \texttt{overall{\textunderscore}class} database is recommended for such cases.
+The other databases are much smaller than \texttt{overall{\textunderscore}*} and require much smaller memory.
 
 \subsection{Accelerating BLAST search using cache databases}
 
-\texttt{clidentseq}はBLAST検索を何度も繰り返しますが、それなりの時間と大量のメモリを必要とします。そこで、予め問い合わせ配列と類似した配列の上位1万本(設定で変更可)のヒットした部位のみをBLASTデータベースから取得してキャッシュとなるBLASTデータベースを作成しておき、\texttt{clidentseq}ではこれを対象として検索することで、劇的な高速化が可能です。これを行うのが\texttt{clmakecachedb}で、以下のように用います。
-
+The \texttt{clidentseq} command runs BLAST search multiple times and requires long time.
+To reduce runtime of \texttt{clidentseq}, cache sequence database containing top-10,000 high score sequences can be constructed for each query sequence.
+Processing speed of \texttt{clidentseq} can be extremely accelerated by using cache database and strongly recommended.
+To construct cache database, run \texttt{clmakecachedb} like the following.
 \begin{cmd}
 {\textgreater} clmakecachedb {\textbackslash}\\
 {-}{-}blastdb=overall{\textunderscore}genus {\textbackslash}\\
@@ -1646,14 +1644,13 @@ outputfile↓
 inputfile {\textbackslash}\\
 outputfolder↓
 \end{cmd}
-
-\texttt{clidentseq}の実行時には、\texttt{{-}{-}blastdb}オプションに上記コマンドの出力フォルダを指定することで、キャッシュデータベースが使われます。
-ただし、\texttt{clmakecachedb}と\texttt{clidentseq}の入力ファイルは同一である必要があります。
-メモリの使用量も大幅に減少しますので、\texttt{overall{\textunderscore}*}を使用してもメモリ16GB程度で済みます。
+In the execution of \texttt{clidentseq}, give the output folder of \texttt{clmakecachedb} to \texttt{{-}{-}blastdb} argument, then cache database will be used.
+Note that the input files of \texttt{clmakecachedb} and \texttt{clidentseq} must be tha same file.
+Required amount of memory is also extremely reduced.
 
 \subsection{In the case of perfect reference database}\label{subsection:completereferencedatabase}
 
-問い合わせ配列のホストの可能性がある全生物が記載済みで、しかもそのバーコード配列も全て参照配列データベースに登録済みである場合には、以下のようにして類似度99\%以上の上位1位(1位タイを含む)を近隣配列とすればいいでしょう。
+If potentially observable species are completely described and barcode DNA sequences are completely sequenced and registered to reference database, retrieving top-1 and tie sequences whose percent-identity to query is 99\% or more is recommended and it can be performed by the following command.
 \begin{cmd}
 {\textgreater} clidentseq {\textbackslash}\\
 blastn -task megablast -word{\textunderscore}size 16 end {\textbackslash}\\
@@ -1663,26 +1660,25 @@ blastn -task megablast -word{\textunderscore}size 16 end {\textbackslash}\\
 inputfile {\textbackslash}\\
 outputfile↓
 \end{cmd}
-
-類似度99\%以上の上位1位の配列を探し出す場合、BLAST検索オプションは\texttt{-task megablast -word{\textunderscore}size 16}としても見逃すことはまずないでしょうから、ここでは高速化のためにこのように指定しています。
+In search of top-1 and tie sequences whose percent-identity to query is 99\% or more, we can expect that overleaping hardly occur even if \texttt{-task megablast -word{\textunderscore}size 16} is given as BLAST search argument, thus this argument is specified.
 
 \section{Taxonomic assignment based on neighborhood sequences}
 
-以下のコマンドで、近隣既知配列群の所属分類群が同一になるまで分類階層を上げていくことで配列を同定します。
-これはlowest common ancestor (LCA) algorithmと呼ばれています\citep{Huson2007}。
+The following command assigns taxonomy to query ascending taxonomic level until taxonomic information of neighborhood sequences are completely matched.
+This is called as lowest common ancestor (LCA) algorithm \citep{Huson2007}.
 \begin{cmd}
 {\textgreater} classigntax {\textbackslash}\\
 {-}{-}taxdb=overall{\textunderscore}genus {\textbackslash}\\
 inputfile {\textbackslash}\\
 outputfile↓
 \end{cmd}
-inputfileには前節で作成した\texttt{clidentseq}の出力ファイルを指定して下さい。
-\texttt{{-}{-}taxdb}は既知配列の所属分類群データベース指定オプションです。
-BLASTデータベースと同じ名前のものがインストールされていますので、それを指定して下さい。
+Give the output file of \texttt{clidentseq} as input file.
+The \texttt{{-}{-}taxdb} argument is to give taxonomy database of reference sequences.
+The same name taxonomy databases as reference sequence databases should be installed and specified.
 
-\texttt{classigntax}のデフォルト設定では、少なくとも2本以上の近隣既知配列がないと同定することができません。
-第\ref{subsection:completereferencedatabase}節のように\texttt{clidentseq}の実行時に\texttt{{-}{-}method=1,99\%}を指定していると、近隣既知配列が1本しかないために一つも同定できないことになります。
-この場合は以下のようにして必要な近隣既知配列数を1にします。
+The \texttt{classigntax} requires 2 or more neighborhood sequences by default.
+If \texttt{{-}{-}method=1,99\%} was given to \texttt{clidentseq} like section \ref{subsection:completereferencedatabase}, taxonomic assignment of all sequences must be failed.
+In such case, reduce required minimum number of neighborhood sequences like below.
 \begin{cmd}
 {\textgreater} classigntax {\textbackslash}\\
 {-}{-}taxdb=overall{\textunderscore}genus {\textbackslash}\\
@@ -1690,7 +1686,7 @@ BLASTデータベースと同じ名前のものがインストールされてい
 inputfile {\textbackslash}\\
 outputfile↓
 \end{cmd}
-出力ファイルは表\ref{table:exampleresultsofidentification}のような形のタブ区切りのテキストになっています。
+The output file of \texttt{classigntax} is tab-delimited text file like Table \ref{table:exampleresultsofidentification}.
 \begin{table}[h]
 \begin{center}
 \footnotesize\setlength{\baselineskip}{0.9em}%
@@ -1717,14 +1713,13 @@ seqR & Ascomycota & \textit{Capronia} &  \\
 seqS & Ascomycota & \textit{Cenococcum} &  \\
 \end{tabular}
 \end{center}
-\caption{同定結果の例 --- 空欄はunidentified、つまり不明ということです。
-横幅を抑えるためいくつかの分類階層は省いてあります。}
+\caption{Examples of taxonomic assignment --- Blank cel means unidentified. Several taxonomic levels are omitted for reduce width.}
 \label{table:exampleresultsofidentification}
 \end{table}
-
-\texttt{classigntax}のデフォルト設定では、全ての近隣既知配列の所属分類群が同一になるまで分類階層を上げていきますので、誤同定された配列が混ざっていたりした場合には下位の分類階層はほとんど不明になってしまいます。
-これは「ほぼ正しいと思われる」結果を得る＝「間違えない」ことをデフォルト設定では優先しているためですが、近隣既知配列が多い場合、多少不一致を許容して誤同定の可能性を増やしてでもできるだけ下位の分類階層まで同定したい場合があります。
-そのような場合には以下のように\texttt{{-}{-}maxpopposer}と\texttt{{-}{-}minsoratio}を指定します。
+By default, the \texttt{classigntax} command assigns taxonomy to query ascending taxonomic level until taxonomic information of neighborhood sequences are completely matched.
+If reference database is contaminated by misidentified sequence and such sequence is contain in neighborhoods, lower level taxonomy likely to be unidentified.
+This ``strict consensus'' method is robust but too conservative in some cases.
+The following command allows 5\% of neighborhood sequences have different taxonomic information to resulting taxonomy.
 \begin{cmd}
 {\textgreater} classigntax {\textbackslash}\\
 {-}{-}taxdb=overall{\textunderscore}genus {\textbackslash}\\
@@ -1733,65 +1728,66 @@ seqS & Ascomycota & \textit{Cenococcum} &  \\
 inputfile {\textbackslash}\\
 outputfile↓
 \end{cmd}
-\texttt{classigntax}は結果として採用する分類群に該当する配列をsupporter配列とし、該当しない配列をopposer配列とします。
-\texttt{{-}{-}maxpopposer}にはopposer配列の存在を許容する割合を百分率で指定します。
-\texttt{{-}{-}minsoratio}はsupporter配列数とopposer配列数の比の下限値を指定します。
-supporter配列数とopposer配列数がこれを下回るような同定結果は許容せず分類階層を上げていきます。
-2つのオプションが必要なのは、その分類階層の情報がない配列が存在し得るためです。
-そのような配列はsupporterでもopposerでもないので、2つのオプションが必要になります。
-上記の例では、近隣既知配列中、5\%までのopposer配列を許容し、opposer配列の19倍以上のsupporter配列を必要とします。
+The \texttt{classigntax} treat neighborhood sequences which have same taxonomic information to resulting taxonomy as ``supporter'', neighborhood sequences which have different taxonomic information to resulting taxonomy as ``opposer''.
+The \texttt{{-}{-}maxpopposer} argument is to specify maximum allowing proportion of opposer sequences.
+The \texttt{{-}{-}minsoratio} argument is to set minimum required ratio of ``supporter / opposer''.
+Because there are possibly unidentified sequences which do not have taxonomic information and such sequences are neither supporter nor opposer, the above 2 arguments are required.
+In the case of above command, 5\% of opposers are tolerated and 19 times as many supporters as opposers are required.
 
 \section{Merging multiple taxonomic assignments based on consensus}\label{section:mergingmultipleassignment}
 
-例えば植物の\textit{rbcL}と\textit{matK}など、複数のバーコード領域を併用しなければ同定できないこともありますし、\texttt{overall{\textunderscore}genus}と\texttt{overall{\textunderscore}class}での同定結果のいいとこ取りをしたい場合があります。
-また、厳密なLCAによる同定結果と5\%までopposerを許容するLCAの同定結果の組み合わせでいいとこ取りしたい場合もあるでしょう。
-そのようなことが、複数の同定結果を統合することで可能になります。
+In plant chloroplast loci, single locus query sequences cannot be identified at the lower taxonomic level in many cases because of lack of variations.
+Merging multiple results based on \texttt{overall{\textunderscore}genus} (more reliable database) and \texttt{overall{\textunderscore}class} (less reliable database) are often useful.
+Merging multiple results based on ``strict consensus'' LCA (strict LCA) and ``95\%-majority rule consensus'' LCA (relaxed LCA) is also useful in some cases.
+Such merging multiple assignment results can be performed with the aid of \texttt{clmergeassign}.
 
-植物の\textit{rbcL}と\textit{matK}を併用して同定する場合は、より深くまで同定できている方の結果を採用するのがいいでしょう。
-これは以下のコマンドでできます。
+Multiple assignment results of \textit{rbcL} and \textit{matK} can be merged prefering lower level identification by the following command.
 \begin{cmd}
 {\textgreater} clmergeassign {\textbackslash}\\
 {-}{-}priority=equal {\textbackslash}\\
 {-}{-}preferlower {\textbackslash}\\
-rbcLでの同定結果 {\textbackslash}\\
-matKでの同定結果 {\textbackslash}\\
+ResultOfrbcL {\textbackslash}\\
+ResultOfmatK {\textbackslash}\\
 outputfile↓
 \end{cmd}
-より保守的に考えるなら、以下のようにして、両方の同定結果が同一か、一方では未同定の場合だけ採用することもできます。
-ただし、上の階層で不一致だった場合には、同定結果が一方で未同定でも採用されません。
+The following command merges multiple results accepting that query identified as same taxon in both results and that query identified in one result and unidentified in the other result.
+Note that mismatch at the higher level taxonomy is not allowed.
 \begin{cmd}
 {\textgreater} clmergeassign {\textbackslash}\\
 {-}{-}priority=equal {\textbackslash}\\
-rbcLでの同定結果 {\textbackslash}\\
-matKでの同定結果 {\textbackslash}\\
+ResultOfrbcL {\textbackslash}\\
+ResultOfmatK {\textbackslash}\\
 outputfile↓
 \end{cmd}
-\textit{trnH}--\textit{psbA}も併用して、最も深くまで同定できているものを採用する場合は以下のようにします。
+Three assignment results of \textit{rbcL}, \textit{matK} and \textit{trnH}--\textit{psbA} can be merged prefering lower level identification by the following command.
 \begin{cmd}
 {\textgreater} clmergeassign {\textbackslash}\\
 {-}{-}priority=equal {\textbackslash}\\
 {-}{-}preferlower {\textbackslash}\\
-rbcLでの同定結果 {\textbackslash}\\
-matKでの同定結果 {\textbackslash}\\
-trnH-psbAでの同定結果 {\textbackslash}\\
+ResultOfrbcL {\textbackslash}\\
+ResultOfmatK {\textbackslash}\\
+ResultOftrnH-psbA {\textbackslash}\\
 outputfile↓
 \end{cmd}
-\texttt{overall{\textunderscore}genus}の結果を優先的に採用し、\texttt{overall{\textunderscore}genus}で同定できている分類階層までは一致しているが\texttt{overall{\textunderscore}class}の方がより下位まで同定できている場合だけ採用するには、以下のようにします。
+The following command merges two results prefering result of \texttt{overall{\textunderscore}genus}.
 \begin{cmd}
 {\textgreater} clmergeassign {\textbackslash}\\
 {-}{-}priority=descend {\textbackslash}\\
-overall{\textunderscore}genusでの同定結果 {\textbackslash}\\
-overall{\textunderscore}classでの同定結果 {\textbackslash}\\
+ResultOfoverall{\textunderscore}genus {\textbackslash}\\
+ResultOfoverall{\textunderscore}class {\textbackslash}\\
 outputfile↓
 \end{cmd}
-同様に、厳密なLCAによる結果を優先し、厳密なLCAで同定できている分類階層まで一致しているが制約を緩めたLCAによる結果の方がより下位まで同定できている場合にのみ採用するには、以下のようにします。
+In this case, result of \texttt{overall{\textunderscore}class} is accepted if matched to result of \texttt{overall{\textunderscore}genus} and identified at the lower level than result of \texttt{overall{\textunderscore}genus}.
+
+The following command merges two results prefering result of strict LCA.
 \begin{cmd}
 {\textgreater} clmergeassign {\textbackslash}\\
 {-}{-}priority=descend {\textbackslash}\\
-厳密なLCAでの同定結果 {\textbackslash}\\
-制約を緩めたLCAでの同定結果 {\textbackslash}\\
+ResultOfStrictLCA {\textbackslash}\\
+ResultOfRelaxedLCA {\textbackslash}\\
 outputfile↓
 \end{cmd}
+In this case, result of relaxed LCA is accepted if matched to result of strict LCA and identified at the lower level than result of strict LCA.
 
 \bibliography{metabarcodingtextbook.en}
 \addcontentsline{toc}{chapter}{References}

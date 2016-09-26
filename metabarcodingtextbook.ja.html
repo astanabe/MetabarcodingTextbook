@@ -1,7 +1,7 @@
 <!DOCTYPE html><html prefix="dcterms: http://purl.org/dc/terms/">
 <head>
 <title>生態学のためのメタバーコーディングとDNAバーコーディング</title>
-<!--Generated on Mon Sep 26 10:53:06 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Generated on Mon Sep 26 17:42:49 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
 <!--Document created on September 26, 2016.-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -3052,8 +3052,7 @@ ClustalW2・ClustalX2 <cite class="ltx_cite"><a href="#bib.bib13" title="" class
 <div id="Ch6.p1" class="ltx_para">
 <p class="ltx_p">クラスタリング後の配列は従来通りDDBJなどに登録すればいいですが、新型シーケンサーの生データはDDBJ Sequence Read Archive (DRA)というところへ登録することになっています(サンガー法シーケンサーの生データはTrace Archive)。
 本書にあるように複数サンプルからのDNAにタグを付けてシーケンスした場合、サンプルごとのデータファイルに分割して登録することを求められます。
-これは<span class="ltx_text ltx_font_typewriter">clsplitseq</span>によって分割したFASTQを使えば問題ありません。
-同一鋳型由来配列ファイルが複数ある場合は、GZIP圧縮を解除してから連結して再圧縮するだけで構いません。</p>
+これは<span class="ltx_text ltx_font_typewriter">clsplitseq</span>によって分割したFASTQを使えば問題ありません。</p>
 </div>
 <div id="Ch6.p2" class="ltx_para">
 <p class="ltx_p">また、サンプルについての情報(メタデータ)を記述したXMLファイルを作成しなくてはなりません。
@@ -3114,7 +3113,7 @@ BioSampleへの登録はBioSample Handbook
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力ファイル↓</span>
           </span>
 </p>
-<p class="ltx_p">入力ファイルは登録するものを指定して下さい。
+<p class="ltx_p">入力ファイルは登録するFASTQを指定して下さい。
 ワイルドカードも使えます。
 タブ区切りテキストができたら、表計算ソフトなどに読み込ませて、各セルを埋めていって下さい。
 なお、Excelでは特定の文字列を勝手に日時などと認識して変換してしまう機能(無効にする方法はありません)がありますので、十分注意して下さい。
@@ -3129,11 +3128,7 @@ BioSampleへの登録はBioSample Handbook
 <span class="ltx_tag ltx_tag_section">6.2 </span>タブ区切りテキストからのDRA登録用XMLファイルの生成</h3>
 
 <div id="Ch6.S2.p1" class="ltx_para">
-<p class="ltx_p">タブ区切りテキストの編集が終わったら、タブ区切りテキストとして保存した上で以下のように<span class="ltx_text ltx_font_typewriter">clmakexml</span>を実行して下さい。
-登録に必要なXMLファイル群が生成されます。
-なお、タブ区切りテキストは一度に複数指定することも可能です。
-ただし、各ファイルの最初の3行に記述する内容は、最初のファイルのものしか利用されません。
-2ファイル目以降の最初の3行は無視されます。</p>
+<p class="ltx_p">タブ区切りテキストの編集が終わったら、タブ区切りテキストとして保存した上で以下のように<span class="ltx_text ltx_font_typewriter">clmakexml</span>を実行して下さい。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clmakexml \</span>
@@ -3145,6 +3140,12 @@ BioSampleへの登録はBioSample Handbook
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">DRAから割り振られたsubmission-ID↓</span>
           </span>
 </p>
+<p class="ltx_p">登録に必要なXMLファイル群が生成されます。
+なお、タブ区切りテキストは一度に複数指定することも可能です。
+ただし、各ファイルの最初の3行に記述する内容は、最初のファイルのものしか利用されません。
+2ファイル目以降の最初の3行は無視されます。</p>
+</div>
+<div id="Ch6.S2.p2" class="ltx_para">
 <p class="ltx_p">DRAでは、「Create new submission(s)」によってsubmission-IDが割り振られます。
 <span class="ltx_text ltx_font_typewriter">ユーザーID-0001</span>などとなっているはずです。
 <span class="ltx_text ltx_font_typewriter">DRAから割り振られたsubmission-ID</span>にはこれを指定します。
@@ -3164,9 +3165,7 @@ BioSampleへの登録はBioSample Handbook
 しかし、既知配列データベースが不十分な上、それを前提とした同定アルゴリズムが欠けていました。
 そこで、筆者は「問い合わせ配列と最近隣配列との間の変異量＜分類群内の最大変異量」という規準を考案し、これを実現するアルゴリズムQCauto法<cite class="ltx_cite"><a href="#bib.bib18" title="" class="ltx_ref">(Tanabe and Toju, 2013)</a></cite>をClaidentに実装しました。
 ただし、その配列のホストの可能性がある全生物が記載済みで、しかもそのバーコード配列もデータベースに登録済みである場合には、そのような難しいことを考えずに最近隣配列と同種とみなせばよいでしょう。
-そちらの方法もClaidentには実装してあります。
-以下のコマンドは全てターミナルかコンソールで実行して下さい。
-基本的なターミナルの使い方の知識は持っているものとして話を進めます。</p>
+そちらの方法もClaidentには実装してあります。</p>
 </div>
 <section id="Ch7.S1" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
@@ -3541,7 +3540,9 @@ BioSampleへの登録はBioSample Handbook
 <span class="ltx_tag ltx_tag_subsection">7.1.1 </span>キャッシュデータベースの構築による高速化</h4>
 
 <div id="Ch7.S1.SS1.p1" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">clidentseq</span>はBLAST検索を何度も繰り返しますが、それなりの時間と大量のメモリを必要とします。そこで、予め問い合わせ配列と類似した配列の上位1万本(設定で変更可)のヒットした部位のみをBLASTデータベースから取得してキャッシュとなるBLASTデータベースを作成しておき、<span class="ltx_text ltx_font_typewriter">clidentseq</span>ではこれを対象として検索することで、劇的な高速化が可能です。これを行うのが<span class="ltx_text ltx_font_typewriter">clmakecachedb</span>で、以下のように用います。</p>
+<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">clidentseq</span>はBLAST検索を何度も繰り返しますが、それなりの時間と大量のメモリを必要とします。
+そこで、予め問い合わせ配列と類似した配列の上位1万本(設定で変更可)のヒットした部位のみをBLASTデータベースから取得してキャッシュとなるBLASTデータベースを作成しておき、<span class="ltx_text ltx_font_typewriter">clidentseq</span>ではこれを対象として検索することで、劇的な高速化が可能です。
+これを行うのが<span class="ltx_text ltx_font_typewriter">clmakecachedb</span>で、以下のように用います。</p>
 </div>
 <div id="Ch7.S1.SS1.p2" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
@@ -3954,7 +3955,6 @@ BLASTデータベースと同じ名前のものがインストールされてい
 <p class="ltx_p"><span class="ltx_text ltx_font_typewriter">classigntax</span>は結果として採用する分類群に該当する配列をsupporter配列とし、該当しない配列をopposer配列とします。
 <span class="ltx_text ltx_font_typewriter">--maxpopposer</span>にはopposer配列の存在を許容する割合を百分率で指定します。
 <span class="ltx_text ltx_font_typewriter">--minsoratio</span>はsupporter配列数とopposer配列数の比の下限値を指定します。
-supporter配列数とopposer配列数がこれを下回るような同定結果は許容せず分類階層を上げていきます。
 2つのオプションが必要なのは、その分類階層の情報がない配列が存在し得るためです。
 そのような配列はsupporterでもopposerでもないので、2つのオプションが必要になります。
 上記の例では、近隣既知配列中、5%までのopposer配列を許容し、opposer配列の19倍以上のsupporter配列を必要とします。</p>

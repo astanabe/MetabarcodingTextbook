@@ -1,7 +1,7 @@
 <!DOCTYPE html><html prefix="dcterms: http://purl.org/dc/terms/">
 <head>
 <title>Matabarcoding and DNA barcoding for Ecologists</title>
-<!--Generated on Mon Sep 26 10:53:05 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Generated on Mon Sep 26 17:42:49 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
 <!--Document created on September 26, 2016.-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -1431,7 +1431,7 @@ The <span class="ltx_text ltx_font_typewriter">--paddinglen=16</span> argument w
 </div>
 <div id="Ch2.S3.SS3.SSSx2.p12" class="ltx_para">
 <p class="ltx_p">In the estimation of host organism, split concatenated sequences based on <span class="ltx_text ltx_font_typewriter">ACGTACGTACGTACGT</span>, assign taxonomy to forward and reverse sequences separately.
-Then, merge 2 taxonomy (see section <a href="#Ch7.S3" title="7.3 Merging multiple taxonomic assignments based on consensus ‣ Chapter 7 Estimation of host organisms of nucleotide sequences (DNA barcoding) ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.3</span></a>).
+Then, merge 2 taxonomy (see section <a href="#Ch7.S3" title="7.3 Merging multiple taxonomic assignments based on consensus ‣ Chapter 7 Estimation of host organisms of nucleotide sequences (a.k.a. DNA barcoding) ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.3</span></a>).
 Generally speaking, forward sequences shows higher quality than reverse sequences, prefering forward sequence taxonomy is recommended if there is no <span class="ltx_text ltx_font_italic">a priori</span> infomations about identification power and variability of forward and reverse sequences.
 Sequence division based on <span class="ltx_text ltx_font_typewriter">ACGTACGTACGTACGT</span> can be applied to the sequences by the following command.</p>
 </div>
@@ -3071,53 +3071,51 @@ After the filtering sequences by this method, <span class="ltx_text ltx_font_typ
 <span class="ltx_tag ltx_tag_chapter">Chapter 6 </span>Data deposition to DRA</h2>
 
 <div id="Ch6.p1" class="ltx_para">
-<p class="ltx_p">クラスタリング後の配列は従来通りDDBJなどに登録すればいいですが、新型シーケンサーの生データはDDBJ Sequence Read Archive (DRA)というところへ登録することになっています(サンガー法シーケンサーの生データはTrace Archive)。
-本書にあるように複数サンプルからのDNAにタグを付けてシーケンスした場合、サンプルごとのデータファイルに分割して登録することを求められます。
-これは<span class="ltx_text ltx_font_typewriter">clsplitseq</span>によって分割したFASTQを使えば問題ありません。
-同一鋳型由来配列ファイルが複数ある場合は、GZIP圧縮を解除してから連結して再圧縮するだけで構いません。</p>
+<p class="ltx_p">Representative sequences can be deposited to DDBJ, EMBL or GenBank if required, but raw sequencing reads should be deposited to Sequence Read Archive such as DDBJ Sequence Read Archive (DRA).
+If you sequenced multiple samples with tag sequences in a NGS run like above, demultiplexed (tag and primer positions are trimmed) sequence files should be deposited.
+FASTQ files made by <span class="ltx_text ltx_font_typewriter">clsplitseq</span> command can be used for deposition.</p>
 </div>
 <div id="Ch6.p2" class="ltx_para">
-<p class="ltx_p">また、サンプルについての情報(メタデータ)を記述したXMLファイルを作成しなくてはなりません。
-データ登録を受け付けている側でも、XML作成を補助するツールが用意されていますが大量サンプルを扱っている場合は用意するのは大変です。
-そこで、DRA登録用XML作成を補助する<span class="ltx_text ltx_font_typewriter">clmaketsv</span>および<span class="ltx_text ltx_font_typewriter">clmakexml</span>というコマンドを用意しています。
-以下でこれらの使用法を説明します。</p>
+<p class="ltx_p">XML files recoding metadata about sample information need to be created.
+DRA provides XML creation support tool, but such tools is not easy-to-use in a case of many samples.
+To reduce time and effort to make XML, <span class="ltx_text ltx_font_typewriter">clmaketsv</span> and <span class="ltx_text ltx_font_typewriter">clmakexml</span> can be used.</p>
 </div>
 <div id="Ch6.p3" class="ltx_para">
-<p class="ltx_p">DRAへの登録には、DDBJが管理するD-wayでのユーザーアカウント作成と公開鍵の登録が必要です。
-詳しくはDRA Handbook
-<br class="ltx_break"><a href="http://trace.ddbj.nig.ac.jp/dra/submission.shtml" title="" class="ltx_ref">http://trace.ddbj.nig.ac.jp/dra/submission.shtml</a>
-<br class="ltx_break">をご覧下さい。
-登録の際、Submission、Study、Experiment、Sample、Runの概念と対応関係を把握している必要がありますので、その部分を特に注意して読んで理解しておいて下さい。</p>
+<p class="ltx_p">To deposit raw sequences to DRA, user account of D-way of DDBJ and public key registration are required.
+Read DRA Handbook
+<br class="ltx_break"><a href="http://trace.ddbj.nig.ac.jp/dra/submission_e.shtml" title="" class="ltx_ref">http://trace.ddbj.nig.ac.jp/dra/submission_e.shtml</a>
+<br class="ltx_break">to know detailed procedures.
+In the deposition process, concept of Submission, Study, Experiment, Sample and Run, and association of those are important and need to be understood.</p>
 </div>
 <div id="Ch6.p4" class="ltx_para">
-<p class="ltx_p">DRAでは、StudyはBioProjectという研究プロジェクトデータベースに登録して、それを参照することになります。
-BioProjectへの登録はBioProject Handbook
-<br class="ltx_break"><a href="http://trace.ddbj.nig.ac.jp/bioproject/submission.html" title="" class="ltx_ref">http://trace.ddbj.nig.ac.jp/bioproject/submission.html</a>
-<br class="ltx_break">を参照して予め済ませておいて下さい。</p>
+<p class="ltx_p">In DRA, Study need to be registered to BioProject database which is a research project database, and to be referred to BioProject ID (accession number).
+Read BioProject Handbook
+<br class="ltx_break"><a href="http://trace.ddbj.nig.ac.jp/bioproject/submission_e.html" title="" class="ltx_ref">http://trace.ddbj.nig.ac.jp/bioproject/submission_e.html</a>
+<br class="ltx_break">and register Study to BioProject before data deposition to DRA.</p>
 </div>
 <div id="Ch6.p5" class="ltx_para">
-<p class="ltx_p">さらに、SampleはBioSampleという研究サンプルデータベースに登録して、それを参照します。
-BioSampleへの登録はBioSample Handbook
-<br class="ltx_break"><a href="http://trace.ddbj.nig.ac.jp/biosample/submission.html" title="" class="ltx_ref">http://trace.ddbj.nig.ac.jp/biosample/submission.html</a>
-<br class="ltx_break">を参照して予め済ませておいて下さい。
-なお、メタゲノムを鋳型としてユニバーサルプライマーで増幅を行ったシーケンスサンプルの場合、MIMarks-SurveyをMIxSのタイプとして指定します。
-サンプルの採集された高度、水深、温度、湿度、pHなど、様々な情報を付加しておくことができます。
-後世のためにも、面倒がらずにできるだけ多くの情報を付加しておいて下さい。
-なお、各項目の意味は、Genomic Standards Consortiumから提供されているチェックリスト
+<p class="ltx_p">Sample also need to be registered to BioSample database which is a biological specimen database, and to be referred to BioSample ID (accession number).
+You need to read BioSample Handbook
+<br class="ltx_break"><a href="http://trace.ddbj.nig.ac.jp/biosample/submission_e.html" title="" class="ltx_ref">http://trace.ddbj.nig.ac.jp/biosample/submission_e.html</a>
+<br class="ltx_break">and to register Sample to BioSample before data deposition to DRA.
+In the cases of metabarcoding using amplicon sequences amplified by universal primer set, MIMarks-Survey should be specified as type of MIxS.
+In BioSample database, sampling locality, elevation, depth, temperature, humidity, pH etc. can be added as metadata.
+Sample information should be added as many as possible for future generations and yourself.
+Meaning of each item is explained in checklist
 <br class="ltx_break"><a href="http://wiki.gensc.org/index.php?title=MIMARKS" title="" class="ltx_ref">http://wiki.gensc.org/index.php?title=MIMARKS</a>
-<br class="ltx_break">を確認して下さい。
-これを見てもわからない場合はDDBJに問い合わせて下さい。
-特に、地下や海底下のサンプルでは、平均海水面からサンプリング地点までの高さ・深さ、地面からサンプリング地点までの高さ・深さ、平均海水面から地面までの高さ・深さを入れる項目があってややこしいのでご注意下さい。</p>
+<br class="ltx_break">provided by Genomic Standards Consortium.
+If you cannot understand meaning of each item, ask to DDBJ.
+In the cases of underground samples and underseafloor samples, hight or depth of sampling point from mean sea level, hight or depth of sampling point from ground/seafloor surface and hight or depth of ground/seafloor surface from mean sea level need to be distinguished.
+Because it is very confusing, please be careful.</p>
 </div>
 <section id="Ch6.S1" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
 <span class="ltx_tag ltx_tag_section">6.1 </span>Preparing tab-delimited text file for XML generation</h3>
 
 <div id="Ch6.S1.p1" class="ltx_para">
-<p class="ltx_p">DRAに登録するXMLには、登録するFASTQファイルごとにそのファイルに含まれている配列の情報を記述します。
-これは非常に複雑で大変なため、一旦単純なタブ区切りテキストに書き出した上で、Excelなどを用いてそれを編集し、編集後のタブ区切りテキストからXMLを作成します。
-タブ区切りテキストを生成するコマンドは<span class="ltx_text ltx_font_typewriter">clmaketsv</span>です。
-以下のように使って下さい。</p>
+<p class="ltx_p">In the XML files, contained sequence infomation need to be provided for each FASTQ files.
+Because this is very costful, <span class="ltx_text ltx_font_typewriter">clmaketsv</span> generates simple tab-delimited text file, and <span class="ltx_text ltx_font_typewriter">clmakexml</span> creates XML files from edited tab-delimited text file.
+The <span class="ltx_text ltx_font_typewriter">clmaketsv</span> command can run like below.</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clmaketsv \</span>
@@ -3135,14 +3133,14 @@ BioSampleへの登録はBioSample Handbook
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">outputfile↓</span>
           </span>
 </p>
-<p class="ltx_p">入力ファイルは登録するものを指定して下さい。
-ワイルドカードも使えます。
-タブ区切りテキストができたら、表計算ソフトなどに読み込ませて、各セルを埋めていって下さい。
-なお、Excelでは特定の文字列を勝手に日時などと認識して変換してしまう機能(無効にする方法はありません)がありますので、十分注意して下さい。
-各セル内では、<span class="ltx_text ltx_font_typewriter">[Foo,Bar]</span>とあった場合は<span class="ltx_text ltx_font_typewriter">Foo</span>または<span class="ltx_text ltx_font_typewriter">Bar</span>のどちらかを選んで括弧と選ばなかったものを消して下さい。
-<span class="ltx_text ltx_font_typewriter">&lt;Fill in this cell&gt;</span>とあった場合は、<span class="ltx_text ltx_font_typewriter">&lt;&gt;</span>内の指示に従ってセルを埋めて下さい(括弧は残さない)。
-その他のセルは適当に自分で考えて何とかして下さい。
-なお、BioProject IDやBioSample IDは、正式なアクセッション番号がまだ発行されていない場合、DDBJに申請したときのSubmission ID (BioProjectではPSUBから始まり、BioSampleではSSUBから始まるもの)を入力しておけば問題ありません。</p>
+<p class="ltx_p">FASTQ files to deposit to DRA should be specified as input files.
+Wild cards can be used in input file name.
+Once tab-delimited text generated, use spreadsheet softwares such as Microsoft Excel to edit this file, and fill in the blank cells.
+Note that Microsoft Excel automatically convert several types of characters and this function cannot be disabled.
+If <span class="ltx_text ltx_font_typewriter">[Foo,Bar]</span> is found in a cell, select <span class="ltx_text ltx_font_typewriter">Foo</span> or <span class="ltx_text ltx_font_typewriter">Bar</span> and delete bracket, comma and alternatives.
+If you find <span class="ltx_text ltx_font_typewriter">&lt;Fill in this cell&gt;</span> in a cell, fill this cell according to written instruction in <span class="ltx_text ltx_font_typewriter">&lt;&gt;</span> and delete <span class="ltx_text ltx_font_typewriter">&lt;&gt;</span>.
+You might do something with the other cells.
+If you do not have BioProject ID and/or BioSample ID because of assignment delay, you can use Submission ID with prefix PSUB for BioProject and SSUB for BioSample.</p>
 </div>
 </section>
 <section id="Ch6.S2" class="ltx_section">
@@ -3150,51 +3148,49 @@ BioSampleへの登録はBioSample Handbook
 <span class="ltx_tag ltx_tag_section">6.2 </span>XML generation from tab-delimited text</h3>
 
 <div id="Ch6.S2.p1" class="ltx_para">
-<p class="ltx_p">タブ区切りテキストの編集が終わったら、タブ区切りテキストとして保存した上で以下のように<span class="ltx_text ltx_font_typewriter">clmakexml</span>を実行して下さい。
-登録に必要なXMLファイル群が生成されます。
-なお、タブ区切りテキストは一度に複数指定することも可能です。
-ただし、各ファイルの最初の3行に記述する内容は、最初のファイルのものしか利用されません。
-2ファイル目以降の最初の3行は無視されます。</p>
+<p class="ltx_p">After editing tab-delimited text, run <span class="ltx_text ltx_font_typewriter">clmakexml</span> like below.</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clmakexml \</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">タブ区切りテキストファイル \</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">Tab-DelimitedTextFile \</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">DRAから割り振られたsubmission-ID↓</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">Submission-ID↓</span>
           </span>
 </p>
-<p class="ltx_p">DRAでは、「Create new submission(s)」によってsubmission-IDが割り振られます。
-<span class="ltx_text ltx_font_typewriter">ユーザーID-0001</span>などとなっているはずです。
-<span class="ltx_text ltx_font_typewriter">DRAから割り振られたsubmission-ID</span>にはこれを指定します。
-すると、<span class="ltx_text ltx_font_typewriter">submission-ID.*.xml</span>という名前のファイルが3つ生成されます。
-これをDRAのXML Upload機能を利用して送信します。
-その他もろもろの処理が終わると、登録してあるメールアドレスに割り振られたアクセッション番号が送られてきます。
-ただし、論文にはBioProject IDを書くことが多いと思います。</p>
+<p class="ltx_p">Then, XML files required to deposit FASTQ files will be created.
+Multiple tab-delimited text files can be given to <span class="ltx_text ltx_font_typewriter">clmakexml</span>.
+In such cases, the contents of first 3 lines in tab-delimited text of secondary or n-ary files will be ignored.</p>
+</div>
+<div id="Ch6.S2.p2" class="ltx_para">
+<p class="ltx_p">Submission-ID is assigned by DRA when [Create new submission(s)] button is pushed.
+Submission-ID is compliant with <span class="ltx_text ltx_font_typewriter">UserID-0001</span> and should be given for last argument of <span class="ltx_text ltx_font_typewriter">clmakexml</span>.
+The execution of <span class="ltx_text ltx_font_typewriter">clmakexml</span> is completed, 3 <span class="ltx_text ltx_font_typewriter">Submission-ID.*.xml</span> files will be generated.
+These files can be upload to DRA using XML Upload.
+All processes were completed, DRA accession number is assigned and is sent from DRA to your Email address.
+Note that BioProject ID (accession number) was written in manuscript in most cases.</p>
 </div>
 </section>
 </section>
 <section id="Ch7" class="ltx_chapter">
 <h2 class="ltx_title ltx_title_chapter">
-<span class="ltx_tag ltx_tag_chapter">Chapter 7 </span>Estimation of host organisms of nucleotide sequences (DNA barcoding)</h2>
+<span class="ltx_tag ltx_tag_chapter">Chapter 7 </span>Estimation of host organisms of nucleotide sequences (a.k.a. DNA barcoding)</h2>
 
 <div id="Ch7.p1" class="ltx_para">
-<p class="ltx_p">DNAバーコーディングは、近年非常に多くの分野で応用が進められている、生物の同定方法です。
-しかし、既知配列データベースが不十分な上、それを前提とした同定アルゴリズムが欠けていました。
-そこで、筆者は「問い合わせ配列と最近隣配列との間の変異量＜分類群内の最大変異量」という規準を考案し、これを実現するアルゴリズムQCauto法<cite class="ltx_cite"><a href="#bib.bib18" title="" class="ltx_ref">(Tanabe &amp; Toju, 2013)</a></cite>をClaidentに実装しました。
-ただし、その配列のホストの可能性がある全生物が記載済みで、しかもそのバーコード配列もデータベースに登録済みである場合には、そのような難しいことを考えずに最近隣配列と同種とみなせばよいでしょう。
-そちらの方法もClaidentには実装してあります。
-以下のコマンドは全てターミナルかコンソールで実行して下さい。
-基本的なターミナルの使い方の知識は持っているものとして話を進めます。</p>
+<p class="ltx_p">DNA barcoding is a taxonomic identification method of biological specimens using nucleotide sequences and becoming widely applied to broad area.
+However, our reference sequence database is not enough for species level identification and algorithm that is suitable for incomplete reference database is lacking.
+To solve this problem, I proposed a new criterion that sequence distance between query and nearest-neighbor must be smaller than maximum distance within resulting taxon, developed QCauto algorithm which fullfills this criterion <cite class="ltx_cite"><a href="#bib.bib18" title="" class="ltx_ref">(Tanabe &amp; Toju, 2013)</a></cite> and implemented in Claident.
+Note that we can expect that host organism of query is same as nearest-neighbor in the case that potentially observable species are completely described and barcode DNA sequences are completely sequenced and registered to reference database.
+For such case, 1-nearest-neighbor (closest match) method is also implemented in Claident.</p>
 </div>
 <section id="Ch7.S1" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
 <span class="ltx_tag ltx_tag_section">7.1 </span>Retrieval of neighborhood sequences based on BLAST search</h3>
 
 <div id="Ch7.S1.p1" class="ltx_para">
-<p class="ltx_p">以下のコマンドで、「問い合わせ配列と最近隣配列との間の変異量＜分類群内の最大変異量」という条件を満たすために検討すべき近隣既知配列群(のGenBank ID)を取得できます。</p>
+<p class="ltx_p">The GenBank IDs of neighborhood sequences required to fullfill “sequence distance between query and nearest-neighbor must be smaller than maximum distance within resulting taxon” can be retrieved by the following command.</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clidentseq \</span>
@@ -3212,9 +3208,9 @@ BioSampleへの登録はBioSample Handbook
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">outputfile↓</span>
           </span>
 </p>
-<p class="ltx_p">入力ファイルにはFASTA形式の塩基配列ファイルを指定します。
-<span class="ltx_text ltx_font_typewriter">--blastdb</span>オプションでは、BLAST検索に用いるデータベース名を指定します。
-筆者が用意しているデータベースは以下の通りです。</p>
+<p class="ltx_p">Give FASTA formatted nucleotide sequence file as an input file.
+Specify reference sequence database for BLAST search to <span class="ltx_text ltx_font_typewriter">--blastdb</span> argument.
+The following databases should be installed with Claident.</p>
 <dl id="Ch7.I1" class="ltx_description">
 <dt id="Ch7.I1.ix1"><span class="ltx_tag ltx_tag_description">
               <span class="ltx_text" style="font-size:90%;">animals_COX1_genus</span>
@@ -3222,9 +3218,9 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix1.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">動物(Metazoa)のmtDNA </span>
+                <span class="ltx_text" style="font-size:90%;">Animal (Metazoa) </span>
                 <span class="ltx_text ltx_font_italic" style="font-size:90%;">COX1</span>
-                <span class="ltx_text" style="font-size:90%;">配列で属以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;"> sequences which have genus or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3234,7 +3230,9 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix2.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">同上だが種以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">Animal (Metazoa) </span>
+                <span class="ltx_text ltx_font_italic" style="font-size:90%;">COX1</span>
+                <span class="ltx_text" style="font-size:90%;"> sequences which have species or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3244,7 +3242,7 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix3.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">動物(Metazoa)のmtDNA配列で属以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">Animal (Metazoa) mitochondrial sequences which have genus or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3254,7 +3252,7 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix4.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">同上だが種以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">Animal (Metazoa) mitochondrial sequences which have species or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3264,7 +3262,7 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix5.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">真核生物のLSU (28S) rRNA配列で属以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">Eukaryotic LSU (28S) rRNA sequences which have genus or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3274,7 +3272,7 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix6.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">同上だが種以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">Eukaryotic LSU (28S) rRNA sequences which have species or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3284,7 +3282,7 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix7.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">真核生物のSSU (18S) rRNA配列で属以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">Eukaryotic SSU (18S) rRNA sequences which have genus or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3294,7 +3292,7 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix8.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">同上だが種以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">Eukaryotic SSU (18S) rRNA sequences which have species or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3304,7 +3302,7 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix9.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">真菌のITS配列で属以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">Fungal ITS sequences which have genus or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3314,7 +3312,7 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix10.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">同上だが種以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">Fungal ITS sequences which have species or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3324,7 +3322,7 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix11.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">NCBI ntの中で綱以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">NCBI nt sequences which have class or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3334,7 +3332,7 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix12.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">同上だが目以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">NCBI nt sequences which have order or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3344,7 +3342,7 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix13.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">同上だが科以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">NCBI nt sequences which have family or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3354,7 +3352,7 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix14.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">同上だが属以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">NCBI nt sequences which have genus or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3364,7 +3362,7 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix15.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">同上だが種以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">NCBI nt sequences which have species or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3374,9 +3372,9 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix16.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">緑色植物のcpDNA </span>
+                <span class="ltx_text" style="font-size:90%;">Plant </span>
                 <span class="ltx_text ltx_font_italic" style="font-size:90%;">matK</span>
-                <span class="ltx_text" style="font-size:90%;">配列で属以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;"> sequences which have genus or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3386,7 +3384,9 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix17.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">同上だが種以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">Plant </span>
+                <span class="ltx_text ltx_font_italic" style="font-size:90%;">matK</span>
+                <span class="ltx_text" style="font-size:90%;"> sequences which have species or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3396,9 +3396,9 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix18.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">緑色植物のcpDNA </span>
+                <span class="ltx_text" style="font-size:90%;">Plant </span>
                 <span class="ltx_text ltx_font_italic" style="font-size:90%;">rbcL</span>
-                <span class="ltx_text" style="font-size:90%;">配列で属以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;"> sequences which have genus or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3408,7 +3408,9 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix19.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">同上だが種以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">Plant </span>
+                <span class="ltx_text ltx_font_italic" style="font-size:90%;">rbcL</span>
+                <span class="ltx_text" style="font-size:90%;"> sequences which have species or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3418,11 +3420,11 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix20.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">緑色植物のcpDNA </span>
+                <span class="ltx_text" style="font-size:90%;">Plant </span>
                 <span class="ltx_text ltx_font_italic" style="font-size:90%;">trnH</span>
                 <span class="ltx_text" style="font-size:90%;">–</span>
                 <span class="ltx_text ltx_font_italic" style="font-size:90%;">psbA</span>
-                <span class="ltx_text" style="font-size:90%;">配列で属以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;"> sequences which have genus or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3432,7 +3434,11 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix21.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">同上だが種以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">Plant </span>
+                <span class="ltx_text ltx_font_italic" style="font-size:90%;">trnH</span>
+                <span class="ltx_text" style="font-size:90%;">–</span>
+                <span class="ltx_text ltx_font_italic" style="font-size:90%;">psbA</span>
+                <span class="ltx_text" style="font-size:90%;"> sequences which have species or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3442,7 +3448,7 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix22.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">原核生物の16S rRNA配列で属以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">Prokaryotic (Bacterial and Archaeal) 16S rRNA sequences which have genus or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3452,7 +3458,7 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix23.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">同上だが種以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">Prokaryotic (Bacterial and Archaeal) 16S rRNA sequences which have species or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3462,7 +3468,7 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix24.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">原核生物の配列で属以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">Prokaryotic (Bacterial and Archaeal) sequences which have genus or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3472,7 +3478,7 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix25.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">同上だが種以下の情報があるもの</span>
+                <span class="ltx_text" style="font-size:90%;">Prokaryotic (Bacterial and Archaeal) sequences which have species or lower level taxonomic information</span>
               </p>
 </div>
 </dd>
@@ -3482,12 +3488,13 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix26.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">overall_class</span>
-                <span class="ltx_text" style="font-size:90%;">から脊椎動物と</span>
+                <span class="ltx_text" style="font-size:90%;">Reduced database excluding all sequences of vertebrates, </span>
                 <span class="ltx_text ltx_font_italic" style="font-size:90%;">Caenorhabditis</span>
-                <span class="ltx_text" style="font-size:90%;">と</span>
+                <span class="ltx_text" style="font-size:90%;"> and </span>
                 <span class="ltx_text ltx_font_italic" style="font-size:90%;">Drosophila</span>
-                <span class="ltx_text" style="font-size:90%;">を除いたもの</span>
+                <span class="ltx_text" style="font-size:90%;"> from </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">overall_class</span>
+                <span class="ltx_text" style="font-size:90%;"></span>
               </p>
 </div>
 </dd>
@@ -3497,12 +3504,13 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix27.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">overall_order</span>
-                <span class="ltx_text" style="font-size:90%;">から脊椎動物と</span>
+                <span class="ltx_text" style="font-size:90%;">Reduced database excluding all sequences of vertebrates, </span>
                 <span class="ltx_text ltx_font_italic" style="font-size:90%;">Caenorhabditis</span>
-                <span class="ltx_text" style="font-size:90%;">と</span>
+                <span class="ltx_text" style="font-size:90%;"> and </span>
                 <span class="ltx_text ltx_font_italic" style="font-size:90%;">Drosophila</span>
-                <span class="ltx_text" style="font-size:90%;">を除いたもの</span>
+                <span class="ltx_text" style="font-size:90%;"> from </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">overall_order</span>
+                <span class="ltx_text" style="font-size:90%;"></span>
               </p>
 </div>
 </dd>
@@ -3512,12 +3520,13 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix28.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">overall_family</span>
-                <span class="ltx_text" style="font-size:90%;">から脊椎動物と</span>
+                <span class="ltx_text" style="font-size:90%;">Reduced database excluding all sequences of vertebrates, </span>
                 <span class="ltx_text ltx_font_italic" style="font-size:90%;">Caenorhabditis</span>
-                <span class="ltx_text" style="font-size:90%;">と</span>
+                <span class="ltx_text" style="font-size:90%;"> and </span>
                 <span class="ltx_text ltx_font_italic" style="font-size:90%;">Drosophila</span>
-                <span class="ltx_text" style="font-size:90%;">を除いたもの</span>
+                <span class="ltx_text" style="font-size:90%;"> from </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">overall_family</span>
+                <span class="ltx_text" style="font-size:90%;"></span>
               </p>
 </div>
 </dd>
@@ -3527,12 +3536,13 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix29.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">overall_genus</span>
-                <span class="ltx_text" style="font-size:90%;">から脊椎動物と</span>
+                <span class="ltx_text" style="font-size:90%;">Reduced database excluding all sequences of vertebrates, </span>
                 <span class="ltx_text ltx_font_italic" style="font-size:90%;">Caenorhabditis</span>
-                <span class="ltx_text" style="font-size:90%;">と</span>
+                <span class="ltx_text" style="font-size:90%;"> and </span>
                 <span class="ltx_text ltx_font_italic" style="font-size:90%;">Drosophila</span>
-                <span class="ltx_text" style="font-size:90%;">を除いたもの</span>
+                <span class="ltx_text" style="font-size:90%;"> from </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">overall_genus</span>
+                <span class="ltx_text" style="font-size:90%;"></span>
               </p>
 </div>
 </dd>
@@ -3542,29 +3552,32 @@ BioSampleへの登録はBioSample Handbook
 <dd>
 <div id="Ch7.I1.ix30.p1" class="ltx_para">
 <p class="ltx_p">
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">overall_species</span>
-                <span class="ltx_text" style="font-size:90%;">から脊椎動物と</span>
+                <span class="ltx_text" style="font-size:90%;">Reduced database excluding all sequences of vertebrates, </span>
                 <span class="ltx_text ltx_font_italic" style="font-size:90%;">Caenorhabditis</span>
-                <span class="ltx_text" style="font-size:90%;">と</span>
+                <span class="ltx_text" style="font-size:90%;"> and </span>
                 <span class="ltx_text ltx_font_italic" style="font-size:90%;">Drosophila</span>
-                <span class="ltx_text" style="font-size:90%;">を除いたもの</span>
+                <span class="ltx_text" style="font-size:90%;"> from </span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">overall_species</span>
+                <span class="ltx_text" style="font-size:90%;"></span>
               </p>
 </div>
 </dd>
 </dl>
-<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">overall_*</span>は非常に巨大なため、多くのメモリを必要としますが、これらは万能なのでどんな配列にも使えますし、想定外の分類群や想定外の遺伝子座の配列の混入があってもとんでもない誤同定を避けることができます。
-<span class="ltx_text ltx_font_typewriter">overall_genus</span>では属以下の情報がある、つまりそれなりに分類群の情報が信頼できそうな配列を選別していますが、あまりにマイナーな分類群だとそれでは近隣配列が見つからないことがあります。
-その場合は、綱以下まで同定された配列のデータベース<span class="ltx_text ltx_font_typewriter">overall_class</span>を使ってみて下さい。
-その他のデータベースは、<span class="ltx_text ltx_font_typewriter">overall_*</span>よりもメモリ占有量がずっと少ないため、メモリの少ないコンピュータでも動作します。</p>
+<p class="ltx_p">The <span class="ltx_text ltx_font_typewriter">overall_*</span> databases are very large and require large memory but are versatile and robust to contamination of sequences of unexpected taxa or loci.
+Thus, the <span class="ltx_text ltx_font_typewriter">overall_*</span> are strongly recommended in most cases.
+In the <span class="ltx_text ltx_font_typewriter">overall_genus</span> database, the sequences which have genus or lower level taxonomic information are kept and the other sequences are excluded and nearest-neighbor often cannot be found in minor taxa.
+The <span class="ltx_text ltx_font_typewriter">overall_class</span> database is recommended for such cases.
+The other databases are much smaller than <span class="ltx_text ltx_font_typewriter">overall_*</span> and require much smaller memory.</p>
 </div>
 <section id="Ch7.S1.SS1" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
 <span class="ltx_tag ltx_tag_subsection">7.1.1 </span>Accelerating BLAST search using cache databases</h4>
 
 <div id="Ch7.S1.SS1.p1" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">clidentseq</span>はBLAST検索を何度も繰り返しますが、それなりの時間と大量のメモリを必要とします。そこで、予め問い合わせ配列と類似した配列の上位1万本(設定で変更可)のヒットした部位のみをBLASTデータベースから取得してキャッシュとなるBLASTデータベースを作成しておき、<span class="ltx_text ltx_font_typewriter">clidentseq</span>ではこれを対象として検索することで、劇的な高速化が可能です。これを行うのが<span class="ltx_text ltx_font_typewriter">clmakecachedb</span>で、以下のように用います。</p>
-</div>
-<div id="Ch7.S1.SS1.p2" class="ltx_para">
+<p class="ltx_p">The <span class="ltx_text ltx_font_typewriter">clidentseq</span> command runs BLAST search multiple times and requires long time.
+To reduce runtime of <span class="ltx_text ltx_font_typewriter">clidentseq</span>, cache sequence database containing top-10,000 high score sequences can be constructed for each query sequence.
+Processing speed of <span class="ltx_text ltx_font_typewriter">clidentseq</span> can be extremely accelerated by using cache database and strongly recommended.
+To construct cache database, run <span class="ltx_text ltx_font_typewriter">clmakecachedb</span> like the following.</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clmakecachedb \</span>
@@ -3582,11 +3595,9 @@ BioSampleへの登録はBioSample Handbook
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">outputfolder↓</span>
             </span>
 </p>
-</div>
-<div id="Ch7.S1.SS1.p3" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">clidentseq</span>の実行時には、<span class="ltx_text ltx_font_typewriter">--blastdb</span>オプションに上記コマンドの出力フォルダを指定することで、キャッシュデータベースが使われます。
-ただし、<span class="ltx_text ltx_font_typewriter">clmakecachedb</span>と<span class="ltx_text ltx_font_typewriter">clidentseq</span>の入力ファイルは同一である必要があります。
-メモリの使用量も大幅に減少しますので、<span class="ltx_text ltx_font_typewriter">overall_*</span>を使用してもメモリ16GB程度で済みます。</p>
+<p class="ltx_p">In the execution of <span class="ltx_text ltx_font_typewriter">clidentseq</span>, give the output folder of <span class="ltx_text ltx_font_typewriter">clmakecachedb</span> to <span class="ltx_text ltx_font_typewriter">--blastdb</span> argument, then cache database will be used.
+Note that the input files of <span class="ltx_text ltx_font_typewriter">clmakecachedb</span> and <span class="ltx_text ltx_font_typewriter">clidentseq</span> must be tha same file.
+Required amount of memory is also extremely reduced.</p>
 </div>
 </section>
 <section id="Ch7.S1.SS2" class="ltx_subsection">
@@ -3594,7 +3605,7 @@ BioSampleへの登録はBioSample Handbook
 <span class="ltx_tag ltx_tag_subsection">7.1.2 </span>In the case of perfect reference database</h4>
 
 <div id="Ch7.S1.SS2.p1" class="ltx_para">
-<p class="ltx_p">問い合わせ配列のホストの可能性がある全生物が記載済みで、しかもそのバーコード配列も全て参照配列データベースに登録済みである場合には、以下のようにして類似度99%以上の上位1位(1位タイを含む)を近隣配列とすればいいでしょう。</p>
+<p class="ltx_p">If potentially observable species are completely described and barcode DNA sequences are completely sequenced and registered to reference database, retrieving top-1 and tie sequences whose percent-identity to query is 99% or more is recommended and it can be performed by the following command.</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clidentseq \</span>
@@ -3618,9 +3629,7 @@ BioSampleへの登録はBioSample Handbook
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">outputfile↓</span>
             </span>
 </p>
-</div>
-<div id="Ch7.S1.SS2.p2" class="ltx_para">
-<p class="ltx_p">類似度99%以上の上位1位の配列を探し出す場合、BLAST検索オプションは<span class="ltx_text ltx_font_typewriter">-task megablast -word_size 16</span>としても見逃すことはまずないでしょうから、ここでは高速化のためにこのように指定しています。</p>
+<p class="ltx_p">In search of top-1 and tie sequences whose percent-identity to query is 99% or more, we can expect that overleaping hardly occur even if <span class="ltx_text ltx_font_typewriter">-task megablast -word_size 16</span> is given as BLAST search argument, thus this argument is specified.</p>
 </div>
 </section>
 </section>
@@ -3629,8 +3638,8 @@ BioSampleへの登録はBioSample Handbook
 <span class="ltx_tag ltx_tag_section">7.2 </span>Taxonomic assignment based on neighborhood sequences</h3>
 
 <div id="Ch7.S2.p1" class="ltx_para">
-<p class="ltx_p">以下のコマンドで、近隣既知配列群の所属分類群が同一になるまで分類階層を上げていくことで配列を同定します。
-これはlowest common ancestor (LCA) algorithmと呼ばれています<cite class="ltx_cite"><a href="#bib.bib8" title="" class="ltx_ref">(Huson <span class="ltx_text ltx_font_italic">et al.</span>, 2007)</a></cite>。</p>
+<p class="ltx_p">The following command assigns taxonomy to query ascending taxonomic level until taxonomic information of neighborhood sequences are completely matched.
+This is called as lowest common ancestor (LCA) algorithm <cite class="ltx_cite"><a href="#bib.bib8" title="" class="ltx_ref">(Huson <span class="ltx_text ltx_font_italic">et al.</span>, 2007)</a></cite>.</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; classigntax \</span>
@@ -3645,14 +3654,14 @@ BioSampleへの登録はBioSample Handbook
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">outputfile↓</span>
           </span>
 </p>
-<p class="ltx_p">inputfileには前節で作成した<span class="ltx_text ltx_font_typewriter">clidentseq</span>の出力ファイルを指定して下さい。
-<span class="ltx_text ltx_font_typewriter">--taxdb</span>は既知配列の所属分類群データベース指定オプションです。
-BLASTデータベースと同じ名前のものがインストールされていますので、それを指定して下さい。</p>
+<p class="ltx_p">Give the output file of <span class="ltx_text ltx_font_typewriter">clidentseq</span> as input file.
+The <span class="ltx_text ltx_font_typewriter">--taxdb</span> argument is to give taxonomy database of reference sequences.
+The same name taxonomy databases as reference sequence databases should be installed and specified.</p>
 </div>
 <div id="Ch7.S2.p2" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">classigntax</span>のデフォルト設定では、少なくとも2本以上の近隣既知配列がないと同定することができません。
-第<a href="#Ch7.S1.SS2" title="7.1.2 In the case of perfect reference database ‣ 7.1 Retrieval of neighborhood sequences based on BLAST search ‣ Chapter 7 Estimation of host organisms of nucleotide sequences (DNA barcoding) ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1.2</span></a>節のように<span class="ltx_text ltx_font_typewriter">clidentseq</span>の実行時に<span class="ltx_text ltx_font_typewriter">--method=1,99%</span>を指定していると、近隣既知配列が1本しかないために一つも同定できないことになります。
-この場合は以下のようにして必要な近隣既知配列数を1にします。</p>
+<p class="ltx_p">The <span class="ltx_text ltx_font_typewriter">classigntax</span> requires 2 or more neighborhood sequences by default.
+If <span class="ltx_text ltx_font_typewriter">--method=1,99%</span> was given to <span class="ltx_text ltx_font_typewriter">clidentseq</span> like section <a href="#Ch7.S1.SS2" title="7.1.2 In the case of perfect reference database ‣ 7.1 Retrieval of neighborhood sequences based on BLAST search ‣ Chapter 7 Estimation of host organisms of nucleotide sequences (a.k.a. DNA barcoding) ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1.2</span></a>, taxonomic assignment of all sequences must be failed.
+In such case, reduce required minimum number of neighborhood sequences like below.</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; classigntax \</span>
@@ -3670,7 +3679,7 @@ BLASTデータベースと同じ名前のものがインストールされてい
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">outputfile↓</span>
           </span>
 </p>
-<p class="ltx_p">出力ファイルは表<a href="#Ch7.T1" title="Table  7.1 ‣ 7.2 Taxonomic assignment based on neighborhood sequences ‣ Chapter 7 Estimation of host organisms of nucleotide sequences (DNA barcoding) ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1</span></a>のような形のタブ区切りのテキストになっています。</p>
+<p class="ltx_p">The output file of <span class="ltx_text ltx_font_typewriter">classigntax</span> is tab-delimited text file like Table <a href="#Ch7.T1" title="Table  7.1 ‣ 7.2 Taxonomic assignment based on neighborhood sequences ‣ Chapter 7 Estimation of host organisms of nucleotide sequences (a.k.a. DNA barcoding) ‣ Matabarcoding and DNA barcoding for Ecologists" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1</span></a>.</p>
 </div>
 <figure id="Ch7.T1" class="ltx_table">
 <table class="ltx_tabular ltx_centering ltx_align_middle">
@@ -3945,13 +3954,13 @@ BLASTデータベースと同じ名前のものがインストールされてい
 </tr>
 </tbody>
 </table>
-<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table">Table  7.1: </span>同定結果の例 — 空欄はunidentified、つまり不明ということです。
-横幅を抑えるためいくつかの分類階層は省いてあります。</figcaption>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table">Table  7.1: </span>Examples of taxonomic assignment — Blank cel means unidentified. Several taxonomic levels are omitted for reduce width.</figcaption>
 </figure>
 <div id="Ch7.S2.p3" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">classigntax</span>のデフォルト設定では、全ての近隣既知配列の所属分類群が同一になるまで分類階層を上げていきますので、誤同定された配列が混ざっていたりした場合には下位の分類階層はほとんど不明になってしまいます。
-これは「ほぼ正しいと思われる」結果を得る＝「間違えない」ことをデフォルト設定では優先しているためですが、近隣既知配列が多い場合、多少不一致を許容して誤同定の可能性を増やしてでもできるだけ下位の分類階層まで同定したい場合があります。
-そのような場合には以下のように<span class="ltx_text ltx_font_typewriter">--maxpopposer</span>と<span class="ltx_text ltx_font_typewriter">--minsoratio</span>を指定します。</p>
+<p class="ltx_p">By default, the <span class="ltx_text ltx_font_typewriter">classigntax</span> command assigns taxonomy to query ascending taxonomic level until taxonomic information of neighborhood sequences are completely matched.
+If reference database is contaminated by misidentified sequence and such sequence is contain in neighborhoods, lower level taxonomy likely to be unidentified.
+This “strict consensus” method is robust but too conservative in some cases.
+The following command allows 5% of neighborhood sequences have different taxonomic information to resulting taxonomy.</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; classigntax \</span>
@@ -3972,13 +3981,11 @@ BLASTデータベースと同じ名前のものがインストールされてい
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">outputfile↓</span>
           </span>
 </p>
-<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">classigntax</span>は結果として採用する分類群に該当する配列をsupporter配列とし、該当しない配列をopposer配列とします。
-<span class="ltx_text ltx_font_typewriter">--maxpopposer</span>にはopposer配列の存在を許容する割合を百分率で指定します。
-<span class="ltx_text ltx_font_typewriter">--minsoratio</span>はsupporter配列数とopposer配列数の比の下限値を指定します。
-supporter配列数とopposer配列数がこれを下回るような同定結果は許容せず分類階層を上げていきます。
-2つのオプションが必要なのは、その分類階層の情報がない配列が存在し得るためです。
-そのような配列はsupporterでもopposerでもないので、2つのオプションが必要になります。
-上記の例では、近隣既知配列中、5%までのopposer配列を許容し、opposer配列の19倍以上のsupporter配列を必要とします。</p>
+<p class="ltx_p">The <span class="ltx_text ltx_font_typewriter">classigntax</span> treat neighborhood sequences which have same taxonomic information to resulting taxonomy as “supporter”, neighborhood sequences which have different taxonomic information to resulting taxonomy as “opposer”.
+The <span class="ltx_text ltx_font_typewriter">--maxpopposer</span> argument is to specify maximum allowing proportion of opposer sequences.
+The <span class="ltx_text ltx_font_typewriter">--minsoratio</span> argument is to set minimum required ratio of “supporter / opposer”.
+Because there are possibly unidentified sequences which do not have taxonomic information and such sequences are neither supporter nor opposer, the above 2 arguments are required.
+In the case of above command, 5% of opposers are tolerated and 19 times as many supporters as opposers are required.</p>
 </div>
 </section>
 <section id="Ch7.S3" class="ltx_section">
@@ -3986,13 +3993,13 @@ supporter配列数とopposer配列数がこれを下回るような同定結果�
 <span class="ltx_tag ltx_tag_section">7.3 </span>Merging multiple taxonomic assignments based on consensus</h3>
 
 <div id="Ch7.S3.p1" class="ltx_para">
-<p class="ltx_p">例えば植物の<span class="ltx_text ltx_font_italic">rbcL</span>と<span class="ltx_text ltx_font_italic">matK</span>など、複数のバーコード領域を併用しなければ同定できないこともありますし、<span class="ltx_text ltx_font_typewriter">overall_genus</span>と<span class="ltx_text ltx_font_typewriter">overall_class</span>での同定結果のいいとこ取りをしたい場合があります。
-また、厳密なLCAによる同定結果と5%までopposerを許容するLCAの同定結果の組み合わせでいいとこ取りしたい場合もあるでしょう。
-そのようなことが、複数の同定結果を統合することで可能になります。</p>
+<p class="ltx_p">In plant chloroplast loci, single locus query sequences cannot be identified at the lower taxonomic level in many cases because of lack of variations.
+Merging multiple results based on <span class="ltx_text ltx_font_typewriter">overall_genus</span> (more reliable database) and <span class="ltx_text ltx_font_typewriter">overall_class</span> (less reliable database) are often useful.
+Merging multiple results based on “strict consensus” LCA (strict LCA) and “95%-majority rule consensus” LCA (relaxed LCA) is also useful in some cases.
+Such merging multiple assignment results can be performed with the aid of <span class="ltx_text ltx_font_typewriter">clmergeassign</span>.</p>
 </div>
 <div id="Ch7.S3.p2" class="ltx_para">
-<p class="ltx_p">植物の<span class="ltx_text ltx_font_italic">rbcL</span>と<span class="ltx_text ltx_font_italic">matK</span>を併用して同定する場合は、より深くまで同定できている方の結果を採用するのがいいでしょう。
-これは以下のコマンドでできます。</p>
+<p class="ltx_p">Multiple assignment results of <span class="ltx_text ltx_font_italic">rbcL</span> and <span class="ltx_text ltx_font_italic">matK</span> can be merged prefering lower level identification by the following command.</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clmergeassign \</span>
@@ -4004,17 +4011,17 @@ supporter配列数とopposer配列数がこれを下回るような同定結果�
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--preferlower \</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">rbcLでの同定結果 \</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">ResultOfrbcL \</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">matKでの同定結果 \</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">ResultOfmatK \</span>
           </span>
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">outputfile↓</span>
           </span>
 </p>
-<p class="ltx_p">より保守的に考えるなら、以下のようにして、両方の同定結果が同一か、一方では未同定の場合だけ採用することもできます。
-ただし、上の階層で不一致だった場合には、同定結果が一方で未同定でも採用されません。</p>
+<p class="ltx_p">The following command merges multiple results accepting that query identified as same taxon in both results and that query identified in one result and unidentified in the other result.
+Note that mismatch at the higher level taxonomy is not allowed.</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clmergeassign \</span>
@@ -4023,16 +4030,16 @@ supporter配列数とopposer配列数がこれを下回るような同定結果�
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--priority=equal \</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">rbcLでの同定結果 \</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">ResultOfrbcL \</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">matKでの同定結果 \</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">ResultOfmatK \</span>
           </span>
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">outputfile↓</span>
           </span>
 </p>
-<p class="ltx_p"><span class="ltx_text ltx_font_italic">trnH</span>–<span class="ltx_text ltx_font_italic">psbA</span>も併用して、最も深くまで同定できているものを採用する場合は以下のようにします。</p>
+<p class="ltx_p">Three assignment results of <span class="ltx_text ltx_font_italic">rbcL</span>, <span class="ltx_text ltx_font_italic">matK</span> and <span class="ltx_text ltx_font_italic">trnH</span>–<span class="ltx_text ltx_font_italic">psbA</span> can be merged prefering lower level identification by the following command.</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clmergeassign \</span>
@@ -4044,19 +4051,19 @@ supporter配列数とopposer配列数がこれを下回るような同定結果�
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--preferlower \</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">rbcLでの同定結果 \</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">ResultOfrbcL \</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">matKでの同定結果 \</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">ResultOfmatK \</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">trnH-psbAでの同定結果 \</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">ResultOftrnH-psbA \</span>
           </span>
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">outputfile↓</span>
           </span>
 </p>
-<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">overall_genus</span>の結果を優先的に採用し、<span class="ltx_text ltx_font_typewriter">overall_genus</span>で同定できている分類階層までは一致しているが<span class="ltx_text ltx_font_typewriter">overall_class</span>の方がより下位まで同定できている場合だけ採用するには、以下のようにします。</p>
+<p class="ltx_p">The following command merges two results prefering result of <span class="ltx_text ltx_font_typewriter">overall_genus</span>.</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clmergeassign \</span>
@@ -4065,16 +4072,19 @@ supporter配列数とopposer配列数がこれを下回るような同定結果�
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--priority=descend \</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">overall_genusでの同定結果 \</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">ResultOfoverall_genus \</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">overall_classでの同定結果 \</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">ResultOfoverall_class \</span>
           </span>
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">outputfile↓</span>
           </span>
 </p>
-<p class="ltx_p">同様に、厳密なLCAによる結果を優先し、厳密なLCAで同定できている分類階層まで一致しているが制約を緩めたLCAによる結果の方がより下位まで同定できている場合にのみ採用するには、以下のようにします。</p>
+<p class="ltx_p">In this case, result of <span class="ltx_text ltx_font_typewriter">overall_class</span> is accepted if matched to result of <span class="ltx_text ltx_font_typewriter">overall_genus</span> and identified at the lower level than result of <span class="ltx_text ltx_font_typewriter">overall_genus</span>.</p>
+</div>
+<div id="Ch7.S3.p3" class="ltx_para">
+<p class="ltx_p">The following command merges two results prefering result of strict LCA.</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clmergeassign \</span>
@@ -4083,15 +4093,16 @@ supporter配列数とopposer配列数がこれを下回るような同定結果�
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--priority=descend \</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">厳密なLCAでの同定結果 \</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">ResultOfStrictLCA \</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">制約を緩めたLCAでの同定結果 \</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">ResultOfRelaxedLCA \</span>
           </span>
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">outputfile↓</span>
           </span>
 </p>
+<p class="ltx_p">In this case, result of relaxed LCA is accepted if matched to result of strict LCA and identified at the lower level than result of strict LCA.</p>
 </div>
 </section>
 </section>
