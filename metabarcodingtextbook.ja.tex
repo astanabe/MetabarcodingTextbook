@@ -1141,8 +1141,6 @@ Claidentでは、配列のクラスタリング結果から読み間違いの多
 また、旧パイプラインではVSEARCHに実装されたUCHIME \citep{Edgar2011}アルゴリズムを呼び出して結果を受け取ることで、キメラ配列の検出・除去も可能です。
 新パイプラインでは、クラスタリング処理が終わってからキメラ検出・除去処理を適用します。
 
-\section{VSEARCHを用いた新パイプラインの場合}
-
 以下のコマンドでノイジー配列の検出・除去が行えます。
 なお、多数のファイルを一度に与えることができますが、できるだけ1ラン分のファイルを与えて下さい。
 これは、ランごとに塩基配列決定の質にばらつきがあるためです。
@@ -1184,7 +1182,7 @@ Claidentでは、配列のクラスタリング結果から読み間違いの多
 \end{description}
 他にも多くのファイルが出力されますが、後の解析に必要なものもありますので削除しないようにして下さい。
 
-\subsection{PCRレプリケート法によるノイジー配列・キメラ配列の除去}
+\section{PCRレプリケート法によるノイジー配列・キメラ配列の除去}
 
 PCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去するには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
 以下のような内容で用意して下さい。
@@ -1245,169 +1243,9 @@ PCRレプリケートは3つ以上あっても構いません。
 \item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.chimericreads.txt.gz] キメラ配列と判定された配列のリスト
 \end{description}
 
-\section{Assamsを用いた旧パイプラインの場合}
-
-以下のコマンドでノイジー配列とキメラ配列の検出・除去が行えます。
-なお、多数のファイルを一度に与えることができますが、できるだけ1ラン分のファイルを与えて下さい。
-これは、ランごとに塩基配列決定の質にばらつきがあるためです1ラン分の配列が非常に多く(100万超)時間がかかってしまう場合は、1サンプルごとにこの処理を行って下さい。
-\begin{cmd}
-{\textgreater} clcleanseq {\textbackslash}\\
-uchime {-}{-}minh 0.1 {-}{-}mindiv 0.8 end {\textbackslash}\\
-{-}{-}detectmode=N+C {\textbackslash}\\
-{-}{-}pnoisycluster=0.5 {\textbackslash}\\
-{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
-入力ファイル1 {\textbackslash}\\
-中略 {\textbackslash}\\
-入力ファイルN {\textbackslash}\\
-出力フォルダ↓
-\end{cmd}
-オプションのうち、\texttt{uchime}から\texttt{end}の間はUCHIMEの実行オプションです。
-\texttt{{-}{-}minh}と\texttt{{-}{-}mindiv}はキメラ配列と判定する感度に関するオプションです。
-\texttt{{-}{-}minh}は値が小さいほど感度が高くなります。
-UCHIMEの作者は0.1以上5以下の範囲にするよう推奨しています。
-デフォルト値は0.1です。
-\texttt{{-}{-}mindiv}の指定値が0.8の場合、0.8\%以下の違いしかない配列間はキメラが形成されていても無視されます。
-最終的に97\%一致規準で配列をクラスタリングするとしたら、2\%程度の違いしかない配列間のキメラはクラスタリング・コンセンサス配列作成によって潰されるため、この値を大きくすることで計算が速くなります。
-また、\texttt{{-}{-}pnoisycluster}はノイジー配列と判定する感度に関するオプションです。
-0以上1以下で指定して下さい。
-大きいほど感度が上がります。
-デフォルト値・推奨値は0.5です。
-クラスタリングを最終的に97\%以下の閾値で行うのであればこれでいいと思いますが、99\%前後でクラスタリングする場合、\texttt{{-}{-}pnoisycluster}は0.9くらいにするといいかもしれません。
-ただし、レアOTUを捨ててしまう可能性が高くなるので、1サンプル当たりの配列数を多めに読んでおく必要があります。
-
-各入力ファイルは同一の鋳型を同一のチューブ内でPCRした配列群を含んでいる必要があります。
-Claidentがキメラ検出に利用しているUCHIMEでは、元配列数が多いコンセンサス配列ほどPCR当初から存在した＝キメラではないと仮定し、元配列数が少ないコンセンサス配列が、より元配列数の多いコンセンサス配列の部分配列の組み合わせで説明できるかどうかを検討します。
-したがって、UCHIMEに「同一の鋳型を同一のチューブ内でPCRした配列群内でのコンセンサス配列の元配列数」を正確に伝える必要があるため、1ファイルは同一の鋳型を同一のチューブ内でPCRした配列群でなくてはならないのです。
-これは1ラン分のファイルを一度に与えることよりもはるかに優先度が高いので、同一の鋳型を同一のチューブ内でPCRしたサンプルを複数回のランで塩基配列決定した場合などは複数ラン分のデータを入力しても構いません。
-
-UCHIMEによるキメラ判定はそれぞれのサンプルごとに行われ、複数のサンプルで観測されている完全一致配列の場合、どれか1つのサンプルでキメラと判定されていれば、他のサンプルでもキメラとみなして除去します。
-ただし、下記のオプションでこの動作を変更することができます。
-両オプションの両方を満たせばキメラと判定されます。
-\begin{description}\small\setlength{\baselineskip}{1.1em}
-\item[\texttt{{-}{-}minnpositive}] 整数値で指定。
-この値以上の配列(サンプルではない)がキメラと判定されていれば、全サンプルでキメラと見なす。
-デフォルト値は\texttt{1}。
-\item[\texttt{{-}{-}minppositive}] 小数値で指定。
-キメラと判定された配列数/完全一致した全配列数がこの値以上であれば、全サンプルでキメラと見なす。
-デフォルト値は\texttt{0}。
-\end{description}
-出力フォルダには、以下のファイル群が保存されます。
-\begin{description}\small\setlength{\baselineskip}{1.1em}
-\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.chimeraremoved.dereplicated.fastq.gz] キメラ配列除去し完全一致配列をまとめた配列
-\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.chimeraremoved.fastq.gz] キメラ配列除去した配列
-\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.denoised.dereplicated.fastq.gz] ノイジー配列除去し完全一致配列をまとめた配列
-\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.denoised.fastq.gz] ノイジー配列除去した配列
-\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.cleaned.dereplicated.fastq.gz] キメラ配列とノイジー配列を除去し完全一致配列をまとめた配列
-\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.cleaned.fastq.gz] キメラ配列とノイジー配列を除去した配列
-\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.chimericreads.txt.gz] キメラ配列と判定された配列のリスト
-\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.noisyreads.txt.gz] ノイジー配列と判定された配列のリスト
-\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.singletons.txt.gz] 完全一致配列をまとめたときにシングルトンになった配列のリスト
-\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.uchime.txt.gz] UCHIMEによるキメラ判定結果のログ
-\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.parameter.txt] まとまった完全一致配列をノイジーと判定するのに使用した所属配列数の下限値
-\end{description}
-他にも多くのファイルが出力されますが、後の解析に必要なものもありますので削除しないようにして下さい。
-キメラ配列除去を無効化してノイジー配列除去のみを行う場合は\texttt{{-}{-}detectmode=noise}、逆にノイジー配列除去を無効化してキメラ配列除去のみを行う場合は\texttt{{-}{-}detectmode=chimera}オプションを付けて実行して下さい。
-ただし、\texttt{{-}{-}detectmode=noise}で処理した結果を\texttt{{-}{-}detectmode=chimera}で処理しても、一度にノイジー配列・キメラ配列除去を行った場合(\texttt{{-}{-}detectmode=N+C}を指定した場合またはデフォルト設定)と結果は一致しませんのでご注意下さい。
-処理する場合は同時に行う必要があります。
-これは、キメラ配列もノイジー配列と判定するための情報を持っており、同時処理の場合にはそれを利用するためです。
-
-\subsection{PCRレプリケート法によるノイジー配列・キメラ配列の除去}
-
-PCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去するには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
-以下のような内容で用意して下さい。
-\begin{content}
-| sample1~ sample2~ sample3\\
-| sample4~ sample5\\
-| sample6~ sample7
-\end{content}
-同一の行内にタブ区切りで書かれたサンプルが、同一鋳型由来のPCRレプリケートであることを表しています。
-異なる鋳型由来のサンプルは別の行に記述して下さい。
-PCRレプリケートは3つ以上あっても構いません。
-また、レプリケート数が鋳型ごとに異なっても構いません。
-
-上記ファイルが用意できたら、以下のように\texttt{clcleanseq}を実行することでレプリケート間で共通しないプライマリクラスタをキメラもしくはノイジーであると判断して除去します。
-\begin{cmd}
-{\textgreater} clcleanseq {\textbackslash}\\
-{-}{-}replicatelist=PCRレプリケート指示ファイル {\textbackslash}\\
-uchime {-}{-}minh 0.1 {-}{-}mindiv 0.8 end {\textbackslash}\\
-{-}{-}detectmode=N+C {\textbackslash}\\
-{-}{-}pnoisycluster=0.5 {\textbackslash}\\
-{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
-入力ファイル1 {\textbackslash}\\
-中略 {\textbackslash}\\
-入力ファイルN {\textbackslash}\\
-出力フォルダ↓
-\end{cmd}
-レプリケートが3つ以上であっても、全てのレプリケートで検出されたプライマリクラスタのみがノイジーでもキメラでもないと判断されます。
-また、1つのプライマリクラスタが複数の鋳型から検出されていた場合、どれか1つの鋳型でノイジーまたはキメラと判定されていれば、他の鋳型でもノイジーまたはキメラとみなして除去します。
-これらの設定は以下のオプションで変更することができます。
-\begin{description}\small\setlength{\baselineskip}{1.1em}
-\item[\texttt{{-}{-}minnreplicate}] 整数値で指定。
-この値以上のレプリケートで観測されたプライマリクラスタはそのサンプルではノイジーでもキメラでもないと見なす。
-デフォルト値は\texttt{2}。
-\item[\texttt{{-}{-}minpreplicate}] 小数値で指定。
-プライマリクラスタが観測されたレプリケート数/サンプルの総レプリケート数がこの値以上であれば、そのサンプルではノイジーでもキメラでもないと見なす。
-デフォルト値は\texttt{1}。
-\item[\texttt{{-}{-}minnpositive}] 整数値で指定。
-この値以上の配列(サンプルではない)がノイジーまたはキメラと判定されていれば、全サンプルでノイジーまたはキメラと見なす。
-デフォルト値は\texttt{1}。
-\item[\texttt{{-}{-}minppositive}] 小数値で指定。
-ノイジーまたはキメラと判定された配列数/プライマリクラスタの総配列数がこの値以上であれば、全サンプルでノイジーまたはキメラと見なす。
-デフォルト値は\texttt{0}。
-\item[\texttt{{-}{-}runname}] ランIDを指定。
-サンプル名に含まれるランIDが全てこれに置換される。
-同一サンプル名になったサンプルは統合される。
-\end{description}
-\texttt{{-}{-}minnreplicate}と\texttt{{-}{-}minpreplicate}の値に基づく1サンプル内での判定と、\texttt{{-}{-}minnpositive}と\texttt{{-}{-}minppositive}の値に基づく全サンプルにまたがる判定が2段階で行われていることに注意して下さい。
-前者では2つの条件を両方満たすとノイジーでもキメラでもないと判定され、後者では2つの条件を両方満たすとノイジーまたはキメラであると判定されます。
-また、同一のプライマリクラスタが、あるサンプルではノイジーまたはキメラだが、別のサンプルではそうでない、といった判定は行えません。
-最終的な判定は全サンプル共通です。
-また、PCRレプリケート指示ファイルに記されていないサンプルは判定に使われません。
-
 \chapter{塩基配列クラスタリングに基づくOTUピッキング}
 
-\section{サンプル内での配列クラスタリング}
-
-\subsection{VSEARCHを用いた新パイプラインの場合}
-
-新パイプラインではこのステップはありません。
-
-\subsection{Assamsを用いた旧パイプラインの場合}
-
-以下のコマンドで、同一の鋳型を同一のチューブ内でPCRした配列群のクラスタリングを行います。
-前節の結果得られる、完全一致配列をまとめた結果(\texttt{ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.cleaned.dereplicated.fastq.gz})を入力します。
-\begin{cmd}
-{\textgreater} clclassseq {\textbackslash}\\
-{-}{-}minident=0 {\textbackslash}\\
-{-}{-}strand=plus {\textbackslash}\\
-{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
-入力ファイル1 {\textbackslash}\\
-中略 {\textbackslash}\\
-入力ファイルN {\textbackslash}\\
-出力フォルダ↓
-\end{cmd}
-前節の出力ファイルに対してこの処理を適用する場合、以下のようにコマンドを打てばいいでしょう。
-\begin{cmd}
-{\textgreater} clclassseq {\textbackslash}\\
-{-}{-}minident=0 {\textbackslash}\\
-{-}{-}strand=plus {\textbackslash}\\
-{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
-"前節の出力フォルダ/*.cleaned.dereplicated.fastq.gz" {\textbackslash}\\
-出力フォルダ↓
-\end{cmd}
-オプションのうち、\texttt{{-}{-}minident=0}は不一致が1塩基以下の配列をまとめる設定です(実際には、類似度が(最短配列の長さ-11/最短配列の長さ-10)以上の配列をまとめます。
-最長配列の長さが400bpで最短配列の長さが350bpなら、0.997となり、400bpの配列でも1塩基しか不一致は許容されませんので意図通りになりますが、最短配列と最長配列の差が大きすぎると意図した通りになりません。
-そのため、最短配列は最長配列の半分より11塩基以上長くなくてはなりません)。
-最終的に97\%で配列をまとめる場合もこの時点では0にしておくのがおすすめです。
-最終的に99\%でまとめる場合にもここでは0にしておきます。
-\texttt{{-}{-}strand=plus}は同一ストランドの比較だけでクラスタリングを行うオプションです。
-片側からしか読んでいないので、両ストランドの比較をする必要はなく、比較するとかえって異常なクラスタリングをしかねません。
-両側から読んでいる場合も、連結した後はストランドは揃っているのでこれでいいはずです。
-出力フォルダ内の\texttt{*.assembled.fastq.gz}がクラスタリング後の配列です。
-
 \section{サンプル間での配列クラスタリング}
-
-\subsection{VSEARCHを用いた新パイプラインの場合}
 
 塩基配列のクラスタリングを行ってOTUを作成するには、以下のコマンドを実行して下さい。
 \begin{cmd}
@@ -1425,76 +1263,13 @@ uchime {-}{-}minh 0.1 {-}{-}mindiv 0.8 end {\textbackslash}\\
 出力フォルダには、以下のファイルが保存されています。
 \begin{description}\small\setlength{\baselineskip}{1.1em}
 \item[clustered.otu.gz] どの生配列がどのOTUに割り当てられたかを記録しているファイル
-\item[clustered.fasta.gz] OTUの代表配列
-\end{description}
-
-\subsection{Assamsを用いた旧パイプラインの場合}
-
-サンプル内クラスタリングデータを用いてサンプル間でのクラスタリングを行い、全体のクラスタリング結果を得るには以下のコマンドを実行します。
-1サンプルしかない場合も、上記のサンプル内配列クラスタリングを行ってからこの処理を行って下さい。
-\begin{cmd}
-{\textgreater} clclassclass {\textbackslash}\\
-{-}{-}minident=0 {\textbackslash}\\
-{-}{-}strand=plus {\textbackslash}\\
-{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
-入力ファイル1 {\textbackslash}\\
-中略 {\textbackslash}\\
-入力ファイルN {\textbackslash}\\
-出力フォルダ1↓\\
-{\textgreater} clreclassclass {\textbackslash}\\
-{-}{-}minident=0.99 {\textbackslash}\\
-{-}{-}strand=plus {\textbackslash}\\
-{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
-出力フォルダ1 {\textbackslash}\\
-出力フォルダ2↓\\
-{\textgreater} clreclassclass {\textbackslash}\\
-{-}{-}minident=0.97 {\textbackslash}\\
-{-}{-}strand=plus {\textbackslash}\\
-{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
-出力フォルダ2 {\textbackslash}\\
-出力フォルダ3↓
-\end{cmd}
-ここでの入力ファイルは前節の出力ファイル\texttt{*.assembled.fastq.gz}です。
-したがって、実際には以下のように入力することになるでしょう。
-\begin{cmd}
-{\textgreater} clclassclass {\textbackslash}\\
-{-}{-}minident=0 {\textbackslash}\\
-{-}{-}strand=plus {\textbackslash}\\
-{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
-"前節の出力フォルダ/*.assembled.fastq.gz" {\textbackslash}\\
-出力フォルダ1↓\\
-{\textgreater} clreclassclass {\textbackslash}\\
-{-}{-}minident=0.99 {\textbackslash}\\
-{-}{-}strand=plus {\textbackslash}\\
-{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
-出力フォルダ1 {\textbackslash}\\
-出力フォルダ2↓\\
-{\textgreater} clreclassclass {\textbackslash}\\
-{-}{-}minident=0.97 {\textbackslash}\\
-{-}{-}strand=plus {\textbackslash}\\
-{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
-出力フォルダ2 {\textbackslash}\\
-出力フォルダ3↓
-\end{cmd}
-1つ目の\texttt{clclassclass}でサンプル内配列クラスタリングでまとめられた配列において、不一致が1塩基以下の配列をまとめます。
-2つ目の\texttt{clreclassclass}で、99\%以上一致する配列をまとめ直します。
-さらに3つ目の\texttt{clreclassclass}で、97\%以上一致する配列をまとめ直します。
-こうすることで、より高速に、より正確にクラスタリングが行われます。
-\texttt{clreclassclass}を使用せずに\texttt{clclassclass}に97\%でまとめるよう指示してしまうと、アルゴリズム上「まとめすぎ」が発生しやすくなります。
-
-出力フォルダには、以下のファイルが保存されています。
-\begin{description}\small\setlength{\baselineskip}{1.1em}
-\item[assembled.contigmembers.gz] どの生配列がどのOTUに割り当てられたかを記録しているファイル
-\item[assembled.fastq.gz] OTUのコンセンサス配列
-\item[assembled.fasta] OTUのコンセンサス配列
+\item[clustered.fasta] OTUの代表配列
 \end{description}
 
 \section{OTU代表配列への生配列のマッピング}
 
 ノイジー配列・キメラ配列と判定されてしまった配列でも、OTUの代表配列に対して指定した類似度の閾値で貼り付けることが可能なのであれば、復活させることができます。
 これにより、データの減少を抑えることができます。
-
-\subsection{VSEARCHを用いた新パイプラインの場合}
 
 以下のコマンドを実行して下さい。
 \begin{cmd}
@@ -1507,14 +1282,10 @@ uchime {-}{-}minh 0.1 {-}{-}mindiv 0.8 end {\textbackslash}\\
 入力ファイルN {\textbackslash}\\
 出力フォルダ↓
 \end{cmd}
-OTU代表配列のファイルには\texttt{clclassseqv}の出力した\texttt{clustered.fasta.gz}を用います。
-入力ファイルとしては、\texttt{clcleanseqv}の出力した\texttt{primarycluster.fasta.gz}または\texttt{clcleanseqv}での処理や低品質配列の除去を行う前の配列ファイルを使用して下さい。
+OTU代表配列のファイルには\texttt{clclassseqv}の出力した\texttt{clustered.fasta}を用います。
+入力ファイルとしては、\texttt{clcleanseqv}の出力した\texttt{primarycluster.fasta.gz}を使用して下さい。
 出力フォルダには、\texttt{clclassseqv}と同様のファイル群が作成されます。
 なお、オーバーラップのないペアエンドデータを\texttt{clconcatpair}を用いて連結した配列では、\texttt{{-}{-}paddinglen=16}をオプションとして加えて実行して下さい。
-
-\subsection{Assamsを用いた旧パイプラインの場合}
-
-旧パイプラインではこのステップはありません。
 
 \chapter{OTUピッキング結果の要約と後処理}
 
@@ -1527,21 +1298,21 @@ OTU代表配列のファイルには\texttt{clclassseqv}の出力した\texttt{c
 入力ファイル {\textbackslash}\\
 出力ファイル↓
 \end{cmd}
-ここでの入力ファイルは、クラスタリング結果の出力フォルダに保存されている、\texttt{clustered.otu.gz} (新パイプライン)または\texttt{assembled.contigmembers.gz} (旧パイプライン)というファイルです。
+ここでの入力ファイルは、クラスタリング結果の出力フォルダに保存されている、\texttt{clustered.otu.gz}です。
 出力されるファイルは表\ref{table:exampletableofsummary}のようなタブ区切りのテキストファイルで、Excelなどの表計算ソフトやRで読み込むことができます。
 ただし、表計算ソフトは巨大な行列の全てを読み込むことができない可能性がありますので注意して下さい。
 このファイルに基づいて、群集生態学的な解析を行うことができます。
 \begin{table}[h]
 \begin{center}
 \footnotesize\setlength{\baselineskip}{0.9em}%
-\begin{tabular}{l|rrr} 
-samplename & amongsampleotu{\textunderscore}1 & amongsampleotu{\textunderscore}2 & amongsampleotu{\textunderscore}3 \\\hline\hline
-sampleA & 2371 & 0 & 0 \\
-sampleB & 0 & 1518 & 0 \\
-sampleC & 1398 & 0 & 0 \\
-sampleD & 0 & 1436 & 0 \\
-sampleE & 0 & 0 & 1360 \\
-sampleF & 0 & 0 & 977 \\
+\begin{tabular}{l|rrrrrr} 
+samplename & OTU1 & OTU2 & OTU3 & OTU4 & OTU5 & OTU6 \\\hline\hline
+sampleA & 2371 & 0 & 0 & 12 & 3 & 0 \\
+sampleB & 0 & 1518 & 0 & 25 & 0	& 1 \\
+sampleC & 1398 & 0 & 0 & 8 & 77 & 6 \\
+sampleD & 0 & 1436 & 0 & 10 & 0	& 0 \\
+sampleE & 0 & 0 & 1360 & 0 & 15 & 3 \\
+sampleF & 0 & 0 & 977 & 55 & 6 & 8 \\
 \end{tabular}
 \end{center}
 \caption{集計表の例 --- 数値は各サンプルにおける各OTUの観測配列数です。}
@@ -1596,98 +1367,37 @@ PCRレプリケート関係にあるサンプルをタブ区切りで同一行�
 同一サンプル名になったサンプルは統合される。
 \end{description}
 
-後述するノイジー配列・キメラ配列の除去や他領域配列の除去を行った上で、残った配列を用いて\texttt{{-}{-}otuseq}などのオプションを用いたOTUの選別を行う場合は、他の選別より先に行って下さい。
-
-\section{PCRレプリケート法によるノイジー配列・キメラ配列の除去}
-
-新パイプラインでは\texttt{clcleanseqv}の実行時に行っていますが、旧パイプラインでもPCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去することが可能です。
-それには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
-以下のような内容で用意して下さい。
-\begin{content}
-| sample1~ sample2~ sample3\\
-| sample4~ sample5\\
-| sample6~ sample7
-\end{content}
-同一の行内にタブ区切りで書かれたサンプルが、同一鋳型由来のPCRレプリケートであることを表しています。
-異なる鋳型由来のサンプルは別の行に記述して下さい。
-PCRレプリケートは3つ以上あっても構いません。
-また、レプリケート数が鋳型ごとに異なっても構いません。
-
-上記ファイルが用意できたら、以下のコマンドでクラスタリング結果からレプリケート間で共通しない配列を除去します。
-\begin{cmd}
-{\textgreater} clfilterseq {\textbackslash}\\
-{-}{-}contigmembers=*.contigmembers.gz {\textbackslash}\\
-{-}{-}replicatelist=PCRレプリケート指示ファイル {\textbackslash}\\
-入力ファイル {\textbackslash}\\
-出力ファイル↓
-\end{cmd}
-レプリケートが3つ以上であっても、全てのレプリケートで検出された配列のみがノイジーでもキメラでもないと判断されます。
-また、1つのOTUが複数の鋳型から検出されていた場合、どれか1つの鋳型でノイジーまたはキメラと判定されていれば、他の鋳型でもノイジーまたはキメラとみなして除去します。
-これらの設定は以下のオプションで変更することができます。
-\begin{description}\small\setlength{\baselineskip}{1.1em}
-\item[\texttt{{-}{-}minnreplicate}] 整数値で指定。
-この値以上のレプリケートで観測されたOTUはそのサンプルではノイジーでもキメラでもないと見なす。
-デフォルト値は\texttt{2}。
-\item[\texttt{{-}{-}minpreplicate}] 小数値で指定。
-OTUが観測されたレプリケート数/サンプルの総レプリケート数がこの値以上であれば、そのサンプルではノイジーでもキメラでもないと見なす。
-デフォルト値は\texttt{1}。
-\item[\texttt{{-}{-}minnpositive}] 整数値で指定。
-この値以上の配列(サンプルではない)がノイジーまたはキメラと判定されていれば、全サンプルでノイジーまたはキメラと見なす。
-デフォルト値は\texttt{1}。
-\item[\texttt{{-}{-}minppositive}] 小数値で指定。
-ノイジーまたはキメラと判定された配列数/OTUの総配列数がこの値以上であれば、全サンプルでノイジーまたはキメラと見なす。
-デフォルト値は\texttt{0}。
-\item[\texttt{{-}{-}runname}] ランIDを指定。
-サンプル名に含まれるランIDが全てこれに置換される。
-同一サンプル名になったサンプルは統合される。
-\end{description}
-\texttt{{-}{-}minnreplicate}と\texttt{{-}{-}minpreplicate}の値に基づく1サンプル内での判定と、\texttt{{-}{-}minnpositive}と\texttt{{-}{-}minppositive}の値に基づく全サンプルにまたがる判定が2段階で行われていることに注意して下さい。
-前者では2つの条件を両方満たすとノイジーでもキメラでもないと判定され、後者では2つの条件を両方満たすとノイジーまたはキメラであると判定されます。
-また、同一のOTUが、あるサンプルではノイジーまたはキメラだが、別のサンプルではそうでない、といった判定は行えません。
-最終的な判定は全サンプル共通です。
-また、PCRレプリケート指示ファイルに記されていないサンプルは判定に使われません。
-
-ここで作成したFASTA配列ファイルを第\ref{section:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルから除去されたOTUを集計表からも除去することができます。
-また、\texttt{{-}{-}replicatelist}オプションと\texttt{{-}{-}runname}オプションを\texttt{clfilterseq}と同様に指定すれば、PCRレプリケート関係にあるサンプルは1つのサンプルに統合されます(セルの値は合算されます)。
+後述するキメラ配列の除去や他領域配列の除去を行った上で、残った配列を用いて\texttt{{-}{-}otuseq}などのオプションを用いたOTUの選別を行う場合は、他の選別より先に行って下さい。
 
 \section{UCHIMEによるキメラ配列除去}
 
-旧パイプラインではクラスタリング前にもUCHIMEでキメラ配列除去は行っていますが、クラスタリング後の配列に対してリファレンスなしでのキメラ配列除去とリファレンスありでのキメラ配列除去を追加で行うことができます。
+クラスタリング後の配列に対してリファレンスなしでのキメラ配列除去とリファレンスありでのキメラ配列除去を追加で行うことができます。
 両方行う場合は、リファレンスなしでのキメラ配列除去を先に行ってから、リファレンスありでのキメラ配列除去を行います。
-両方のキメラ配列除去を行う場合は、クラスタリング前のノイジー配列・キメラ配列除去において、キメラ配列除去を無効にしてもいいかもしれません。
-クラスタリング後のキメラ配列除去の方がずっと高速なので、1サンプル当たりの配列が膨大でクラスタリング前のキメラ配列除去では長時間を要する場合には、この方法の方が適しています。
-なお、PCRレプリケート法によるノイジー配列・キメラ配列の除去も併用する場合は、PCRレプリケート法によるノイジー配列・キメラ配列の除去を最初に行います。
 利用するコマンドは\texttt{clrunuchime}です。
-このコマンドでは、UCHIMEアルゴリズムを実装しているVSEARCHというプログラムを呼び出して、キメラ配列除去を行います。
+このコマンドでは、UCHIMEアルゴリズムを実装しているVSEARCHを呼び出して、キメラ配列除去を行います。
 
 \subsection{リファレンスなしでのキメラ配列除去}
 
 \texttt{clrunuchime}を以下のように実行して下さい。
 \begin{cmd}
 {\textgreater} clrunuchime {\textbackslash}\\
-{-}{-}contigmembers=*.contigmembers.gz {\textbackslash}\\
 {-}{-}otufile=*.otu.gz {\textbackslash}\\
 入力ファイル {\textbackslash}\\
 出力フォルダ↓
 \end{cmd}
-旧パイプラインを使用した場合は\texttt{{-}{-}contigmembers}オプションを、新パイプラインを使用した場合は\texttt{{-}{-}otufile}オプションを使用します。
-上記の例は一度に説明するためのもので、両方を指定してはいけません。
-なお、どちらも指定しなかった場合、\texttt{*.otu.gz}が入力ファイルと同じフォルダに存在すればそれを、\texttt{*.contigmembers.gz}が存在すればそれを見つけ出して使用しますので、普段は何も指定しなくてもいいでしょう。
+出力フォルダの内容については後述します。
 
 \subsection{リファレンスありでのキメラ配列除去}
 
 \texttt{clrunuchime}を以下のように実行して下さい。
 リファレンスなしでのキメラ配列除去を行った場合は、\texttt{nonchimeras.fasta}というファイルがあるはずですので、それを入力ファイルにすればいいでしょう。
-
 \begin{cmd}
 {\textgreater} clrunuchime {\textbackslash}\\
 {-}{-}referencedb=リファレンスデータベース名 {\textbackslash}\\
 入力ファイル {\textbackslash}\\
 出力フォルダ↓
 \end{cmd}
-
 UCHIME用のリファレンスデータベース名と内容は以下の通りです。
-
 \begin{description}\small\setlength{\baselineskip}{1.1em}
 \item[rdpgoldv9] 細菌16S用のRDP Goldデータベース(v9版)
 \item[unite20160101] 真菌ITS用のUNITEデータベース(20160101版)
@@ -1699,38 +1409,28 @@ UCHIME用のリファレンスデータベース名と内容は以下の通り�
 \subsection{出力フォルダの内容について}
 
 出力フォルダに保存されるファイルは以下の4つです。
-
 \begin{description}\small\setlength{\baselineskip}{1.1em}
 \item[chimeras.fasta] キメラと判定された配列
 \item[nonchimeras.fasta] キメラでないと判定された配列
 \item[uchimealns.txt] 判定時のアライメント
 \item[uchimeout.txt] 判定時の親配列やスコアなど
 \end{description}
-
 \texttt{uchimeout.txt}の各項目の意味は\\
 \href{http://drive5.com/usearch/manual/uchimeout.html}{http://drive5.com/usearch/manual/uchimeout.html}\\
 をご覧下さい。
 
 \section{OTU配列からの低頻度出現OTU配列の除去}
 
-クラスタリングの出力フォルダには、\texttt{clustered.fasta.gz} (新パイプライン)または\texttt{assembled.fasta} (旧パイプライン)というファイルとして、最終的に得られた代表配列もしくはコンセンサス配列が保存されています。
+クラスタリングの出力フォルダには、\texttt{clustered.fasta}というファイルとして、最終的に得られた代表配列が保存されています。
 これを次章のDNAバーコーディングに用いますが、全サンプルを通して少量しか出現しないものまで含めると数が多すぎることがあります。
 そこで、以下のようにして5配列以上出現するものだけを抽出することができます。
-配列数の閾値を適当に変えてもいいでしょう。
-この閾値は慎重に決定して下さい。
-ノイジー配列・キメラ配列の除去を行なっている場合には必要ないかもしれません。
 \begin{cmd}
 {\textgreater} clfilterseq {\textbackslash}\\
-{-}{-}contigmembers=*.contigmembers.gz {\textbackslash}\\
 {-}{-}otufile=*.otu.gz {\textbackslash}\\
 {-}{-}minnseq=5 {\textbackslash}\\
 入力ファイル {\textbackslash}\\
 出力ファイル↓
 \end{cmd}
-旧パイプラインを使用した場合は\texttt{{-}{-}contigmembers}オプションを、新パイプラインを使用した場合は\texttt{{-}{-}otufile}オプションを使用します。
-上記の例は一度に説明するためのもので、両方を指定してはいけません。
-なお、どちらも指定しなかった場合、\texttt{*.otu.gz}が入力ファイルと同じフォルダに存在すればそれを、\texttt{*.contigmembers.gz}が存在すればそれを見つけ出して使用しますので、普段は何も指定しなくてもいいでしょう。
-ここで作成したFASTA配列ファイルを第\ref{section:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルから除去されたOTUを集計表からも除去することができます。
 
 \section{保存領域配列認識による領域分割}
 
@@ -1749,7 +1449,6 @@ UCHIME用のリファレンスデータベース名と内容は以下の通り�
 このコマンドでは、指定された配列をNeedleman-Wunschアルゴリズムを用いたアライメントによって15\%まで不一致を許して探します。
 該当する部位が見つかったら、その左端を境界として配列を2つに分け、それぞれ出力ファイル1と出力ファイル2に保存します。
 該当する部位が見つからなかった場合は、そのまま出力ファイル1だけに保存されます。
-信頼度配列ファイルがある場合には、こちらも塩基配列に合わせて分割されます。
 なお、指定する配列は対象配列と同一のストランドにしておいて下さい。
 ストランドが異なる場合は、\texttt{{-}{-}reversecomplement}オプションを付加して実行することで、\texttt{{-}{-}query}に指定された配列の逆相補配列をアライメントに用いるようになります。
 
@@ -1765,12 +1464,11 @@ ITSxは核ITS1・ITS2領域を認識してその部位だけを取り出すこ�
 多くの分類群でITSは非常に変異に富んでいますが、ずっと保守的なSSU・LSU rRNAと隣接しているため、これらの配列が残っていると、その配列の影響でITSでは明確に区別できる遠縁な生物のSSU・LSU配列がBLAST検索時にヒットしてしまい、うまく同定できなくなってしまうことがあります。
 ITSxでITS領域のみを切り出して同定することでこのような問題に対処できます。
 
-MetaxaはITSxと同様にSSU (12S/16S/18S) rRNAを区別してそれぞれの部位だけを取り出すことができるプログラムです\citep{Bengtsson2011}。
+MetaxaはITSxと同様にSSU (12S/16S/18S) rRNAとLSU (26S/28S) rRNAを区別してそれぞれの部位だけを取り出すことができるプログラムです\citep{Bengtsson2011}。
+SSUは核由来かミトコンドリア由来か葉緑体由来か細菌由来かも区別できます。
 SSU rRNAは真核生物のメタバーコーディング・DNAバーコーディングに広く利用されている領域ですが、核だけでなくミトコンドリアや葉緑体、混入した細菌にも含まれているため、核のSSUを標的とするPCRを行った場合にも多少はミトコンドリアや細菌のSSU rRNAが混入してしまいます。
 そのような配列は群集生態学的解析の障害となるため、このプログラムで前もって除去しておくと後の解析が楽になります。
 
-いずれのプログラムもインストール方法、使用方法をここでは説明しません。
-それぞれのWebサイトとマニュアルをご覧下さい。
 これらのプログラムで作成したFASTA配列ファイルを第\ref{section:clfiltersum}節の\texttt{clfiltersum}の\texttt{{-}{-}otuseq}オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。
 
 \section{非ターゲット領域の探索と削除}
@@ -2082,11 +1780,232 @@ overall{\textunderscore}classでの同定結果 {\textbackslash}\\
 
 \appendix
 
+\chapter{Assamsを用いた旧パイプラインでの解析}
+
+\section{重複配列カウントによるノイジー配列とキメラ配列の除去}
+
+以下のコマンドでノイジー配列とキメラ配列の検出・除去が行えます。
+なお、多数のファイルを一度に与えることができますが、できるだけ1ラン分のファイルを与えて下さい。
+これは、ランごとに塩基配列決定の質にばらつきがあるためです1ラン分の配列が非常に多く(100万超)時間がかかってしまう場合は、1サンプルごとにこの処理を行って下さい。
+\begin{cmd}
+{\textgreater} clcleanseq {\textbackslash}\\
+uchime {-}{-}minh 0.1 {-}{-}mindiv 0.8 end {\textbackslash}\\
+{-}{-}detectmode=N+C {\textbackslash}\\
+{-}{-}pnoisycluster=0.5 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+中略 {\textbackslash}\\
+入力ファイルN {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+オプションのうち、\texttt{uchime}から\texttt{end}の間はUCHIMEの実行オプションです。
+\texttt{{-}{-}minh}と\texttt{{-}{-}mindiv}はキメラ配列と判定する感度に関するオプションです。
+\texttt{{-}{-}minh}は値が小さいほど感度が高くなります。
+UCHIMEの作者は0.1以上5以下の範囲にするよう推奨しています。
+デフォルト値は0.1です。
+\texttt{{-}{-}mindiv}の指定値が0.8の場合、0.8\%以下の違いしかない配列間はキメラが形成されていても無視されます。
+最終的に97\%一致規準で配列をクラスタリングするとしたら、2\%程度の違いしかない配列間のキメラはクラスタリング・コンセンサス配列作成によって潰されるため、この値を大きくすることで計算が速くなります。
+また、\texttt{{-}{-}pnoisycluster}はノイジー配列と判定する感度に関するオプションです。
+0以上1以下で指定して下さい。
+大きいほど感度が上がります。
+デフォルト値・推奨値は0.5です。
+クラスタリングを最終的に97\%以下の閾値で行うのであればこれでいいと思いますが、99\%前後でクラスタリングする場合、\texttt{{-}{-}pnoisycluster}は0.9くらいにするといいかもしれません。
+ただし、レアOTUを捨ててしまう可能性が高くなるので、1サンプル当たりの配列数を多めに読んでおく必要があります。
+
+各入力ファイルは同一の鋳型を同一のチューブ内でPCRした配列群を含んでいる必要があります。
+Claidentがキメラ検出に利用しているUCHIMEでは、元配列数が多いコンセンサス配列ほどPCR当初から存在した＝キメラではないと仮定し、元配列数が少ないコンセンサス配列が、より元配列数の多いコンセンサス配列の部分配列の組み合わせで説明できるかどうかを検討します。
+したがって、UCHIMEに「同一の鋳型を同一のチューブ内でPCRした配列群内でのコンセンサス配列の元配列数」を正確に伝える必要があるため、1ファイルは同一の鋳型を同一のチューブ内でPCRした配列群でなくてはならないのです。
+これは1ラン分のファイルを一度に与えることよりもはるかに優先度が高いので、同一の鋳型を同一のチューブ内でPCRしたサンプルを複数回のランで塩基配列決定した場合などは複数ラン分のデータを入力しても構いません。
+
+UCHIMEによるキメラ判定はそれぞれのサンプルごとに行われ、複数のサンプルで観測されている完全一致配列の場合、どれか1つのサンプルでキメラと判定されていれば、他のサンプルでもキメラとみなして除去します。
+ただし、下記のオプションでこの動作を変更することができます。
+両オプションの両方を満たせばキメラと判定されます。
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[\texttt{{-}{-}minnpositive}] 整数値で指定。
+この値以上の配列(サンプルではない)がキメラと判定されていれば、全サンプルでキメラと見なす。
+デフォルト値は\texttt{1}。
+\item[\texttt{{-}{-}minppositive}] 小数値で指定。
+キメラと判定された配列数/完全一致した全配列数がこの値以上であれば、全サンプルでキメラと見なす。
+デフォルト値は\texttt{0}。
+\end{description}
+出力フォルダには、以下のファイル群が保存されます。
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.chimeraremoved.dereplicated.fastq.gz] キメラ配列除去し完全一致配列をまとめた配列
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.chimeraremoved.fastq.gz] キメラ配列除去した配列
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.denoised.dereplicated.fastq.gz] ノイジー配列除去し完全一致配列をまとめた配列
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.denoised.fastq.gz] ノイジー配列除去した配列
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.cleaned.dereplicated.fastq.gz] キメラ配列とノイジー配列を除去し完全一致配列をまとめた配列
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.cleaned.fastq.gz] キメラ配列とノイジー配列を除去した配列
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.chimericreads.txt.gz] キメラ配列と判定された配列のリスト
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.noisyreads.txt.gz] ノイジー配列と判定された配列のリスト
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.singletons.txt.gz] 完全一致配列をまとめたときにシングルトンになった配列のリスト
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.uchime.txt.gz] UCHIMEによるキメラ判定結果のログ
+\item[ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.parameter.txt] まとまった完全一致配列をノイジーと判定するのに使用した所属配列数の下限値
+\end{description}
+他にも多くのファイルが出力されますが、後の解析に必要なものもありますので削除しないようにして下さい。
+キメラ配列除去を無効化してノイジー配列除去のみを行う場合は\texttt{{-}{-}detectmode=noise}、逆にノイジー配列除去を無効化してキメラ配列除去のみを行う場合は\texttt{{-}{-}detectmode=chimera}オプションを付けて実行して下さい。
+ただし、\texttt{{-}{-}detectmode=noise}で処理した結果を\texttt{{-}{-}detectmode=chimera}で処理しても、一度にノイジー配列・キメラ配列除去を行った場合(\texttt{{-}{-}detectmode=N+C}を指定した場合またはデフォルト設定)と結果は一致しませんのでご注意下さい。
+処理する場合は同時に行う必要があります。
+これは、キメラ配列もノイジー配列と判定するための情報を持っており、同時処理の場合にはそれを利用するためです。
+
+\subsection{PCRレプリケート法によるノイジー配列・キメラ配列の除去}
+
+PCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去するには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
+以下のような内容で用意して下さい。
+\begin{content}
+| sample1~ sample2~ sample3\\
+| sample4~ sample5\\
+| sample6~ sample7
+\end{content}
+同一の行内にタブ区切りで書かれたサンプルが、同一鋳型由来のPCRレプリケートであることを表しています。
+異なる鋳型由来のサンプルは別の行に記述して下さい。
+PCRレプリケートは3つ以上あっても構いません。
+また、レプリケート数が鋳型ごとに異なっても構いません。
+
+上記ファイルが用意できたら、以下のように\texttt{clcleanseq}を実行することでレプリケート間で共通しないプライマリクラスタをキメラもしくはノイジーであると判断して除去します。
+\begin{cmd}
+{\textgreater} clcleanseq {\textbackslash}\\
+{-}{-}replicatelist=PCRレプリケート指示ファイル {\textbackslash}\\
+uchime {-}{-}minh 0.1 {-}{-}mindiv 0.8 end {\textbackslash}\\
+{-}{-}detectmode=N+C {\textbackslash}\\
+{-}{-}pnoisycluster=0.5 {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+中略 {\textbackslash}\\
+入力ファイルN {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+レプリケートが3つ以上であっても、全てのレプリケートで検出されたプライマリクラスタのみがノイジーでもキメラでもないと判断されます。
+また、1つのプライマリクラスタが複数の鋳型から検出されていた場合、どれか1つの鋳型でノイジーまたはキメラと判定されていれば、他の鋳型でもノイジーまたはキメラとみなして除去します。
+これらの設定は以下のオプションで変更することができます。
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[\texttt{{-}{-}minnreplicate}] 整数値で指定。
+この値以上のレプリケートで観測されたプライマリクラスタはそのサンプルではノイジーでもキメラでもないと見なす。
+デフォルト値は\texttt{2}。
+\item[\texttt{{-}{-}minpreplicate}] 小数値で指定。
+プライマリクラスタが観測されたレプリケート数/サンプルの総レプリケート数がこの値以上であれば、そのサンプルではノイジーでもキメラでもないと見なす。
+デフォルト値は\texttt{1}。
+\item[\texttt{{-}{-}minnpositive}] 整数値で指定。
+この値以上の配列(サンプルではない)がノイジーまたはキメラと判定されていれば、全サンプルでノイジーまたはキメラと見なす。
+デフォルト値は\texttt{1}。
+\item[\texttt{{-}{-}minppositive}] 小数値で指定。
+ノイジーまたはキメラと判定された配列数/プライマリクラスタの総配列数がこの値以上であれば、全サンプルでノイジーまたはキメラと見なす。
+デフォルト値は\texttt{0}。
+\item[\texttt{{-}{-}runname}] ランIDを指定。
+サンプル名に含まれるランIDが全てこれに置換される。
+同一サンプル名になったサンプルは統合される。
+\end{description}
+\texttt{{-}{-}minnreplicate}と\texttt{{-}{-}minpreplicate}の値に基づく1サンプル内での判定と、\texttt{{-}{-}minnpositive}と\texttt{{-}{-}minppositive}の値に基づく全サンプルにまたがる判定が2段階で行われていることに注意して下さい。
+前者では2つの条件を両方満たすとノイジーでもキメラでもないと判定され、後者では2つの条件を両方満たすとノイジーまたはキメラであると判定されます。
+また、同一のプライマリクラスタが、あるサンプルではノイジーまたはキメラだが、別のサンプルではそうでない、といった判定は行えません。
+最終的な判定は全サンプル共通です。
+また、PCRレプリケート指示ファイルに記されていないサンプルは判定に使われません。
+
+\section{塩基配列クラスタリングに基づくOTUピッキング}
+
+\subsection{サンプル内での配列クラスタリング}
+
+以下のコマンドで、同一の鋳型を同一のチューブ内でPCRした配列群のクラスタリングを行います。
+前節の結果得られる、完全一致配列をまとめた結果(\texttt{ランID{\textunderscore}{\textunderscore}タグID{\textunderscore}{\textunderscore}プライマーID.cleaned.dereplicated.fastq.gz})を入力します。
+\begin{cmd}
+{\textgreater} clclassseq {\textbackslash}\\
+{-}{-}minident=0 {\textbackslash}\\
+{-}{-}strand=plus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+中略 {\textbackslash}\\
+入力ファイルN {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+前節の出力ファイルに対してこの処理を適用する場合、以下のようにコマンドを打てばいいでしょう。
+\begin{cmd}
+{\textgreater} clclassseq {\textbackslash}\\
+{-}{-}minident=0 {\textbackslash}\\
+{-}{-}strand=plus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+"前節の出力フォルダ/*.cleaned.dereplicated.fastq.gz" {\textbackslash}\\
+出力フォルダ↓
+\end{cmd}
+オプションのうち、\texttt{{-}{-}minident=0}は不一致が1塩基以下の配列をまとめる設定です(実際には、類似度が(最短配列の長さ-11/最短配列の長さ-10)以上の配列をまとめます。
+最長配列の長さが400bpで最短配列の長さが350bpなら、0.997となり、400bpの配列でも1塩基しか不一致は許容されませんので意図通りになりますが、最短配列と最長配列の差が大きすぎると意図した通りになりません。
+そのため、最短配列は最長配列の半分より11塩基以上長くなくてはなりません)。
+最終的に97\%で配列をまとめる場合もこの時点では0にしておくのがおすすめです。
+最終的に99\%でまとめる場合にもここでは0にしておきます。
+\texttt{{-}{-}strand=plus}は同一ストランドの比較だけでクラスタリングを行うオプションです。
+片側からしか読んでいないので、両ストランドの比較をする必要はなく、比較するとかえって異常なクラスタリングをしかねません。
+両側から読んでいる場合も、連結した後はストランドは揃っているのでこれでいいはずです。
+出力フォルダ内の\texttt{*.assembled.fastq.gz}がクラスタリング後の配列です。
+
+\subsection{サンプル間での配列クラスタリング}
+
+サンプル内クラスタリングデータを用いてサンプル間でのクラスタリングを行い、全体のクラスタリング結果を得るには以下のコマンドを実行します。
+1サンプルしかない場合も、上記のサンプル内配列クラスタリングを行ってからこの処理を行って下さい。
+\begin{cmd}
+{\textgreater} clclassclass {\textbackslash}\\
+{-}{-}minident=0 {\textbackslash}\\
+{-}{-}strand=plus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+入力ファイル1 {\textbackslash}\\
+中略 {\textbackslash}\\
+入力ファイルN {\textbackslash}\\
+出力フォルダ1↓\\
+{\textgreater} clreclassclass {\textbackslash}\\
+{-}{-}minident=0.99 {\textbackslash}\\
+{-}{-}strand=plus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+出力フォルダ1 {\textbackslash}\\
+出力フォルダ2↓\\
+{\textgreater} clreclassclass {\textbackslash}\\
+{-}{-}minident=0.97 {\textbackslash}\\
+{-}{-}strand=plus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+出力フォルダ2 {\textbackslash}\\
+出力フォルダ3↓
+\end{cmd}
+ここでの入力ファイルは前節の出力ファイル\texttt{*.assembled.fastq.gz}です。
+したがって、実際には以下のように入力することになるでしょう。
+\begin{cmd}
+{\textgreater} clclassclass {\textbackslash}\\
+{-}{-}minident=0 {\textbackslash}\\
+{-}{-}strand=plus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+"前節の出力フォルダ/*.assembled.fastq.gz" {\textbackslash}\\
+出力フォルダ1↓\\
+{\textgreater} clreclassclass {\textbackslash}\\
+{-}{-}minident=0.99 {\textbackslash}\\
+{-}{-}strand=plus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+出力フォルダ1 {\textbackslash}\\
+出力フォルダ2↓\\
+{\textgreater} clreclassclass {\textbackslash}\\
+{-}{-}minident=0.97 {\textbackslash}\\
+{-}{-}strand=plus {\textbackslash}\\
+{-}{-}numthreads=使用するCPU数 {\textbackslash}\\
+出力フォルダ2 {\textbackslash}\\
+出力フォルダ3↓
+\end{cmd}
+1つ目の\texttt{clclassclass}でサンプル内配列クラスタリングでまとめられた配列において、不一致が1塩基以下の配列をまとめます。
+2つ目の\texttt{clreclassclass}で、99\%以上一致する配列をまとめ直します。
+さらに3つ目の\texttt{clreclassclass}で、97\%以上一致する配列をまとめ直します。
+こうすることで、より高速に、より正確にクラスタリングが行われます。
+\texttt{clreclassclass}を使用せずに\texttt{clclassclass}に97\%でまとめるよう指示してしまうと、アルゴリズム上「まとめすぎ」が発生しやすくなります。
+
+出力フォルダには、以下のファイルが保存されています。
+\begin{description}\small\setlength{\baselineskip}{1.1em}
+\item[assembled.contigmembers.gz] どの生配列がどのOTUに割り当てられたかを記録しているファイル
+\item[assembled.fastq.gz] OTUのコンセンサス配列
+\item[assembled.fasta] OTUのコンセンサス配列
+\end{description}
+
+\subsection{集計表の作成}
+
+新パイプラインでは\texttt{clustered.otu.gz}を使用しますが、旧パイプラインでは生成されません。代わりに\texttt{assembled.contigmembers.gz}を使用して下さい。
+
 \chapter{その他のプログラムのインストール}
 
 \section{bcl2fastqのインストール}
 
-Illuminaから提供されている、BCL形式のベースコールデータからFASTQを生成するプログラムbcl2fastqはMiSeq・HiSeq用のv1.8.4およびNextSeq 500・HiSeq X用のv2.17.1.14が\\
+Illuminaから提供されている、BCL形式のベースコールデータからFASTQを生成するプログラムbcl2fastqはRTA version 1.18.54より前の機種用のv1.8.4およびRTA version 1.18.54以降の機種用のv2.18.0.12が\\
 \href{http://support.illumina.com/downloads/bcl2fastq_conversion_software.html}{http://support.illumina.com/downloads/bcl2fastq{\textunderscore}conversion{\textunderscore}software.html}\\
 からダウンロードできます。
 v1.8.4は以下のようにインストールできます。
@@ -2118,20 +2037,22 @@ Ubuntu・Xubuntu・Lubuntuの14.04LTSでは、Perlのバージョンが新しす
 の747行目と751行目を手動で書き換えても構いません。
 \texttt{qw(HOGEHOGE)}を\texttt{("HOGEHOGE")}に書き換えて下さい。
 
-v2.17.1.14のインストールをする場合は以下のようにコマンドを実行して下さい。
+v2.18.0.12のインストールをする場合は以下のようにコマンドを実行して下さい。
 \begin{cmd}
 \# rpm2cpioとcpioのインストール\\
 {\textgreater} sudo apt-get install rpm2cpio cpio↓\\
-\# bcl2fastq2 v2.17のダウンロード\\
-{\textgreater} wget {\textbackslash}\\
-ftp://webdata2:webdata2@ussd-ftp.illumina.com/downloads/software/bcl2fastq/bcl2fastq2-v2.17.1.14-Linux-x86{\textunderscore}64.zip↓\\
+\# bcl2fastq2 v2.18.0.12のダウンロード\\
+{\textgreater} wget -O bcl2fastq2-v2-18-0-12-linux-x86-64.zip http://bit.ly/2drPH3W↓\\
 \# 圧縮ファイルの展開\\
-{\textgreater} unzip -qq bcl2fastq2-v2.17.1.14-Linux-x86{\textunderscore}64.zip↓\\
+{\textgreater} unzip -qq bcl2fastq2-v2-18-0-12-linux-x86-64.zip↓\\
 \# .rpmを展開してコマンドを抽出\\
 {\textgreater} rpm2cpio {\textbackslash}\\
-bcl2fastq2-v2.17.1.14-Linux-x86{\textunderscore}64.rpm | cpio -id↓\\
+bcl2fastq2-v2.18.0.12-Linux-x86{\textunderscore}64.rpm | cpio -id↓\\
 \# コマンドをインストール\\
 {\textgreater} sudo mv usr/local/bin/bcl2fastq /usr/local/bin/↓
+\# その他のファイルをインストール\\
+{\textgreater} sudo cp -R usr/local/share/css /usr/local/share/↓
+{\textgreater} sudo cp -R usr/local/share/xsl /usr/local/share/↓
 \end{cmd}
 
 \chapter{ターミナルコマンド集}\label{chapter:terminalcommands}

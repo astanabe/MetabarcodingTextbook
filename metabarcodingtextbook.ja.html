@@ -1,8 +1,8 @@
 <!DOCTYPE html><html prefix="dcterms: http://purl.org/dc/terms/">
 <head>
 <title>生態学のためのメタバーコーディングとDNAバーコーディング</title>
-<!--Generated on Sat Sep 24 08:10:58 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
-<!--Document created on September 24, 2016.-->
+<!--Generated on Mon Sep 26 10:53:06 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on September 26, 2016.-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="LaTeXML.css" type="text/css">
@@ -18,7 +18,7 @@
 <span class="ltx_personname">田辺晶史
 </span></span>
 </div>
-<div class="ltx_date ltx_role_creation">2016年9月24日</div>
+<div class="ltx_date ltx_role_creation">2016年9月26日</div>
 
 <section id="Chx1" class="ltx_chapter">
 <h2 class="ltx_title ltx_title_chapter">はじめに</h2>
@@ -568,7 +568,7 @@ Illumina MiSeqの場合は<span class="ltx_text ltx_font_typewriter">*.fastq</sp
 どの機種でもメーカーのプログラムの機能によるdemultiplexは品質の値を見ていなかったりするため、Claidentのコマンド<span class="ltx_text ltx_font_typewriter">clsplitseq</span>を利用してdemultiplexを行います。
 以下ではコマンドは全てターミナルかコンソールで実行して下さい。
 基本的なターミナルの使い方の知識は持っているという前提で話を進めます。
-ターミナルの操作に慣れていない方は、最低でも付録<a href="#A2" title="付録 B ターミナルコマンド集 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">B</span></a>の内容を理解できるようになっておいて下さい。</p>
+ターミナルの操作に慣れていない方は、最低でも付録<a href="#A3" title="付録 C ターミナルコマンド集 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">C</span></a>の内容を理解できるようになっておいて下さい。</p>
 </div>
 <section id="Ch2.S1" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
@@ -1957,18 +1957,154 @@ sample2の鋳型では逆になります。
 また、旧パイプラインではVSEARCHに実装されたUCHIME <cite class="ltx_cite"><a href="#bib.bib5" title="" class="ltx_ref">(Edgar <span class="ltx_text ltx_font_italic">et al</span>., 2011)</a></cite>アルゴリズムを呼び出して結果を受け取ることで、キメラ配列の検出・除去も可能です。
 新パイプラインでは、クラスタリング処理が終わってからキメラ検出・除去処理を適用します。</p>
 </div>
-<section id="Ch3.S1" class="ltx_section">
-<h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">3.1 </span>VSEARCHを用いた新パイプラインの場合</h3>
-
-<div id="Ch3.S1.p1" class="ltx_para">
+<div id="Ch3.p2" class="ltx_para">
 <p class="ltx_p">以下のコマンドでノイジー配列の検出・除去が行えます。
 なお、多数のファイルを一度に与えることができますが、できるだけ1ラン分のファイルを与えて下さい。
 これは、ランごとに塩基配列決定の質にばらつきがあるためです。
 1ラン分の配列が非常に多く(1000万超)時間がかかってしまう場合は、1サンプルごとにこの処理を行って下さい。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
+          <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clcleanseqv \</span>
+        </span>
+<span class="ltx_p ltx_align_left">
+          <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--derepmode=PREFIX \</span>
+        </span>
+<span class="ltx_p ltx_align_left">
+          <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--primarymaxnmismatch=0 \</span>
+        </span>
+<span class="ltx_p ltx_align_left">
+          <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--secondarymaxnmismatch=1 \</span>
+        </span>
+<span class="ltx_p ltx_align_left">
+          <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--pnoisycluster=0.5 \</span>
+        </span>
+<span class="ltx_p ltx_align_left">
+          <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+        </span>
+<span class="ltx_p ltx_align_left">
+          <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
+        </span>
+<span class="ltx_p ltx_align_left">
+          <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">中略 \</span>
+        </span>
+<span class="ltx_p ltx_align_left">
+          <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイルN \</span>
+        </span>
+<span class="ltx_p ltx_align_left">
+          <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
+        </span>
+</p>
+<p class="ltx_p">オプションのうち、<span class="ltx_text ltx_font_typewriter">--derepmode</span>は前処理において全長一致(<span class="ltx_text ltx_font_typewriter">FULLLENGTH</span>)で配列をまとめるか、前方一致(<span class="ltx_text ltx_font_typewriter">PREFIX</span>)で配列をまとめるかを指定します。
+オーバーラップのあるペアエンド配列を連結して得られた配列を処理する場合は<span class="ltx_text ltx_font_typewriter">FULLLENGTH</span>を、シングルエンド配列を処理する場合は<span class="ltx_text ltx_font_typewriter">PREFIX</span>を指定して下さい。
+<span class="ltx_text ltx_font_typewriter">--primarymaxnmismatch</span>はプライマリクラスタリングで許容するミスマッチ数で通常は0にします。
+<span class="ltx_text ltx_font_typewriter">--secondarymaxnmismatch</span>はセカンダリクラスタリングで許容するミスマッチ数で、通常は1にします。
+ただし、「先頭から末尾までに読み間違いが全くない配列」がほとんどないと思われるようなあまりにもノイズの多いデータでは、<span class="ltx_text ltx_font_typewriter">--primarymaxnmismatch</span>を1に、<span class="ltx_text ltx_font_typewriter">--secondarymaxnmismatch</span>を3にしてみて下さい。
+それでもダメなら<span class="ltx_text ltx_font_typewriter">--primarymaxnmismatch</span>を2に、<span class="ltx_text ltx_font_typewriter">--secondarymaxnmismatch</span>を5にして試します。
+<span class="ltx_text ltx_font_typewriter">--secondarymaxnmismatch</span>は<span class="ltx_text ltx_font_typewriter">--primarymaxnmismatch</span>の2倍より1大きい値に設定して下さい。
+<span class="ltx_text ltx_font_typewriter">--pnoisycluster</span>はノイジー配列と判定する感度に関するオプションです。
+0以上1以下で指定して下さい。
+大きいほど感度が上がります。
+デフォルト値・推奨値は0.5です。
+クラスタリングを最終的に97%以下の閾値で行うのであればこれでいいと思いますが、99%前後でクラスタリングする場合、<span class="ltx_text ltx_font_typewriter">--pnoisycluster</span>は0.9くらいにするといいかもしれません。
+ただし、レアOTUを捨ててしまう可能性が高くなるので、1サンプル当たりの配列数を多めに読んでおく必要があります。</p>
+</div>
+<div id="Ch3.p3" class="ltx_para">
+<p class="ltx_p">出力フォルダには、以下のファイル群が保存されます。</p>
+<dl id="Ch3.I1" class="ltx_description">
+<dt id="Ch3.I1.ix1"><span class="ltx_tag ltx_tag_description">
+            <span class="ltx_text" style="font-size:90%;">parameter.txt</span>
+          </span></dt>
+<dd>
+<div id="Ch3.I1.ix1.p1" class="ltx_para">
+<p class="ltx_p">
+              <span class="ltx_text" style="font-size:90%;">プライマリクラスタをノイジーと判定するのに使用した所属配列数の下限値</span>
+            </p>
+</div>
+</dd>
+<dt id="Ch3.I1.ix2"><span class="ltx_tag ltx_tag_description">
+            <span class="ltx_text" style="font-size:90%;">primarycluster.denoised.fasta.gz</span>
+          </span></dt>
+<dd>
+<div id="Ch3.I1.ix2.p1" class="ltx_para">
+<p class="ltx_p">
+              <span class="ltx_text" style="font-size:90%;">ノイジーと判定されなかったプライマリクラスタの代表配列</span>
+            </p>
+</div>
+</dd>
+<dt id="Ch3.I1.ix3"><span class="ltx_tag ltx_tag_description">
+            <span class="ltx_text" style="font-size:90%;">primarycluster.fasta.gz</span>
+          </span></dt>
+<dd>
+<div id="Ch3.I1.ix3.p1" class="ltx_para">
+<p class="ltx_p">
+              <span class="ltx_text" style="font-size:90%;">プライマリクラスタの代表配列</span>
+            </p>
+</div>
+</dd>
+<dt id="Ch3.I1.ix4"><span class="ltx_tag ltx_tag_description">
+            <span class="ltx_text" style="font-size:90%;">secondarycluster.fasta.gz</span>
+          </span></dt>
+<dd>
+<div id="Ch3.I1.ix4.p1" class="ltx_para">
+<p class="ltx_p">
+              <span class="ltx_text" style="font-size:90%;">セカンダリクラスタの代表配列</span>
+            </p>
+</div>
+</dd>
+<dt id="Ch3.I1.ix5"><span class="ltx_tag ltx_tag_description">
+            <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.noisyreads.txt.gz</span>
+          </span></dt>
+<dd>
+<div id="Ch3.I1.ix5.p1" class="ltx_para">
+<p class="ltx_p">
+              <span class="ltx_text" style="font-size:90%;">ノイジー配列と判定された配列のリスト</span>
+            </p>
+</div>
+</dd>
+<dt id="Ch3.I1.ix6"><span class="ltx_tag ltx_tag_description">
+            <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.singletons.txt.gz</span>
+          </span></dt>
+<dd>
+<div id="Ch3.I1.ix6.p1" class="ltx_para">
+<p class="ltx_p">
+              <span class="ltx_text" style="font-size:90%;">プライマリクラスタリングでシングルトンになった配列のリスト</span>
+            </p>
+</div>
+</dd>
+</dl>
+<p class="ltx_p">他にも多くのファイルが出力されますが、後の解析に必要なものもありますので削除しないようにして下さい。</p>
+</div>
+<section id="Ch3.S1" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3.1 </span>PCRレプリケート法によるノイジー配列・キメラ配列の除去</h3>
+
+<div id="Ch3.S1.p1" class="ltx_para">
+<p class="ltx_p">PCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去するには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
+以下のような内容で用意して下さい。</p>
+<p class="ltx_p ltx_align_left" style="background-color:#E6E6E6;padding-top:12pt;padding-bottom:12pt;">
+<span class="ltx_p ltx_align_left">
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| sample1  sample2  sample3</span>
+          </span>
+<span class="ltx_p ltx_align_left">
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| sample4  sample5</span>
+          </span>
+<span class="ltx_p ltx_align_left">
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| sample6  sample7</span>
+          </span>
+</p>
+<p class="ltx_p">同一の行内にタブ区切りで書かれたサンプルが、同一鋳型由来のPCRレプリケートであることを表しています。
+異なる鋳型由来のサンプルは別の行に記述して下さい。
+PCRレプリケートは3つ以上あっても構いません。
+また、レプリケート数が鋳型ごとに異なっても構いません。</p>
+</div>
+<div id="Ch3.S1.p2" class="ltx_para">
+<p class="ltx_p">上記ファイルが用意できたら、以下のように<span class="ltx_text ltx_font_typewriter">clcleanseqv</span>を実行することでレプリケート間で共通しないプライマリクラスタをキメラもしくはノイジーであると判断して除去します。</p>
+<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
+<span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clcleanseqv \</span>
+          </span>
+<span class="ltx_p ltx_align_left">
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--replicatelist=PCRレプリケート指示ファイル \</span>
           </span>
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--derepmode=PREFIX \</span>
@@ -1998,216 +2134,76 @@ sample2の鋳型では逆になります。
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
           </span>
 </p>
-<p class="ltx_p">オプションのうち、<span class="ltx_text ltx_font_typewriter">--derepmode</span>は前処理において全長一致(<span class="ltx_text ltx_font_typewriter">FULLLENGTH</span>)で配列をまとめるか、前方一致(<span class="ltx_text ltx_font_typewriter">PREFIX</span>)で配列をまとめるかを指定します。
-オーバーラップのあるペアエンド配列を連結して得られた配列を処理する場合は<span class="ltx_text ltx_font_typewriter">FULLLENGTH</span>を、シングルエンド配列を処理する場合は<span class="ltx_text ltx_font_typewriter">PREFIX</span>を指定して下さい。
-<span class="ltx_text ltx_font_typewriter">--primarymaxnmismatch</span>はプライマリクラスタリングで許容するミスマッチ数で通常は0にします。
-<span class="ltx_text ltx_font_typewriter">--secondarymaxnmismatch</span>はセカンダリクラスタリングで許容するミスマッチ数で、通常は1にします。
-ただし、「先頭から末尾までに読み間違いが全くない配列」がほとんどないと思われるようなあまりにもノイズの多いデータでは、<span class="ltx_text ltx_font_typewriter">--primarymaxnmismatch</span>を1に、<span class="ltx_text ltx_font_typewriter">--secondarymaxnmismatch</span>を3にしてみて下さい。
-それでもダメなら<span class="ltx_text ltx_font_typewriter">--primarymaxnmismatch</span>を2に、<span class="ltx_text ltx_font_typewriter">--secondarymaxnmismatch</span>を5にして試します。
-<span class="ltx_text ltx_font_typewriter">--secondarymaxnmismatch</span>は<span class="ltx_text ltx_font_typewriter">--primarymaxnmismatch</span>の2倍より1大きい値に設定して下さい。
-<span class="ltx_text ltx_font_typewriter">--pnoisycluster</span>はノイジー配列と判定する感度に関するオプションです。
-0以上1以下で指定して下さい。
-大きいほど感度が上がります。
-デフォルト値・推奨値は0.5です。
-クラスタリングを最終的に97%以下の閾値で行うのであればこれでいいと思いますが、99%前後でクラスタリングする場合、<span class="ltx_text ltx_font_typewriter">--pnoisycluster</span>は0.9くらいにするといいかもしれません。
-ただし、レアOTUを捨ててしまう可能性が高くなるので、1サンプル当たりの配列数を多めに読んでおく必要があります。</p>
-</div>
-<div id="Ch3.S1.p2" class="ltx_para">
-<p class="ltx_p">出力フォルダには、以下のファイル群が保存されます。</p>
-<dl id="Ch3.I1" class="ltx_description">
-<dt id="Ch3.I1.ix1"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text" style="font-size:90%;">parameter.txt</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I1.ix1.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">プライマリクラスタをノイジーと判定するのに使用した所属配列数の下限値</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch3.I1.ix2"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text" style="font-size:90%;">primarycluster.denoised.fasta.gz</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I1.ix2.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">ノイジーと判定されなかったプライマリクラスタの代表配列</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch3.I1.ix3"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text" style="font-size:90%;">primarycluster.fasta.gz</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I1.ix3.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">プライマリクラスタの代表配列</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch3.I1.ix4"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text" style="font-size:90%;">secondarycluster.fasta.gz</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I1.ix4.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">セカンダリクラスタの代表配列</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch3.I1.ix5"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.noisyreads.txt.gz</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I1.ix5.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">ノイジー配列と判定された配列のリスト</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch3.I1.ix6"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.singletons.txt.gz</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I1.ix6.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">プライマリクラスタリングでシングルトンになった配列のリスト</span>
-              </p>
-</div>
-</dd>
-</dl>
-<p class="ltx_p">他にも多くのファイルが出力されますが、後の解析に必要なものもありますので削除しないようにして下さい。</p>
-</div>
-<section id="Ch3.S1.SS1" class="ltx_subsection">
-<h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">3.1.1 </span>PCRレプリケート法によるノイジー配列・キメラ配列の除去</h4>
-
-<div id="Ch3.S1.SS1.p1" class="ltx_para">
-<p class="ltx_p">PCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去するには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
-以下のような内容で用意して下さい。</p>
-<p class="ltx_p ltx_align_left" style="background-color:#E6E6E6;padding-top:12pt;padding-bottom:12pt;">
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| sample1  sample2  sample3</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| sample4  sample5</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| sample6  sample7</span>
-            </span>
-</p>
-<p class="ltx_p">同一の行内にタブ区切りで書かれたサンプルが、同一鋳型由来のPCRレプリケートであることを表しています。
-異なる鋳型由来のサンプルは別の行に記述して下さい。
-PCRレプリケートは3つ以上あっても構いません。
-また、レプリケート数が鋳型ごとに異なっても構いません。</p>
-</div>
-<div id="Ch3.S1.SS1.p2" class="ltx_para">
-<p class="ltx_p">上記ファイルが用意できたら、以下のように<span class="ltx_text ltx_font_typewriter">clcleanseqv</span>を実行することでレプリケート間で共通しないプライマリクラスタをキメラもしくはノイジーであると判断して除去します。</p>
-<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clcleanseqv \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--replicatelist=PCRレプリケート指示ファイル \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--derepmode=PREFIX \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--primarymaxnmismatch=0 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--secondarymaxnmismatch=1 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--pnoisycluster=0.5 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">中略 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイルN \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
-            </span>
-</p>
 <p class="ltx_p">レプリケートが3つ以上であっても、全てのレプリケートで検出されたプライマリクラスタのみがノイジーでもキメラでもないと判断されます。
 また、1つのプライマリクラスタが複数の鋳型から検出されていた場合、どれか1つの鋳型でノイジーまたはキメラと判定されていれば、他の鋳型でもノイジーまたはキメラとみなして除去します。
 これらの設定は以下のオプションで変更することができます。</p>
 <dl id="Ch3.I2" class="ltx_description">
 <dt id="Ch3.I2.ix1"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minnreplicate</span>
-              </span></dt>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minnreplicate</span>
+            </span></dt>
 <dd>
 <div id="Ch3.I2.ix1.p1" class="ltx_para">
 <p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">整数値で指定。
+                <span class="ltx_text" style="font-size:90%;">整数値で指定。
 この値以上のレプリケートで観測されたプライマリクラスタはそのサンプルではノイジーでもキメラでもないと見なす。
 デフォルト値は</span>
-                  <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">2</span>
-                  <span class="ltx_text" style="font-size:90%;">。</span>
-                </p>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">2</span>
+                <span class="ltx_text" style="font-size:90%;">。</span>
+              </p>
 </div>
 </dd>
 <dt id="Ch3.I2.ix2"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minpreplicate</span>
-              </span></dt>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minpreplicate</span>
+            </span></dt>
 <dd>
 <div id="Ch3.I2.ix2.p1" class="ltx_para">
 <p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">小数値で指定。
+                <span class="ltx_text" style="font-size:90%;">小数値で指定。
 プライマリクラスタが観測されたレプリケート数/サンプルの総レプリケート数がこの値以上であれば、そのサンプルではノイジーでもキメラでもないと見なす。
 デフォルト値は</span>
-                  <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">1</span>
-                  <span class="ltx_text" style="font-size:90%;">。</span>
-                </p>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">1</span>
+                <span class="ltx_text" style="font-size:90%;">。</span>
+              </p>
 </div>
 </dd>
 <dt id="Ch3.I2.ix3"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minnpositive</span>
-              </span></dt>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minnpositive</span>
+            </span></dt>
 <dd>
 <div id="Ch3.I2.ix3.p1" class="ltx_para">
 <p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">整数値で指定。
+                <span class="ltx_text" style="font-size:90%;">整数値で指定。
 この値以上の配列(サンプルではない)がノイジーまたはキメラと判定されていれば、全サンプルでノイジーまたはキメラと見なす。
 デフォルト値は</span>
-                  <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">1</span>
-                  <span class="ltx_text" style="font-size:90%;">。</span>
-                </p>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">1</span>
+                <span class="ltx_text" style="font-size:90%;">。</span>
+              </p>
 </div>
 </dd>
 <dt id="Ch3.I2.ix4"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minppositive</span>
-              </span></dt>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minppositive</span>
+            </span></dt>
 <dd>
 <div id="Ch3.I2.ix4.p1" class="ltx_para">
 <p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">小数値で指定。
+                <span class="ltx_text" style="font-size:90%;">小数値で指定。
 ノイジーまたはキメラと判定された配列数/プライマリクラスタの総配列数がこの値以上であれば、全サンプルでノイジーまたはキメラと見なす。
 デフォルト値は</span>
-                  <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">0</span>
-                  <span class="ltx_text" style="font-size:90%;">。</span>
-                </p>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">0</span>
+                <span class="ltx_text" style="font-size:90%;">。</span>
+              </p>
 </div>
 </dd>
 <dt id="Ch3.I2.ix5"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--runname</span>
-              </span></dt>
+              <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--runname</span>
+            </span></dt>
 <dd>
 <div id="Ch3.I2.ix5.p1" class="ltx_para">
 <p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">ランIDを指定。
+                <span class="ltx_text" style="font-size:90%;">ランIDを指定。
 サンプル名に含まれるランIDが全てこれに置換される。
 同一サンプル名になったサンプルは統合される。</span>
-                </p>
+              </p>
 </div>
 </dd>
 </dl>
@@ -2217,63 +2213,59 @@ PCRレプリケートは3つ以上あっても構いません。
 最終的な判定は全サンプル共通です。
 また、PCRレプリケート指示ファイルに記されていないサンプルは判定に使われません。</p>
 </div>
-<div id="Ch3.S1.SS1.p3" class="ltx_para">
+<div id="Ch3.S1.p3" class="ltx_para">
 <p class="ltx_p">上記のように<span class="ltx_text ltx_font_typewriter">clcleanseqv</span>を実行すると、以下のようなファイルも出力フォルダに保存されます。</p>
 <dl id="Ch3.I3" class="ltx_description">
 <dt id="Ch3.I3.ix1"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text" style="font-size:90%;">primarycluster.chimeraremoved.fasta.gz</span>
-              </span></dt>
+              <span class="ltx_text" style="font-size:90%;">primarycluster.chimeraremoved.fasta.gz</span>
+            </span></dt>
 <dd>
 <div id="Ch3.I3.ix1.p1" class="ltx_para">
 <p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">キメラと判定されなかったプライマリクラスタの代表配列</span>
-                </p>
+                <span class="ltx_text" style="font-size:90%;">キメラと判定されなかったプライマリクラスタの代表配列</span>
+              </p>
 </div>
 </dd>
 <dt id="Ch3.I3.ix2"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text" style="font-size:90%;">primarycluster.cleaned.fasta.gz</span>
-              </span></dt>
+              <span class="ltx_text" style="font-size:90%;">primarycluster.cleaned.fasta.gz</span>
+            </span></dt>
 <dd>
 <div id="Ch3.I3.ix2.p1" class="ltx_para">
 <p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">ノイジーでもキメラでもないと判定されたプライマリクラスタの代表配列</span>
-                </p>
+                <span class="ltx_text" style="font-size:90%;">ノイジーでもキメラでもないと判定されたプライマリクラスタの代表配列</span>
+              </p>
 </div>
 </dd>
 <dt id="Ch3.I3.ix3"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.chimericreads.txt.gz</span>
-              </span></dt>
+              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.chimericreads.txt.gz</span>
+            </span></dt>
 <dd>
 <div id="Ch3.I3.ix3.p1" class="ltx_para">
 <p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">キメラ配列と判定された配列のリスト</span>
-                </p>
+                <span class="ltx_text" style="font-size:90%;">キメラ配列と判定された配列のリスト</span>
+              </p>
 </div>
 </dd>
 </dl>
 </div>
 </section>
 </section>
-<section id="Ch3.S2" class="ltx_section">
-<h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">3.2 </span>Assamsを用いた旧パイプラインの場合</h3>
+<section id="Ch4" class="ltx_chapter">
+<h2 class="ltx_title ltx_title_chapter">
+<span class="ltx_tag ltx_tag_chapter">第4章 </span>塩基配列クラスタリングに基づくOTUピッキング</h2>
 
-<div id="Ch3.S2.p1" class="ltx_para">
-<p class="ltx_p">以下のコマンドでノイジー配列とキメラ配列の検出・除去が行えます。
-なお、多数のファイルを一度に与えることができますが、できるだけ1ラン分のファイルを与えて下さい。
-これは、ランごとに塩基配列決定の質にばらつきがあるためです1ラン分の配列が非常に多く(100万超)時間がかかってしまう場合は、1サンプルごとにこの処理を行って下さい。</p>
+<section id="Ch4.S1" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4.1 </span>サンプル間での配列クラスタリング</h3>
+
+<div id="Ch4.S1.p1" class="ltx_para">
+<p class="ltx_p">塩基配列のクラスタリングを行ってOTUを作成するには、以下のコマンドを実行して下さい。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clcleanseq \</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clclassseqv \</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">uchime --minh 0.1 --mindiv 0.8 end \</span>
-          </span>
-<span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--detectmode=N+C \</span>
-          </span>
-<span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--pnoisycluster=0.5 \</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0.97 \</span>
           </span>
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
@@ -2291,686 +2283,76 @@ PCRレプリケートは3つ以上あっても構いません。
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
           </span>
 </p>
-<p class="ltx_p">オプションのうち、<span class="ltx_text ltx_font_typewriter">uchime</span>から<span class="ltx_text ltx_font_typewriter">end</span>の間はUCHIMEの実行オプションです。
-<span class="ltx_text ltx_font_typewriter">--minh</span>と<span class="ltx_text ltx_font_typewriter">--mindiv</span>はキメラ配列と判定する感度に関するオプションです。
-<span class="ltx_text ltx_font_typewriter">--minh</span>は値が小さいほど感度が高くなります。
-UCHIMEの作者は0.1以上5以下の範囲にするよう推奨しています。
-デフォルト値は0.1です。
-<span class="ltx_text ltx_font_typewriter">--mindiv</span>の指定値が0.8の場合、0.8%以下の違いしかない配列間はキメラが形成されていても無視されます。
-最終的に97%一致規準で配列をクラスタリングするとしたら、2%程度の違いしかない配列間のキメラはクラスタリング・コンセンサス配列作成によって潰されるため、この値を大きくすることで計算が速くなります。
-また、<span class="ltx_text ltx_font_typewriter">--pnoisycluster</span>はノイジー配列と判定する感度に関するオプションです。
-0以上1以下で指定して下さい。
-大きいほど感度が上がります。
-デフォルト値・推奨値は0.5です。
-クラスタリングを最終的に97%以下の閾値で行うのであればこれでいいと思いますが、99%前後でクラスタリングする場合、<span class="ltx_text ltx_font_typewriter">--pnoisycluster</span>は0.9くらいにするといいかもしれません。
-ただし、レアOTUを捨ててしまう可能性が高くなるので、1サンプル当たりの配列数を多めに読んでおく必要があります。</p>
-</div>
-<div id="Ch3.S2.p2" class="ltx_para">
-<p class="ltx_p">各入力ファイルは同一の鋳型を同一のチューブ内でPCRした配列群を含んでいる必要があります。
-Claidentがキメラ検出に利用しているUCHIMEでは、元配列数が多いコンセンサス配列ほどPCR当初から存在した＝キメラではないと仮定し、元配列数が少ないコンセンサス配列が、より元配列数の多いコンセンサス配列の部分配列の組み合わせで説明できるかどうかを検討します。
-したがって、UCHIMEに「同一の鋳型を同一のチューブ内でPCRした配列群内でのコンセンサス配列の元配列数」を正確に伝える必要があるため、1ファイルは同一の鋳型を同一のチューブ内でPCRした配列群でなくてはならないのです。
-これは1ラン分のファイルを一度に与えることよりもはるかに優先度が高いので、同一の鋳型を同一のチューブ内でPCRしたサンプルを複数回のランで塩基配列決定した場合などは複数ラン分のデータを入力しても構いません。</p>
-</div>
-<div id="Ch3.S2.p3" class="ltx_para">
-<p class="ltx_p">UCHIMEによるキメラ判定はそれぞれのサンプルごとに行われ、複数のサンプルで観測されている完全一致配列の場合、どれか1つのサンプルでキメラと判定されていれば、他のサンプルでもキメラとみなして除去します。
-ただし、下記のオプションでこの動作を変更することができます。
-両オプションの両方を満たせばキメラと判定されます。</p>
-<dl id="Ch3.I4" class="ltx_description">
-<dt id="Ch3.I4.ix1"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minnpositive</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I4.ix1.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">整数値で指定。
-この値以上の配列(サンプルではない)がキメラと判定されていれば、全サンプルでキメラと見なす。
-デフォルト値は</span>
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">1</span>
-                <span class="ltx_text" style="font-size:90%;">。</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch3.I4.ix2"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minppositive</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I4.ix2.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">小数値で指定。
-キメラと判定された配列数/完全一致した全配列数がこの値以上であれば、全サンプルでキメラと見なす。
-デフォルト値は</span>
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">0</span>
-                <span class="ltx_text" style="font-size:90%;">。</span>
-              </p>
-</div>
-</dd>
-</dl>
-<p class="ltx_p">出力フォルダには、以下のファイル群が保存されます。</p>
-<dl id="Ch3.I5" class="ltx_description">
-<dt id="Ch3.I5.ix1"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.chimeraremoved.dereplicated.fastq.gz</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I5.ix1.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">キメラ配列除去し完全一致配列をまとめた配列</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch3.I5.ix2"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.chimeraremoved.fastq.gz</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I5.ix2.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">キメラ配列除去した配列</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch3.I5.ix3"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.denoised.dereplicated.fastq.gz</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I5.ix3.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">ノイジー配列除去し完全一致配列をまとめた配列</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch3.I5.ix4"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.denoised.fastq.gz</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I5.ix4.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">ノイジー配列除去した配列</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch3.I5.ix5"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.cleaned.dereplicated.fastq.gz</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I5.ix5.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">キメラ配列とノイジー配列を除去し完全一致配列をまとめた配列</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch3.I5.ix6"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.cleaned.fastq.gz</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I5.ix6.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">キメラ配列とノイジー配列を除去した配列</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch3.I5.ix7"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.chimericreads.txt.gz</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I5.ix7.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">キメラ配列と判定された配列のリスト</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch3.I5.ix8"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.noisyreads.txt.gz</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I5.ix8.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">ノイジー配列と判定された配列のリスト</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch3.I5.ix9"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.singletons.txt.gz</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I5.ix9.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">完全一致配列をまとめたときにシングルトンになった配列のリスト</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch3.I5.ix10"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.uchime.txt.gz</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I5.ix10.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">UCHIMEによるキメラ判定結果のログ</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch3.I5.ix11"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.parameter.txt</span>
-            </span></dt>
-<dd>
-<div id="Ch3.I5.ix11.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">まとまった完全一致配列をノイジーと判定するのに使用した所属配列数の下限値</span>
-              </p>
-</div>
-</dd>
-</dl>
-<p class="ltx_p">他にも多くのファイルが出力されますが、後の解析に必要なものもありますので削除しないようにして下さい。
-キメラ配列除去を無効化してノイジー配列除去のみを行う場合は<span class="ltx_text ltx_font_typewriter">--detectmode=noise</span>、逆にノイジー配列除去を無効化してキメラ配列除去のみを行う場合は<span class="ltx_text ltx_font_typewriter">--detectmode=chimera</span>オプションを付けて実行して下さい。
-ただし、<span class="ltx_text ltx_font_typewriter">--detectmode=noise</span>で処理した結果を<span class="ltx_text ltx_font_typewriter">--detectmode=chimera</span>で処理しても、一度にノイジー配列・キメラ配列除去を行った場合(<span class="ltx_text ltx_font_typewriter">--detectmode=N+C</span>を指定した場合またはデフォルト設定)と結果は一致しませんのでご注意下さい。
-処理する場合は同時に行う必要があります。
-これは、キメラ配列もノイジー配列と判定するための情報を持っており、同時処理の場合にはそれを利用するためです。</p>
-</div>
-<section id="Ch3.S2.SS1" class="ltx_subsection">
-<h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">3.2.1 </span>PCRレプリケート法によるノイジー配列・キメラ配列の除去</h4>
-
-<div id="Ch3.S2.SS1.p1" class="ltx_para">
-<p class="ltx_p">PCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去するには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
-以下のような内容で用意して下さい。</p>
-<p class="ltx_p ltx_align_left" style="background-color:#E6E6E6;padding-top:12pt;padding-bottom:12pt;">
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| sample1  sample2  sample3</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| sample4  sample5</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| sample6  sample7</span>
-            </span>
-</p>
-<p class="ltx_p">同一の行内にタブ区切りで書かれたサンプルが、同一鋳型由来のPCRレプリケートであることを表しています。
-異なる鋳型由来のサンプルは別の行に記述して下さい。
-PCRレプリケートは3つ以上あっても構いません。
-また、レプリケート数が鋳型ごとに異なっても構いません。</p>
-</div>
-<div id="Ch3.S2.SS1.p2" class="ltx_para">
-<p class="ltx_p">上記ファイルが用意できたら、以下のように<span class="ltx_text ltx_font_typewriter">clcleanseq</span>を実行することでレプリケート間で共通しないプライマリクラスタをキメラもしくはノイジーであると判断して除去します。</p>
-<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clcleanseq \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--replicatelist=PCRレプリケート指示ファイル \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">uchime --minh 0.1 --mindiv 0.8 end \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--detectmode=N+C \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--pnoisycluster=0.5 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">中略 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイルN \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
-            </span>
-</p>
-<p class="ltx_p">レプリケートが3つ以上であっても、全てのレプリケートで検出されたプライマリクラスタのみがノイジーでもキメラでもないと判断されます。
-また、1つのプライマリクラスタが複数の鋳型から検出されていた場合、どれか1つの鋳型でノイジーまたはキメラと判定されていれば、他の鋳型でもノイジーまたはキメラとみなして除去します。
-これらの設定は以下のオプションで変更することができます。</p>
-<dl id="Ch3.I6" class="ltx_description">
-<dt id="Ch3.I6.ix1"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minnreplicate</span>
-              </span></dt>
-<dd>
-<div id="Ch3.I6.ix1.p1" class="ltx_para">
-<p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">整数値で指定。
-この値以上のレプリケートで観測されたプライマリクラスタはそのサンプルではノイジーでもキメラでもないと見なす。
-デフォルト値は</span>
-                  <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">2</span>
-                  <span class="ltx_text" style="font-size:90%;">。</span>
-                </p>
-</div>
-</dd>
-<dt id="Ch3.I6.ix2"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minpreplicate</span>
-              </span></dt>
-<dd>
-<div id="Ch3.I6.ix2.p1" class="ltx_para">
-<p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">小数値で指定。
-プライマリクラスタが観測されたレプリケート数/サンプルの総レプリケート数がこの値以上であれば、そのサンプルではノイジーでもキメラでもないと見なす。
-デフォルト値は</span>
-                  <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">1</span>
-                  <span class="ltx_text" style="font-size:90%;">。</span>
-                </p>
-</div>
-</dd>
-<dt id="Ch3.I6.ix3"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minnpositive</span>
-              </span></dt>
-<dd>
-<div id="Ch3.I6.ix3.p1" class="ltx_para">
-<p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">整数値で指定。
-この値以上の配列(サンプルではない)がノイジーまたはキメラと判定されていれば、全サンプルでノイジーまたはキメラと見なす。
-デフォルト値は</span>
-                  <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">1</span>
-                  <span class="ltx_text" style="font-size:90%;">。</span>
-                </p>
-</div>
-</dd>
-<dt id="Ch3.I6.ix4"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minppositive</span>
-              </span></dt>
-<dd>
-<div id="Ch3.I6.ix4.p1" class="ltx_para">
-<p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">小数値で指定。
-ノイジーまたはキメラと判定された配列数/プライマリクラスタの総配列数がこの値以上であれば、全サンプルでノイジーまたはキメラと見なす。
-デフォルト値は</span>
-                  <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">0</span>
-                  <span class="ltx_text" style="font-size:90%;">。</span>
-                </p>
-</div>
-</dd>
-<dt id="Ch3.I6.ix5"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--runname</span>
-              </span></dt>
-<dd>
-<div id="Ch3.I6.ix5.p1" class="ltx_para">
-<p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">ランIDを指定。
-サンプル名に含まれるランIDが全てこれに置換される。
-同一サンプル名になったサンプルは統合される。</span>
-                </p>
-</div>
-</dd>
-</dl>
-<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">--minnreplicate</span>と<span class="ltx_text ltx_font_typewriter">--minpreplicate</span>の値に基づく1サンプル内での判定と、<span class="ltx_text ltx_font_typewriter">--minnpositive</span>と<span class="ltx_text ltx_font_typewriter">--minppositive</span>の値に基づく全サンプルにまたがる判定が2段階で行われていることに注意して下さい。
-前者では2つの条件を両方満たすとノイジーでもキメラでもないと判定され、後者では2つの条件を両方満たすとノイジーまたはキメラであると判定されます。
-また、同一のプライマリクラスタが、あるサンプルではノイジーまたはキメラだが、別のサンプルではそうでない、といった判定は行えません。
-最終的な判定は全サンプル共通です。
-また、PCRレプリケート指示ファイルに記されていないサンプルは判定に使われません。</p>
-</div>
-</section>
-</section>
-</section>
-<section id="Ch4" class="ltx_chapter">
-<h2 class="ltx_title ltx_title_chapter">
-<span class="ltx_tag ltx_tag_chapter">第4章 </span>塩基配列クラスタリングに基づくOTUピッキング</h2>
-
-<section id="Ch4.S1" class="ltx_section">
-<h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">4.1 </span>サンプル内での配列クラスタリング</h3>
-
-<section id="Ch4.S1.SS1" class="ltx_subsection">
-<h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">4.1.1 </span>VSEARCHを用いた新パイプラインの場合</h4>
-
-<div id="Ch4.S1.SS1.p1" class="ltx_para">
-<p class="ltx_p">新パイプラインではこのステップはありません。</p>
-</div>
-</section>
-<section id="Ch4.S1.SS2" class="ltx_subsection">
-<h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">4.1.2 </span>Assamsを用いた旧パイプラインの場合</h4>
-
-<div id="Ch4.S1.SS2.p1" class="ltx_para">
-<p class="ltx_p">以下のコマンドで、同一の鋳型を同一のチューブ内でPCRした配列群のクラスタリングを行います。
-前節の結果得られる、完全一致配列をまとめた結果(<span class="ltx_text ltx_font_typewriter">ランID__タグID__プライマーID.cleaned.dereplicated.fastq.gz</span>)を入力します。</p>
-<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clclassseq \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--strand=plus \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">中略 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイルN \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
-            </span>
-</p>
-<p class="ltx_p">前節の出力ファイルに対してこの処理を適用する場合、以下のようにコマンドを打てばいいでしょう。</p>
-<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clclassseq \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--strand=plus \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">"前節の出力フォルダ/*.cleaned.dereplicated.fastq.gz" \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
-            </span>
-</p>
-<p class="ltx_p">オプションのうち、<span class="ltx_text ltx_font_typewriter">--minident=0</span>は不一致が1塩基以下の配列をまとめる設定です(実際には、類似度が(最短配列の長さ-11/最短配列の長さ-10)以上の配列をまとめます。
-最長配列の長さが400bpで最短配列の長さが350bpなら、0.997となり、400bpの配列でも1塩基しか不一致は許容されませんので意図通りになりますが、最短配列と最長配列の差が大きすぎると意図した通りになりません。
-そのため、最短配列は最長配列の半分より11塩基以上長くなくてはなりません)。
-最終的に97%で配列をまとめる場合もこの時点では0にしておくのがおすすめです。
-最終的に99%でまとめる場合にもここでは0にしておきます。
-<span class="ltx_text ltx_font_typewriter">--strand=plus</span>は同一ストランドの比較だけでクラスタリングを行うオプションです。
-片側からしか読んでいないので、両ストランドの比較をする必要はなく、比較するとかえって異常なクラスタリングをしかねません。
-両側から読んでいる場合も、連結した後はストランドは揃っているのでこれでいいはずです。
-出力フォルダ内の<span class="ltx_text ltx_font_typewriter">*.assembled.fastq.gz</span>がクラスタリング後の配列です。</p>
-</div>
-</section>
-</section>
-<section id="Ch4.S2" class="ltx_section">
-<h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">4.2 </span>サンプル間での配列クラスタリング</h3>
-
-<section id="Ch4.S2.SS1" class="ltx_subsection">
-<h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">4.2.1 </span>VSEARCHを用いた新パイプラインの場合</h4>
-
-<div id="Ch4.S2.SS1.p1" class="ltx_para">
-<p class="ltx_p">塩基配列のクラスタリングを行ってOTUを作成するには、以下のコマンドを実行して下さい。</p>
-<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clclassseqv \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0.97 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">中略 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイルN \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
-            </span>
-</p>
 <p class="ltx_p">入力ファイルには、<span class="ltx_text ltx_font_typewriter">clcleanseqv</span>の実行時にPCRレプリケート法によるノイジー配列・キメラ配列の除去を併用した場合は<span class="ltx_text ltx_font_typewriter">primarycluster.cleaned.fasta.gz</span>を、併用しなかった場合には<span class="ltx_text ltx_font_typewriter">primarycluster.denoised.fasta.gz</span>を与えて下さい。
 オーバーラップのないペアエンドデータを<span class="ltx_text ltx_font_typewriter">clconcatpair</span>を用いて連結した配列では、<span class="ltx_text ltx_font_typewriter">--paddinglen=16</span>をオプションとして加えて実行して下さい。</p>
 </div>
-<div id="Ch4.S2.SS1.p2" class="ltx_para">
+<div id="Ch4.S1.p2" class="ltx_para">
 <p class="ltx_p">出力フォルダには、以下のファイルが保存されています。</p>
 <dl id="Ch4.I1" class="ltx_description">
 <dt id="Ch4.I1.ix1"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text" style="font-size:90%;">clustered.otu.gz</span>
-              </span></dt>
+              <span class="ltx_text" style="font-size:90%;">clustered.otu.gz</span>
+            </span></dt>
 <dd>
 <div id="Ch4.I1.ix1.p1" class="ltx_para">
 <p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">どの生配列がどのOTUに割り当てられたかを記録しているファイル</span>
-                </p>
+                <span class="ltx_text" style="font-size:90%;">どの生配列がどのOTUに割り当てられたかを記録しているファイル</span>
+              </p>
 </div>
 </dd>
 <dt id="Ch4.I1.ix2"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text" style="font-size:90%;">clustered.fasta.gz</span>
-              </span></dt>
+              <span class="ltx_text" style="font-size:90%;">clustered.fasta</span>
+            </span></dt>
 <dd>
 <div id="Ch4.I1.ix2.p1" class="ltx_para">
 <p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">OTUの代表配列</span>
-                </p>
+                <span class="ltx_text" style="font-size:90%;">OTUの代表配列</span>
+              </p>
 </div>
 </dd>
 </dl>
 </div>
 </section>
-<section id="Ch4.S2.SS2" class="ltx_subsection">
-<h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">4.2.2 </span>Assamsを用いた旧パイプラインの場合</h4>
-
-<div id="Ch4.S2.SS2.p1" class="ltx_para">
-<p class="ltx_p">サンプル内クラスタリングデータを用いてサンプル間でのクラスタリングを行い、全体のクラスタリング結果を得るには以下のコマンドを実行します。
-1サンプルしかない場合も、上記のサンプル内配列クラスタリングを行ってからこの処理を行って下さい。</p>
-<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clclassclass \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--strand=plus \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">中略 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイルN \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ1↓</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clreclassclass \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0.99 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--strand=plus \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ1 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ2↓</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clreclassclass \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0.97 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--strand=plus \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ2 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ3↓</span>
-            </span>
-</p>
-<p class="ltx_p">ここでの入力ファイルは前節の出力ファイル<span class="ltx_text ltx_font_typewriter">*.assembled.fastq.gz</span>です。
-したがって、実際には以下のように入力することになるでしょう。</p>
-<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clclassclass \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--strand=plus \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">"前節の出力フォルダ/*.assembled.fastq.gz" \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ1↓</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clreclassclass \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0.99 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--strand=plus \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ1 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ2↓</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clreclassclass \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0.97 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--strand=plus \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ2 \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ3↓</span>
-            </span>
-</p>
-<p class="ltx_p">1つ目の<span class="ltx_text ltx_font_typewriter">clclassclass</span>でサンプル内配列クラスタリングでまとめられた配列において、不一致が1塩基以下の配列をまとめます。
-2つ目の<span class="ltx_text ltx_font_typewriter">clreclassclass</span>で、99%以上一致する配列をまとめ直します。
-さらに3つ目の<span class="ltx_text ltx_font_typewriter">clreclassclass</span>で、97%以上一致する配列をまとめ直します。
-こうすることで、より高速に、より正確にクラスタリングが行われます。
-<span class="ltx_text ltx_font_typewriter">clreclassclass</span>を使用せずに<span class="ltx_text ltx_font_typewriter">clclassclass</span>に97%でまとめるよう指示してしまうと、アルゴリズム上「まとめすぎ」が発生しやすくなります。</p>
-</div>
-<div id="Ch4.S2.SS2.p2" class="ltx_para">
-<p class="ltx_p">出力フォルダには、以下のファイルが保存されています。</p>
-<dl id="Ch4.I2" class="ltx_description">
-<dt id="Ch4.I2.ix1"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text" style="font-size:90%;">assembled.contigmembers.gz</span>
-              </span></dt>
-<dd>
-<div id="Ch4.I2.ix1.p1" class="ltx_para">
-<p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">どの生配列がどのOTUに割り当てられたかを記録しているファイル</span>
-                </p>
-</div>
-</dd>
-<dt id="Ch4.I2.ix2"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text" style="font-size:90%;">assembled.fastq.gz</span>
-              </span></dt>
-<dd>
-<div id="Ch4.I2.ix2.p1" class="ltx_para">
-<p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">OTUのコンセンサス配列</span>
-                </p>
-</div>
-</dd>
-<dt id="Ch4.I2.ix3"><span class="ltx_tag ltx_tag_description">
-                <span class="ltx_text" style="font-size:90%;">assembled.fasta</span>
-              </span></dt>
-<dd>
-<div id="Ch4.I2.ix3.p1" class="ltx_para">
-<p class="ltx_p">
-                  <span class="ltx_text" style="font-size:90%;">OTUのコンセンサス配列</span>
-                </p>
-</div>
-</dd>
-</dl>
-</div>
-</section>
-</section>
-<section id="Ch4.S3" class="ltx_section">
+<section id="Ch4.S2" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">4.3 </span>OTU代表配列への生配列のマッピング</h3>
+<span class="ltx_tag ltx_tag_section">4.2 </span>OTU代表配列への生配列のマッピング</h3>
 
-<div id="Ch4.S3.p1" class="ltx_para">
+<div id="Ch4.S2.p1" class="ltx_para">
 <p class="ltx_p">ノイジー配列・キメラ配列と判定されてしまった配列でも、OTUの代表配列に対して指定した類似度の閾値で貼り付けることが可能なのであれば、復活させることができます。
 これにより、データの減少を抑えることができます。</p>
 </div>
-<section id="Ch4.S3.SS1" class="ltx_subsection">
-<h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">4.3.1 </span>VSEARCHを用いた新パイプラインの場合</h4>
-
-<div id="Ch4.S3.SS1.p1" class="ltx_para">
+<div id="Ch4.S2.p2" class="ltx_para">
 <p class="ltx_p">以下のコマンドを実行して下さい。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clrecoverseqv \</span>
-            </span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clrecoverseqv \</span>
+          </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0.97 \</span>
-            </span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0.97 \</span>
+          </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--centroid=OTU代表配列のファイル \</span>
-            </span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--centroid=OTU代表配列のファイル \</span>
+          </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
-            </span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+          </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
-            </span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
+          </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">中略 \</span>
-            </span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">中略 \</span>
+          </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイルN \</span>
-            </span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイルN \</span>
+          </span>
 <span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
-            </span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
+          </span>
 </p>
-<p class="ltx_p">OTU代表配列のファイルには<span class="ltx_text ltx_font_typewriter">clclassseqv</span>の出力した<span class="ltx_text ltx_font_typewriter">clustered.fasta.gz</span>を用います。
-入力ファイルとしては、<span class="ltx_text ltx_font_typewriter">clcleanseqv</span>の出力した<span class="ltx_text ltx_font_typewriter">primarycluster.fasta.gz</span>または<span class="ltx_text ltx_font_typewriter">clcleanseqv</span>での処理や低品質配列の除去を行う前の配列ファイルを使用して下さい。
+<p class="ltx_p">OTU代表配列のファイルには<span class="ltx_text ltx_font_typewriter">clclassseqv</span>の出力した<span class="ltx_text ltx_font_typewriter">clustered.fasta</span>を用います。
+入力ファイルとしては、<span class="ltx_text ltx_font_typewriter">clcleanseqv</span>の出力した<span class="ltx_text ltx_font_typewriter">primarycluster.fasta.gz</span>を使用して下さい。
 出力フォルダには、<span class="ltx_text ltx_font_typewriter">clclassseqv</span>と同様のファイル群が作成されます。
 なお、オーバーラップのないペアエンドデータを<span class="ltx_text ltx_font_typewriter">clconcatpair</span>を用いて連結した配列では、<span class="ltx_text ltx_font_typewriter">--paddinglen=16</span>をオプションとして加えて実行して下さい。</p>
 </div>
-</section>
-<section id="Ch4.S3.SS2" class="ltx_subsection">
-<h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">4.3.2 </span>Assamsを用いた旧パイプラインの場合</h4>
-
-<div id="Ch4.S3.SS2.p1" class="ltx_para">
-<p class="ltx_p">旧パイプラインではこのステップはありません。</p>
-</div>
-</section>
 </section>
 </section>
 <section id="Ch5" class="ltx_chapter">
@@ -2997,28 +2379,39 @@ PCRレプリケートは3つ以上あっても構いません。
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力ファイル↓</span>
           </span>
 </p>
-<p class="ltx_p">ここでの入力ファイルは、クラスタリング結果の出力フォルダに保存されている、<span class="ltx_text ltx_font_typewriter">clustered.otu.gz</span> (新パイプライン)または<span class="ltx_text ltx_font_typewriter">assembled.contigmembers.gz</span> (旧パイプライン)というファイルです。
+<p class="ltx_p">ここでの入力ファイルは、クラスタリング結果の出力フォルダに保存されている、<span class="ltx_text ltx_font_typewriter">clustered.otu.gz</span>です。
 出力されるファイルは表<a href="#Ch5.T1" title="表 5.1 ‣ 5.1 集計表の作成 ‣ 第5章 OTUピッキング結果の要約と後処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.1</span></a>のようなタブ区切りのテキストファイルで、Excelなどの表計算ソフトやRで読み込むことができます。
 ただし、表計算ソフトは巨大な行列の全てを読み込むことができない可能性がありますので注意して下さい。
 このファイルに基づいて、群集生態学的な解析を行うことができます。</p>
 </div>
 <figure id="Ch5.T1" class="ltx_table">
 <table class="ltx_tabular ltx_centering ltx_align_middle">
-<tbody class="ltx_tbody">
+<thead class="ltx_thead">
 <tr class="ltx_tr">
 <th class="ltx_td ltx_align_left ltx_border_r">
                 <span class="ltx_text" style="font-size:80%;">samplename</span>
               </th>
-<td class="ltx_td ltx_align_right">
-                <span class="ltx_text" style="font-size:80%;">amongsampleotu_1</span>
-              </td>
-<td class="ltx_td ltx_align_right">
-                <span class="ltx_text" style="font-size:80%;">amongsampleotu_2</span>
-              </td>
-<td class="ltx_td ltx_align_right">
-                <span class="ltx_text" style="font-size:80%;">amongsampleotu_3</span>
-              </td>
+<th class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">OTU1</span>
+              </th>
+<th class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">OTU2</span>
+              </th>
+<th class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">OTU3</span>
+              </th>
+<th class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">OTU4</span>
+              </th>
+<th class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">OTU5</span>
+              </th>
+<th class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">OTU6</span>
+              </th>
 </tr>
+</thead>
+<tbody class="ltx_tbody">
 <tr class="ltx_tr">
 <th class="ltx_td ltx_align_left ltx_border_r ltx_border_tt">
                 <span class="ltx_text" style="font-size:80%;">sampleA</span>
@@ -3028,6 +2421,15 @@ PCRレプリケートは3つ以上あっても構いません。
               </td>
 <td class="ltx_td ltx_align_right ltx_border_tt">
                 <span class="ltx_text" style="font-size:80%;">0</span>
+              </td>
+<td class="ltx_td ltx_align_right ltx_border_tt">
+                <span class="ltx_text" style="font-size:80%;">0</span>
+              </td>
+<td class="ltx_td ltx_align_right ltx_border_tt">
+                <span class="ltx_text" style="font-size:80%;">12</span>
+              </td>
+<td class="ltx_td ltx_align_right ltx_border_tt">
+                <span class="ltx_text" style="font-size:80%;">3</span>
               </td>
 <td class="ltx_td ltx_align_right ltx_border_tt">
                 <span class="ltx_text" style="font-size:80%;">0</span>
@@ -3046,6 +2448,15 @@ PCRレプリケートは3つ以上あっても構いません。
 <td class="ltx_td ltx_align_right">
                 <span class="ltx_text" style="font-size:80%;">0</span>
               </td>
+<td class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">25</span>
+              </td>
+<td class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">0</span>
+              </td>
+<td class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">1</span>
+              </td>
 </tr>
 <tr class="ltx_tr">
 <th class="ltx_td ltx_align_left ltx_border_r">
@@ -3060,6 +2471,15 @@ PCRレプリケートは3つ以上あっても構いません。
 <td class="ltx_td ltx_align_right">
                 <span class="ltx_text" style="font-size:80%;">0</span>
               </td>
+<td class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">8</span>
+              </td>
+<td class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">77</span>
+              </td>
+<td class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">6</span>
+              </td>
 </tr>
 <tr class="ltx_tr">
 <th class="ltx_td ltx_align_left ltx_border_r">
@@ -3070,6 +2490,15 @@ PCRレプリケートは3つ以上あっても構いません。
               </td>
 <td class="ltx_td ltx_align_right">
                 <span class="ltx_text" style="font-size:80%;">1436</span>
+              </td>
+<td class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">0</span>
+              </td>
+<td class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">10</span>
+              </td>
+<td class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">0</span>
               </td>
 <td class="ltx_td ltx_align_right">
                 <span class="ltx_text" style="font-size:80%;">0</span>
@@ -3088,6 +2517,15 @@ PCRレプリケートは3つ以上あっても構いません。
 <td class="ltx_td ltx_align_right">
                 <span class="ltx_text" style="font-size:80%;">1360</span>
               </td>
+<td class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">0</span>
+              </td>
+<td class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">15</span>
+              </td>
+<td class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">3</span>
+              </td>
 </tr>
 <tr class="ltx_tr">
 <th class="ltx_td ltx_align_left ltx_border_r">
@@ -3101,6 +2539,15 @@ PCRレプリケートは3つ以上あっても構いません。
               </td>
 <td class="ltx_td ltx_align_right">
                 <span class="ltx_text" style="font-size:80%;">977</span>
+              </td>
+<td class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">55</span>
+              </td>
+<td class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">6</span>
+              </td>
+<td class="ltx_td ltx_align_right">
+                <span class="ltx_text" style="font-size:80%;">8</span>
               </td>
 </tr>
 </tbody>
@@ -3330,161 +2777,28 @@ PCRレプリケート関係にあるサンプルをタブ区切りで同一行�
 </dl>
 </div>
 <div id="Ch5.S2.p2" class="ltx_para">
-<p class="ltx_p">後述するノイジー配列・キメラ配列の除去や他領域配列の除去を行った上で、残った配列を用いて<span class="ltx_text ltx_font_typewriter">--otuseq</span>などのオプションを用いたOTUの選別を行う場合は、他の選別より先に行って下さい。</p>
+<p class="ltx_p">後述するキメラ配列の除去や他領域配列の除去を行った上で、残った配列を用いて<span class="ltx_text ltx_font_typewriter">--otuseq</span>などのオプションを用いたOTUの選別を行う場合は、他の選別より先に行って下さい。</p>
 </div>
 </section>
 <section id="Ch5.S3" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">5.3 </span>PCRレプリケート法によるノイジー配列・キメラ配列の除去</h3>
+<span class="ltx_tag ltx_tag_section">5.3 </span>UCHIMEによるキメラ配列除去</h3>
 
 <div id="Ch5.S3.p1" class="ltx_para">
-<p class="ltx_p">新パイプラインでは<span class="ltx_text ltx_font_typewriter">clcleanseqv</span>の実行時に行っていますが、旧パイプラインでもPCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去することが可能です。
-それには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
-以下のような内容で用意して下さい。</p>
-<p class="ltx_p ltx_align_left" style="background-color:#E6E6E6;padding-top:12pt;padding-bottom:12pt;">
-<span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| sample1  sample2  sample3</span>
-          </span>
-<span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| sample4  sample5</span>
-          </span>
-<span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| sample6  sample7</span>
-          </span>
-</p>
-<p class="ltx_p">同一の行内にタブ区切りで書かれたサンプルが、同一鋳型由来のPCRレプリケートであることを表しています。
-異なる鋳型由来のサンプルは別の行に記述して下さい。
-PCRレプリケートは3つ以上あっても構いません。
-また、レプリケート数が鋳型ごとに異なっても構いません。</p>
-</div>
-<div id="Ch5.S3.p2" class="ltx_para">
-<p class="ltx_p">上記ファイルが用意できたら、以下のコマンドでクラスタリング結果からレプリケート間で共通しない配列を除去します。</p>
-<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
-<span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clfilterseq \</span>
-          </span>
-<span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--contigmembers=*.contigmembers.gz \</span>
-          </span>
-<span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--replicatelist=PCRレプリケート指示ファイル \</span>
-          </span>
-<span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル \</span>
-          </span>
-<span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力ファイル↓</span>
-          </span>
-</p>
-<p class="ltx_p">レプリケートが3つ以上であっても、全てのレプリケートで検出された配列のみがノイジーでもキメラでもないと判断されます。
-また、1つのOTUが複数の鋳型から検出されていた場合、どれか1つの鋳型でノイジーまたはキメラと判定されていれば、他の鋳型でもノイジーまたはキメラとみなして除去します。
-これらの設定は以下のオプションで変更することができます。</p>
-<dl id="Ch5.I2" class="ltx_description">
-<dt id="Ch5.I2.ix1"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minnreplicate</span>
-            </span></dt>
-<dd>
-<div id="Ch5.I2.ix1.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">整数値で指定。
-この値以上のレプリケートで観測されたOTUはそのサンプルではノイジーでもキメラでもないと見なす。
-デフォルト値は</span>
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">2</span>
-                <span class="ltx_text" style="font-size:90%;">。</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch5.I2.ix2"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minpreplicate</span>
-            </span></dt>
-<dd>
-<div id="Ch5.I2.ix2.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">小数値で指定。
-OTUが観測されたレプリケート数/サンプルの総レプリケート数がこの値以上であれば、そのサンプルではノイジーでもキメラでもないと見なす。
-デフォルト値は</span>
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">1</span>
-                <span class="ltx_text" style="font-size:90%;">。</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch5.I2.ix3"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minnpositive</span>
-            </span></dt>
-<dd>
-<div id="Ch5.I2.ix3.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">整数値で指定。
-この値以上の配列(サンプルではない)がノイジーまたはキメラと判定されていれば、全サンプルでノイジーまたはキメラと見なす。
-デフォルト値は</span>
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">1</span>
-                <span class="ltx_text" style="font-size:90%;">。</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch5.I2.ix4"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minppositive</span>
-            </span></dt>
-<dd>
-<div id="Ch5.I2.ix4.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">小数値で指定。
-ノイジーまたはキメラと判定された配列数/OTUの総配列数がこの値以上であれば、全サンプルでノイジーまたはキメラと見なす。
-デフォルト値は</span>
-                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">0</span>
-                <span class="ltx_text" style="font-size:90%;">。</span>
-              </p>
-</div>
-</dd>
-<dt id="Ch5.I2.ix5"><span class="ltx_tag ltx_tag_description">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--runname</span>
-            </span></dt>
-<dd>
-<div id="Ch5.I2.ix5.p1" class="ltx_para">
-<p class="ltx_p">
-                <span class="ltx_text" style="font-size:90%;">ランIDを指定。
-サンプル名に含まれるランIDが全てこれに置換される。
-同一サンプル名になったサンプルは統合される。</span>
-              </p>
-</div>
-</dd>
-</dl>
-<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">--minnreplicate</span>と<span class="ltx_text ltx_font_typewriter">--minpreplicate</span>の値に基づく1サンプル内での判定と、<span class="ltx_text ltx_font_typewriter">--minnpositive</span>と<span class="ltx_text ltx_font_typewriter">--minppositive</span>の値に基づく全サンプルにまたがる判定が2段階で行われていることに注意して下さい。
-前者では2つの条件を両方満たすとノイジーでもキメラでもないと判定され、後者では2つの条件を両方満たすとノイジーまたはキメラであると判定されます。
-また、同一のOTUが、あるサンプルではノイジーまたはキメラだが、別のサンプルではそうでない、といった判定は行えません。
-最終的な判定は全サンプル共通です。
-また、PCRレプリケート指示ファイルに記されていないサンプルは判定に使われません。</p>
-</div>
-<div id="Ch5.S3.p3" class="ltx_para">
-<p class="ltx_p">ここで作成したFASTA配列ファイルを第<a href="#Ch5.S2" title="5.2 集計表からの特定のOTU・サンプルの除去 ‣ 第5章 OTUピッキング結果の要約と後処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>節の<span class="ltx_text ltx_font_typewriter">clfiltersum</span>の<span class="ltx_text ltx_font_typewriter">--otuseq</span>オプションに指定して集計表を加工することで、この配列ファイルから除去されたOTUを集計表からも除去することができます。
-また、<span class="ltx_text ltx_font_typewriter">--replicatelist</span>オプションと<span class="ltx_text ltx_font_typewriter">--runname</span>オプションを<span class="ltx_text ltx_font_typewriter">clfilterseq</span>と同様に指定すれば、PCRレプリケート関係にあるサンプルは1つのサンプルに統合されます(セルの値は合算されます)。</p>
-</div>
-</section>
-<section id="Ch5.S4" class="ltx_section">
-<h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">5.4 </span>UCHIMEによるキメラ配列除去</h3>
-
-<div id="Ch5.S4.p1" class="ltx_para">
-<p class="ltx_p">旧パイプラインではクラスタリング前にもUCHIMEでキメラ配列除去は行っていますが、クラスタリング後の配列に対してリファレンスなしでのキメラ配列除去とリファレンスありでのキメラ配列除去を追加で行うことができます。
+<p class="ltx_p">クラスタリング後の配列に対してリファレンスなしでのキメラ配列除去とリファレンスありでのキメラ配列除去を追加で行うことができます。
 両方行う場合は、リファレンスなしでのキメラ配列除去を先に行ってから、リファレンスありでのキメラ配列除去を行います。
-両方のキメラ配列除去を行う場合は、クラスタリング前のノイジー配列・キメラ配列除去において、キメラ配列除去を無効にしてもいいかもしれません。
-クラスタリング後のキメラ配列除去の方がずっと高速なので、1サンプル当たりの配列が膨大でクラスタリング前のキメラ配列除去では長時間を要する場合には、この方法の方が適しています。
-なお、PCRレプリケート法によるノイジー配列・キメラ配列の除去も併用する場合は、PCRレプリケート法によるノイジー配列・キメラ配列の除去を最初に行います。
 利用するコマンドは<span class="ltx_text ltx_font_typewriter">clrunuchime</span>です。
-このコマンドでは、UCHIMEアルゴリズムを実装しているVSEARCHというプログラムを呼び出して、キメラ配列除去を行います。</p>
+このコマンドでは、UCHIMEアルゴリズムを実装しているVSEARCHを呼び出して、キメラ配列除去を行います。</p>
 </div>
-<section id="Ch5.S4.SS1" class="ltx_subsection">
+<section id="Ch5.S3.SS1" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">5.4.1 </span>リファレンスなしでのキメラ配列除去</h4>
+<span class="ltx_tag ltx_tag_subsection">5.3.1 </span>リファレンスなしでのキメラ配列除去</h4>
 
-<div id="Ch5.S4.SS1.p1" class="ltx_para">
+<div id="Ch5.S3.SS1.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_typewriter">clrunuchime</span>を以下のように実行して下さい。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clrunuchime \</span>
-            </span>
-<span class="ltx_p ltx_align_left">
-              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--contigmembers=*.contigmembers.gz \</span>
             </span>
 <span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--otufile=*.otu.gz \</span>
@@ -3496,20 +2810,16 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
             </span>
 </p>
-<p class="ltx_p">旧パイプラインを使用した場合は<span class="ltx_text ltx_font_typewriter">--contigmembers</span>オプションを、新パイプラインを使用した場合は<span class="ltx_text ltx_font_typewriter">--otufile</span>オプションを使用します。
-上記の例は一度に説明するためのもので、両方を指定してはいけません。
-なお、どちらも指定しなかった場合、<span class="ltx_text ltx_font_typewriter">*.otu.gz</span>が入力ファイルと同じフォルダに存在すればそれを、<span class="ltx_text ltx_font_typewriter">*.contigmembers.gz</span>が存在すればそれを見つけ出して使用しますので、普段は何も指定しなくてもいいでしょう。</p>
+<p class="ltx_p">出力フォルダの内容については後述します。</p>
 </div>
 </section>
-<section id="Ch5.S4.SS2" class="ltx_subsection">
+<section id="Ch5.S3.SS2" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">5.4.2 </span>リファレンスありでのキメラ配列除去</h4>
+<span class="ltx_tag ltx_tag_subsection">5.3.2 </span>リファレンスありでのキメラ配列除去</h4>
 
-<div id="Ch5.S4.SS2.p1" class="ltx_para">
+<div id="Ch5.S3.SS2.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_typewriter">clrunuchime</span>を以下のように実行して下さい。
 リファレンスなしでのキメラ配列除去を行った場合は、<span class="ltx_text ltx_font_typewriter">nonchimeras.fasta</span>というファイルがあるはずですので、それを入力ファイルにすればいいでしょう。</p>
-</div>
-<div id="Ch5.S4.SS2.p2" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clrunuchime \</span>
@@ -3524,57 +2834,53 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
               <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
             </span>
 </p>
-</div>
-<div id="Ch5.S4.SS2.p3" class="ltx_para">
 <p class="ltx_p">UCHIME用のリファレンスデータベース名と内容は以下の通りです。</p>
-</div>
-<div id="Ch5.S4.SS2.p4" class="ltx_para">
-<dl id="Ch5.I3" class="ltx_description">
-<dt id="Ch5.I3.ix1"><span class="ltx_tag ltx_tag_description">
+<dl id="Ch5.I2" class="ltx_description">
+<dt id="Ch5.I2.ix1"><span class="ltx_tag ltx_tag_description">
                 <span class="ltx_text" style="font-size:90%;">rdpgoldv9</span>
               </span></dt>
 <dd>
-<div id="Ch5.I3.ix1.p1" class="ltx_para">
+<div id="Ch5.I2.ix1.p1" class="ltx_para">
 <p class="ltx_p">
                   <span class="ltx_text" style="font-size:90%;">細菌16S用のRDP Goldデータベース(v9版)</span>
                 </p>
 </div>
 </dd>
-<dt id="Ch5.I3.ix2"><span class="ltx_tag ltx_tag_description">
+<dt id="Ch5.I2.ix2"><span class="ltx_tag ltx_tag_description">
                 <span class="ltx_text" style="font-size:90%;">unite20160101</span>
               </span></dt>
 <dd>
-<div id="Ch5.I3.ix2.p1" class="ltx_para">
+<div id="Ch5.I2.ix2.p1" class="ltx_para">
 <p class="ltx_p">
                   <span class="ltx_text" style="font-size:90%;">真菌ITS用のUNITEデータベース(20160101版)</span>
                 </p>
 </div>
 </dd>
-<dt id="Ch5.I3.ix3"><span class="ltx_tag ltx_tag_description">
+<dt id="Ch5.I2.ix3"><span class="ltx_tag ltx_tag_description">
                 <span class="ltx_text" style="font-size:90%;">unite20160101untrim</span>
               </span></dt>
 <dd>
-<div id="Ch5.I3.ix3.p1" class="ltx_para">
+<div id="Ch5.I2.ix3.p1" class="ltx_para">
 <p class="ltx_p">
                   <span class="ltx_text" style="font-size:90%;">真菌ITS用のUNITEデータベース(20160101トリミングなし版)</span>
                 </p>
 </div>
 </dd>
-<dt id="Ch5.I3.ix4"><span class="ltx_tag ltx_tag_description">
+<dt id="Ch5.I2.ix4"><span class="ltx_tag ltx_tag_description">
                 <span class="ltx_text" style="font-size:90%;">unite20160101its1</span>
               </span></dt>
 <dd>
-<div id="Ch5.I3.ix4.p1" class="ltx_para">
+<div id="Ch5.I2.ix4.p1" class="ltx_para">
 <p class="ltx_p">
                   <span class="ltx_text" style="font-size:90%;">真菌ITS用のUNITEデータベース(20160101ITS1版)</span>
                 </p>
 </div>
 </dd>
-<dt id="Ch5.I3.ix5"><span class="ltx_tag ltx_tag_description">
+<dt id="Ch5.I2.ix5"><span class="ltx_tag ltx_tag_description">
                 <span class="ltx_text" style="font-size:90%;">unite20160101its2</span>
               </span></dt>
 <dd>
-<div id="Ch5.I3.ix5.p1" class="ltx_para">
+<div id="Ch5.I2.ix5.p1" class="ltx_para">
 <p class="ltx_p">
                   <span class="ltx_text" style="font-size:90%;">真菌ITS用のUNITEデータベース(20160101ITS2版)</span>
                 </p>
@@ -3583,81 +2889,71 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 </dl>
 </div>
 </section>
-<section id="Ch5.S4.SS3" class="ltx_subsection">
+<section id="Ch5.S3.SS3" class="ltx_subsection">
 <h4 class="ltx_title ltx_title_subsection">
-<span class="ltx_tag ltx_tag_subsection">5.4.3 </span>出力フォルダの内容について</h4>
+<span class="ltx_tag ltx_tag_subsection">5.3.3 </span>出力フォルダの内容について</h4>
 
-<div id="Ch5.S4.SS3.p1" class="ltx_para">
+<div id="Ch5.S3.SS3.p1" class="ltx_para">
 <p class="ltx_p">出力フォルダに保存されるファイルは以下の4つです。</p>
-</div>
-<div id="Ch5.S4.SS3.p2" class="ltx_para">
-<dl id="Ch5.I4" class="ltx_description">
-<dt id="Ch5.I4.ix1"><span class="ltx_tag ltx_tag_description">
+<dl id="Ch5.I3" class="ltx_description">
+<dt id="Ch5.I3.ix1"><span class="ltx_tag ltx_tag_description">
                 <span class="ltx_text" style="font-size:90%;">chimeras.fasta</span>
               </span></dt>
 <dd>
-<div id="Ch5.I4.ix1.p1" class="ltx_para">
+<div id="Ch5.I3.ix1.p1" class="ltx_para">
 <p class="ltx_p">
                   <span class="ltx_text" style="font-size:90%;">キメラと判定された配列</span>
                 </p>
 </div>
 </dd>
-<dt id="Ch5.I4.ix2"><span class="ltx_tag ltx_tag_description">
+<dt id="Ch5.I3.ix2"><span class="ltx_tag ltx_tag_description">
                 <span class="ltx_text" style="font-size:90%;">nonchimeras.fasta</span>
               </span></dt>
 <dd>
-<div id="Ch5.I4.ix2.p1" class="ltx_para">
+<div id="Ch5.I3.ix2.p1" class="ltx_para">
 <p class="ltx_p">
                   <span class="ltx_text" style="font-size:90%;">キメラでないと判定された配列</span>
                 </p>
 </div>
 </dd>
-<dt id="Ch5.I4.ix3"><span class="ltx_tag ltx_tag_description">
+<dt id="Ch5.I3.ix3"><span class="ltx_tag ltx_tag_description">
                 <span class="ltx_text" style="font-size:90%;">uchimealns.txt</span>
               </span></dt>
 <dd>
-<div id="Ch5.I4.ix3.p1" class="ltx_para">
+<div id="Ch5.I3.ix3.p1" class="ltx_para">
 <p class="ltx_p">
                   <span class="ltx_text" style="font-size:90%;">判定時のアライメント</span>
                 </p>
 </div>
 </dd>
-<dt id="Ch5.I4.ix4"><span class="ltx_tag ltx_tag_description">
+<dt id="Ch5.I3.ix4"><span class="ltx_tag ltx_tag_description">
                 <span class="ltx_text" style="font-size:90%;">uchimeout.txt</span>
               </span></dt>
 <dd>
-<div id="Ch5.I4.ix4.p1" class="ltx_para">
+<div id="Ch5.I3.ix4.p1" class="ltx_para">
 <p class="ltx_p">
                   <span class="ltx_text" style="font-size:90%;">判定時の親配列やスコアなど</span>
                 </p>
 </div>
 </dd>
 </dl>
-</div>
-<div id="Ch5.S4.SS3.p3" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_typewriter">uchimeout.txt</span>の各項目の意味は
 <br class="ltx_break"><a href="http://drive5.com/usearch/manual/uchimeout.html" title="" class="ltx_ref">http://drive5.com/usearch/manual/uchimeout.html</a>
 <br class="ltx_break">をご覧下さい。</p>
 </div>
 </section>
 </section>
-<section id="Ch5.S5" class="ltx_section">
+<section id="Ch5.S4" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">5.5 </span>OTU配列からの低頻度出現OTU配列の除去</h3>
+<span class="ltx_tag ltx_tag_section">5.4 </span>OTU配列からの低頻度出現OTU配列の除去</h3>
 
-<div id="Ch5.S5.p1" class="ltx_para">
-<p class="ltx_p">クラスタリングの出力フォルダには、<span class="ltx_text ltx_font_typewriter">clustered.fasta.gz</span> (新パイプライン)または<span class="ltx_text ltx_font_typewriter">assembled.fasta</span> (旧パイプライン)というファイルとして、最終的に得られた代表配列もしくはコンセンサス配列が保存されています。
+<div id="Ch5.S4.p1" class="ltx_para">
+<p class="ltx_p">クラスタリングの出力フォルダには、<span class="ltx_text ltx_font_typewriter">clustered.fasta</span>というファイルとして、最終的に得られた代表配列が保存されています。
 これを次章のDNAバーコーディングに用いますが、全サンプルを通して少量しか出現しないものまで含めると数が多すぎることがあります。
-そこで、以下のようにして5配列以上出現するものだけを抽出することができます。
-配列数の閾値を適当に変えてもいいでしょう。
-この閾値は慎重に決定して下さい。
-ノイジー配列・キメラ配列の除去を行なっている場合には必要ないかもしれません。</p>
+そこで、以下のようにして5配列以上出現するものだけを抽出することができます。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clfilterseq \</span>
-          </span>
-<span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--contigmembers=*.contigmembers.gz \</span>
           </span>
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--otufile=*.otu.gz \</span>
@@ -3672,17 +2968,13 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力ファイル↓</span>
           </span>
 </p>
-<p class="ltx_p">旧パイプラインを使用した場合は<span class="ltx_text ltx_font_typewriter">--contigmembers</span>オプションを、新パイプラインを使用した場合は<span class="ltx_text ltx_font_typewriter">--otufile</span>オプションを使用します。
-上記の例は一度に説明するためのもので、両方を指定してはいけません。
-なお、どちらも指定しなかった場合、<span class="ltx_text ltx_font_typewriter">*.otu.gz</span>が入力ファイルと同じフォルダに存在すればそれを、<span class="ltx_text ltx_font_typewriter">*.contigmembers.gz</span>が存在すればそれを見つけ出して使用しますので、普段は何も指定しなくてもいいでしょう。
-ここで作成したFASTA配列ファイルを第<a href="#Ch5.S2" title="5.2 集計表からの特定のOTU・サンプルの除去 ‣ 第5章 OTUピッキング結果の要約と後処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>節の<span class="ltx_text ltx_font_typewriter">clfiltersum</span>の<span class="ltx_text ltx_font_typewriter">--otuseq</span>オプションに指定して集計表を加工することで、この配列ファイルから除去されたOTUを集計表からも除去することができます。</p>
 </div>
 </section>
-<section id="Ch5.S6" class="ltx_section">
+<section id="Ch5.S5" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">5.6 </span>保存領域配列認識による領域分割</h3>
+<span class="ltx_tag ltx_tag_section">5.5 </span>保存領域配列認識による領域分割</h3>
 
-<div id="Ch5.S6.p1" class="ltx_para">
+<div id="Ch5.S5.p1" class="ltx_para">
 <p class="ltx_p">ここまでの配列が複数領域にまたがっている場合(たとえばITS1・5.8S rRNA・ITS2といった風に)、領域ごとに分割した方が良いかもしれません。
 領域間かその付近に保存的な領域があれば、それを境界の目印として領域を分割できます。
 特にユニバーサルプライマー配列などを使うといいでしょう。
@@ -3710,11 +3002,10 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 <p class="ltx_p">このコマンドでは、指定された配列をNeedleman-Wunschアルゴリズムを用いたアライメントによって15%まで不一致を許して探します。
 該当する部位が見つかったら、その左端を境界として配列を2つに分け、それぞれ出力ファイル1と出力ファイル2に保存します。
 該当する部位が見つからなかった場合は、そのまま出力ファイル1だけに保存されます。
-信頼度配列ファイルがある場合には、こちらも塩基配列に合わせて分割されます。
 なお、指定する配列は対象配列と同一のストランドにしておいて下さい。
 ストランドが異なる場合は、<span class="ltx_text ltx_font_typewriter">--reversecomplement</span>オプションを付加して実行することで、<span class="ltx_text ltx_font_typewriter">--query</span>に指定された配列の逆相補配列をアライメントに用いるようになります。</p>
 </div>
-<div id="Ch5.S6.p2" class="ltx_para">
+<div id="Ch5.S5.p2" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_typewriter">--border</span>オプションを<span class="ltx_text ltx_font_typewriter">start</span>ではなく<span class="ltx_text ltx_font_typewriter">end</span>にすることで、検索に一致した部位の右端を境界として分割することができます。
 <span class="ltx_text ltx_font_typewriter">--border=both</span>にした場合は、検索に一致した部位はどちらのファイルにも出力されません(これがデフォルト設定です)。
 検索した配列が見つからなかった場合は出力ファイル1のみに配列が保存され、出力ファイル2には配列が保存されませんが、これでは都合が悪い場合は<span class="ltx_text ltx_font_typewriter">--makedummy</span>オプションを付加することでダミーの塩基配列が出力ファイル2に保存されます。
@@ -3722,31 +3013,30 @@ OTUが観測されたレプリケート数/サンプルの総レプリケート�
 ここでは2分割の例を挙げましたが、分割後にさらに分割を繰り返すことで3分割や4分割も可能です。</p>
 </div>
 </section>
-<section id="Ch5.S7" class="ltx_section">
+<section id="Ch5.S6" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">5.7 </span>ITSxやMetaxaによるITS・SSU rRNA・LSU rRNA配列の抽出</h3>
+<span class="ltx_tag ltx_tag_section">5.6 </span>ITSxやMetaxaによるITS・SSU rRNA・LSU rRNA配列の抽出</h3>
 
-<div id="Ch5.S7.p1" class="ltx_para">
+<div id="Ch5.S6.p1" class="ltx_para">
 <p class="ltx_p">ITSxは核ITS1・ITS2領域を認識してその部位だけを取り出すことができるプログラムです<cite class="ltx_cite"><a href="#bib.bib3" title="" class="ltx_ref">(Bengtsson-Palme <span class="ltx_text ltx_font_italic">et al</span>., 2013)</a></cite>。
 多くの分類群でITSは非常に変異に富んでいますが、ずっと保守的なSSU・LSU rRNAと隣接しているため、これらの配列が残っていると、その配列の影響でITSでは明確に区別できる遠縁な生物のSSU・LSU配列がBLAST検索時にヒットしてしまい、うまく同定できなくなってしまうことがあります。
 ITSxでITS領域のみを切り出して同定することでこのような問題に対処できます。</p>
 </div>
-<div id="Ch5.S7.p2" class="ltx_para">
-<p class="ltx_p">MetaxaはITSxと同様にSSU (12S/16S/18S) rRNAを区別してそれぞれの部位だけを取り出すことができるプログラムです<cite class="ltx_cite"><a href="#bib.bib4" title="" class="ltx_ref">(Bengtsson <span class="ltx_text ltx_font_italic">et al</span>., 2011)</a></cite>。
+<div id="Ch5.S6.p2" class="ltx_para">
+<p class="ltx_p">MetaxaはITSxと同様にSSU (12S/16S/18S) rRNAとLSU (26S/28S) rRNAを区別してそれぞれの部位だけを取り出すことができるプログラムです<cite class="ltx_cite"><a href="#bib.bib4" title="" class="ltx_ref">(Bengtsson <span class="ltx_text ltx_font_italic">et al</span>., 2011)</a></cite>。
+SSUは核由来かミトコンドリア由来か葉緑体由来か細菌由来かも区別できます。
 SSU rRNAは真核生物のメタバーコーディング・DNAバーコーディングに広く利用されている領域ですが、核だけでなくミトコンドリアや葉緑体、混入した細菌にも含まれているため、核のSSUを標的とするPCRを行った場合にも多少はミトコンドリアや細菌のSSU rRNAが混入してしまいます。
 そのような配列は群集生態学的解析の障害となるため、このプログラムで前もって除去しておくと後の解析が楽になります。</p>
 </div>
-<div id="Ch5.S7.p3" class="ltx_para">
-<p class="ltx_p">いずれのプログラムもインストール方法、使用方法をここでは説明しません。
-それぞれのWebサイトとマニュアルをご覧下さい。
-これらのプログラムで作成したFASTA配列ファイルを第<a href="#Ch5.S2" title="5.2 集計表からの特定のOTU・サンプルの除去 ‣ 第5章 OTUピッキング結果の要約と後処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>節の<span class="ltx_text ltx_font_typewriter">clfiltersum</span>の<span class="ltx_text ltx_font_typewriter">--otuseq</span>オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。</p>
+<div id="Ch5.S6.p3" class="ltx_para">
+<p class="ltx_p">これらのプログラムで作成したFASTA配列ファイルを第<a href="#Ch5.S2" title="5.2 集計表からの特定のOTU・サンプルの除去 ‣ 第5章 OTUピッキング結果の要約と後処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>節の<span class="ltx_text ltx_font_typewriter">clfiltersum</span>の<span class="ltx_text ltx_font_typewriter">--otuseq</span>オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。</p>
 </div>
 </section>
-<section id="Ch5.S8" class="ltx_section">
+<section id="Ch5.S7" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">5.8 </span>非ターゲット領域の探索と削除</h3>
+<span class="ltx_tag ltx_tag_section">5.7 </span>非ターゲット領域の探索と削除</h3>
 
-<div id="Ch5.S8.p1" class="ltx_para">
+<div id="Ch5.S7.p1" class="ltx_para">
 <p class="ltx_p">ITSxやMetaxaはITSとSSU rRNA領域にしか使用できませんが、もっと汎用的な非ターゲット領域の探索方法があります。
 一つはBLASTなどで検索して配列がどの遺伝子のものかを判定してくれるプログラムにかけることで、もう一つは多重整列プログラムを利用することです。
 ClustalW2・ClustalX2 <cite class="ltx_cite"><a href="#bib.bib13" title="" class="ltx_ref">(Larkin <span class="ltx_text ltx_font_italic">et al</span>., 2007)</a></cite>やMAFFT <cite class="ltx_cite"><a href="#bib.bib10" title="" class="ltx_ref">(Katoh and Standley, 2013)</a></cite>には、多重整列した結果を系統的に近いものが近くになるように並び替えて出力することができます。
@@ -5055,14 +4345,614 @@ accurate Illumina Paired-End reAd mergeR.”, <span class="ltx_text ltx_font_ita
 </section>
 <section id="A1" class="ltx_appendix">
 <h2 class="ltx_title ltx_title_appendix">
-<span class="ltx_tag ltx_tag_appendix">付録 A </span>その他のプログラムのインストール</h2>
+<span class="ltx_tag ltx_tag_appendix">付録 A </span>Assamsを用いた旧パイプラインでの解析</h2>
 
 <section id="A1.S1" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">A.1 </span>bcl2fastqのインストール</h3>
+<span class="ltx_tag ltx_tag_section">A.1 </span>重複配列カウントによるノイジー配列とキメラ配列の除去</h3>
 
 <div id="A1.S1.p1" class="ltx_para">
-<p class="ltx_p">Illuminaから提供されている、BCL形式のベースコールデータからFASTQを生成するプログラムbcl2fastqはMiSeq・HiSeq用のv1.8.4およびNextSeq 500・HiSeq X用のv2.17.1.14が
+<p class="ltx_p">以下のコマンドでノイジー配列とキメラ配列の検出・除去が行えます。
+なお、多数のファイルを一度に与えることができますが、できるだけ1ラン分のファイルを与えて下さい。
+これは、ランごとに塩基配列決定の質にばらつきがあるためです1ラン分の配列が非常に多く(100万超)時間がかかってしまう場合は、1サンプルごとにこの処理を行って下さい。</p>
+<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
+<span class="ltx_p ltx_align_left">
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clcleanseq \</span>
+          </span>
+<span class="ltx_p ltx_align_left">
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">uchime --minh 0.1 --mindiv 0.8 end \</span>
+          </span>
+<span class="ltx_p ltx_align_left">
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--detectmode=N+C \</span>
+          </span>
+<span class="ltx_p ltx_align_left">
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--pnoisycluster=0.5 \</span>
+          </span>
+<span class="ltx_p ltx_align_left">
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+          </span>
+<span class="ltx_p ltx_align_left">
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
+          </span>
+<span class="ltx_p ltx_align_left">
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">中略 \</span>
+          </span>
+<span class="ltx_p ltx_align_left">
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイルN \</span>
+          </span>
+<span class="ltx_p ltx_align_left">
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
+          </span>
+</p>
+<p class="ltx_p">オプションのうち、<span class="ltx_text ltx_font_typewriter">uchime</span>から<span class="ltx_text ltx_font_typewriter">end</span>の間はUCHIMEの実行オプションです。
+<span class="ltx_text ltx_font_typewriter">--minh</span>と<span class="ltx_text ltx_font_typewriter">--mindiv</span>はキメラ配列と判定する感度に関するオプションです。
+<span class="ltx_text ltx_font_typewriter">--minh</span>は値が小さいほど感度が高くなります。
+UCHIMEの作者は0.1以上5以下の範囲にするよう推奨しています。
+デフォルト値は0.1です。
+<span class="ltx_text ltx_font_typewriter">--mindiv</span>の指定値が0.8の場合、0.8%以下の違いしかない配列間はキメラが形成されていても無視されます。
+最終的に97%一致規準で配列をクラスタリングするとしたら、2%程度の違いしかない配列間のキメラはクラスタリング・コンセンサス配列作成によって潰されるため、この値を大きくすることで計算が速くなります。
+また、<span class="ltx_text ltx_font_typewriter">--pnoisycluster</span>はノイジー配列と判定する感度に関するオプションです。
+0以上1以下で指定して下さい。
+大きいほど感度が上がります。
+デフォルト値・推奨値は0.5です。
+クラスタリングを最終的に97%以下の閾値で行うのであればこれでいいと思いますが、99%前後でクラスタリングする場合、<span class="ltx_text ltx_font_typewriter">--pnoisycluster</span>は0.9くらいにするといいかもしれません。
+ただし、レアOTUを捨ててしまう可能性が高くなるので、1サンプル当たりの配列数を多めに読んでおく必要があります。</p>
+</div>
+<div id="A1.S1.p2" class="ltx_para">
+<p class="ltx_p">各入力ファイルは同一の鋳型を同一のチューブ内でPCRした配列群を含んでいる必要があります。
+Claidentがキメラ検出に利用しているUCHIMEでは、元配列数が多いコンセンサス配列ほどPCR当初から存在した＝キメラではないと仮定し、元配列数が少ないコンセンサス配列が、より元配列数の多いコンセンサス配列の部分配列の組み合わせで説明できるかどうかを検討します。
+したがって、UCHIMEに「同一の鋳型を同一のチューブ内でPCRした配列群内でのコンセンサス配列の元配列数」を正確に伝える必要があるため、1ファイルは同一の鋳型を同一のチューブ内でPCRした配列群でなくてはならないのです。
+これは1ラン分のファイルを一度に与えることよりもはるかに優先度が高いので、同一の鋳型を同一のチューブ内でPCRしたサンプルを複数回のランで塩基配列決定した場合などは複数ラン分のデータを入力しても構いません。</p>
+</div>
+<div id="A1.S1.p3" class="ltx_para">
+<p class="ltx_p">UCHIMEによるキメラ判定はそれぞれのサンプルごとに行われ、複数のサンプルで観測されている完全一致配列の場合、どれか1つのサンプルでキメラと判定されていれば、他のサンプルでもキメラとみなして除去します。
+ただし、下記のオプションでこの動作を変更することができます。
+両オプションの両方を満たせばキメラと判定されます。</p>
+<dl id="A1.I1" class="ltx_description">
+<dt id="A1.I1.ix1"><span class="ltx_tag ltx_tag_description">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minnpositive</span>
+            </span></dt>
+<dd>
+<div id="A1.I1.ix1.p1" class="ltx_para">
+<p class="ltx_p">
+                <span class="ltx_text" style="font-size:90%;">整数値で指定。
+この値以上の配列(サンプルではない)がキメラと判定されていれば、全サンプルでキメラと見なす。
+デフォルト値は</span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">1</span>
+                <span class="ltx_text" style="font-size:90%;">。</span>
+              </p>
+</div>
+</dd>
+<dt id="A1.I1.ix2"><span class="ltx_tag ltx_tag_description">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minppositive</span>
+            </span></dt>
+<dd>
+<div id="A1.I1.ix2.p1" class="ltx_para">
+<p class="ltx_p">
+                <span class="ltx_text" style="font-size:90%;">小数値で指定。
+キメラと判定された配列数/完全一致した全配列数がこの値以上であれば、全サンプルでキメラと見なす。
+デフォルト値は</span>
+                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">0</span>
+                <span class="ltx_text" style="font-size:90%;">。</span>
+              </p>
+</div>
+</dd>
+</dl>
+<p class="ltx_p">出力フォルダには、以下のファイル群が保存されます。</p>
+<dl id="A1.I2" class="ltx_description">
+<dt id="A1.I2.ix1"><span class="ltx_tag ltx_tag_description">
+              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.chimeraremoved.dereplicated.fastq.gz</span>
+            </span></dt>
+<dd>
+<div id="A1.I2.ix1.p1" class="ltx_para">
+<p class="ltx_p">
+                <span class="ltx_text" style="font-size:90%;">キメラ配列除去し完全一致配列をまとめた配列</span>
+              </p>
+</div>
+</dd>
+<dt id="A1.I2.ix2"><span class="ltx_tag ltx_tag_description">
+              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.chimeraremoved.fastq.gz</span>
+            </span></dt>
+<dd>
+<div id="A1.I2.ix2.p1" class="ltx_para">
+<p class="ltx_p">
+                <span class="ltx_text" style="font-size:90%;">キメラ配列除去した配列</span>
+              </p>
+</div>
+</dd>
+<dt id="A1.I2.ix3"><span class="ltx_tag ltx_tag_description">
+              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.denoised.dereplicated.fastq.gz</span>
+            </span></dt>
+<dd>
+<div id="A1.I2.ix3.p1" class="ltx_para">
+<p class="ltx_p">
+                <span class="ltx_text" style="font-size:90%;">ノイジー配列除去し完全一致配列をまとめた配列</span>
+              </p>
+</div>
+</dd>
+<dt id="A1.I2.ix4"><span class="ltx_tag ltx_tag_description">
+              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.denoised.fastq.gz</span>
+            </span></dt>
+<dd>
+<div id="A1.I2.ix4.p1" class="ltx_para">
+<p class="ltx_p">
+                <span class="ltx_text" style="font-size:90%;">ノイジー配列除去した配列</span>
+              </p>
+</div>
+</dd>
+<dt id="A1.I2.ix5"><span class="ltx_tag ltx_tag_description">
+              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.cleaned.dereplicated.fastq.gz</span>
+            </span></dt>
+<dd>
+<div id="A1.I2.ix5.p1" class="ltx_para">
+<p class="ltx_p">
+                <span class="ltx_text" style="font-size:90%;">キメラ配列とノイジー配列を除去し完全一致配列をまとめた配列</span>
+              </p>
+</div>
+</dd>
+<dt id="A1.I2.ix6"><span class="ltx_tag ltx_tag_description">
+              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.cleaned.fastq.gz</span>
+            </span></dt>
+<dd>
+<div id="A1.I2.ix6.p1" class="ltx_para">
+<p class="ltx_p">
+                <span class="ltx_text" style="font-size:90%;">キメラ配列とノイジー配列を除去した配列</span>
+              </p>
+</div>
+</dd>
+<dt id="A1.I2.ix7"><span class="ltx_tag ltx_tag_description">
+              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.chimericreads.txt.gz</span>
+            </span></dt>
+<dd>
+<div id="A1.I2.ix7.p1" class="ltx_para">
+<p class="ltx_p">
+                <span class="ltx_text" style="font-size:90%;">キメラ配列と判定された配列のリスト</span>
+              </p>
+</div>
+</dd>
+<dt id="A1.I2.ix8"><span class="ltx_tag ltx_tag_description">
+              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.noisyreads.txt.gz</span>
+            </span></dt>
+<dd>
+<div id="A1.I2.ix8.p1" class="ltx_para">
+<p class="ltx_p">
+                <span class="ltx_text" style="font-size:90%;">ノイジー配列と判定された配列のリスト</span>
+              </p>
+</div>
+</dd>
+<dt id="A1.I2.ix9"><span class="ltx_tag ltx_tag_description">
+              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.singletons.txt.gz</span>
+            </span></dt>
+<dd>
+<div id="A1.I2.ix9.p1" class="ltx_para">
+<p class="ltx_p">
+                <span class="ltx_text" style="font-size:90%;">完全一致配列をまとめたときにシングルトンになった配列のリスト</span>
+              </p>
+</div>
+</dd>
+<dt id="A1.I2.ix10"><span class="ltx_tag ltx_tag_description">
+              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.uchime.txt.gz</span>
+            </span></dt>
+<dd>
+<div id="A1.I2.ix10.p1" class="ltx_para">
+<p class="ltx_p">
+                <span class="ltx_text" style="font-size:90%;">UCHIMEによるキメラ判定結果のログ</span>
+              </p>
+</div>
+</dd>
+<dt id="A1.I2.ix11"><span class="ltx_tag ltx_tag_description">
+              <span class="ltx_text" style="font-size:90%;">ランID__タグID__プライマーID.parameter.txt</span>
+            </span></dt>
+<dd>
+<div id="A1.I2.ix11.p1" class="ltx_para">
+<p class="ltx_p">
+                <span class="ltx_text" style="font-size:90%;">まとまった完全一致配列をノイジーと判定するのに使用した所属配列数の下限値</span>
+              </p>
+</div>
+</dd>
+</dl>
+<p class="ltx_p">他にも多くのファイルが出力されますが、後の解析に必要なものもありますので削除しないようにして下さい。
+キメラ配列除去を無効化してノイジー配列除去のみを行う場合は<span class="ltx_text ltx_font_typewriter">--detectmode=noise</span>、逆にノイジー配列除去を無効化してキメラ配列除去のみを行う場合は<span class="ltx_text ltx_font_typewriter">--detectmode=chimera</span>オプションを付けて実行して下さい。
+ただし、<span class="ltx_text ltx_font_typewriter">--detectmode=noise</span>で処理した結果を<span class="ltx_text ltx_font_typewriter">--detectmode=chimera</span>で処理しても、一度にノイジー配列・キメラ配列除去を行った場合(<span class="ltx_text ltx_font_typewriter">--detectmode=N+C</span>を指定した場合またはデフォルト設定)と結果は一致しませんのでご注意下さい。
+処理する場合は同時に行う必要があります。
+これは、キメラ配列もノイジー配列と判定するための情報を持っており、同時処理の場合にはそれを利用するためです。</p>
+</div>
+<section id="A1.S1.SS1" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">A.1.1 </span>PCRレプリケート法によるノイジー配列・キメラ配列の除去</h4>
+
+<div id="A1.S1.SS1.p1" class="ltx_para">
+<p class="ltx_p">PCRレプリケートを用意してノイジー配列・キメラ配列を検出・除去するには、まず同一鋳型DNA由来のPCRレプリケートはどのサンプルとどのサンプルなのかを記したファイルを用意する必要があります。
+以下のような内容で用意して下さい。</p>
+<p class="ltx_p ltx_align_left" style="background-color:#E6E6E6;padding-top:12pt;padding-bottom:12pt;">
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| sample1  sample2  sample3</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| sample4  sample5</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">| sample6  sample7</span>
+            </span>
+</p>
+<p class="ltx_p">同一の行内にタブ区切りで書かれたサンプルが、同一鋳型由来のPCRレプリケートであることを表しています。
+異なる鋳型由来のサンプルは別の行に記述して下さい。
+PCRレプリケートは3つ以上あっても構いません。
+また、レプリケート数が鋳型ごとに異なっても構いません。</p>
+</div>
+<div id="A1.S1.SS1.p2" class="ltx_para">
+<p class="ltx_p">上記ファイルが用意できたら、以下のように<span class="ltx_text ltx_font_typewriter">clcleanseq</span>を実行することでレプリケート間で共通しないプライマリクラスタをキメラもしくはノイジーであると判断して除去します。</p>
+<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clcleanseq \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--replicatelist=PCRレプリケート指示ファイル \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">uchime --minh 0.1 --mindiv 0.8 end \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--detectmode=N+C \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--pnoisycluster=0.5 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">中略 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイルN \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
+            </span>
+</p>
+<p class="ltx_p">レプリケートが3つ以上であっても、全てのレプリケートで検出されたプライマリクラスタのみがノイジーでもキメラでもないと判断されます。
+また、1つのプライマリクラスタが複数の鋳型から検出されていた場合、どれか1つの鋳型でノイジーまたはキメラと判定されていれば、他の鋳型でもノイジーまたはキメラとみなして除去します。
+これらの設定は以下のオプションで変更することができます。</p>
+<dl id="A1.I3" class="ltx_description">
+<dt id="A1.I3.ix1"><span class="ltx_tag ltx_tag_description">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minnreplicate</span>
+              </span></dt>
+<dd>
+<div id="A1.I3.ix1.p1" class="ltx_para">
+<p class="ltx_p">
+                  <span class="ltx_text" style="font-size:90%;">整数値で指定。
+この値以上のレプリケートで観測されたプライマリクラスタはそのサンプルではノイジーでもキメラでもないと見なす。
+デフォルト値は</span>
+                  <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">2</span>
+                  <span class="ltx_text" style="font-size:90%;">。</span>
+                </p>
+</div>
+</dd>
+<dt id="A1.I3.ix2"><span class="ltx_tag ltx_tag_description">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minpreplicate</span>
+              </span></dt>
+<dd>
+<div id="A1.I3.ix2.p1" class="ltx_para">
+<p class="ltx_p">
+                  <span class="ltx_text" style="font-size:90%;">小数値で指定。
+プライマリクラスタが観測されたレプリケート数/サンプルの総レプリケート数がこの値以上であれば、そのサンプルではノイジーでもキメラでもないと見なす。
+デフォルト値は</span>
+                  <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">1</span>
+                  <span class="ltx_text" style="font-size:90%;">。</span>
+                </p>
+</div>
+</dd>
+<dt id="A1.I3.ix3"><span class="ltx_tag ltx_tag_description">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minnpositive</span>
+              </span></dt>
+<dd>
+<div id="A1.I3.ix3.p1" class="ltx_para">
+<p class="ltx_p">
+                  <span class="ltx_text" style="font-size:90%;">整数値で指定。
+この値以上の配列(サンプルではない)がノイジーまたはキメラと判定されていれば、全サンプルでノイジーまたはキメラと見なす。
+デフォルト値は</span>
+                  <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">1</span>
+                  <span class="ltx_text" style="font-size:90%;">。</span>
+                </p>
+</div>
+</dd>
+<dt id="A1.I3.ix4"><span class="ltx_tag ltx_tag_description">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--minppositive</span>
+              </span></dt>
+<dd>
+<div id="A1.I3.ix4.p1" class="ltx_para">
+<p class="ltx_p">
+                  <span class="ltx_text" style="font-size:90%;">小数値で指定。
+ノイジーまたはキメラと判定された配列数/プライマリクラスタの総配列数がこの値以上であれば、全サンプルでノイジーまたはキメラと見なす。
+デフォルト値は</span>
+                  <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">0</span>
+                  <span class="ltx_text" style="font-size:90%;">。</span>
+                </p>
+</div>
+</dd>
+<dt id="A1.I3.ix5"><span class="ltx_tag ltx_tag_description">
+                <span class="ltx_text ltx_font_typewriter" style="font-size:90%;">--runname</span>
+              </span></dt>
+<dd>
+<div id="A1.I3.ix5.p1" class="ltx_para">
+<p class="ltx_p">
+                  <span class="ltx_text" style="font-size:90%;">ランIDを指定。
+サンプル名に含まれるランIDが全てこれに置換される。
+同一サンプル名になったサンプルは統合される。</span>
+                </p>
+</div>
+</dd>
+</dl>
+<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">--minnreplicate</span>と<span class="ltx_text ltx_font_typewriter">--minpreplicate</span>の値に基づく1サンプル内での判定と、<span class="ltx_text ltx_font_typewriter">--minnpositive</span>と<span class="ltx_text ltx_font_typewriter">--minppositive</span>の値に基づく全サンプルにまたがる判定が2段階で行われていることに注意して下さい。
+前者では2つの条件を両方満たすとノイジーでもキメラでもないと判定され、後者では2つの条件を両方満たすとノイジーまたはキメラであると判定されます。
+また、同一のプライマリクラスタが、あるサンプルではノイジーまたはキメラだが、別のサンプルではそうでない、といった判定は行えません。
+最終的な判定は全サンプル共通です。
+また、PCRレプリケート指示ファイルに記されていないサンプルは判定に使われません。</p>
+</div>
+</section>
+</section>
+<section id="A1.S2" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">A.2 </span>塩基配列クラスタリングに基づくOTUピッキング</h3>
+
+<section id="A1.S2.SS1" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">A.2.1 </span>サンプル内での配列クラスタリング</h4>
+
+<div id="A1.S2.SS1.p1" class="ltx_para">
+<p class="ltx_p">以下のコマンドで、同一の鋳型を同一のチューブ内でPCRした配列群のクラスタリングを行います。
+前節の結果得られる、完全一致配列をまとめた結果(<span class="ltx_text ltx_font_typewriter">ランID__タグID__プライマーID.cleaned.dereplicated.fastq.gz</span>)を入力します。</p>
+<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clclassseq \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--strand=plus \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">中略 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイルN \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
+            </span>
+</p>
+<p class="ltx_p">前節の出力ファイルに対してこの処理を適用する場合、以下のようにコマンドを打てばいいでしょう。</p>
+<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clclassseq \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--strand=plus \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">"前節の出力フォルダ/*.cleaned.dereplicated.fastq.gz" \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ↓</span>
+            </span>
+</p>
+<p class="ltx_p">オプションのうち、<span class="ltx_text ltx_font_typewriter">--minident=0</span>は不一致が1塩基以下の配列をまとめる設定です(実際には、類似度が(最短配列の長さ-11/最短配列の長さ-10)以上の配列をまとめます。
+最長配列の長さが400bpで最短配列の長さが350bpなら、0.997となり、400bpの配列でも1塩基しか不一致は許容されませんので意図通りになりますが、最短配列と最長配列の差が大きすぎると意図した通りになりません。
+そのため、最短配列は最長配列の半分より11塩基以上長くなくてはなりません)。
+最終的に97%で配列をまとめる場合もこの時点では0にしておくのがおすすめです。
+最終的に99%でまとめる場合にもここでは0にしておきます。
+<span class="ltx_text ltx_font_typewriter">--strand=plus</span>は同一ストランドの比較だけでクラスタリングを行うオプションです。
+片側からしか読んでいないので、両ストランドの比較をする必要はなく、比較するとかえって異常なクラスタリングをしかねません。
+両側から読んでいる場合も、連結した後はストランドは揃っているのでこれでいいはずです。
+出力フォルダ内の<span class="ltx_text ltx_font_typewriter">*.assembled.fastq.gz</span>がクラスタリング後の配列です。</p>
+</div>
+</section>
+<section id="A1.S2.SS2" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">A.2.2 </span>サンプル間での配列クラスタリング</h4>
+
+<div id="A1.S2.SS2.p1" class="ltx_para">
+<p class="ltx_p">サンプル内クラスタリングデータを用いてサンプル間でのクラスタリングを行い、全体のクラスタリング結果を得るには以下のコマンドを実行します。
+1サンプルしかない場合も、上記のサンプル内配列クラスタリングを行ってからこの処理を行って下さい。</p>
+<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clclassclass \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--strand=plus \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイル1 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">中略 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">入力ファイルN \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ1↓</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clreclassclass \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0.99 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--strand=plus \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ1 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ2↓</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clreclassclass \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0.97 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--strand=plus \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ2 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ3↓</span>
+            </span>
+</p>
+<p class="ltx_p">ここでの入力ファイルは前節の出力ファイル<span class="ltx_text ltx_font_typewriter">*.assembled.fastq.gz</span>です。
+したがって、実際には以下のように入力することになるでしょう。</p>
+<p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clclassclass \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--strand=plus \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">"前節の出力フォルダ/*.assembled.fastq.gz" \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ1↓</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clreclassclass \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0.99 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--strand=plus \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ1 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ2↓</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; clreclassclass \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--minident=0.97 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--strand=plus \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">--numthreads=使用するCPU数 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ2 \</span>
+            </span>
+<span class="ltx_p ltx_align_left">
+              <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">出力フォルダ3↓</span>
+            </span>
+</p>
+<p class="ltx_p">1つ目の<span class="ltx_text ltx_font_typewriter">clclassclass</span>でサンプル内配列クラスタリングでまとめられた配列において、不一致が1塩基以下の配列をまとめます。
+2つ目の<span class="ltx_text ltx_font_typewriter">clreclassclass</span>で、99%以上一致する配列をまとめ直します。
+さらに3つ目の<span class="ltx_text ltx_font_typewriter">clreclassclass</span>で、97%以上一致する配列をまとめ直します。
+こうすることで、より高速に、より正確にクラスタリングが行われます。
+<span class="ltx_text ltx_font_typewriter">clreclassclass</span>を使用せずに<span class="ltx_text ltx_font_typewriter">clclassclass</span>に97%でまとめるよう指示してしまうと、アルゴリズム上「まとめすぎ」が発生しやすくなります。</p>
+</div>
+<div id="A1.S2.SS2.p2" class="ltx_para">
+<p class="ltx_p">出力フォルダには、以下のファイルが保存されています。</p>
+<dl id="A1.I4" class="ltx_description">
+<dt id="A1.I4.ix1"><span class="ltx_tag ltx_tag_description">
+                <span class="ltx_text" style="font-size:90%;">assembled.contigmembers.gz</span>
+              </span></dt>
+<dd>
+<div id="A1.I4.ix1.p1" class="ltx_para">
+<p class="ltx_p">
+                  <span class="ltx_text" style="font-size:90%;">どの生配列がどのOTUに割り当てられたかを記録しているファイル</span>
+                </p>
+</div>
+</dd>
+<dt id="A1.I4.ix2"><span class="ltx_tag ltx_tag_description">
+                <span class="ltx_text" style="font-size:90%;">assembled.fastq.gz</span>
+              </span></dt>
+<dd>
+<div id="A1.I4.ix2.p1" class="ltx_para">
+<p class="ltx_p">
+                  <span class="ltx_text" style="font-size:90%;">OTUのコンセンサス配列</span>
+                </p>
+</div>
+</dd>
+<dt id="A1.I4.ix3"><span class="ltx_tag ltx_tag_description">
+                <span class="ltx_text" style="font-size:90%;">assembled.fasta</span>
+              </span></dt>
+<dd>
+<div id="A1.I4.ix3.p1" class="ltx_para">
+<p class="ltx_p">
+                  <span class="ltx_text" style="font-size:90%;">OTUのコンセンサス配列</span>
+                </p>
+</div>
+</dd>
+</dl>
+</div>
+</section>
+<section id="A1.S2.SS3" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">A.2.3 </span>集計表の作成</h4>
+
+<div id="A1.S2.SS3.p1" class="ltx_para">
+<p class="ltx_p">新パイプラインでは<span class="ltx_text ltx_font_typewriter">clustered.otu.gz</span>を使用しますが、旧パイプラインでは生成されません。代わりに<span class="ltx_text ltx_font_typewriter">assembled.contigmembers.gz</span>を使用して下さい。</p>
+</div>
+</section>
+</section>
+</section>
+<section id="A2" class="ltx_appendix">
+<h2 class="ltx_title ltx_title_appendix">
+<span class="ltx_tag ltx_tag_appendix">付録 B </span>その他のプログラムのインストール</h2>
+
+<section id="A2.S1" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">B.1 </span>bcl2fastqのインストール</h3>
+
+<div id="A2.S1.p1" class="ltx_para">
+<p class="ltx_p">Illuminaから提供されている、BCL形式のベースコールデータからFASTQを生成するプログラムbcl2fastqはRTA version 1.18.54より前の機種用のv1.8.4およびRTA version 1.18.54以降の機種用のv2.18.0.12が
 <br class="ltx_break"><a href="http://support.illumina.com/downloads/bcl2fastq_conversion_software.html" title="" class="ltx_ref">http://support.illumina.com/downloads/bcl2fastq_conversion_software.html</a>
 <br class="ltx_break">からダウンロードできます。
 v1.8.4は以下のようにインストールできます。</p>
@@ -5099,7 +4989,7 @@ v1.8.4は以下のようにインストールできます。</p>
           </span>
 </p>
 </div>
-<div id="A1.S1.p2" class="ltx_para">
+<div id="A2.S1.p2" class="ltx_para">
 <p class="ltx_p">Ubuntu・Xubuntu・Lubuntuの14.04LTSでは、Perlのバージョンが新しすぎ、より古いバージョンを前提として書かれたbcl2fastqが動作しません。
 そこで以下のようにして問題の部分を書き換えます。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
@@ -5127,8 +5017,8 @@ v1.8.4は以下のようにインストールできます。</p>
 <br class="ltx_break"></span>の747行目と751行目を手動で書き換えても構いません。
 <span class="ltx_text ltx_font_typewriter">qw(HOGEHOGE)</span>を<span class="ltx_text ltx_font_typewriter">("HOGEHOGE")</span>に書き換えて下さい。</p>
 </div>
-<div id="A1.S1.p3" class="ltx_para">
-<p class="ltx_p">v2.17.1.14のインストールをする場合は以下のようにコマンドを実行して下さい。</p>
+<div id="A2.S1.p3" class="ltx_para">
+<p class="ltx_p">v2.18.0.12のインストールをする場合は以下のようにコマンドを実行して下さい。</p>
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;"># rpm2cpioとcpioのインストール</span>
@@ -5137,19 +5027,16 @@ v1.8.4は以下のようにインストールできます。</p>
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; sudo apt-get install rpm2cpio cpio↓</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;"># bcl2fastq2 v2.17のダウンロード</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;"># bcl2fastq2 v2.18.0.12のダウンロード</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; wget \</span>
-          </span>
-<span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">ftp://webdata2:webdata2@ussd-ftp.illumina.com/downloads/software/bcl2fastq/bcl2fastq2-v2.17.1.14-Linux-x86_64.zip↓</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; wget -O bcl2fastq2-v2-18-0-12-linux-x86-64.zip http://bit.ly/2drPH3W↓</span>
           </span>
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;"># 圧縮ファイルの展開</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; unzip -qq bcl2fastq2-v2.17.1.14-Linux-x86_64.zip↓</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; unzip -qq bcl2fastq2-v2-18-0-12-linux-x86-64.zip↓</span>
           </span>
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;"># .rpmを展開してコマンドを抽出</span>
@@ -5158,27 +5045,32 @@ v1.8.4は以下のようにインストールできます。</p>
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; rpm2cpio \</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">bcl2fastq2-v2.17.1.14-Linux-x86_64.rpm | cpio -id↓</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">bcl2fastq2-v2.18.0.12-Linux-x86_64.rpm | cpio -id↓</span>
           </span>
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;"># コマンドをインストール</span>
           </span>
 <span class="ltx_p ltx_align_left">
-            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; sudo mv usr/local/bin/bcl2fastq /usr/local/bin/↓</span>
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; sudo mv usr/local/bin/bcl2fastq /usr/local/bin/↓
+# その他のファイルをインストール</span>
+          </span>
+<span class="ltx_p ltx_align_left">
+            <span class="ltx_text ltx_font_typewriter" style="font-size:80%;">&gt; sudo cp -R usr/local/share/css /usr/local/share/↓
+&gt; sudo cp -R usr/local/share/xsl /usr/local/share/↓</span>
           </span>
 </p>
 </div>
 </section>
 </section>
-<section id="A2" class="ltx_appendix">
+<section id="A3" class="ltx_appendix">
 <h2 class="ltx_title ltx_title_appendix">
-<span class="ltx_tag ltx_tag_appendix">付録 B </span>ターミナルコマンド集</h2>
+<span class="ltx_tag ltx_tag_appendix">付録 C </span>ターミナルコマンド集</h2>
 
-<section id="A2.S1" class="ltx_section">
+<section id="A3.S1" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">B.1 </span>配列を数え上げる</h3>
+<span class="ltx_tag ltx_tag_section">C.1 </span>配列を数え上げる</h3>
 
-<div id="A2.S1.p1" class="ltx_para">
+<div id="A3.S1.p1" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;"># FASTQの場合</span>
@@ -5231,11 +5123,11 @@ v1.8.4は以下のようにインストールできます。</p>
 </p>
 </div>
 </section>
-<section id="A2.S2" class="ltx_section">
+<section id="A3.S2" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">B.2 </span>配列を閲覧する</h3>
+<span class="ltx_tag ltx_tag_section">C.2 </span>配列を閲覧する</h3>
 
-<div id="A2.S2.p1" class="ltx_para">
+<div id="A3.S2.p1" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;"># 無圧縮ファイル内容を画面に出力</span>
@@ -5288,11 +5180,11 @@ v1.8.4は以下のようにインストールできます。</p>
 </p>
 </div>
 </section>
-<section id="A2.S3" class="ltx_section">
+<section id="A3.S3" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">B.3 </span>圧縮・展開</h3>
+<span class="ltx_tag ltx_tag_section">C.3 </span>圧縮・展開</h3>
 
-<div id="A2.S3.p1" class="ltx_para">
+<div id="A3.S3.p1" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;"># フォルダ内の全.fastq.gzを展開</span>
@@ -5369,11 +5261,11 @@ v1.8.4は以下のようにインストールできます。</p>
 </p>
 </div>
 </section>
-<section id="A2.S4" class="ltx_section">
+<section id="A3.S4" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
-<span class="ltx_tag ltx_tag_section">B.4 </span>抽出・保存</h3>
+<span class="ltx_tag ltx_tag_section">C.4 </span>抽出・保存</h3>
 
-<div id="A2.S4.p1" class="ltx_para">
+<div id="A3.S4.p1" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;">
 <span class="ltx_p ltx_align_left">
             <span class="ltx_text ltx_font_typewriter" style="font-size:80%;"># FASTQから最初の1万配列を抽出</span>
