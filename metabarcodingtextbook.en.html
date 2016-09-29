@@ -1,8 +1,8 @@
 <!DOCTYPE html><html prefix="dcterms: http://purl.org/dc/terms/">
 <head>
 <title>Matabarcoding and DNA barcoding for Ecologists</title>
-<!--Generated on Mon Sep 26 17:42:49 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
-<!--Document created on September 26, 2016.-->
+<!--Generated on Thu Sep 29 22:28:59 2016 by LaTeXML (version 0.8.0_02) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on September 29, 2016.-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="LaTeXML.css" type="text/css">
@@ -18,7 +18,7 @@
 <span class="ltx_personname">Akifumi S. Tanabe
 </span></span>
 </div>
-<div class="ltx_date ltx_role_creation">September 26, 2016</div>
+<div class="ltx_date ltx_role_creation">September 29, 2016</div>
 
 <section id="Chx1" class="ltx_chapter">
 <h2 class="ltx_title ltx_title_chapter">Preface</h2>
@@ -1797,8 +1797,8 @@ The table modification command <span class="ltx_text ltx_font_typewriter">clfilt
 <p class="ltx_p">In Claident, RunID__TagID__PrimerID is used as sample IDs.
 Therefore, there are multiple samples from the same templates in this case.
 Such samples can be treated as separate or integrated to one sample.
-It is recommended that separate samples have been used subsequent analysis without any change and such samples are finally integrated in a sample x OTU table.
-The table modification command <span class="ltx_text ltx_font_typewriter">clfiltersum</span> can be used for integration of multiple samples to one, and cell numbers will be summed up.</p>
+It is recommended that separate samples have been used subsequent analysis without any change, all filtered and denoised sequences of multiple runs are given to clustering commands, and such samples are finally integrated in a sample x OTU table.
+The table generation command <span class="ltx_text ltx_font_typewriter">clsumclass</span> with <span class="ltx_text ltx_font_typewriter">--runname</span> argument or table modification command <span class="ltx_text ltx_font_typewriter">clfiltersum</span> with <span class="ltx_text ltx_font_typewriter">--runname</span> argument can be used to replace RunIDs and to integrate multiple samples to one, and cell numbers will be summed up.</p>
 </div>
 <div id="Ch2.S4.SS3.p2" class="ltx_para">
 <p class="ltx_p">If you want to integrate multiple samples from the same templates at this time, execute the following commands.</p>

@@ -1060,8 +1060,8 @@ The table modification command \texttt{clfiltersum} can be used for integration 
 In Claident, RunID{\textunderscore}{\textunderscore}TagID{\textunderscore}{\textunderscore}PrimerID is used as sample IDs.
 Therefore, there are multiple samples from the same templates in this case.
 Such samples can be treated as separate or integrated to one sample.
-It is recommended that separate samples have been used subsequent analysis without any change and such samples are finally integrated in a sample x OTU table.
-The table modification command \texttt{clfiltersum} can be used for integration of multiple samples to one, and cell numbers will be summed up.
+It is recommended that separate samples have been used subsequent analysis without any change, all filtered and denoised sequences of multiple runs are given to clustering commands, and such samples are finally integrated in a sample x OTU table.
+The table generation command \texttt{clsumclass} with \texttt{{-}{-}runname} argument or table modification command \texttt{clfiltersum} with \texttt{{-}{-}runname} argument can be used to replace RunIDs and to integrate multiple samples to one, and cell numbers will be summed up.
 
 If you want to integrate multiple samples from the same templates at this time, execute the following commands.
 \begin{cmd}
