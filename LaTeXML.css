@@ -280,14 +280,14 @@ span.ltx_rowspan { position:absolute; top:0; bottom:0; }
 /* Framing */
 .ltx_framed_rectangle { border-style:solid; border-width:1px; }
 .ltx_framed_top       { border-top-style:solid; border-top-width:1px; }
-.ltx_framed_left      { border-left-style:solid; border-left-width:1px; }
-.ltx_framed_right     { border-right-style:solid; border-right-width:1px; }
+.ltx_framed_left      { border-left-style:solid; border-left-width:10px; }
+.ltx_framed_right     { border-right-style:solid; border-right-width:10px; }
 .ltx_framed_bottom,
 .ltx_framed_underline { border-bottom-style:solid; border-bottom-width:1px; }
 .ltx_framed_topbottom { border-top-style:solid; border-top-width:1px;
                         border-bottom-style:solid; border-bottom-width:1px; }
-.ltx_framed_leftright { border-left-style:solid; border-left-width:1px;
-                        border-right-style:solid; border-right-width:1px; }
+.ltx_framed_leftright { border-left-style:solid; border-left-width:10px;
+                        border-right-style:solid; border-right-width:10px; }
 
 /*======================================================================
  Misc */
