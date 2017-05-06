@@ -47,5 +47,6 @@ while (<>) {
 	s/Chapter\s(\d+)/第$1章/g;
 	s/Part\s(\d+)/第$1部/g;
 	s/ltx_inline-block ltx_framed_rectangle/ltx_p ltx_framed_rectangle/g;
+	s/font-size:\d+\%/font-size:100\%/g;
 	print;
 }

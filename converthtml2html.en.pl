@@ -31,5 +31,6 @@ while (<>) {
 	s/<dt ([^<>]+) class="ltx_item">/<dt $1>/g;
 	s/<dd class="ltx_item">/<dd>/g;
 	s/ltx_inline-block ltx_framed_rectangle/ltx_p ltx_framed_rectangle/g;
+	s/font-size:\d+\%/font-size:100\%/g;
 	print;
 }
