@@ -46,5 +46,6 @@ while (<>) {
 	s/<dd class="ltx_item">/<dd>/g;
 	s/Chapter\s(\d+)/第$1章/g;
 	s/Part\s(\d+)/第$1部/g;
+	s/ltx_inline-block ltx_framed_rectangle/ltx_p ltx_framed_rectangle/g;
 	print;
 }

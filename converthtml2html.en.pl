@@ -30,5 +30,6 @@ while (<>) {
 	s/style="border:1px solid #000000;padding-top:12pt;padding-bottom:12pt;"/style="border:1px solid #000000;padding:0.5em 0em 0.5em 0em;"/g;
 	s/<dt ([^<>]+) class="ltx_item">/<dt $1>/g;
 	s/<dd class="ltx_item">/<dd>/g;
+	s/ltx_inline-block ltx_framed_rectangle/ltx_p ltx_framed_rectangle/g;
 	print;
 }

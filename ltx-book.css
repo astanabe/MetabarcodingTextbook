@@ -20,7 +20,6 @@
 
 .ltx_title_part          { font-size:250%; font-weight:bold; margin-bottom:1em; }
 .ltx_title_appendix,
-.ltx_title_bibliography,
 .ltx_title_chapter       { font-size:250%; font-weight:bold; margin-bottom:1em; }
 .ltx_title_chapter .ltx_tag { display:block; font-size:90%; margin-bottom:0.5em; }
 .ltx_title_section       { font-size:140%; font-weight:bold; margin-bottom:1em; }
@@ -40,11 +39,17 @@
 .ltx_subparagraph .ltx_title + .ltx_para,
 .ltx_subparagraph .ltx_title + .ltx_para > .ltx_p { display:block; }
 
-.ltx_figure  { text-align:center; margin:auto; }
-.ltx_table   { text-align:center; margin:auto; }
+.ltx_figure  { text-align:center; margin:auto; margin:0.5em; }
+.ltx_table   { text-align:center; margin:auto; margin:0.5em; }
+
+/* experimental: flex model, to center short captions, justify long ones */
+.ltx_table,
+.ltx_figure { display:flex; flex-direction:column; align-items:center; }
+.ltx_table .ltx_caption,
+.ltx_figure .ltx_caption { text-align:justify; }
 
 /* first p in para gets indented */
-.ltx_para > .ltx_p:first-child { text-indent:0em; }
+.ltx_para > .ltx_p:first-child { text-indent:2em; }
 /* except the initial in a section */
 section > .ltx_title +.ltx_para > .ltx_p,
 section > .ltx_title +.ltx_date +.ltx_para > .ltx_p {text-indent:0em; }
