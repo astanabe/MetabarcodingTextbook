@@ -49,7 +49,7 @@
 .ltx_figure .ltx_caption { text-align:justify; }
 
 /* first p in para gets indented */
-.ltx_para > .ltx_p:first-child { text-indent:2em; }
+.ltx_para > .ltx_p:first-child { text-indent:0em; }
 /* except the initial in a section */
 section > .ltx_title +.ltx_para > .ltx_p,
 section > .ltx_title +.ltx_date +.ltx_para > .ltx_p {text-indent:0em; }

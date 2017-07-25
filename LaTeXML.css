@@ -232,7 +232,7 @@ span.ltx_rowspan { position:absolute; top:0; bottom:0; }
 /* by default, p doesn't indent */
 .ltx_p { text-indent:0em; white-space:normal; }
 /* explicit control of indentation (on ltx_para) */
-.ltx_indent > .ltx_p:first-child { text-indent:2em!important; }
+.ltx_indent > .ltx_p:first-child { text-indent:0em!important; }
 .ltx_noindent > .ltx_p:first-child { text-indent:0em!important; }
 
 /*======================================================================
