@@ -261,7 +261,7 @@ You can disable a part of upgrade like below.
 {\textgreater} touch .vsearch↓\\
 \# disable upgrade of NCBI BLAST+\\
 {\textgreater} touch .blast↓\\
-\# execute upgrade
+\# execute upgrade\\
 {\textgreater} wget https://www.claident.org/installClaident{\textunderscore}Debian.sh↓\\
 {\textgreater} sh installClaident{\textunderscore}Debian.sh↓\\
 \# disable upgrade of sff{\textunderscore}extract\\
@@ -274,12 +274,12 @@ You can disable a part of upgrade like below.
 {\textgreater} touch .metaxa↓\\
 \# disable upgrade of ITSx\\
 {\textgreater} touch .itsx↓\\
-\# execute upgrade
+\# execute upgrade\\
 {\textgreater} wget https://www.claident.org/installOptions{\textunderscore}Debian.sh↓\\
 {\textgreater} sh installOptions{\textunderscore}Debian.sh↓\\
 \# disable upgrade of ``overall'' BLAST and taxonomy databases\\
 {\textgreater} touch .overall↓\\
-\# execute upgrade
+\# execute upgrade\\
 {\textgreater} wget https://www.claident.org/installDB{\textunderscore}Debian.sh↓\\
 {\textgreater} sh installDB{\textunderscore}Debian.sh↓\\
 \# disable upgrade of ``Claident Databases for UCHIME''\\
@@ -290,7 +290,7 @@ You can disable a part of upgrade like below.
 {\textgreater} touch .silva↓\\
 \# disable upgrade of ``unite'' reference databases for chimera detection\\
 {\textgreater} touch .unite↓\\
-\# execute upgrade
+\# execute upgrade\\
 {\textgreater} wget https://www.claident.org/installUCHIMEDB{\textunderscore}Debian.sh↓\\
 {\textgreater} sh installUCHIMEDB{\textunderscore}Debian.sh↓\\
 {\textgreater} cd ..↓\\
@@ -1972,9 +1972,9 @@ To install bcl2fastq2 v2.18.0.12 for all Illumina sequencing systems running RTA
 {\textgreater} rpm2cpio {\textbackslash}\\
 bcl2fastq2-v2.18.0.12-Linux-x86{\textunderscore}64.rpm | cpio -id↓\\
 \# Install executable command\\
-{\textgreater} sudo mv usr/local/bin/bcl2fastq /usr/local/bin/↓
+{\textgreater} sudo mv usr/local/bin/bcl2fastq /usr/local/bin/↓\\
 \# Install the other resources\\
-{\textgreater} sudo cp -R usr/local/share/css /usr/local/share/↓
+{\textgreater} sudo cp -R usr/local/share/css /usr/local/share/↓\\
 {\textgreater} sudo cp -R usr/local/share/xsl /usr/local/share/↓
 \end{cmd}
 
