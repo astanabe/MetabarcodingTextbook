@@ -748,6 +748,7 @@ In the case of bcl2fastq 1.x, the following commands make FASTQ files from BCL f
 {-}{-}use-bases-mask Y300n,Y8,Y8,Y300n {\textbackslash}\\
 {-}{-}input-dir BaseCalls {\textbackslash}\\
 {-}{-}output-dir outputfolder↓\\
+{\textgreater} cd outputfolder↓\\
 {\textgreater} make -j4↓
 \end{cmd}
 
@@ -766,12 +767,12 @@ In the case of bcl2fastq 2.x, perform the following command.
 {\textgreater} bcl2fastq {\textbackslash}\\
 {-}{-}processing-threads NumberOfCPUs {\textbackslash}\\
 {-}{-}create-fastq-for-index-reads {\textbackslash}\\
-{-}{-}use-bases-mask Y300n,Y8,Y8,Y300n {\textbackslash}\\
+{-}{-}use-bases-mask Y300n,I8,I8,Y300n {\textbackslash}\\
 {-}{-}runfolder-dir RunDataFolder {\textbackslash}\\
 {-}{-}output-dir outputfolder↓
 \end{cmd}
 
-The \texttt{{-}{-}processing-threads}, \texttt{{-}{-}use-bases-mask} and \texttt{{-}{-}runfolder-dir} indicate the number of processor used in conversion, masking option in common with 1.x and run data folder, respectively.
+The \texttt{{-}{-}processing-threads}, \texttt{{-}{-}use-bases-mask} and \texttt{{-}{-}runfolder-dir} indicate the number of processor used in conversion, masking option (almost same as 1.x but index length must be given as \texttt{I[number]} instead of \texttt{Y[number]}) and run data folder, respectively.
 
 \subsection{Demultiplexing of sequences}
 
@@ -1962,18 +1963,18 @@ You can also use text editor program to edit line 747 and line 751 of\\
 \texttt{/usr/local/lib/bcl2fastq-1.8.4/perl/Casava/Alignment/Config.pm}\\
 and replace \texttt{qw(FOO)} to \texttt{("FOO")}.
 
-To install bcl2fastq2 v2.18.0.12 for all Illumina sequencing systems running RTA version 1.18.54 and above, run the following commands.
+To install bcl2fastq2 v2.20.0.422 for all Illumina sequencing systems running RTA version 1.18.54 and above, run the following commands.
 
 \begin{cmd}
 \# Install rpm2cpio and cpio\\
 {\textgreater} sudo apt-get install rpm2cpio cpio↓\\
-\# Download bcl2fastq2 v2.18.0.12 from Illumina\\
-{\textgreater} wget -O bcl2fastq2-v2-18-0-12-linux-x86-64.zip http://bit.ly/2drPH3W↓\\
+\# Download bcl2fastq2 v2.20.0.422 from Illumina\\
+{\textgreater} wget -O bcl2fastq2-v2-20-0-linux-x86-64.zip https://bit.ly/2NEy9qG↓\\
 \# Decompress zip file\\
-{\textgreater} unzip -qq bcl2fastq2-v2-18-0-12-linux-x86-64.zip↓\\
+{\textgreater} unzip -qq bcl2fastq2-v2-20-0-linux-x86-64.zip↓\\
 \# Extract executable command from .rpm\\
 {\textgreater} rpm2cpio {\textbackslash}\\
-bcl2fastq2-v2.18.0.12-Linux-x86{\textunderscore}64.rpm | cpio -id↓\\
+bcl2fastq2-v2.20.0.422-Linux-x86{\textunderscore}64.rpm | cpio -id↓\\
 \# Install executable command\\
 {\textgreater} sudo mv usr/local/bin/bcl2fastq /usr/local/bin/↓\\
 \# Install the other resources\\
