@@ -818,7 +818,7 @@ inputfile4 {\textbackslash}\\
 outputfolder↓
 \end{cmd}
 
-The input files should be specified in the order of \texttt{*{\textunderscore}R1{\textunderscore}001.fastq.gz}, \texttt{*{\textunderscore}R2{\textunderscore}001.fastq.gz}, \texttt{*{\textunderscore}R3{\textunderscore}001.fastq.gz} and \texttt{*{\textunderscore}R4{\textunderscore}001.fastq.gz}.
+The input files should be specified in the order of forward read file, index1 read file, index2 read file and reverse read file.
 The \texttt{{-}{-}index1file} and \texttt{{-}{-}index2file} arguments requires the FASTA sequence files of index 1 (reverse-complement of tag-R) and index 2 (tag-F), respectively.
 By default, the acceptable mismatches are 14\% and 15\% for forward and reverse primers, respectively.
 If you added \texttt{N} in front of primer, the \texttt{{-}{-}truncateN=enable} argument need to be given.
