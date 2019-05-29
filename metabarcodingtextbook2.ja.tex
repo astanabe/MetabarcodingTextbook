@@ -5,11 +5,9 @@
 
 \usepackage[round,colon,authoryear]{natbib}
 
-\usepackage{atbegshi}
-\AtBeginShipoutFirst{\special{pdf:tounicode 90ms-RKSJ-UCS2}} % UTF-8
-% 日本語可能なしおりにする
+\usepackage[dvipdfmx, hiresbb]{graphicx, xcolor}
 
-\usepackage[dvipdfmx]{color,graphicx}
+\usepackage{grffile}
 
 \usepackage[%
 dvipdfm,%
@@ -21,10 +19,11 @@ colorlinks=true,%              ハイパーリンクを色文字に
 linkcolor=black,%       link の枠の色 black
 citecolor=black,%       cite の枠の色 black
 urlcolor=black,%        url の枠の色 black
-pdftitle={生態学のためのメタバーコーディングとDNAバーコーディング},%
+pdftitle={生態学のためのメタバーコーディングとDNAバーコーディング：解析編},%
 pdfauthor={田辺晶史},
 pdfkeywords={メタゲノム, 環境DNA, 次世代シーケンサー, 454, IonTorrent, Illumina}%
 ]{hyperref}
+\usepackage{pxjahyper}
 
 \usepackage{pxfonts}
 
@@ -32,7 +31,7 @@ pdfkeywords={メタゲノム, 環境DNA, 次世代シーケンサー, 454, IonTo
 
 \makeatletter
 \def\maketitle{%
-  \includegraphics[scale=1.2,keepaspectratio]{metabarcodingtextbook.ja.eps}%
+  \begin{center}\includegraphics[pagebox=cropbox,clip]{metabarcodingtextbook2.ja.title.pdf}\end{center}%
   \cleardoublepage
   \begin{titlepage}%
     \let\footnotesize\small
@@ -68,7 +67,7 @@ pdfkeywords={メタゲノム, 環境DNA, 次世代シーケンサー, 454, IonTo
 }
 \makeatother
 
-\title{生態学のためのメタバーコーディングとDNAバーコーディング}
+\title{生態学のためのメタバーコーディングとDNAバーコーディング：解析編}
 \author{田辺晶史}
 \date{\today}
 
@@ -124,25 +123,16 @@ pdfkeywords={メタゲノム, 環境DNA, 次世代シーケンサー, 454, IonTo
 \chapter*{はじめに}
 \addcontentsline{toc}{chapter}{はじめに}
 
-本書は、筆者が開発した塩基配列アセンブラー「Assams」と、配列のクラスタリングとホスト生物同定のためのパッケージ「Claident」の利用を普及促進するために執筆を開始しました。
-これらのプログラムの利用方法のみならず、データの取得方法からDNAバーコーディングによる生物の同定方法まで解説しています。
-
-細菌などの研究においては既に広く利用されているメタバーコーディングですが、細菌以外の分類群でも幅広い応用が考えられます。
-例えば、土壌や動植物体内の真菌、水中の動植物プランクトンなどにも適用可能だと思います。
-水中の溶け出している大型動植物の環境DNAでも同様の解析が可能でしょう。
-本書では、環境DNAやメタゲノムから、DNAバーコーディングに利用される領域を増幅し、比較的長い解読長の第2世代以降のシーケンサーで配列を読み取って、DNAバーコーディングによって配列のホスト生物を特定することで生物の在・不在を調査する方法を解説します。
-また、メタバーコーディングに限らず、様々な分野で応用が進みつつあるDNAバーコーディングを用いて生物を同定する方法についても解説しています。
-
-本書はクリエイティブ・コモンズの表示-継承 2.1 日本ライセンスの下で配布します。
+本書はクリエイティブ・コモンズの表示-継承 4.0 国際ライセンスの下で配布します。
 このライセンスの下では、原著作者の明示を行う限り、利用者は自由に本書を複製・頒布・展示することができます。
 また、原著作者の明示と本ライセンスまたは互換性のあるライセンスの適用を行う限り、本書を改変した二次著作物の作成・配布も自由に行うことができます。
 詳しい使用許諾条件を見るには\\
-\href{http://creativecommons.org/licenses/by-sa/2.1/jp/}{http://creativecommons.org/licenses/by-sa/2.1/jp/}\\
-をチェックするか、クリエイティブ･コモンズに郵便にてお問い合わせください。
-住所は：171 Second Street, Suite 300, San Francisco, California 94105, USA です。
+\href{https://creativecommons.org/licenses/by-sa/4.0/}{https://creativecommons.org/licenses/by-sa/4.0/}\\
+をチェックするか、クリエイティブ・コモンズに郵便にてお問い合わせください。
+住所は Creative Commons, PO Box 1866, Mountain View, CA 94042, USA です。
 
 本書が皆さんの役に立つことができましたら幸いです。
-この機会を与えて下さった京都大学大学院人間・環境学研究科の東樹宏和博士、水産研究・教育機構中央水産研究所の長井敏博士と、本書をお読みの皆さんに感謝します。
+この機会を与えて下さった京都大学生態学研究センターの東樹宏和博士、水産研究・教育機構中央水産研究所の長井敏博士、龍谷大学の山中裕樹博士と、本書をお読みの皆さんに感謝します。
 
 \chapter*{凡例}
 \addcontentsline{toc}{chapter}{凡例}
@@ -181,9 +171,9 @@ output of command
 
 \chapter{ソフトウェアのインストールと環境設定}
 
-本書では、Debian GNU/Linux jessie (以下Debian)、Ubuntu Linux 14.04 LTS (以下Ubuntu)を利用環境として想定しています。
+本書では、Debian GNU/Linux 9 (stretch) (以下Debian)、Ubuntu Linux 18.04 LTS (以下Ubuntu)を利用環境として想定しています。
 Windows環境の方は、Linuxのどちらかをインストールして環境を整えて下さい。
-動作が遅くても構わないなら、CygwinやWindows 10 build 14393以降で提供されているWindows Subsystem for LinuxなどのWindows上で動作するUNIX互換環境にインストールすることも可能です。
+動作が遅くても構わないなら、CygwinやWindows 10で提供されているWindows Subsystem for LinuxなどのWindows上で動作するUNIX互換環境にインストールすることも可能です。
 Linuxのインストールには、インストール用CD・DVD・USBメモリが使えます。
 HDDやSSDが1台しかない場合、Windows用のEaseUS Partition Masterなどのパーティションリサイズが可能なソフトを使ったり、インストール用CD・DVD・USBメモリ内に用意されている機能を使ってWindows用の領域を縮小して容量を空ける必要があります。
 HDDまたはSSDを追加してスペースを確保していただいても良いでしょう。
@@ -1899,7 +1889,7 @@ overall{\textunderscore}classでの同定結果 {\textbackslash}\\
 出力ファイル↓
 \end{cmd}
 
-\bibliography{metabarcodingtextbook.ja}
+\bibliography{metabarcodingtextbook2.ja}
 \addcontentsline{toc}{chapter}{引用文献}
 
 \appendix
