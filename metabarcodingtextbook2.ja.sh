@@ -5,7 +5,7 @@ platex --kanji=utf8 metabarcodingtextbook2.ja
 pbibtex --kanji=utf8 metabarcodingtextbook2.ja
 platex --kanji=utf8 metabarcodingtextbook2.ja
 platex --kanji=utf8 metabarcodingtextbook2.ja
-dvipdfmx -V 7 metabarcodingtextbook2.ja
+dvipdfmx metabarcodingtextbook2.ja
 rm metabarcodingtextbook2.ja.temp.pdf
 perl -i.bak -npe "s/<dc:date>.+<\/dc:date>/<dc:date>$t<\/dc:date>/" metabarcodingtextbook2.ja.xmp
 cpdf -set-metadata metabarcodingtextbook2.ja.xmp metabarcodingtextbook2.ja.pdf -o metabarcodingtextbook2.ja.temp.pdf

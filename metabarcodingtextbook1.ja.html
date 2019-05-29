@@ -1,0 +1,1207 @@
+<!DOCTYPE html><html prefix="dcterms: http://purl.org/dc/terms/">
+<head>
+<title>生態学のためのメタバーコーディングとDNAバーコーディング：採集・分子実験編</title>
+<!--Generated on Thu May 30 01:06:19 2019 by LaTeXML (version 0.8.3) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on May 30, 2019.-->
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="LaTeXML.css" type="text/css">
+<link rel="stylesheet" href="ltx-book.css" type="text/css">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">生態学のためのメタバーコーディングとDNAバーコーディング：採集・分子実験編</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">田辺晶史
+</span></span>
+</div>
+<div class="ltx_date ltx_role_creation">2019年5月30日</div>
+
+<section id="Chx1" class="ltx_chapter">
+<h2 class="ltx_title ltx_title_chapter">はじめに</h2>
+
+<div id="Chx1.p1" class="ltx_para">
+<p class="ltx_p">本書はクリエイティブ・コモンズの表示-継承 4.0 国際ライセンスの下で配布します。
+このライセンスの下では、原著作者の明示を行う限り、利用者は自由に本書を複製・頒布・展示することができます。
+また、原著作者の明示と本ライセンスまたは互換性のあるライセンスの適用を行う限り、本書を改変した二次著作物の作成・配布も自由に行うことができます。
+詳しい使用許諾条件を見るには
+<br class="ltx_break"><a href="https://creativecommons.org/licenses/by-sa/4.0/" title="" class="ltx_ref ltx_href">https://creativecommons.org/licenses/by-sa/4.0/</a>
+<br class="ltx_break">をチェックするか、クリエイティブ・コモンズに郵便にてお問い合わせください。
+住所は Creative Commons, PO Box 1866, Mountain View, CA 94042, USA です。</p>
+</div>
+<div id="Chx1.p2" class="ltx_para">
+<p class="ltx_p">本書が皆さんの役に立つことができましたら幸いです。
+この機会を与えて下さった京都大学生態学研究センターの東樹宏和博士、水産研究・教育機構中央水産研究所の長井敏博士、龍谷大学の山中裕樹博士と、本書をお読みの皆さんに感謝します。</p>
+</div>
+</section>
+<section id="Ch1" class="ltx_chapter">
+<h2 class="ltx_title ltx_title_chapter">
+<span class="ltx_tag ltx_tag_chapter">第1章 </span>環境DNA・メタゲノムDNAの採集方法</h2>
+
+<div id="Ch1.p1" class="ltx_para">
+<p class="ltx_p">ここでは、水からの環境DNA採集、および水、土壌、糞などからのメタゲノムDNAの採集方法について解説します。
+DNA抽出用の個体や組織の採集方法はここでは取り扱いません。
+なお、環境DNAとメタゲノムDNAは識別困難ですが、ここでは、環境DNAを「本体から排出されたDNA」、メタゲノムDNAを「本体から排出されていないDNA」ということにします。
+したがって、水中の魚類や甲殻類、水生昆虫、水生植物のDNAは環境DNAであり、微生物のDNAはメタゲノムDNAであることが多いでしょう(ただし、区別できないだけで微生物の環境DNAも含まれているでしょう)。
+また、未消化物に含まれる被食者や本人のDNAはどちらにするか難しいところですが、とりあえずメタゲノムDNAということにしておきます。</p>
+</div>
+<section id="Ch1.S1" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1.1 </span>サンプリングデザイン</h3>
+
+<div id="Ch1.S1.p1" class="ltx_para">
+<p class="ltx_p">採集地点をどのように配置するかは研究の内容に直結する重要な課題です。
+ここで研究目的の達成の可否が決まると言っても過言ではありません。
+そのためには、研究目的の明確化と予備調査が必須です。</p>
+</div>
+<div id="Ch1.S1.p2" class="ltx_para">
+<p class="ltx_p">例えば、ため池ごとの魚類相と環境条件(池の大きさ、深さ、水質、地質、高度、緯度経度など)との関連性を解明したいが、ため池の中での微細な違いには興味がないケースでは、ため池がよほど小さくない限り、ため池内の数地点から水を採集し、混合して濾過採集することになります。
+ため池が非常に小さい場合や、ため池内の水が十分に混合されていたり、対象となるため池があまりに多い場合は、1地点だけでため池を代表させることもあるでしょう。
+もちろん、余裕があるならため池内の数地点のサンプルを全て別々にして、その気になればため池内の微細な違いをも解析可能にしておくことも悪くありませんが、後述するサンプルレプリケートを複数用意することを考えると、大きな労力が必要となりますので、人手を十分考慮する必要があります。
+また、その場合はため池内の数地点のサンプル間でDNA抽出効率・PCR増幅効率などに大きな違いが生じることがないようにしなくてはなりません(違う場合は環境条件の影響と言えなくなってしまう)。</p>
+</div>
+<div id="Ch1.S1.p3" class="ltx_para">
+<p class="ltx_p">別のケースとして、森林の土壌を分析して、微生物叢と植物相の関連性を解明したい場合を考えましょう。
+この場合、1地点を広くかつ深く取り、その範囲の土壌を混合して採集するか、その範囲の土壌からいくつかのサブサンプルを採集して混合するのがよいでしょう。
+土壌では、少し離れただけで全く異なる微生物叢を示すので、ある場の植物相と対応する微生物叢を完全な1点では代表することができません。
+そのため、植物相と対応する範囲の数地点のサブサンプルをプールすることで代表させます。</p>
+</div>
+<div id="Ch1.S1.p4" class="ltx_para">
+<p class="ltx_p">以上のように、「DNAの拡散する範囲」と「そのサンプルで代表させたい範囲」を考慮して、前者の範囲の方が広くなるようにサンプリングデザインを行う必要があります。
+後者の範囲の方が広くなってしまう場合、研究の目的とする議論が行えなくなることがあります。
+ただ、後者の範囲の方が広くなる場合でも、サンプルが大量にあるのであれば、「本来の生物相」と「サンプルの生物相」との乖離に何らかの偏りがない限りは目的の議論ができる場合もあるでしょう。</p>
+</div>
+</section>
+<section id="Ch1.S2" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1.2 </span>テクニカルレプリケートとネガティブコントロール</h3>
+
+<div id="Ch1.S2.p1" class="ltx_para">
+<p class="ltx_p">1サンプルを1レプリケートで採集した場合、DNA抽出効率やPCR増幅効率のばらつきの影響を受けます。
+また、レアな種のゲノムDNAや低濃度の環境DNAはサンプルに入ったり入らなかったりすることもあり得ます。
+そこで、可能であれば複数(3以上ならなお良い)のレプリケートを1サンプル中に用意することが望ましくなります。
+このようにすることで、各サンプルごとに種の「発見率」を推定することができます。
+例えば、1サンプルが10レプリケート含んでいるとき、x軸をレプリケート数、y軸を合計種数とする折れ線グラフを描くことを想像してください。
+10レプリケートからx軸のレプリケート数だけ無作為抽出して合計種数を算出してy軸の合計種数を計算します。
+このとき、折れ線が傾きゼロの直線なら1レプリケートでも発見率は100%と考えられ、x=1では傾きゼロではなくとも、x=10では傾きゼロになっているなら10レプリケート合計すれば飽和している＝発見率100%ということになります。
+しかし、x=10でも線が傾いているようであれば、発見率は100%ではなく、いくらか取りこぼしがあることがわかります。</p>
+</div>
+</section>
+<section id="Ch1.S3" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1.3 </span>水からの濾過採集方法</h3>
+
+<section id="Ch1.S3.SS1" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">1.3.1 </span>濾過フィルターと濾過方法と固定方法の選定</h4>
+
+</section>
+<section id="Ch1.S3.SS2" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">1.3.2 </span>濾過関連機材の塩素漂白の方法</h4>
+
+<section id="Ch1.S3.SS2.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch1.S3.SS2.SSSx1.p1" class="ltx_para">
+<ul id="Ch1.S3.I1" class="ltx_itemize">
+<li id="Ch1.S3.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch1.S3.SS2.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な消耗品</h5>
+
+<div id="Ch1.S3.SS2.SSSx2.p1" class="ltx_para">
+<ul id="Ch1.S3.I2" class="ltx_itemize">
+<li id="Ch1.S3.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch1.S3.SS2.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch1.S3.SS2.SSSx3.p1" class="ltx_para">
+<ol id="Ch1.S3.I3" class="ltx_enumerate">
+<li id="Ch1.S3.I3.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="Ch1.S3.SS3" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">1.3.3 </span>吸引濾過装置を用いた水からの微生物メタゲノムDNA・環境DNAの濾過採集方法</h4>
+
+<section id="Ch1.S3.SS3.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch1.S3.SS3.SSSx1.p1" class="ltx_para">
+<ul id="Ch1.S3.I4" class="ltx_itemize">
+<li id="Ch1.S3.I4.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch1.S3.SS3.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な消耗品</h5>
+
+<div id="Ch1.S3.SS3.SSSx2.p1" class="ltx_para">
+<ul id="Ch1.S3.I5" class="ltx_itemize">
+<li id="Ch1.S3.I5.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch1.S3.SS3.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch1.S3.SS3.SSSx3.p1" class="ltx_para">
+<ol id="Ch1.S3.I6" class="ltx_enumerate">
+<li id="Ch1.S3.I6.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="Ch1.S3.SS4" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">1.3.4 </span>シリンジを用いた水からのメタゲノムDNA・環境DNAの濾過採集方法</h4>
+
+<section id="Ch1.S3.SS4.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch1.S3.SS4.SSSx1.p1" class="ltx_para">
+<ul id="Ch1.S3.I7" class="ltx_itemize">
+<li id="Ch1.S3.I7.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch1.S3.SS4.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な消耗品</h5>
+
+<div id="Ch1.S3.SS4.SSSx2.p1" class="ltx_para">
+<ul id="Ch1.S3.I8" class="ltx_itemize">
+<li id="Ch1.S3.I8.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch1.S3.SS4.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch1.S3.SS4.SSSx3.p1" class="ltx_para">
+<ol id="Ch1.S3.I9" class="ltx_enumerate">
+<li id="Ch1.S3.I9.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="Ch2" class="ltx_chapter">
+<h2 class="ltx_title ltx_title_chapter">
+<span class="ltx_tag ltx_tag_chapter">第2章 </span>DNA抽出・ライブラリ調製・シーケンシング</h2>
+
+<section id="Ch2.S1" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2.1 </span>機材・試薬の滅菌とDNA分解によるコンタミネーションの防止</h3>
+
+</section>
+<section id="Ch2.S2" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2.2 </span>テクニカルレプリケートとネガティブコントロール</h3>
+
+</section>
+<section id="Ch2.S3" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2.3 </span>DNA抽出</h3>
+
+<section id="Ch2.S3.SS1" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.3.1 </span>47mmグラスファイバーフィルターからのDNA抽出プロトコル</h4>
+
+<section id="Ch2.S3.SS1.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S3.SS1.SSSx1.p1" class="ltx_para">
+<ul id="Ch2.S3.I1" class="ltx_itemize">
+<li id="Ch2.S3.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S3.SS1.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S3.SS1.SSSx2.p1" class="ltx_para">
+<ul id="Ch2.S3.I2" class="ltx_itemize">
+<li id="Ch2.S3.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S3.SS1.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S3.SS1.SSSx3.p1" class="ltx_para">
+<ol id="Ch2.S3.I3" class="ltx_enumerate">
+<li id="Ch2.S3.I3.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="Ch2.S3.SS2" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.3.2 </span>47mm非グラスファイバーフィルターからのDNA抽出プロトコル</h4>
+
+<section id="Ch2.S3.SS2.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S3.SS2.SSSx1.p1" class="ltx_para">
+<ul id="Ch2.S3.I4" class="ltx_itemize">
+<li id="Ch2.S3.I4.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S3.SS2.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S3.SS2.SSSx2.p1" class="ltx_para">
+<ul id="Ch2.S3.I5" class="ltx_itemize">
+<li id="Ch2.S3.I5.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S3.SS2.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S3.SS2.SSSx3.p1" class="ltx_para">
+<ol id="Ch2.S3.I6" class="ltx_enumerate">
+<li id="Ch2.S3.I6.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="Ch2.S3.SS3" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.3.3 </span>ステリべクスからのDNA抽出プロトコル</h4>
+
+<section id="Ch2.S3.SS3.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S3.SS3.SSSx1.p1" class="ltx_para">
+<ul id="Ch2.S3.I7" class="ltx_itemize">
+<li id="Ch2.S3.I7.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S3.SS3.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S3.SS3.SSSx2.p1" class="ltx_para">
+<ul id="Ch2.S3.I8" class="ltx_itemize">
+<li id="Ch2.S3.I8.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S3.SS3.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S3.SS3.SSSx3.p1" class="ltx_para">
+<ol id="Ch2.S3.I9" class="ltx_enumerate">
+<li id="Ch2.S3.I9.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="Ch2.S3.SS4" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.3.4 </span>磁気ビーズを用いたDNAの精製プロトコル</h4>
+
+<section id="Ch2.S3.SS4.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S3.SS4.SSSx1.p1" class="ltx_para">
+<ul id="Ch2.S3.I10" class="ltx_itemize">
+<li id="Ch2.S3.I10.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S3.SS4.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S3.SS4.SSSx2.p1" class="ltx_para">
+<ul id="Ch2.S3.I11" class="ltx_itemize">
+<li id="Ch2.S3.I11.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S3.SS4.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S3.SS4.SSSx3.p1" class="ltx_para">
+<ol id="Ch2.S3.I12" class="ltx_enumerate">
+<li id="Ch2.S3.I12.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+</section>
+<section id="Ch2.S4" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2.4 </span>ライブラリ調製</h3>
+
+<section id="Ch2.S4.SS4.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S4.SS4.SSSx1.p1" class="ltx_para">
+<ul id="Ch2.S4.I1" class="ltx_itemize">
+<li id="Ch2.S4.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS4.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S4.SS4.SSSx2.p1" class="ltx_para">
+<ul id="Ch2.S4.I2" class="ltx_itemize">
+<li id="Ch2.S4.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS4.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S4.SS4.SSSx3.p1" class="ltx_para">
+<ol id="Ch2.S4.I3" class="ltx_enumerate">
+<li id="Ch2.S4.I3.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+<section id="Ch2.S4.SS1" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.4.1 </span>プライマーの設計と発注の方法</h4>
+
+<section id="Ch2.S4.SS1.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S4.SS1.SSSx1.p1" class="ltx_para">
+<ul id="Ch2.S4.I4" class="ltx_itemize">
+<li id="Ch2.S4.I4.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS1.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S4.SS1.SSSx2.p1" class="ltx_para">
+<ul id="Ch2.S4.I5" class="ltx_itemize">
+<li id="Ch2.S4.I5.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS1.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S4.SS1.SSSx3.p1" class="ltx_para">
+<ol id="Ch2.S4.I6" class="ltx_enumerate">
+<li id="Ch2.S4.I6.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="Ch2.S4.SS2" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.4.2 </span>ユニバーサルプライマーを用いたPCRのプロトコル(泳動用)</h4>
+
+<section id="Ch2.S4.SS2.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S4.SS2.SSSx1.p1" class="ltx_para">
+<ul id="Ch2.S4.I7" class="ltx_itemize">
+<li id="Ch2.S4.I7.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS2.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S4.SS2.SSSx2.p1" class="ltx_para">
+<ul id="Ch2.S4.I8" class="ltx_itemize">
+<li id="Ch2.S4.I8.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS2.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S4.SS2.SSSx3.p1" class="ltx_para">
+<ol id="Ch2.S4.I9" class="ltx_enumerate">
+<li id="Ch2.S4.I9.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="Ch2.S4.SS3" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.4.3 </span>アガロースゲル電気泳動のプロトコル</h4>
+
+<section id="Ch2.S4.SS3.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S4.SS3.SSSx1.p1" class="ltx_para">
+<ul id="Ch2.S4.I10" class="ltx_itemize">
+<li id="Ch2.S4.I10.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS3.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S4.SS3.SSSx2.p1" class="ltx_para">
+<ul id="Ch2.S4.I11" class="ltx_itemize">
+<li id="Ch2.S4.I11.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS3.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S4.SS3.SSSx3.p1" class="ltx_para">
+<ol id="Ch2.S4.I12" class="ltx_enumerate">
+<li id="Ch2.S4.I12.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="Ch2.S4.SS4" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.4.4 </span>ユニバーサルプライマーを用いたPCRのプロトコル(本番用)</h4>
+
+<section id="Ch2.S4.SS4.SSSx1a" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S4.SS4.SSSx1a.p1" class="ltx_para">
+<ul id="Ch2.S4.I13" class="ltx_itemize">
+<li id="Ch2.S4.I13.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS4.SSSx2a" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S4.SS4.SSSx2a.p1" class="ltx_para">
+<ul id="Ch2.S4.I14" class="ltx_itemize">
+<li id="Ch2.S4.I14.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS4.SSSx3a" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S4.SS4.SSSx3a.p1" class="ltx_para">
+<ol id="Ch2.S4.I15" class="ltx_enumerate">
+<li id="Ch2.S4.I15.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="Ch2.S4.SS5" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.4.5 </span>磁気ビーズを用いたPCR産物の精製プロトコル</h4>
+
+<section id="Ch2.S4.SS5.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S4.SS5.SSSx1.p1" class="ltx_para">
+<ul id="Ch2.S4.I16" class="ltx_itemize">
+<li id="Ch2.S4.I16.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS5.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S4.SS5.SSSx2.p1" class="ltx_para">
+<ul id="Ch2.S4.I17" class="ltx_itemize">
+<li id="Ch2.S4.I17.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS5.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S4.SS5.SSSx3.p1" class="ltx_para">
+<ol id="Ch2.S4.I18" class="ltx_enumerate">
+<li id="Ch2.S4.I18.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="Ch2.S4.SS6" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.4.6 </span>Exonuclease Iを用いたPCR産物の精製プロトコル</h4>
+
+<section id="Ch2.S4.SS6.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S4.SS6.SSSx1.p1" class="ltx_para">
+<ul id="Ch2.S4.I19" class="ltx_itemize">
+<li id="Ch2.S4.I19.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS6.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S4.SS6.SSSx2.p1" class="ltx_para">
+<ul id="Ch2.S4.I20" class="ltx_itemize">
+<li id="Ch2.S4.I20.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS6.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S4.SS6.SSSx3.p1" class="ltx_para">
+<ol id="Ch2.S4.I21" class="ltx_enumerate">
+<li id="Ch2.S4.I21.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="Ch2.S4.SS7" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.4.7 </span>アダプターを付加するPCRのプロトコル</h4>
+
+<section id="Ch2.S4.SS7.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S4.SS7.SSSx1.p1" class="ltx_para">
+<ul id="Ch2.S4.I22" class="ltx_itemize">
+<li id="Ch2.S4.I22.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS7.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S4.SS7.SSSx2.p1" class="ltx_para">
+<ul id="Ch2.S4.I23" class="ltx_itemize">
+<li id="Ch2.S4.I23.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS7.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S4.SS7.SSSx3.p1" class="ltx_para">
+<ol id="Ch2.S4.I24" class="ltx_enumerate">
+<li id="Ch2.S4.I24.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="Ch2.S4.SS8" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.4.8 </span>インデックスとP5・P7アダプターを付加するPCRのプロトコル</h4>
+
+<section id="Ch2.S4.SS8.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S4.SS8.SSSx1.p1" class="ltx_para">
+<ul id="Ch2.S4.I25" class="ltx_itemize">
+<li id="Ch2.S4.I25.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS8.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S4.SS8.SSSx2.p1" class="ltx_para">
+<ul id="Ch2.S4.I26" class="ltx_itemize">
+<li id="Ch2.S4.I26.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS8.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S4.SS8.SSSx3.p1" class="ltx_para">
+<ol id="Ch2.S4.I27" class="ltx_enumerate">
+<li id="Ch2.S4.I27.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="Ch2.S4.SS9" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.4.9 </span>磁気ビーズを用いたPCR産物の濃度均一化</h4>
+
+<section id="Ch2.S4.SS9.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S4.SS9.SSSx1.p1" class="ltx_para">
+<ul id="Ch2.S4.I28" class="ltx_itemize">
+<li id="Ch2.S4.I28.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS9.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S4.SS9.SSSx2.p1" class="ltx_para">
+<ul id="Ch2.S4.I29" class="ltx_itemize">
+<li id="Ch2.S4.I29.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS9.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S4.SS9.SSSx3.p1" class="ltx_para">
+<ol id="Ch2.S4.I30" class="ltx_enumerate">
+<li id="Ch2.S4.I30.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="Ch2.S4.SS10" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.4.10 </span>E-Gel SizeSelectによるサイズ選択</h4>
+
+<section id="Ch2.S4.SS10.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S4.SS10.SSSx1.p1" class="ltx_para">
+<ul id="Ch2.S4.I31" class="ltx_itemize">
+<li id="Ch2.S4.I31.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS10.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S4.SS10.SSSx2.p1" class="ltx_para">
+<ul id="Ch2.S4.I32" class="ltx_itemize">
+<li id="Ch2.S4.I32.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S4.SS10.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S4.SS10.SSSx3.p1" class="ltx_para">
+<ol id="Ch2.S4.I33" class="ltx_enumerate">
+<li id="Ch2.S4.I33.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+</section>
+<section id="Ch2.S5" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2.5 </span>ライブラリのクオリティチェック</h3>
+
+<section id="Ch2.S5.SS1" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.5.1 </span>Qubitによる濃度測定と希釈</h4>
+
+<section id="Ch2.S5.SS1.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S5.SS1.SSSx1.p1" class="ltx_para">
+<ul id="Ch2.S5.I1" class="ltx_itemize">
+<li id="Ch2.S5.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S5.SS1.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S5.SS1.SSSx2.p1" class="ltx_para">
+<ul id="Ch2.S5.I2" class="ltx_itemize">
+<li id="Ch2.S5.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S5.SS1.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S5.SS1.SSSx3.p1" class="ltx_para">
+<ol id="Ch2.S5.I3" class="ltx_enumerate">
+<li id="Ch2.S5.I3.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="Ch2.S5.SS2" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.5.2 </span>Bioanalyzerによる電気泳動</h4>
+
+<section id="Ch2.S5.SS2.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S5.SS2.SSSx1.p1" class="ltx_para">
+<ul id="Ch2.S5.I4" class="ltx_itemize">
+<li id="Ch2.S5.I4.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S5.SS2.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S5.SS2.SSSx2.p1" class="ltx_para">
+<ul id="Ch2.S5.I5" class="ltx_itemize">
+<li id="Ch2.S5.I5.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S5.SS2.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S5.SS2.SSSx3.p1" class="ltx_para">
+<ol id="Ch2.S5.I6" class="ltx_enumerate">
+<li id="Ch2.S5.I6.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+</section>
+<section id="Ch2.S6" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2.6 </span>MiSeqによるシーケンス</h3>
+
+<section id="Ch2.S6.SS2.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="Ch2.S6.SS2.SSSx1.p1" class="ltx_para">
+<ul id="Ch2.S6.I1" class="ltx_itemize">
+<li id="Ch2.S6.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S6.SS2.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="Ch2.S6.SS2.SSSx2.p1" class="ltx_para">
+<ul id="Ch2.S6.I2" class="ltx_itemize">
+<li id="Ch2.S6.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="Ch2.S6.SS2.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="Ch2.S6.SS2.SSSx3.p1" class="ltx_para">
+<ol id="Ch2.S6.I3" class="ltx_enumerate">
+<li id="Ch2.S6.I3.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">引用文献</h2>
+
+<ul id="L1" class="ltx_biblist">
+</ul>
+</section>
+<section id="A1" class="ltx_appendix">
+<h2 class="ltx_title ltx_title_appendix">
+<span class="ltx_tag ltx_tag_appendix">付録 A </span>DNA採集関連機材の自作</h2>
+
+<section id="A1.S1" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">A.1 </span>塩素漂白・塩素抜き器の作成</h3>
+
+<section id="A1.S1.SS2.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="A1.S1.SS2.SSSx1.p1" class="ltx_para">
+<ul id="A1.S1.I1" class="ltx_itemize">
+<li id="A1.S1.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A1.S1.SS2.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な部材</h5>
+
+<div id="A1.S1.SS2.SSSx2.p1" class="ltx_para">
+<ul id="A1.S1.I2" class="ltx_itemize">
+<li id="A1.S1.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A1.S1.SS2.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="A1.S1.SS2.SSSx3.p1" class="ltx_para">
+<ol id="A1.S1.I3" class="ltx_enumerate">
+<li id="A1.S1.I3.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="A1.S2" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">A.2 </span>車載用吸引ポンプユニットの作成</h3>
+
+<section id="A1.S2.SS2.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="A1.S2.SS2.SSSx1.p1" class="ltx_para">
+<ul id="A1.S2.I1" class="ltx_itemize">
+<li id="A1.S2.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A1.S2.SS2.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な部材</h5>
+
+<div id="A1.S2.SS2.SSSx2.p1" class="ltx_para">
+<ul id="A1.S2.I2" class="ltx_itemize">
+<li id="A1.S2.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A1.S2.SS2.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="A1.S2.SS2.SSSx3.p1" class="ltx_para">
+<ol id="A1.S2.I3" class="ltx_enumerate">
+<li id="A1.S2.I3.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="A1.S3" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">A.3 </span>吸引濾過装置の作成</h3>
+
+<section id="A1.S3.SS2.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="A1.S3.SS2.SSSx1.p1" class="ltx_para">
+<ul id="A1.S3.I1" class="ltx_itemize">
+<li id="A1.S3.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A1.S3.SS2.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な部材</h5>
+
+<div id="A1.S3.SS2.SSSx2.p1" class="ltx_para">
+<ul id="A1.S3.I2" class="ltx_itemize">
+<li id="A1.S3.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A1.S3.SS2.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="A1.S3.SS2.SSSx3.p1" class="ltx_para">
+<ol id="A1.S3.I3" class="ltx_enumerate">
+<li id="A1.S3.I3.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+</section>
+<section id="A2" class="ltx_appendix">
+<h2 class="ltx_title ltx_title_appendix">
+<span class="ltx_tag ltx_tag_appendix">付録 B </span>試薬の調製</h2>
+
+<section id="A2.S1" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">B.1 </span>DNA・RNA固定液の調製</h3>
+
+<section id="A2.S1.SS2.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="A2.S1.SS2.SSSx1.p1" class="ltx_para">
+<ul id="A2.S1.I1" class="ltx_itemize">
+<li id="A2.S1.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A2.S1.SS2.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="A2.S1.SS2.SSSx2.p1" class="ltx_para">
+<ul id="A2.S1.I2" class="ltx_itemize">
+<li id="A2.S1.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A2.S1.SS2.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="A2.S1.SS2.SSSx3.p1" class="ltx_para">
+<ol id="A2.S1.I3" class="ltx_enumerate">
+<li id="A2.S1.I3.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="A2.S2" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">B.2 </span>DNA抽出用試薬の調製</h3>
+
+<section id="A2.S2.SS1" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">B.2.1 </span>Insect Lysis Buffer</h4>
+
+<section id="A2.S2.SS1.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="A2.S2.SS1.SSSx1.p1" class="ltx_para">
+<ul id="A2.S2.I1" class="ltx_itemize">
+<li id="A2.S2.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A2.S2.SS1.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="A2.S2.SS1.SSSx2.p1" class="ltx_para">
+<ul id="A2.S2.I2" class="ltx_itemize">
+<li id="A2.S2.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A2.S2.SS1.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="A2.S2.SS1.SSSx3.p1" class="ltx_para">
+<ol id="A2.S2.I3" class="ltx_enumerate">
+<li id="A2.S2.I3.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="A2.S2.SS2" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">B.2.2 </span>Column Binding Buffer</h4>
+
+<section id="A2.S2.SS2.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="A2.S2.SS2.SSSx1.p1" class="ltx_para">
+<ul id="A2.S2.I4" class="ltx_itemize">
+<li id="A2.S2.I4.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A2.S2.SS2.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="A2.S2.SS2.SSSx2.p1" class="ltx_para">
+<ul id="A2.S2.I5" class="ltx_itemize">
+<li id="A2.S2.I5.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A2.S2.SS2.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="A2.S2.SS2.SSSx3.p1" class="ltx_para">
+<ol id="A2.S2.I6" class="ltx_enumerate">
+<li id="A2.S2.I6.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="A2.S2.SS3" class="ltx_subsection">
+<h4 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">B.2.3 </span>Wash Buffer</h4>
+
+<section id="A2.S2.SS3.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="A2.S2.SS3.SSSx1.p1" class="ltx_para">
+<ul id="A2.S2.I7" class="ltx_itemize">
+<li id="A2.S2.I7.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A2.S2.SS3.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="A2.S2.SS3.SSSx2.p1" class="ltx_para">
+<ul id="A2.S2.I8" class="ltx_itemize">
+<li id="A2.S2.I8.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A2.S2.SS3.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="A2.S2.SS3.SSSx3.p1" class="ltx_para">
+<ol id="A2.S2.I9" class="ltx_enumerate">
+<li id="A2.S2.I9.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+</section>
+<section id="A2.S3" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">B.3 </span>PCR産物精製用磁気ビーズ液の調製</h3>
+
+<section id="A2.S3.SS3.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="A2.S3.SS3.SSSx1.p1" class="ltx_para">
+<ul id="A2.S3.I1" class="ltx_itemize">
+<li id="A2.S3.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A2.S3.SS3.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="A2.S3.SS3.SSSx2.p1" class="ltx_para">
+<ul id="A2.S3.I2" class="ltx_itemize">
+<li id="A2.S3.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A2.S3.SS3.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="A2.S3.SS3.SSSx3.p1" class="ltx_para">
+<ol id="A2.S3.I3" class="ltx_enumerate">
+<li id="A2.S3.I3.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+<section id="A2.S4" class="ltx_section">
+<h3 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">B.4 </span>PCR産物濃度均一化用磁気ビーズ液の調製</h3>
+
+<section id="A2.S4.SS3.SSSx1" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な機材</h5>
+
+<div id="A2.S4.SS3.SSSx1.p1" class="ltx_para">
+<ul id="A2.S4.I1" class="ltx_itemize">
+<li id="A2.S4.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A2.S4.SS3.SSSx2" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">必要な試薬・消耗品</h5>
+
+<div id="A2.S4.SS3.SSSx2.p1" class="ltx_para">
+<ul id="A2.S4.I2" class="ltx_itemize">
+<li id="A2.S4.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> </li>
+</ul>
+</div>
+</section>
+<section id="A2.S4.SS3.SSSx3" class="ltx_subsubsection">
+<h5 class="ltx_title ltx_title_subsubsection">作業手順</h5>
+
+<div id="A2.S4.SS3.SSSx3.p1" class="ltx_para">
+<ol id="A2.S4.I3" class="ltx_enumerate">
+<li id="A2.S4.I3.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> </li>
+</ol>
+</div>
+</section>
+</section>
+</section><div class="ltx_rdf" about="" property="dcterms:creator" content="田辺晶史"></div>
+<div class="ltx_rdf" about="" property="dcterms:subject" content="メタゲノム"></div>
+<div class="ltx_rdf" about="" property="dcterms:title" content="生態学のためのメタバーコーディングとDNAバーコーディング：採集・分子実験編"></div>
+
+</article>
+</div>
+</div>
+</body>
+</html>
