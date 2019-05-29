@@ -5,7 +5,9 @@
 
 \usepackage[round,colon,authoryear]{natbib}
 
-\usepackage[dvipdfmx]{color,graphicx}
+\usepackage[dvipdfmx, hiresbb]{graphicx, xcolor}
+
+\usepackage{grffile}
 
 \usepackage[%
 dvipdfm,%
@@ -17,7 +19,7 @@ colorlinks=true,%              ハイパーリンクを色文字に
 linkcolor=black,%       link の枠の色 black
 citecolor=black,%       cite の枠の色 black
 urlcolor=black,%        url の枠の色 black
-pdftitle={Metabarcoding and DNA barcoding for Ecologists},%
+pdftitle={Metabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures},%
 pdfauthor={Akifumi S. Tanabe},
 pdfkeywords={Metagenome, Environmental DNA, Next-Generation Sequencer, 454, IonTorrent, Illumina}%
 ]{hyperref}
@@ -28,7 +30,7 @@ pdfkeywords={Metagenome, Environmental DNA, Next-Generation Sequencer, 454, IonT
 
 \makeatletter
 \def\maketitle{%
-  \includegraphics[scale=1.2,keepaspectratio]{metabarcodingtextbook.en.eps}%
+  \begin{center}\includegraphics[pagebox=cropbox,clip]{metabarcodingtextbook2.en.title.pdf}\end{center}%
   \cleardoublepage
   \begin{titlepage}%
     \let\footnotesize\small
@@ -64,7 +66,7 @@ pdfkeywords={Metagenome, Environmental DNA, Next-Generation Sequencer, 454, IonT
 }
 \makeatother
 
-\title{Metabarcoding and DNA barcoding for Ecologists}
+\title{Metabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures}
 \author{Akifumi S. Tanabe}
 \date{\today}
 
@@ -120,22 +122,15 @@ pdfkeywords={Metagenome, Environmental DNA, Next-Generation Sequencer, 454, IonT
 \chapter*{Preface}
 \addcontentsline{toc}{chapter}{Preface}
 
-I started the writing of this text to promote amplicon sequence assember ``Assams'' and utility programs package ``Claident'' for sequence clustering and identification.
-In this text, I explain not only usage of these programs but also the methods and procedures of data collection and taxonomic identification by DNA barcoding.
-
-Metabarcoding has been already widely used in bacterial reseaches, but it's utility is not limited to bacteria.
-Metabarcoding is also applicable to soil fungi, fungi inhabiting the bodies of animals and plants, aquatic planktons, and environmental DNA emitted from macro-organisms.
-I explain the methods of amplification of barcoding locus from environmental DNA or metagenomes, sequencing by high-throughput sequencers (a.k.a next-generation sequencers), taxonomic assignment of nucleotide sequences (a.k.a. DNA barcoding), and observation of presence/absence of operational taxonomic units.
-
-This text is distributed under Creative-Commons Attribution-ShareAlike 2.1 Japan License.
+This book is distributed under a Creative Commons Attribution-ShareAlike 4.0 International License.
 You can copy, redistribute, display this text if you designate the authorship.
 You can also modify this text and distribute the modified version if you designate the authorship and apply this license or compatible license to the modified version.
-You can read the license at the following URL.\\
-\href{http://creativecommons.org/licenses/by-sa/2.1/jp/}{http://creativecommons.org/licenses/by-sa/2.1/jp/}\\
-You can also ask about this license to Creative-Commons, 171 Second Street, Suite 300, San Francisco, California 94105, USA.
+To view a copy of this license, visit \\
+\href{https://creativecommons.org/licenses/by-sa/4.0/}{https://creativecommons.org/licenses/by-sa/4.0/}\\
+or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 I hope that this text helps you.
-I am grateful to Dr. Hirokazu Toju (Graduate Shool of Human and Environmental Sciences, Kyoto University), Dr. Satoshi Nagai (National Research Institute of Fisheries Science, Japan Fisheries Research and Education Agency), and you.
+I am grateful to Dr. Hirokazu Toju (Center for Ecological Research, Kyoto University), Dr. Satoshi Nagai (National Research Institute of Fisheries Science, Japan Fisheries Research and Education Agency), Dr. Hiroki Yamanaka (Ryukoku University), and you.
 
 \chapter*{Legends}
 \addcontentsline{toc}{chapter}{Legends}
@@ -175,9 +170,9 @@ This code is written to help you to distinguish true line feeds and involuntary 
 
 \chapter{Installing softwares and preparing analysis environment}
 
-In this text, I assume Debian GNU/Linux jessie (hereafter Debian) or Ubuntu Linux 14.04 LTS (hereafter Ubuntu) as operating system.
+In this text, I assume Debian GNU/Linux 9 (stretch) (hereafter Debian) or Ubuntu Linux 18.04 LTS (hereafter Ubuntu) as operating system.
 If you use Windows PC, please install Debian or Ubuntu.
-Cygwin or Windows Subsystem for Linux provided for Windows 10 build 14393 or later can be used for the following analysis, but the programs run much more slowly.
+Cygwin or Windows Subsystem for Linux provided for Windows 10 can be used for the following analysis, but the programs run much more slowly.
 You can use CD, DVD or USB memory to boot installer of Linux.
 If your PC has only one storage device, you need to reduce Windows partition by using partition resizer software such as EaseUS Partition Master or using a partition resize function contained in the installer.
 You can also use newly added internal storage devices or external storage devices connected by USB.
@@ -1919,7 +1914,7 @@ outputfile↓
 
 In this case, result of relaxed LCA is accepted if matched to result of strict LCA and identified at the lower level than result of strict LCA.
 
-\bibliography{metabarcodingtextbook.en}
+\bibliography{metabarcodingtextbook2.en}
 \addcontentsline{toc}{chapter}{References}
 
 \appendix
