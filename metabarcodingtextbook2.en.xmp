@@ -27,8 +27,8 @@
 		     xmlns:dc='http://purl.org/dc/elements/1.1/'>
       <dc:title>
 	<rdf:Alt>
-	  <rdf:li xml:lang='x-default'>Matabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures</rdf:li>
-	  <rdf:li xml:lang='en'>Matabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures</rdf:li>
+	  <rdf:li xml:lang='x-default'>Matabarcoding and DNA barcoding for Ecologists: Sequence analysis</rdf:li>
+	  <rdf:li xml:lang='en'>Matabarcoding and DNA barcoding for Ecologists: Sequence analysis</rdf:li>
 	</rdf:Alt>
       </dc:title>
       <dc:language>en</dc:language>

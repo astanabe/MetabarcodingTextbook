@@ -28,8 +28,8 @@
 		     xmlns:dc='http://purl.org/dc/elements/1.1/'>
       <dc:title>
 	<rdf:Alt>
-	  <rdf:li xml:lang='x-default'>生態学のためのメタバーコーディングとDNAバーコーディング：解析編</rdf:li>
-	  <rdf:li xml:lang='ja'>生態学のためのメタバーコーディングとDNAバーコーディング：解析編</rdf:li>
+	  <rdf:li xml:lang='x-default'>生態学のためのメタバーコーディングとDNAバーコーディング：シーケンス解析編</rdf:li>
+	  <rdf:li xml:lang='ja'>生態学のためのメタバーコーディングとDNAバーコーディング：シーケンス解析編</rdf:li>
 	</rdf:Alt>
       </dc:title>
       <dc:language>ja</dc:language>

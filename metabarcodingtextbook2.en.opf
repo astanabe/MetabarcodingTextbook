@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" xml:lang="ja" profile="http://www.idpf.org/epub/30/profile/package/">
     <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
-        <dc:title>Matabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures</dc:title>
+        <dc:title>Matabarcoding and DNA barcoding for Ecologists: Sequence analysis</dc:title>
         <dc:language>en</dc:language>
         <dc:creator>Akifumi S. Tanabe</dc:creator>
         <dc:publisher>Akifumi S. Tanabe</dc:publisher>
@@ -9,7 +9,7 @@
         <dc:subject>Metabarcoding</dc:subject>
         <dc:subject>DNA barcoding</dc:subject>
         <dc:subject>HOWTO</dc:subject>
-        <dc:description>Introduction and practical guide about analysis methods and procedures of metabarcoding and DNA barcoding</dc:description>
+        <dc:description>Introduction and practical guide about sequence analysis methods and procedures of metabarcoding and DNA barcoding</dc:description>
         <dc:date>2019.05.30</dc:date>
         <dc:type>Text</dc:type>
     </metadata>
