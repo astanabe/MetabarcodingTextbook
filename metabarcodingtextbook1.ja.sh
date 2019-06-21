@@ -1,4 +1,4 @@
-t=`TZ=JST-9 date +%Y.%m.%d`
+t=`TZ=JST-9 date +%Y-%m-%d`
 rm metabarcodingtextbook1.ja.bib
 cp metabarcodingtextbook1.bib metabarcodingtextbook1.ja.bib
 platex --kanji=utf8 metabarcodingtextbook1.ja

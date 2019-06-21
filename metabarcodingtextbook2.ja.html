@@ -1,8 +1,8 @@
 <!DOCTYPE html><html prefix="dcterms: http://purl.org/dc/terms/">
 <head>
-<title>生態学のためのメタバーコーディングとDNAバーコーディング：解析編</title>
-<!--Generated on Thu May 30 00:39:34 2019 by LaTeXML (version 0.8.3) http://dlmf.nist.gov/LaTeXML/.-->
-<!--Document created on May 30, 2019.-->
+<title>生態学のためのメタバーコーディングとDNAバーコーディング：シーケンス解析編</title>
+<!--Generated on Sat Jun 22 08:38:44 2019 by LaTeXML (version 0.8.3) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on June 22, 2019.-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="LaTeXML.css" type="text/css">
@@ -12,13 +12,13 @@
 <div class="ltx_page_main">
 <div class="ltx_page_content">
 <article class="ltx_document">
-<h1 class="ltx_title ltx_title_document">生態学のためのメタバーコーディングとDNAバーコーディング：解析編</h1>
+<h1 class="ltx_title ltx_title_document">生態学のためのメタバーコーディングとDNAバーコーディング：シーケンス解析編</h1>
 <div class="ltx_authors">
 <span class="ltx_creator ltx_role_author">
 <span class="ltx_personname">田辺晶史
 </span></span>
 </div>
-<div class="ltx_date ltx_role_creation">2019年5月30日</div>
+<div class="ltx_date ltx_role_creation">2019年6月22日</div>
 
 <section id="Chx1" class="ltx_chapter">
 <h2 class="ltx_title ltx_title_chapter">はじめに</h2>
@@ -429,7 +429,7 @@ Illumina MiSeqの場合は<span class="ltx_text ltx_font_typewriter">*.fastq</sp
 どの機種でもメーカーのプログラムの機能によるdemultiplexは品質の値を見ていなかったりするため、Claidentのコマンド<span class="ltx_text ltx_font_typewriter">clsplitseq</span>を利用してdemultiplexを行います。
 以下ではコマンドは全てターミナルかコンソールで実行して下さい。
 基本的なターミナルの使い方の知識は持っているという前提で話を進めます。
-ターミナルの操作に慣れていない方は、最低でも付録<a href="#A3" title="付録 C ターミナルコマンド集 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">C</span></a>の内容を理解できるようになっておいて下さい。</p>
+ターミナルの操作に慣れていない方は、最低でも付録<a href="#A3" title="付録 C ターミナルコマンド集 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：シーケンス解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">C</span></a>の内容を理解できるようになっておいて下さい。</p>
 </div>
 <section id="Ch2.S1" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
@@ -439,7 +439,7 @@ Illumina MiSeqの場合は<span class="ltx_text ltx_font_typewriter">*.fastq</sp
 <p class="ltx_p">Claidentでは、配列の名前として<span class="ltx_text ltx_font_typewriter">配列ID__ランID__タグID__プライマーID</span>を、また拡張子を除いた入力ファイル名として<span class="ltx_text ltx_font_typewriter">ランID__タグID__プライマーID</span>を仮定しています。
 そのため、SRA/DRA/ERAの登録データやdemultiplex済FASTQをそのまま用いることができません。
 そこで、<span class="ltx_text ltx_font_typewriter">climportfastq</span>というコマンドを用いることで、上記の仮定を満たす入力ファイルに変換することができます。
-ペアエンドの場合は変換する前に第<a href="#Ch2.S3.SS3" title="2.3.3 フォワード配列とリバース配列の連結 ‣ 2.3 Illumina社シーケンサーの場合 ‣ 第2章 塩基配列データの前処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.3.3</span></a>節の内容に従ってフィルタリングと連結を先に行っておきます。
+ペアエンドの場合は変換する前に第<a href="#Ch2.S3.SS3" title="2.3.3 フォワード配列とリバース配列の連結 ‣ 2.3 Illumina社シーケンサーの場合 ‣ 第2章 塩基配列データの前処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：シーケンス解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.3.3</span></a>節の内容に従ってフィルタリングと連結を先に行っておきます。
 変換するには、以下のような入力ファイルを用意します。</p>
 </div>
 <div id="Ch2.S1.p2" class="ltx_para">
@@ -467,7 +467,7 @@ Illumina MiSeqの場合は<span class="ltx_text ltx_font_typewriter">*.fastq</sp
 </span>
 </div>
 <div id="Ch2.S1.p6" class="ltx_para">
-<p class="ltx_p">変換後、シングルエンドデータであれば第<a href="#Ch2.S2.SS3" title="2.2.3 低品質配列の除去 ‣ 2.2 GSシリーズシーケンサーやIon PGMの場合 ‣ 第2章 塩基配列データの前処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2.3</span></a>節に従って低品質配列の除去を行って下さい。</p>
+<p class="ltx_p">変換後、シングルエンドデータであれば第<a href="#Ch2.S2.SS3" title="2.2.3 低品質配列の除去 ‣ 2.2 GSシリーズシーケンサーやIon PGMの場合 ‣ 第2章 塩基配列データの前処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：シーケンス解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2.3</span></a>節に従って低品質配列の除去を行って下さい。</p>
 </div>
 </section>
 <section id="Ch2.S2" class="ltx_section">
@@ -522,7 +522,7 @@ SFFファイルが<span class="ltx_text ltx_font_typewriter">HOGEHOGE.sff</span>
 <div id="Ch2.S2.SS2.p4" class="ltx_para">
 <p class="ltx_p">タグ配列には縮重コード表記は使えませんが、プライマー配列には縮重コード表記を利用可能です。
 タグ配列、プライマー配列ともに複数の配列を記述しておくことも可能です。
-なお、<a href="#Ch1.S1.SS1" title="1.1.1 中間アダプターを用いたコスト抑制方法 ‣ 1.1 タグ・アダプター配列付きプライマーを用いたPCR ‣ 第1章 次世代シーケンサーによる大量サンプルの塩基配列決定 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1.1.1</span></a>節で説明したような中間アダプターを用いたりした場合は、プライマー配列ファイルは以下のような内容で作成して下さい。</p>
+なお、<a href="#Ch1.S1.SS1" title="1.1.1 中間アダプターを用いたコスト抑制方法 ‣ 1.1 タグ・アダプター配列付きプライマーを用いたPCR ‣ 第1章 次世代シーケンサーによる大量サンプルの塩基配列決定 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：シーケンス解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1.1.1</span></a>節で説明したような中間アダプターを用いたりした場合は、プライマー配列ファイルは以下のような内容で作成して下さい。</p>
 </div>
 <div id="Ch2.S2.SS2.p5" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="background-color:#E6E6E6;padding-top:12pt;padding-bottom:12pt;">
@@ -999,7 +999,7 @@ DDBJ Sequence Read Archive (DRA)など、次世代シーケンサーの生デー
 そこで、完全一致するはずの<span class="ltx_text ltx_font_typewriter">ACGTACGTACGTACGT</span>の長さ分を配列の類似度計算から除外することで正しい配列類似度に基づくクラスタリングを行います。</p>
 </div>
 <div id="Ch2.S3.SS3.SSSx2.p12" class="ltx_para">
-<p class="ltx_p">ホスト生物の同定をする際には、<span class="ltx_text ltx_font_typewriter">ACGTACGTACGTACGT</span>を探して配列を分割し、フォワード配列とリバース配列で別々に同定し、第<a href="#Ch7.S3" title="7.3 複数の同定結果の統合 ‣ 第7章 DNAバーコーディングによる配列のホスト生物同定 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.3</span></a>節の内容に従って2つの同定結果を統合します。
+<p class="ltx_p">ホスト生物の同定をする際には、<span class="ltx_text ltx_font_typewriter">ACGTACGTACGTACGT</span>を探して配列を分割し、フォワード配列とリバース配列で別々に同定し、第<a href="#Ch7.S3" title="7.3 複数の同定結果の統合 ‣ 第7章 DNAバーコーディングによる配列のホスト生物同定 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：シーケンス解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.3</span></a>節の内容に従って2つの同定結果を統合します。
 一般にフォワード配列の方が品質が高いはずですので、フォワード配列とリバース配列の分子同定能力や変異性について何も事前情報がない場合はフォワード配列に基づく同定結果を優先する設定で統合するのが良いでしょう。
 配列の分割は<span class="ltx_text ltx_font_typewriter">cldivseq</span>を以下のように実行することで行えます。</p>
 </div>
@@ -1189,7 +1189,7 @@ Illuminaでペアエンドを連結した場合は、両端は品質値が高く
 </div>
 <div id="Ch2.S3.SS4.p8" class="ltx_para">
 <p class="ltx_p">片側だけのシーケンスデータや、連結していないデータの場合は、Roche GSシリーズシーケンサやIon PGMの場合と同様の処理を行えばいいと思います。
-第<a href="#Ch2.S2.SS3" title="2.2.3 低品質配列の除去 ‣ 2.2 GSシリーズシーケンサーやIon PGMの場合 ‣ 第2章 塩基配列データの前処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2.3</span></a>節をご参照下さい。
+第<a href="#Ch2.S2.SS3" title="2.2.3 低品質配列の除去 ‣ 2.2 GSシリーズシーケンサーやIon PGMの場合 ‣ 第2章 塩基配列データの前処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：シーケンス解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2.3</span></a>節をご参照下さい。
 ただし、品質値や長さの閾値は適宜変更する必要があると思います。</p>
 </div>
 </section>
@@ -1652,7 +1652,7 @@ PCRレプリケートは3つ以上あっても構いません。
 </div>
 <div id="Ch5.S1.p3" class="ltx_para">
 <p class="ltx_p">ここでの入力ファイルは、クラスタリング結果の出力フォルダに保存されている、<span class="ltx_text ltx_font_typewriter">clustered.otu.gz</span>です。
-出力されるファイルは表<a href="#Ch5.T1" title="表 5.1 ‣ 5.1 集計表の作成 ‣ 第5章 OTUピッキング結果の要約と後処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.1</span></a>のようなタブ区切りのテキストファイルで、Excelなどの表計算ソフトやRで読み込むことができます。
+出力されるファイルは表<a href="#Ch5.T1" title="表 5.1 ‣ 5.1 集計表の作成 ‣ 第5章 OTUピッキング結果の要約と後処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：シーケンス解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.1</span></a>のようなタブ区切りのテキストファイルで、Excelなどの表計算ソフトやRで読み込むことができます。
 ただし、表計算ソフトは巨大な行列の全てを読み込むことができない可能性がありますので注意して下さい。
 このファイルに基づいて、群集生態学的な解析を行うことができます。</p>
 </div>
@@ -2135,7 +2135,7 @@ SSU rRNAは真核生物のメタバーコーディング・DNAバーコーディ
 そのような配列は群集生態学的解析の障害となるため、このプログラムで前もって除去しておくと後の解析が楽になります。</p>
 </div>
 <div id="Ch5.S6.p3" class="ltx_para">
-<p class="ltx_p">これらのプログラムで作成したFASTA配列ファイルを第<a href="#Ch5.S2" title="5.2 集計表からの特定のOTU・サンプルの除去 ‣ 第5章 OTUピッキング結果の要約と後処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>節の<span class="ltx_text ltx_font_typewriter">clfiltersum</span>の<span class="ltx_text ltx_font_typewriter">--otuseq</span>オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。</p>
+<p class="ltx_p">これらのプログラムで作成したFASTA配列ファイルを第<a href="#Ch5.S2" title="5.2 集計表からの特定のOTU・サンプルの除去 ‣ 第5章 OTUピッキング結果の要約と後処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：シーケンス解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>節の<span class="ltx_text ltx_font_typewriter">clfiltersum</span>の<span class="ltx_text ltx_font_typewriter">--otuseq</span>オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。</p>
 </div>
 </section>
 <section id="Ch5.S7" class="ltx_section">
@@ -2147,7 +2147,7 @@ SSU rRNAは真核生物のメタバーコーディング・DNAバーコーディ
 一つはBLASTなどで検索して配列がどの遺伝子のものかを判定してくれるプログラムにかけることで、もう一つは多重整列プログラムを利用することです。
 ClustalW2・ClustalX2 <cite class="ltx_cite ltx_citemacro_citep">(Larkin <span class="ltx_text ltx_font_italic">et al</span>., <a href="#bib.bib13" title="" class="ltx_ref">2007</a>)</cite>やMAFFT <cite class="ltx_cite ltx_citemacro_citep">(Katoh and Standley, <a href="#bib.bib10" title="" class="ltx_ref">2013</a>)</cite>には、多重整列した結果を系統的に近いものが近くになるように並び替えて出力することができます。
 この機能を使って並び替えた上で、多重整列の閲覧ソフトで表示して目で確認すればどれが非ターゲット領域かすぐわかります。
-非ターゲット領域のOTUを除去したFASTA配列ファイルを第<a href="#Ch5.S2" title="5.2 集計表からの特定のOTU・サンプルの除去 ‣ 第5章 OTUピッキング結果の要約と後処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>節の<span class="ltx_text ltx_font_typewriter">clfiltersum</span>の<span class="ltx_text ltx_font_typewriter">--otuseq</span>オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。</p>
+非ターゲット領域のOTUを除去したFASTA配列ファイルを第<a href="#Ch5.S2" title="5.2 集計表からの特定のOTU・サンプルの除去 ‣ 第5章 OTUピッキング結果の要約と後処理 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：シーケンス解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>節の<span class="ltx_text ltx_font_typewriter">clfiltersum</span>の<span class="ltx_text ltx_font_typewriter">--otuseq</span>オプションに指定して集計表を加工することで、この配列ファイルに含まれているOTUだけの集計表を作成することができます。</p>
 </div>
 </section>
 </section>
@@ -2546,7 +2546,7 @@ BLASTデータベースと同じ名前のものがインストールされてい
 </div>
 <div id="Ch7.S2.p4" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_typewriter">classigntax</span>のデフォルト設定では、少なくとも2本以上の近隣既知配列がないと同定することができません。
-第<a href="#Ch7.S1.SS2" title="7.1.2 参照配列データベースが全種を網羅している場合 ‣ 7.1 BLAST検索による近隣既知配列群の取得 ‣ 第7章 DNAバーコーディングによる配列のホスト生物同定 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1.2</span></a>節のように<span class="ltx_text ltx_font_typewriter">clidentseq</span>の実行時に<span class="ltx_text ltx_font_typewriter">--method=1,99%</span>を指定していると、近隣既知配列が1本しかないために一つも同定できないことになります。
+第<a href="#Ch7.S1.SS2" title="7.1.2 参照配列データベースが全種を網羅している場合 ‣ 7.1 BLAST検索による近隣既知配列群の取得 ‣ 第7章 DNAバーコーディングによる配列のホスト生物同定 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：シーケンス解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1.2</span></a>節のように<span class="ltx_text ltx_font_typewriter">clidentseq</span>の実行時に<span class="ltx_text ltx_font_typewriter">--method=1,99%</span>を指定していると、近隣既知配列が1本しかないために一つも同定できないことになります。
 この場合は以下のようにして必要な近隣既知配列数を1にします。</p>
 </div>
 <div id="Ch7.S2.p5" class="ltx_para">
@@ -2559,7 +2559,7 @@ BLASTデータベースと同じ名前のものがインストールされてい
 </span>
 </div>
 <div id="Ch7.S2.p6" class="ltx_para">
-<p class="ltx_p">出力ファイルは表<a href="#Ch7.T1" title="表 7.1 ‣ 7.2 近隣既知配列群に基づく同定 ‣ 第7章 DNAバーコーディングによる配列のホスト生物同定 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1</span></a>のような形のタブ区切りのテキストになっています。</p>
+<p class="ltx_p">出力ファイルは表<a href="#Ch7.T1" title="表 7.1 ‣ 7.2 近隣既知配列群に基づく同定 ‣ 第7章 DNAバーコーディングによる配列のホスト生物同定 ‣ 生態学のためのメタバーコーディングとDNAバーコーディング：シーケンス解析編" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1</span></a>のような形のタブ区切りのテキストになっています。</p>
 </div>
 <figure id="Ch7.T1" class="ltx_table">
 <table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
@@ -3565,7 +3565,7 @@ v1.8.4は以下のようにインストールできます。</p>
 </section>
 </section><div class="ltx_rdf" about="" property="dcterms:creator" content="田辺晶史"></div>
 <div class="ltx_rdf" about="" property="dcterms:subject" content="メタゲノム"></div>
-<div class="ltx_rdf" about="" property="dcterms:title" content="生態学のためのメタバーコーディングとDNAバーコーディング：解析編"></div>
+<div class="ltx_rdf" about="" property="dcterms:title" content="生態学のためのメタバーコーディングとDNAバーコーディング：シーケンス解析編"></div>
 
 </article>
 </div>

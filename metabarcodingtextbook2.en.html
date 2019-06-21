@@ -1,8 +1,8 @@
 <!DOCTYPE html><html prefix="dcterms: http://purl.org/dc/terms/">
 <head>
-<title>Metabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures</title>
-<!--Generated on Thu May 30 00:41:09 2019 by LaTeXML (version 0.8.3) http://dlmf.nist.gov/LaTeXML/.-->
-<!--Document created on May 30, 2019.-->
+<title>Metabarcoding and DNA barcoding for Ecologists: Sequence analysis</title>
+<!--Generated on Sat Jun 22 08:40:06 2019 by LaTeXML (version 0.8.3) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on June 22, 2019.-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="LaTeXML.css" type="text/css">
@@ -12,13 +12,13 @@
 <div class="ltx_page_main">
 <div class="ltx_page_content">
 <article class="ltx_document">
-<h1 class="ltx_title ltx_title_document">Metabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures</h1>
+<h1 class="ltx_title ltx_title_document">Metabarcoding and DNA barcoding for Ecologists: Sequence analysis</h1>
 <div class="ltx_authors">
 <span class="ltx_creator ltx_role_author">
 <span class="ltx_personname">Akifumi S. Tanabe
 </span></span>
 </div>
-<div class="ltx_date ltx_role_creation">May 30, 2019</div>
+<div class="ltx_date ltx_role_creation">June 22, 2019</div>
 
 <section id="Chx1" class="ltx_chapter">
 <h2 class="ltx_title ltx_title_chapter">Preface</h2>
@@ -432,7 +432,7 @@ In this chapter, the procedures of demultiplexing, quality-trimming and quality-
 The <span class="ltx_text ltx_font_typewriter">clsplitseq</span> command of Claident is recommended for demultiplexing because the programs provided by manufacturer ignores the quality of tag positions.
 The following commands should be executed in the terminal or console.
 Fundamental knowledge of terminal operations is required.
-If you are unfamiliar with terminal operations, you need to become understandable about the contents of appendix <a href="#A2" title="Appendix B Terminal command examples ‣ Metabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures" class="ltx_ref"><span class="ltx_text ltx_ref_tag">B</span></a>.</p>
+If you are unfamiliar with terminal operations, you need to become understandable about the contents of appendix <a href="#A2" title="Appendix B Terminal command examples ‣ Metabarcoding and DNA barcoding for Ecologists: Sequence analysis" class="ltx_ref"><span class="ltx_text ltx_ref_tag">B</span></a>.</p>
 </div>
 <section id="Ch2.S1" class="ltx_section">
 <h3 class="ltx_title ltx_title_section">
@@ -442,7 +442,7 @@ If you are unfamiliar with terminal operations, you need to become understandabl
 <p class="ltx_p">Claident assumes <span class="ltx_text ltx_font_typewriter">SequenceID__RunID__TagID__PrimerID</span> for definition lines of sequences, and <span class="ltx_text ltx_font_typewriter">RunID__TagID__PrimerID</span> for file names (without extension).
 Therefore, the sequence data deposited to SRA/DRA/ERA or demultiplexed FASTQ cannot be used as is.
 The <span class="ltx_text ltx_font_typewriter">climportfastq</span> of Claident can convert such data.
-If your data is paired-end, you need to concatenate and filter the sequences before conversion (see section <a href="#Ch2.S3.SS3" title="2.3.3 Concatenating forward and reverse sequences ‣ 2.3 For Illumina platform sequences ‣ Chapter 2 Preprocessing of nucleotide sequence data ‣ Metabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.3.3</span></a>).
+If your data is paired-end, you need to concatenate and filter the sequences before conversion (see section <a href="#Ch2.S3.SS3" title="2.3.3 Concatenating forward and reverse sequences ‣ 2.3 For Illumina platform sequences ‣ Chapter 2 Preprocessing of nucleotide sequence data ‣ Metabarcoding and DNA barcoding for Ecologists: Sequence analysis" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.3.3</span></a>).
 The following plain text file is required for conversion.</p>
 </div>
 <div id="Ch2.S1.p2" class="ltx_para">
@@ -471,7 +471,7 @@ TagID can be the same as the sequence file name.</p>
 </div>
 <div id="Ch2.S1.p6" class="ltx_para">
 <p class="ltx_p">Then, you can find converted files in the output folder.
-If your sequence data is single-end, quality filtering explained in section <a href="#Ch2.S2.SS3" title="2.2.3 Trimming low quality tail and filtering low quality sequences ‣ 2.2 For Roche GS series sequencers and Ion PGM ‣ Chapter 2 Preprocessing of nucleotide sequence data ‣ Metabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2.3</span></a> is recommended.</p>
+If your sequence data is single-end, quality filtering explained in section <a href="#Ch2.S2.SS3" title="2.2.3 Trimming low quality tail and filtering low quality sequences ‣ 2.2 For Roche GS series sequencers and Ion PGM ‣ Chapter 2 Preprocessing of nucleotide sequence data ‣ Metabarcoding and DNA barcoding for Ecologists: Sequence analysis" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2.3</span></a> is recommended.</p>
 </div>
 </section>
 <section id="Ch2.S2" class="ltx_section">
@@ -526,7 +526,7 @@ To do this process, a FASTA file which contain tag sequences and another FASTA f
 <div id="Ch2.S2.SS2.p4" class="ltx_para">
 <p class="ltx_p">Degenerate codes of nucleotides are not allowed for tag sequences, but those are allowed for primer sequences.
 Both of tag and primer FASTQ files can contain multiple sequences.
-If you use interim adapter explained in section <a href="#Ch1.S1.SS1" title="1.1.1 Decreasing costs by interim adapters ‣ 1.1 PCR using tag- and adapter-jointed-primers ‣ Chapter 1 Sequencing of multiple samples by next-generation sequencers ‣ Metabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1.1.1</span></a>, primer sequences should be written like the following.</p>
+If you use interim adapter explained in section <a href="#Ch1.S1.SS1" title="1.1.1 Decreasing costs by interim adapters ‣ 1.1 PCR using tag- and adapter-jointed-primers ‣ Chapter 1 Sequencing of multiple samples by next-generation sequencers ‣ Metabarcoding and DNA barcoding for Ecologists: Sequence analysis" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1.1.1</span></a>, primer sequences should be written like the following.</p>
 </div>
 <div id="Ch2.S2.SS2.p5" class="ltx_para">
 <p class="ltx_p ltx_align_left" style="background-color:#E6E6E6;padding-top:12pt;padding-bottom:12pt;">
@@ -1006,7 +1006,7 @@ The <span class="ltx_text ltx_font_typewriter">--paddinglen=16</span> argument w
 </div>
 <div id="Ch2.S3.SS3.SSSx2.p12" class="ltx_para">
 <p class="ltx_p">In the estimation of host organism, split concatenated sequences based on <span class="ltx_text ltx_font_typewriter">ACGTACGTACGTACGT</span>, assign taxonomy to forward and reverse sequences separately.
-Then, merge 2 taxonomy (see section <a href="#Ch7.S3" title="7.3 Merging multiple taxonomic assignments based on consensus ‣ Chapter 7 Estimation of host organisms of nucleotide sequences (a.k.a. DNA barcoding) ‣ Metabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.3</span></a>).
+Then, merge 2 taxonomy (see section <a href="#Ch7.S3" title="7.3 Merging multiple taxonomic assignments based on consensus ‣ Chapter 7 Estimation of host organisms of nucleotide sequences (a.k.a. DNA barcoding) ‣ Metabarcoding and DNA barcoding for Ecologists: Sequence analysis" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.3</span></a>).
 Generally speaking, forward sequences shows higher quality than reverse sequences, prefering forward sequence taxonomy is recommended if there is no <span class="ltx_text ltx_font_italic">a priori</span> infomations about identification power and variability of forward and reverse sequences.
 Sequence division based on <span class="ltx_text ltx_font_typewriter">ACGTACGTACGTACGT</span> can be applied to the sequences by the following command.</p>
 </div>
@@ -1198,7 +1198,7 @@ The following command can apply such quality-filtering to the input sequences.</
 </span>
 </div>
 <div id="Ch2.S3.SS4.p8" class="ltx_para">
-<p class="ltx_p">For the single-end sequence data and unconcatenated sequence data, same quality-trimming and quality-filtering as Roche GS series sequencers and Ion PGM can be recommended (see section <a href="#Ch2.S2.SS3" title="2.2.3 Trimming low quality tail and filtering low quality sequences ‣ 2.2 For Roche GS series sequencers and Ion PGM ‣ Chapter 2 Preprocessing of nucleotide sequence data ‣ Metabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2.3</span></a>).
+<p class="ltx_p">For the single-end sequence data and unconcatenated sequence data, same quality-trimming and quality-filtering as Roche GS series sequencers and Ion PGM can be recommended (see section <a href="#Ch2.S2.SS3" title="2.2.3 Trimming low quality tail and filtering low quality sequences ‣ 2.2 For Roche GS series sequencers and Ion PGM ‣ Chapter 2 Preprocessing of nucleotide sequence data ‣ Metabarcoding and DNA barcoding for Ecologists: Sequence analysis" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2.3</span></a>).
 Note that thresholds for quality values and read lengths should be changed.</p>
 </div>
 </section>
@@ -1664,7 +1664,7 @@ In the output folder, the output files same as <span class="ltx_text ltx_font_ty
 </div>
 <div id="Ch5.S1.p3" class="ltx_para">
 <p class="ltx_p">Give <span class="ltx_text ltx_font_typewriter">clustered.otu.gz</span> generated by <span class="ltx_text ltx_font_typewriter">clclassseqv</span> or <span class="ltx_text ltx_font_typewriter">clrecoverseqv</span> as input file.
-The output file is tab-delimited text file like Table <a href="#Ch5.T1" title="Table 5.1 ‣ 5.1 Making summary table ‣ Chapter 5 Summarizing and post-processing of OTU picking results ‣ Metabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.1</span></a> and can be edit by spreadsheet softwares such as Microsoft Excel.
+The output file is tab-delimited text file like Table <a href="#Ch5.T1" title="Table 5.1 ‣ 5.1 Making summary table ‣ Chapter 5 Summarizing and post-processing of OTU picking results ‣ Metabarcoding and DNA barcoding for Ecologists: Sequence analysis" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.1</span></a> and can be edit by spreadsheet softwares such as Microsoft Excel.
 Note that spreadsheet software can not read too large table.
 This file can be used for community ecological analysis in R.</p>
 </div>
@@ -2159,7 +2159,7 @@ Therefore, nontarget SSU rRNA frequently contaminate the data.
 Such nontarget SSU should be deleted for community ecological analysis.</p>
 </div>
 <div id="Ch5.S6.p3" class="ltx_para">
-<p class="ltx_p">After the filtering sequences by ITSx or Metaxa, <span class="ltx_text ltx_font_typewriter">clfiltersum</span> with <span class="ltx_text ltx_font_typewriter">--otuseq</span> argument can be used to justify summary table to the sequence file (see section <a href="#Ch5.S2" title="5.2 Excluding specified OTUs and/or samples from summary table ‣ Chapter 5 Summarizing and post-processing of OTU picking results ‣ Metabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>).</p>
+<p class="ltx_p">After the filtering sequences by ITSx or Metaxa, <span class="ltx_text ltx_font_typewriter">clfiltersum</span> with <span class="ltx_text ltx_font_typewriter">--otuseq</span> argument can be used to justify summary table to the sequence file (see section <a href="#Ch5.S2" title="5.2 Excluding specified OTUs and/or samples from summary table ‣ Chapter 5 Summarizing and post-processing of OTU picking results ‣ Metabarcoding and DNA barcoding for Ecologists: Sequence analysis" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>).</p>
 </div>
 </section>
 <section id="Ch5.S7" class="ltx_section">
@@ -2171,7 +2171,7 @@ Such nontarget SSU should be deleted for community ecological analysis.</p>
 For the other loci, gene prediction and annotation programs and multiple alignment programs can be used for finding nontarget sequences.
 In ClustalW2, ClustalX2 <cite class="ltx_cite ltx_citemacro_citep">(Larkin <span class="ltx_text ltx_font_italic">et al.</span>, <a href="#bib.bib13" title="" class="ltx_ref">2007</a>)</cite> and MAFFT <cite class="ltx_cite ltx_citemacro_citep">(Katoh &amp; Standley, <a href="#bib.bib10" title="" class="ltx_ref">2013</a>)</cite>, sorting function based on phylogenetic relatedness is available.
 Aligning sequences applying this sorting function, you can easily find some types of nontarget sequences by eyes with the aid of multiple alignment viewer.
-After the filtering sequences by this method, <span class="ltx_text ltx_font_typewriter">clfiltersum</span> with <span class="ltx_text ltx_font_typewriter">--otuseq</span> argument can be used to justify summary table to the sequence file (see section <a href="#Ch5.S2" title="5.2 Excluding specified OTUs and/or samples from summary table ‣ Chapter 5 Summarizing and post-processing of OTU picking results ‣ Metabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>).</p>
+After the filtering sequences by this method, <span class="ltx_text ltx_font_typewriter">clfiltersum</span> with <span class="ltx_text ltx_font_typewriter">--otuseq</span> argument can be used to justify summary table to the sequence file (see section <a href="#Ch5.S2" title="5.2 Excluding specified OTUs and/or samples from summary table ‣ Chapter 5 Summarizing and post-processing of OTU picking results ‣ Metabarcoding and DNA barcoding for Ecologists: Sequence analysis" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.2</span></a>).</p>
 </div>
 </section>
 </section>
@@ -2569,7 +2569,7 @@ The same name taxonomy databases as reference sequence databases should be insta
 </div>
 <div id="Ch7.S2.p4" class="ltx_para">
 <p class="ltx_p">The <span class="ltx_text ltx_font_typewriter">classigntax</span> requires 2 or more neighborhood sequences by default.
-If <span class="ltx_text ltx_font_typewriter">--method=1,99%</span> was given to <span class="ltx_text ltx_font_typewriter">clidentseq</span> like section <a href="#Ch7.S1.SS2" title="7.1.2 In the case of perfect reference database ‣ 7.1 Retrieval of neighborhood sequences based on BLAST search ‣ Chapter 7 Estimation of host organisms of nucleotide sequences (a.k.a. DNA barcoding) ‣ Metabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1.2</span></a>, taxonomic assignment of all sequences must be failed.
+If <span class="ltx_text ltx_font_typewriter">--method=1,99%</span> was given to <span class="ltx_text ltx_font_typewriter">clidentseq</span> like section <a href="#Ch7.S1.SS2" title="7.1.2 In the case of perfect reference database ‣ 7.1 Retrieval of neighborhood sequences based on BLAST search ‣ Chapter 7 Estimation of host organisms of nucleotide sequences (a.k.a. DNA barcoding) ‣ Metabarcoding and DNA barcoding for Ecologists: Sequence analysis" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1.2</span></a>, taxonomic assignment of all sequences must be failed.
 In such case, reduce required minimum number of neighborhood sequences like below.</p>
 </div>
 <div id="Ch7.S2.p5" class="ltx_para">
@@ -2582,7 +2582,7 @@ In such case, reduce required minimum number of neighborhood sequences like belo
 </span>
 </div>
 <div id="Ch7.S2.p6" class="ltx_para">
-<p class="ltx_p">The output file of <span class="ltx_text ltx_font_typewriter">classigntax</span> is tab-delimited text file like Table <a href="#Ch7.T1" title="Table 7.1 ‣ 7.2 Taxonomic assignment based on neighborhood sequences ‣ Chapter 7 Estimation of host organisms of nucleotide sequences (a.k.a. DNA barcoding) ‣ Metabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1</span></a>.</p>
+<p class="ltx_p">The output file of <span class="ltx_text ltx_font_typewriter">classigntax</span> is tab-delimited text file like Table <a href="#Ch7.T1" title="Table 7.1 ‣ 7.2 Taxonomic assignment based on neighborhood sequences ‣ Chapter 7 Estimation of host organisms of nucleotide sequences (a.k.a. DNA barcoding) ‣ Metabarcoding and DNA barcoding for Ecologists: Sequence analysis" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1</span></a>.</p>
 </div>
 <figure id="Ch7.T1" class="ltx_table">
 <table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
@@ -3192,7 +3192,7 @@ To solve this problem, run the following commands.</p>
 </section>
 </section><div class="ltx_rdf" about="" property="dcterms:creator" content="Akifumi S. Tanabe"></div>
 <div class="ltx_rdf" about="" property="dcterms:subject" content="Metagenome"></div>
-<div class="ltx_rdf" about="" property="dcterms:title" content="Metabarcoding and DNA barcoding for Ecologists: Analysis methods and procedures"></div>
+<div class="ltx_rdf" about="" property="dcterms:title" content="Metabarcoding and DNA barcoding for Ecologists: Sequence analysis"></div>
 
 </article>
 </div>
