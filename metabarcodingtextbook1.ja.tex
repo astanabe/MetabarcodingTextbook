@@ -916,19 +916,41 @@ Sterivexのフィルターは、Binding BufferがあってもDNAを吸着しな�
 
 \subsection{磁気ビーズを用いたDNAの精製プロトコル}
 
+抽出したDNAをそのまま用いると、サンプルによっては増幅阻害物質によってPCRがうまくいかないことがあります。
+そのような場合、この処理を加えることでうまくいくようになる場合があります。
+ただし、実際にはサンプルが多い場合は手間が非常に大きいので、筆者はあまりこの方法は使用していません。
+
 \subsubsection{必要な機材}
 \begin{itemize}
-\item 
+\item 1.5mLまたは2mLチューブ用磁気スタンド (強力なネオジム磁石があれば、チューブラックの横に貼る程度でよい): 1台
+\item エー・アンド・デイ 10mLチップ対応電動ピペット MPA-10000: 1本
 \end{itemize}
 
 \subsubsection{必要な試薬・消耗品}
 \begin{itemize}
-\item 
+\item 1.5mLチューブ: 1本
+\item 1.5mL DNA低吸着チューブ: 1本
+\item MagNA液 (作成方法は付録\ref{makingMagNA}を参照)
+\item サンプルDNA溶液
 \end{itemize}
 
 \subsubsection{作業手順}
 \begin{enumerate}
-\item 
+\item MagNA液を30分程度放置して室温に戻す
+\item 新しい1.5mLチューブ、新しい1.5mL DNA低吸着チューブにラベルを振っておく
+\item MagNA液を転倒混和して磁気ビーズを均一にする
+\item 1.5mLチューブにサンプルDNA溶液と等量のMagNA液を分注する
+\item サンプルDNA溶液を3のチューブに加えてピペッティングする
+\item 磁気スタンドに立てて5分待つ
+\item 上澄みを吸い取って捨てる
+\item 磁気スタンドに立てたままで10mL電動ピペットで70\%エタノール 900{\textmu}Lを加える
+\item エタノールを吸い取って捨てる
+\item 磁気スタンドに立てたままで10mL電動ピペットで70\%エタノール 900{\textmu}Lを加える
+\item エタノールを吸い取って捨てる
+\item 磁気スタンドからチューブを外して20℃で3分インキュベート (磁気ビーズを適度に乾かす。乾かしすぎるとビーズが割れて回収率低下するので注意)
+\item 元のサンプルDNA溶液と等量のIDTEを加えてボルテックスしてDNAを溶出させる
+\item 磁気スタンドに立てて5分待つ
+\item 溶液を新しい1.5mL DNA低吸着チューブに移す
 \end{enumerate}
 
 \section{ライブラリ調製}
@@ -939,6 +961,23 @@ Sterivexのフィルターは、Binding BufferがあってもDNAを吸着しな�
 
 発注はIDTを使うべし(質が違う)。
 
+\subsection{鋳型DNA希釈率の決定}
+
+鋳型DNAには、DNAだけでなく増幅阻害物質も混入しています。
+そのため、サンプルによってはPCRがうまくかからず、増幅することができない場合があります。
+これに対処するには、何らかの精製を行うか、PCRに鋳型DNAを加える際に大幅に希釈することによって増幅阻害物質の影響を低減させる必要があります。
+希釈が最も簡易な対処方法なので、ここではこれを採用します。
+
+希釈法を用いる場合、希釈率を決定しなくてはなりません。
+そこで、最初に解析対象のサンプルから12--24サンプル程度選択し、これらを等倍、5倍希釈、10倍希釈、20倍希釈で鋳型として使用してPCRを行い、アガロースゲル電気泳動で増幅確認を行います。
+これで最も成績の良かった希釈率を採用します。
+なお、実際のライブラリ調製では2段階、もしくは3段階のPCRを行うため、1段階のPCRに比べて増幅しやすく、ここで増幅が確認できないサンプルでもシーケンスデータは得られることが多いと思います。
+これまでのところ、10倍希釈を用いるのが最も成績が良くなることが多い印象ですが、土壌やため池などの増幅阻害物質の多そうなサンプルでは、20倍希釈が必要な場合もありました。
+
+なお、必要な希釈率は、DNAポリメラーゼによって大きく異なることがあります。
+クルードサンプルに強いとされているKOD FX Neoでは、希釈があまり必要ないことが多いですが、KAPA HiFiは増幅阻害物質の影響を受け易いらしく、大幅に希釈しなくてはならないことがあります。
+筆者はほとんどの場合Q5 Hot Startを用いていますが、これは両者の中間的な性質です。
+
 \subsection{ユニバーサルプライマーを用いたPCRのプロトコル(泳動用)}
 
 \subsubsection{必要な機材}
@@ -948,7 +987,7 @@ Sterivexのフィルターは、Binding BufferがあってもDNAを吸着しな�
 
 \subsubsection{必要な試薬・消耗品}
 \begin{itemize}
-\item 
+\item 10xローディングバッファ (作成方法は付録\ref{making10xloadingbuffer}を参照)
 \end{itemize}
 
 \subsubsection{作業手順}
@@ -1044,6 +1083,23 @@ Sterivexのフィルターは、Binding BufferがあってもDNAを吸着しな�
 \end{enumerate}
 
 \subsection{インデックスとP5・P7アダプターを付加するPCRのプロトコル}
+
+\subsubsection{必要な機材}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\subsubsection{必要な試薬・消耗品}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\subsubsection{作業手順}
+\begin{enumerate}
+\item 
+\end{enumerate}
+
+\subsection{インデックスとP5・P7アダプターが付加できているかどうか確認するためのPCRのプロトコル}
 
 \subsubsection{必要な機材}
 \begin{itemize}
@@ -1574,6 +1630,39 @@ IDT社がプライマーを溶解させるバッファーとして使用・推�
 \end{enumerate}
 
 遠沈管の目盛り合わせで問題ない。
+
+\section{PCR用10xローディングバッファの調製}\label{making10xloadingbuffer}
+
+PCRの際に1/10量加えることで、PCR後にPCR産物をそのままアガロースゲルにアプライできるようにするバッファ。
+島津製作所の「電気泳動用色素液(ローディングダイ)の調製プロトコルと使用方法」に基づいています。
+グリセリンを含むが、グリセリンがあると磁気ビーズでのPCR産物精製がうまくいかなくなるため、PCR産物を磁気ビーズで生成する予定がある場合は使用しないこと。
+
+\subsubsection{必要な機材}
+\begin{itemize}
+\item 電子天秤: 1台
+\item 100mLメスシリンダー: 1個
+\item 100mLビーカー: 1個
+\item エー・アンド・デイ 10mLチップ対応電動ピペット MPA-10000: 1本
+\end{itemize}
+
+\subsubsection{必要な試薬・消耗品}
+\begin{itemize}
+\item 1M Tris-HCl pH8.0: 1mL
+\item ブロモフェノールブルー 試薬特級: 100mg
+\item グリセリン 分子生物学用: 20mL
+\item SPW: 79mL
+\end{itemize}
+
+\subsubsection{作業手順}
+\begin{enumerate}
+\item メスシリンダーでSPW 50mLを量り取り、ビーカーに入れる
+\item ブロモフェノールブルー 100mg、1M Tris-HCl pH8.0 1mL、グリセリン20mLを加える
+\item ビーカーからメスシリンダーに溶液を戻す
+\item ビーカーをSPWですすぎ、メスシリンダーに加える
+\item メスシリンダーにSPWを加えて100mLにメスアップする
+\item ビーカーに溶液を戻し、1.5mLチューブに10mL電動ピペットで分注する
+\item -20℃で保管
+\end{enumerate}
 
 \section{PCR産物精製用磁気ビーズ(MagNA)液の調製}\label{makingMagNA}
 
