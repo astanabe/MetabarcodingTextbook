@@ -34,6 +34,9 @@ while (<>) {
 	elsif (/\\usepackage/ && /pxjahyper/) {
 		s/\\usepackage\{.+\}//;
 	}
+	elsif (/\\usepackage/ && /pxcjkcat/) {
+		s/\\usepackage\{.+\}//;
+	}
 	#elsif (/\\includegraphics\{/) {
 	#	s/\\includegraphics\{/\\includegraphics[scale=2.0]{/;
 	#}

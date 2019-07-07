@@ -1,6 +1,8 @@
-\documentclass[titlepage,10pt,a4paper]{jsbook}
+\documentclass[titlepage,10pt,a4paper,uplatex]{jsbook}
 
-\usepackage{textcomp}
+\usepackage[utf8]{inputenc}
+
+\usepackage[T1]{fontenc}
 
 \setcounter{tocdepth}{3}
 
@@ -24,15 +26,30 @@ pdftitle={生態学のためのメタバーコーディングとDNAバーコー�
 pdfauthor={田辺晶史},
 pdfkeywords={メタゲノム, 環境DNA}%
 ]{hyperref}
+
 \usepackage{pxjahyper}
 
-\usepackage{pxfonts}
+\usepackage{newtxtext,newtxmath}
+
+\usepackage{textcomp}
+
+\usepackage[prefernoncjk]{pxcjkcat}
+
+\cjkcategory{sym18,grek}{cjk}
+
+\usepackage{url}
+
+\usepackage{booktabs}
+
+\usepackage{multirow}
+
+\usepackage{threeparttable}
 
 \usepackage{longtable}
 
-\bibliographystyle{jecon}
+\usepackage{lineno}
 
-\usepackage{url}
+\usepackage{lscape}
 
 \makeatletter
 \def\maketitle{%
@@ -94,7 +111,9 @@ pdfkeywords={メタゲノム, 環境DNA}%
 \renewcommand{\appendixname}{付録}
 
 \usepackage{float}
+
 \usepackage{framed}
+
 \definecolor{shadecolor}{gray}{0.9}
 \newenvironment{content}{\begin{shaded}\vspace{-1em}\raggedright\ttfamily\footnotesize\setlength{\baselineskip}{1.4em}}{\end{shaded}\vspace{-1em}}
 \newenvironment{pre}{\begin{leftbar}\raggedright\ttfamily\footnotesize\setlength{\baselineskip}{1.4em}}{\end{leftbar}\vspace{-1em}}
@@ -111,6 +130,8 @@ pdfkeywords={メタゲノム, 環境DNA}%
   \global\@topnum\z@
   \secdef\@chapter\@schapter}
 \makeatother
+
+\bibliographystyle{jecon}
 
 \begin{document}
 \thispagestyle{empty}
