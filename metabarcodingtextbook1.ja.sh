@@ -3,6 +3,9 @@ rm metabarcodingtextbook1.ja.bib
 cp metabarcodingtextbook1.bib metabarcodingtextbook1.ja.bib
 platex --kanji=utf8 metabarcodingtextbook1.ja
 pbibtex --kanji=utf8 metabarcodingtextbook1.ja
+perl convertbbl.pl < metabarcodingtextbook1.ja.bbl > metabarcodingtextbook1.ja.temp.bbl
+rm -f metabarcodingtextbook1.ja.bbl
+mv metabarcodingtextbook1.ja.temp.bbl metabarcodingtextbook1.ja.bbl
 platex --kanji=utf8 metabarcodingtextbook1.ja
 platex --kanji=utf8 metabarcodingtextbook1.ja
 dvipdfmx metabarcodingtextbook1.ja

@@ -25,6 +25,7 @@
 .ltx_title_section       { font-size:140%; font-weight:bold; margin-bottom:1em; }
 .ltx_title_subsection    { font-size:120%; font-weight:bold; margin-bottom:1em; }
 .ltx_title_subsubsection { font-size:100%; font-weight:bold; margin-bottom:1em; }
+.ltx_title_bibliography  { font-size:140%; font-weight:bold; margin-bottom:1em; }
 
 /* Paragraph & Subparagraph titles should be runin! */
 .ltx_title_paragraph   { font-size:100%; font-weight:bold; display:inline;
@@ -46,7 +47,7 @@
 .ltx_table,
 .ltx_figure { display:flex; flex-direction:column; align-items:center; }
 .ltx_table .ltx_caption,
-.ltx_figure .ltx_caption { text-align:justify; }
+.ltx_figure .ltx_caption { text-align:justify; margin-left:0em; }
 
 /* first p in para gets indented */
 .ltx_para > .ltx_p:first-child { text-indent:0em; }
@@ -54,7 +55,8 @@
 section > .ltx_title +.ltx_para > .ltx_p,
 section > .ltx_title +.ltx_date +.ltx_para > .ltx_p {text-indent:0em; }
 
-.ltx_itemize { margin-left:1em; }
+.ltx_itemize { margin-left:0em; padding-left:1em; }
+.ltx_caption > .ltx_itemize { margin-left:0em; padding-left:0em; }
 
 .ltx_theorem { margin-top:0.5em; margin-bottom:0.5em; }
 .ltx_theorem .ltx_title { margin-bottom:0.1em; font-weight:normal; }
