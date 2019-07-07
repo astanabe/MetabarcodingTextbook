@@ -724,7 +724,9 @@ bcl2fastqのインストールは付録に書きましたのでそちらを参�
 下記の例ではbcl2fastqでFASTQ配列生成の際に除去するようになっています。
 
 まず、シーケンサー付属マシンからBaseCallsフォルダを含むランデータフォルダをまるごとbcl2fastqをインストールしたPCへコピーします。
-なお、BaseCallsフォルダ内またはランデータフォルダ内に\texttt{SampleSheet.csv}が存在する場合は、これをリネームしておく必要があります。
+次に、BaseCallsフォルダ内またはランデータフォルダ内に\texttt{SampleSheet.csv}が存在する場合は、これを作業ディレクトリへコピーして、ファイル名を\texttt{Dummy.csv}とし、テキストエディタで開いて\texttt{[Data]}セクションを編集します。
+\texttt{[Data]}セクションには1行目に各列のラベルが記されており、2行目以降にサンプル名やインデックス配列が記されていますが、2行目以降を削除します。
+FASTQ生成の際にこのファイルをサンプルシートとして指定することで、bcl2fastqに内蔵されているdemultiplex機能を無効化します。
 
 次に、bcl2fastqの1.x系では以下のようにコマンドを実行します。
 
@@ -734,6 +736,7 @@ bcl2fastqのインストールは付録に書きましたのでそちらを参�
 {-}{-}fastq-cluster-count 0 {\textbackslash}\\
 {-}{-}use-bases-mask Y300n,Y8,Y8,Y300n {\textbackslash}\\
 {-}{-}input-dir BaseCallsフォルダ {\textbackslash}\\
+{-}{-}sample-sheet Dummy.csv {\textbackslash}\\
 {-}{-}output-dir 出力フォルダ↓\\
 {\textgreater} cd 出力フォルダ↓\\
 {\textgreater} make -j4↓
@@ -755,6 +758,7 @@ bcl2fastqの2.x系を使用している場合は以下のようにコマンド�
 {-}{-}create-fastq-for-index-reads {\textbackslash}\\
 {-}{-}use-bases-mask Y300n,I8,I8,Y300n {\textbackslash}\\
 {-}{-}runfolder-dir ランデータフォルダ {\textbackslash}\\
+{-}{-}sample-sheet Dummy.csv {\textbackslash}\\
 {-}{-}output-dir 出力フォルダ↓
 \end{cmd}
 
@@ -2181,7 +2185,7 @@ v2.20.0.422のインストールをする場合は以下のようにコマンド
 \# rpm2cpioとcpioのインストール\\
 {\textgreater} sudo apt-get install rpm2cpio cpio↓\\
 \# bcl2fastq2 v2.20.0.422のダウンロード\\
-{\textgreater} wget -O bcl2fastq2-v2-20-0-linux-x86-64.zip https://bit.ly/2NEy9qG↓\\
+{\textgreater} wget -O bcl2fastq2-v2-20-0-linux-x86-64.zip https://bit.ly/2XGW90B↓\\
 \# 圧縮ファイルの展開\\
 {\textgreater} unzip -qq bcl2fastq2-v2-20-0-linux-x86-64.zip↓\\
 \# .rpmを展開してコマンドを抽出\\

@@ -732,7 +732,8 @@ Pre-demultiplexed FASTQ can be demultiplexed by \texttt{clsplitseq} in Claident.
 See appendix to install bcl2fastq.
 
 To convert BCL to FASTQ, run data folder (superjacent folder of BaseCalls folder) need to be copied to the PC installed bcl2fastq.
-If there is \texttt{SampleSheet.csv} in run data folder, this file must be renamed or deleted.
+If there is \texttt{SampleSheet.csv} in run data folder, copy this file to working directory, rename to \texttt{Dummy.csv}, and edit \texttt{[Data]} section with aid of text editor.
+In the \texttt{[Data]} section, the first line is labels and the second and 
 
 In the case of bcl2fastq 1.x, the following commands make FASTQ files from BCL files of 8 bp dual indexed 300PE sequencing data.
 
@@ -742,6 +743,7 @@ In the case of bcl2fastq 1.x, the following commands make FASTQ files from BCL f
 {-}{-}fastq-cluster-count 0 {\textbackslash}\\
 {-}{-}use-bases-mask Y300n,Y8,Y8,Y300n {\textbackslash}\\
 {-}{-}input-dir BaseCalls {\textbackslash}\\
+{-}{-}sample-sheet Dummy.csv {\textbackslash}\\
 {-}{-}output-dir outputfolder↓\\
 {\textgreater} cd outputfolder↓\\
 {\textgreater} make -j4↓
@@ -764,6 +766,7 @@ In the case of bcl2fastq 2.x, perform the following command.
 {-}{-}create-fastq-for-index-reads {\textbackslash}\\
 {-}{-}use-bases-mask Y300n,I8,I8,Y300n {\textbackslash}\\
 {-}{-}runfolder-dir RunDataFolder {\textbackslash}\\
+{-}{-}sample-sheet Dummy.csv {\textbackslash}\\
 {-}{-}output-dir outputfolder↓
 \end{cmd}
 
@@ -1964,7 +1967,7 @@ To install bcl2fastq2 v2.20.0.422 for all Illumina sequencing systems running RT
 \# Install rpm2cpio and cpio\\
 {\textgreater} sudo apt-get install rpm2cpio cpio↓\\
 \# Download bcl2fastq2 v2.20.0.422 from Illumina\\
-{\textgreater} wget -O bcl2fastq2-v2-20-0-linux-x86-64.zip https://bit.ly/2NEy9qG↓\\
+{\textgreater} wget -O bcl2fastq2-v2-20-0-linux-x86-64.zip https://bit.ly/2XGW90B↓\\
 \# Decompress zip file\\
 {\textgreater} unzip -qq bcl2fastq2-v2-20-0-linux-x86-64.zip↓\\
 \# Extract executable command from .rpm\\
