@@ -32,10 +32,10 @@ while (<>) {
 		s/jecon/alphanat/;
 	}
 	elsif (/\\usepackage/ && /pxjahyper/) {
-		s/\\usepackage\{.+\}//;
+		s/\\usepackage.*\{.+\}//;
 	}
 	elsif (/\\usepackage/ && /pxcjkcat/) {
-		s/\\usepackage\{.+\}//;
+		s/\\usepackage.*\{.+\}//;
 	}
 	#elsif (/\\includegraphics\{/) {
 	#	s/\\includegraphics\{/\\includegraphics[scale=2.0]{/;
