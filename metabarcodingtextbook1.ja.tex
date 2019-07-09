@@ -4,6 +4,10 @@
 
 \usepackage[T1]{fontenc}
 
+\usepackage[uplatex,deluxe]{otf}
+
+\usepackage[noto]{pxchfon}
+
 \setcounter{tocdepth}{3}
 
 \usepackage[round,colon,authoryear]{natbib}
@@ -28,6 +32,14 @@ pdfkeywords={メタゲノム, 環境DNA}%
 ]{hyperref}
 
 \usepackage{pxjahyper}
+
+\usepackage{amsmath,amssymb}
+
+\AtBeginDocument{
+  \abovedisplayskip     =0.5\abovedisplayskip
+  \abovedisplayshortskip=0.5\abovedisplayshortskip
+  \belowdisplayskip     =0.5\belowdisplayskip
+  \belowdisplayshortskip=0.5\belowdisplayshortskip}
 
 \usepackage{newtxtext,newtxmath}
 
@@ -130,6 +142,8 @@ pdfkeywords={メタゲノム, 環境DNA}%
   \global\@topnum\z@
   \secdef\@chapter\@schapter}
 \makeatother
+
+\renewcommand{\textbf}[1]{{\bfseries\sffamily#1}}
 
 \bibliographystyle{jecon}
 
@@ -1101,7 +1115,7 @@ Illuminaのシーケンサーでは、解読中の塩基が多様なほど解読
 そこで、読み始めになる上述のアダプター配列直後に6塩基の\texttt{N}を挿入することで、塩基多様度を最大化します。
 
 アダプター配列直後に6塩基の\texttt{N}を挿入するだけでも通常は問題ありませんが、7塩基目以降も塩基多様度が高いに越したことはありません。
-そこで、下記の4種類のプライマーを等濃度で等量混合することで、増幅産物の長さに変異を持たせます。
+そこで、下記の4種類のプライマーを等濃度で等量混合することで、PCR産物の長さに変異を持たせます。
 
 \begin{pre}
 5' ― [アダプター配列] ― [NNNNNN] ― [プライマー配列] ― 3'\\
@@ -1133,7 +1147,7 @@ P5・P7配列は下記の配列で、それぞれフォワード側、リバー�
 \item P7: CAAGCAGAAGACGGCATACGAGAT
 \end{itemize}
 
-そこで、下記のようなアダプター配列にアニールするプライマーを用いて、由来サンプル識別用のインデックス配列とP5・P7配列を付加します(Xにはインデックス配列が入ります)。
+そこで、下記のようなアダプター配列にアニールするプライマーを用いて、由来サンプル識別用のインデックス配列とP5・P7配列を付加します(\texttt{X}にはインデックス配列が入ります)。
 
 \begin{pre}
 5' ― [P5・P7配列] ― [インデックス配列] ― [プライマー配列] ― 3'\\
@@ -1293,7 +1307,7 @@ Pipetty TLIC01-250で20{\textmu}L以下の容量の分注を行うと、設定�
 \item 1x TAE: 350mL
 \item 1x TAE: 80mL
 \item 日本ジェネティクス Midori Green Advance: 4{\textmu}L
-\item ニッポンジーン アガロースS: 1.6g
+\item ニッポンジーン アガロースS または 関東化学 アガロース KANTO S: 1.6g
 \item ローディングダイ入PCR産物: 6{\textmu}L
 \item ラダーマーカー: 16{\textmu}L
 \end{itemize}
@@ -1302,9 +1316,9 @@ Pipetty TLIC01-250で20{\textmu}L以下の容量の分注を行うと、設定�
 \begin{enumerate}
 \item ビーカーに1x TAE 350mLを量り取ってMupidの泳動層に入れる
 \item ゲルメーカーセットから必要なものを選び、電子レンジのそばに配置しておく
-\item ビーカーに1x TAE 50mLとアガロースS 1.6gを入れて電子レンジで加熱してよく振って溶かす
+\item ビーカーに1x TAE 50mLとアガロース 1.6gを入れて電子レンジで加熱してよく振って溶かす
 \item 再度電子レンジで加熱し、沸騰したら取り出して1x TAE 30mLを加えて振る
-\item Midori Green Advance 4{\textmu}Lを入れてよく混ぜ、すぐにゲルメーカーセットの型に流し込んでコームを4本挿して、ゲルが固まるまで置いておく
+\item Midori Green Advance 4{\textmu}Lを入れてよく混ぜ、すぐにゲルメーカーセットの型に流し込んでコームを4本挿して(26ウェル側を使用)、ゲルが固まるまで置いておく
 \item 完全に固まったゲルからコームを抜き、泳動槽にセットする
 \item ローディングダイ入PCR産物をスピンダウンしてプレートシールを剥がす
 \item 12連ピペットでPCR産物をピペッティングを2回してから5{\textmu}L吸い取り、そのままゲルにアプライする
@@ -1390,7 +1404,7 @@ Pipetty TLIC01-250で20{\textmu}L以下の容量の分注を行うと、設定�
 \subsection{磁気ビーズを用いたPCR産物の精製プロトコル}
 
 磁気ビーズに目的の長さのDNAを選択的に吸着させることで、プライマーダイマーやdNTP、残ったプライマーなどを除去します。
-なお、ここでは300bp未満の増幅産物を除去し、300bp以上の断片を回収すると仮定しています。
+なお、ここでは300bp未満のDNA断片を除去し、300bp以上の断片を回収すると仮定しています。
 回収したいDNAサイズが異なる場合は、後述する目安を参考にMagNA液量を変更する必要があります。
 磁気ビーズアッセイ対応のプレートウォッシャー(TECAN HydroSpeed等)を使用することで、処理を自動化することができます。
 
@@ -1635,7 +1649,7 @@ Pipetty TLIC01-250で20{\textmu}L以下の容量の分注を行うと、設定�
 
 磁気ビーズに目的の長さのDNAを選択的に吸着させることで、プライマーダイマーやdNTP、残ったプライマーなどを除去、濃縮した上で、E-Gel SizeSelectで電気泳動することで目的のサイズのDNAだけを取り出します。
 磁気ビーズ精製を先に行わないと、回収されたDNAが薄すぎたり、誤ってプライマーダイマーのバンドを回収してしまったりします。
-なお、ここでは磁気ビーズ精製では300bp未満の増幅産物を除去し、300bp以上の断片を回収すると仮定しています。
+なお、ここでは磁気ビーズ精製では300bp未満のDNA断片を除去し、300bp以上の断片を回収すると仮定しています。
 回収したいDNAサイズが異なる場合は、後述する目安を参考にMagNA液量を変更する必要があります。
 
 \subsubsection{必要な機材}
@@ -1723,37 +1737,143 @@ Pipetty TLIC01-250で20{\textmu}L以下の容量の分注を行うと、設定�
 
 \subsection{Qubitによる濃度測定と希釈}
 
+従来、Nanodropなどの分光光度計によってDNAの定量を行うことが多かったと思いますが、実はこの方法による測定精度は高くありません。
+そこで、蛍光色素を用いたより高精度の定量を行います。
+Qubitはその代表的な機材です。
+類似品が他社からも出ており、測定精度も大差ありませんので、どの装置を用いていただいても構いません。
+
 \subsubsection{必要な機材}
 \begin{itemize}
-\item 
+\item Qubit Fluorometer: 1台
 \end{itemize}
 
 \subsubsection{必要な試薬・消耗品}
 \begin{itemize}
-\item 
+\item Qubit専用0.5mLチューブ: 1本 / 1サンプル
+\item 1.5mLチューブ または 2mLチューブ または 5mLチューブ または 15mL遠沈管: 1本
+\item Qubit dsDNA HS Reagent: 1{\textmu}L / 1サンプル
+\item Qubit dsDNA HS Buffer: 199{\textmu}L / 1サンプル
+\item Qubit dsDNA HS Standard \#1: 10{\textmu}L
+\item Qubit dsDNA HS Standard \#2: 10{\textmu}L
+\item ライブラリ溶液: 2{\textmu}L
 \end{itemize}
 
 \subsubsection{作業手順}
 \begin{enumerate}
-\item 
+\item 冷蔵しているスタンダードを室温に戻す
+\item サンプル数＋2本(スタンダード用)の専用チューブをラックに立てて、キャップにラベルを振る
+\item 専用チューブにスタンダードを10{\textmu}Lずつ、ライブラリ溶液を2{\textmu}Lずつ入れる
+\item Qubit dsDNA HS Reagent 1{\textmu}LとQubit dsDNA HS Buffer 199{\textmu}Lを測定サンプル数＋2倍量チューブに入れてボルテックス
+\item スタンダードの入ったチューブに4の混合液を190{\textmu}L入れてピペッティング
+\item ライブラリ溶液の入った専用チューブに4の混合液を198{\textmu}L入れてピペッティング
+\item 20℃で5分インキュベート
+\item Qubitの電源を入れてdsDNA High Sensitivityを選択
+\item スタンダードを測定する
+\item サンプル液量を2{\textmu}Lに設定
+\item ライブラリを測定する
+\item 9に戻る (2回戻る・3回測定)
 \end{enumerate}
 
-\subsection{Bioanalyzerによる電気泳動}
+Qubitでの測定値\textit{x} ng/{\textmu}L ({\textmu}g/mLでも同じ)と、期待されるDNA断片長\textit{y} bpを以下の式に代入することでモル濃度を計算します。
+
+\begin{align*}
+\mathrm{Concentration~(nM)} = \frac{1000000 x}{660 y}
+\end{align*}
+
+以下の式を使うこともあるようです。
+筆者はこちらを使用しています。
+
+\begin{align*}
+\mathrm{Concentration~(nM)} = \frac{1000000 x}{607.4 y + 157.9}
+\end{align*}
+
+なお、期待されるDNA断片長は、以下の式で求められます。
+
+\begin{align*}
+\mathrm{Final~fragment~length~(bp)} &= \mathrm{Insert~length} \\
+            &\quad + \ \mathrm{Mean~length~of~forward~adapter~primer} \\
+            &\quad + \ \mathrm{Mean~length~of~reverse~adapter~primer} \\
+            &\quad + \ 70
+\end{align*}
+
+インサート長は、Primer-BLAST \url{https://www.ncbi.nlm.nih.gov/tools/primer-blast/} かecoPCR \citep{Bellemain2010}で推定できます。
+ここではPrimer-BLASTを使う方法を説明します。
+Primer-BLASTのページで鋳型になる塩基配列(またはそのアクセッション番号)を「PCR Template」の「Enter accession, gi, or FASTA sequence」に、アダプターや\texttt{N}を除いたプライマー配列を「Primer Parameters」の「Use my own forward primer」と「Use my own reverse primer」に入力し、「Primer Pair Specificity Checking Parameters」の「Database」を「nr」に、「Organism」を適当な分類群(学名や一般名を入力すれば候補が出ます)に設定して「Get Primers」を押して結果を待ちます。
+結果のページ内の「Detailed primer reports」に「Products on potentially unintended templates」という欄があり、1000件のマッチがリストアップされています。
+このリスト内に「product length」が載っていますので、この数値を集めて平均値を使用します。
+この「product length」には指定したプライマーのアニールする部分が含まれていますので、プライマーの長さを引くことでインサート長になります。
+入力したプライマーは鋳型に完全マッチしていなければならず、プライマーに縮重塩基は使用できません。
+プライマーに縮重塩基が含まれている場合、鋳型配列のアニールする領域を取り出して代わりに使用します。
+鋳型配列には、確実にマッチするとわかっている配列を使用します。
+例えば、MiFishであれば魚の12S rRNA領域の配列や、ミトゲノム配列を使えばいいでしょう。
+なお、ecoPCRを使用すれば、縮重塩基にも対応していますし、1000件以上のヒットも全て得ることができます。
+
+計算したモル濃度に基づいて、ライブラリ溶液を4nM、または2nM、または1nMに希釈し、シーケンスに使用します。
+
+\subsection{アガロースゲル電気泳動のプロトコル (高分解能版)}
+
+通常、シーケンス用ライブラリはAgilent社のBioanalyzerなどの高感度・高分解能電気泳動装置を用いてDNA断片長を推定し、期待通りの長さになっているかどうかを確認します。
+しかし、必ずしもBioanalyzerを使用可能な環境の方ばかりではないでしょう。
+そこで、Bioanalyzerが使用できない場合、大型ゲルのアガロースゲル電気泳動でライブラリの断片長を推定します。
+DNA断片長が期待通りでない場合、どこかの段階で失敗している可能性があります。
 
 \subsubsection{必要な機材}
 \begin{itemize}
-\item 
+\item 20{\textmu}L電動ピペット アイカムス・ラボ Pipetty TLIC01-20 または エー・アンド・デイ MPA-20: 1本
+\item 10{\textmu}Lピペット: 1本
+\item ADVANCE Mupid-One: 1台
+\item ADVANCE ゲルメーカーセットOne-HR: 1セット
+\item 300mLビーカー: 1個
 \end{itemize}
 
 \subsubsection{必要な試薬・消耗品}
 \begin{itemize}
-\item 
+\item 0.2mLチューブ: 1本 / 1ライブラリ
+\item 1x TAE: 350mL
+\item 1x TAE: 80mL
+\item 日本ジェネティクス Midori Green Advance: 4{\textmu}L
+\item ニッポンジーン アガロースS または 関東化学 アガロース KANTO S: 1.6g
+\item ライブラリ溶液: 5{\textmu}L
+\item New England BioLabs Gel Loading Dye, Purple (6X) (B7024S): 1{\textmu}L / 1ライブラリ
+\item New England BioLabs Quick-Load Purple 50 bp DNA Ladder (N0556S): 10{\textmu}L / 1ライブラリ
 \end{itemize}
 
 \subsubsection{作業手順}
 \begin{enumerate}
-\item 
+\item ビーカーに1x TAE 350mLを量り取ってMupidの泳動層に入れる
+\item ゲルメーカーセットから必要なものを選び、電子レンジのそばに配置しておく
+\item ビーカーに1x TAE 50mLとアガロース 1.6gを入れて電子レンジで加熱してよく振って溶かす
+\item 再度電子レンジで加熱し、沸騰したら取り出して1x TAE 30mLを加えて振る
+\item Midori Green Advance 4{\textmu}Lを入れてよく混ぜ、すぐにゲルメーカーセットの型に流し込んでコームを1本挿して(26ウェル側を使用)、ゲルが固まるまで置いておく
+\item 完全に固まったゲルからコームを抜き、泳動槽にセットする
+\item 0.2mLチューブに6xローディングダイ 1{\textmu}Lを取り、ライブラリ溶液 5{\textmu}Lを加えてピペッティングし、全量をゲルにアプライする (パラフィルム上でやっても構わない)
+\item ラダーマーカーを20{\textmu}L電動ピペットで5{\textmu}Lずつ、ライブラリ溶液をアプライしたウェルの両隣のウェルにアプライする
+\item 泳動槽の蓋を閉め、極性方向に注意して泳動を開始する(+方向に動く)
+\item 流れ切らないように注意して泳動を終了し、ラップを引いたUVトランスイルミネータで泳動像を確認する
 \end{enumerate}
+
+分解能がさほど必要ない場合は、半分のサイズのゲルを使用して下さい。
+分解能をさらに上げたい場合は、低分子用アガロースをより高濃度で使用して下さい。
+
+E-Gelでサイズ選択した時点でDNA断片長はわかっているじゃないか、と考えるならば、この処理は不要です。
+しかし、E-Gelでのサイズ選択は完全ではなく、意外に短い断片や長い断片も残っていることがしばしばあります。
+また、E-Gelでは同じサイズのDNA断片でもかなり泳動速度がばらつくため、ラダーマーカーと比較することでバンドの断片長を推定しても、間違っている可能性があります。
+シーケンス用試薬は高価で、無駄にすると経済的な痛手が大きいですから、念の為DNA断片長を確認しておくことを推奨します。
+
+この方法では感度はBioanalyzerに比べてずっと低いので、DNAの濃度が低い場合は視認できない可能性があります。
+また、消費する液量も多いので、十分な液量がない場合は実施できない可能性があります。
+そのような場合、以下のプライマーを用いたPCRを行い、そのPCR産物を電気泳動することで長さの確認が可能です。
+
+\begin{itemize}
+\item Forward: AATGATACGGCGACCACCGA
+\item Reverse: CAAGCAGAAGACGGCATACGA
+\end{itemize}
+
+PCRにはライブラリ溶液を1{\textmu}L使用し(もっと少なくても構いません)、20サイクル以上の増幅を行って下さい。
+アニーリング温度は上記の配列に基づいて計算して下さい。
+使用する酵素は何でも構いません。
+当然ですが、Bioanalyzerがあればこんな面倒な作業は必要ありません。
+Bioanalyzer使用時のプロトコルはAgilent公式サイトをご参照願います。
 
 \section{MiSeqによるシーケンス}
 

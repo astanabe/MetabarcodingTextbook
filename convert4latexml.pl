@@ -31,10 +31,7 @@ while (<>) {
 	elsif (/\\bibliographystyle/ && /jecon/) {
 		s/jecon/alphanat/;
 	}
-	elsif (/\\usepackage/ && /pxjahyper/) {
-		s/\\usepackage.*\{.+\}//;
-	}
-	elsif (/\\usepackage/ && /pxcjkcat/) {
+	elsif (/\\usepackage/ && /(?:pxchfon|pxjahyper|pxcjkcat|otf)/) {
 		s/\\usepackage.*\{.+\}//;
 	}
 	#elsif (/\\includegraphics\{/) {
