@@ -1558,8 +1558,6 @@ Pipetty TLIC01-250で20{\textmu}L以下の容量の分注を行うと、設定�
 \begin{itemize}
 \item 12連100{\textmu}L電動ピペット Eppendorf Xplorer Plus 4861000791 または Sartorius Picus 735441: 1本
 \item 200{\textmu}L電動ピペット アイカムス・ラボ Pipetty TLIC01-250 または エー・アンド・デイ MPA-200: 1本
-\item 1000{\textmu}L電動ピペット アイカムス・ラボ Pipetty TLIC01-1000 または エー・アンド・デイ MPA-1200: 1本
-\item 12連100{\textmu}Lピペット: 1本
 \item 12連200{\textmu}Lピペット: 1本
 \item 96ウェルプレート用磁気スタンド: 1台 (自作方法は\ref{makingmagnetstand}を参照)
 \item Fisher Scientific マイクロプレートボルテックスミキサー デジタル (アズワン品番 62-1609-23): 1台
@@ -1567,12 +1565,13 @@ Pipetty TLIC01-250で20{\textmu}L以下の容量の分注を行うと、設定�
 
 \subsubsection{必要な試薬・消耗品}
 \begin{itemize}
-\item 96ウェルプレート: 1枚 / 96サンプル
-\item プレートシール: 1枚 / 96サンプル
-\item MagNA液 (作成方法は付録\ref{makingMagNA}を参照): 32{\textmu}L / 1サンプル
+\item 96ウェルプレート: 1～2枚 / 96サンプル
+\item プレートシール: 2～3枚 / 96サンプル
+\item リザーバー: 1枚 / 96サンプル
+\item MagNA液 (作成方法は付録\ref{makingMagNA}を参照): 32{\textmu}L / 1サンプル (約3.2mL / 96サンプル)
 \item PCR産物: 40{\textmu}L (8レプリケート各5{\textmu}L) / 1サンプル × 96サンプル
-\item IDTE: 42{\textmu}L / 1サンプル
-\item 70\%エタノール: 300{\textmu}L / 1サンプル
+\item IDTE: 42{\textmu}L / 1サンプル (約4.2mL / 96サンプル)
+\item 作りたての70\%エタノール: 300{\textmu}L / 1サンプル (約30mL / 96サンプル)
 \end{itemize}
 
 \subsubsection{作業手順}
@@ -1584,18 +1583,18 @@ Pipetty TLIC01-250で20{\textmu}L以下の容量の分注を行うと、設定�
 \item プレートシールをしっかり貼って3500rpmで10秒ボルテックス (目視確認して混ざってなければ繰り返す)
 \item 500×gで5秒遠心してスピンダウン
 \item 20℃5分インキュベート
+\item 70\%エタノールを50mL遠沈管で量り取ってリザーバーに入れる
 \item プレートシールを剥がして磁気スタンドに立て、2分静置する
-\item ビーズに触れないよう注意して溶液を12連100{\textmu}Lピペットで吸い取って捨てる
-\item 磁気スタンドに立てたまま、1000{\textmu}L電動ピペットで70\%エタノールを150{\textmu}Lずつ加える
-\item エタノールを12連200{\textmu}Lピペットで吸い取って捨てる
-\item 磁気スタンドに立てたまま、1000{\textmu}L電動ピペットで70\%エタノールを150{\textmu}Lずつ加える
-\item エタノールを12連200{\textmu}Lピペットで吸い取って捨てる(できるだけ除去)
+\item ビーズに触れないよう注意して溶液を12連200{\textmu}Lピペットで吸い取って捨てる
+\item 磁気スタンドに立てたまま、12連200{\textmu}Lピペットで70\%エタノールを150{\textmu}Lずつ加えて、泡立たないよう数回ピペッティングしてから吸い取って捨てる
+\item 磁気スタンドに立てたまま、12連200{\textmu}Lピペットで70\%エタノールを150{\textmu}Lずつ加えて、泡立たないよう数回ピペッティングしてから吸い取って捨てる(できるだけ除去)
 \item 磁気スタンドから外して20℃で3分インキュベート (磁気ビーズを適度に乾かす。乾かしすぎるとビーズが割れて回収率低下するので注意)
 \item IDTEを200{\textmu}L電動ピペットで42{\textmu}Lずつ加えてプレートシールをしっかり貼る
 \item 3500rpmで10秒ボルテックス (目視確認して混ざってなければ繰り返す)
 \item 500×gで5秒遠心してスピンダウン
 \item サーマルサイクラーにセットして37℃で5分インキュベート
-\item 冷蔵庫に一時保管 (1ヶ月以上の長期の場合は冷凍庫へ)
+\item 磁気ビーズを除くなら、プレートシールを剥がして12連200{\textmu}Lピペットで40{\textmu}Lを吸って新しい96ウェルプレートに移す
+\item プレートシールをしっかり貼って冷蔵庫に一時保管 (1ヶ月以上の長期の場合は冷凍庫へ)
 \end{enumerate}
 
 \subsubsection{回収したいDNAサイズとMagNA液の量の目安}
@@ -1607,7 +1606,11 @@ Pipetty TLIC01-250で20{\textmu}L以下の容量の分注を行うと、設定�
 \item[500bp以上] DNA溶液の0.65倍
 \end{description}
 
-磁気ビーズは長期間でなければ入れっぱなしで構いません。
+作業は磁気ビーズが乾きすぎないように迅速に行います。
+
+この後、すぐに磁気ビーズを用いた濃度均一化を行うのであれば、エタノールによる洗浄作業は1回で構いません。
+
+磁気ビーズは長期間でなければ入れっぱなしでも構いません。
 ただし、溶液を使用する際に磁気ビーズが混入しないように注意する必要があります。
 
 \subsection{磁気ビーズを用いたPCR産物の濃度均一化プロトコル}
@@ -1619,22 +1622,22 @@ Pipetty TLIC01-250で20{\textmu}L以下の容量の分注を行うと、設定�
 \subsubsection{必要な機材}
 \begin{itemize}
 \item 200{\textmu}L電動ピペット アイカムス・ラボ Pipetty TLIC01-250 または エー・アンド・デイ MPA-200: 1本
-\item 1000{\textmu}L電動ピペット アイカムス・ラボ Pipetty TLIC01-1000 または エー・アンド・デイ MPA-1200: 1本
-\item 12連100{\textmu}Lピペット: 1本
 \item 12連200{\textmu}Lピペット: 1本
+\item 12連100{\textmu}Lピペット: 1本
 \item 96ウェルプレート用磁気スタンド: 1台 (自作方法は\ref{makingmagnetstand}を参照)
 \item Fisher Scientific マイクロプレートボルテックスミキサー デジタル (アズワン品番 62-1609-23): 1台
 \end{itemize}
 
 \subsubsection{必要な試薬・消耗品}
 \begin{itemize}
-\item 96ウェルプレート: 1枚 / 96サンプル
-\item プレートシール: 1枚 / 96サンプル
-\item BeNUS液 (作成方法は付録\ref{makingBeNUS}を参照): 40{\textmu}L / 1サンプル
-\item イソプロパノール 分子生物学用: 40{\textmu}L / 1サンプル
+\item 96ウェルプレート: 1～2枚 / 96サンプル
+\item プレートシール: 2～3枚 / 96サンプル
+\item リザーバー: 1枚 / 96サンプル
+\item BeNUS液 (作成方法は付録\ref{makingBeNUS}を参照): 40{\textmu}L / 1サンプル (約4mL / 96サンプル)
+\item イソプロパノール 分子生物学用: 40{\textmu}L / 1サンプル (約4mL / 96サンプル)
 \item 磁気ビーズ精製済みPCR産物: 40{\textmu}L / 1サンプル × 96サンプル
-\item IDTE: 20{\textmu}L / 1サンプル
-\item 70\%エタノール: 150{\textmu}L / 1サンプル
+\item IDTE: 21{\textmu}L / 1サンプル (約2.1mL / 96サンプル)
+\item 作りたての70\%エタノール: 150{\textmu}L / 1サンプル (約15mL / 96サンプル)
 \end{itemize}
 
 \subsubsection{作業手順}
@@ -1642,23 +1645,27 @@ Pipetty TLIC01-250で20{\textmu}L以下の容量の分注を行うと、設定�
 \item BeNUS液を30分程度放置して室温に戻す
 \item BeNUS液を転倒混和して磁気ビーズを均一にする
 \item 96ウェルプレート全体にBeNUS液とイソプロパノールを200{\textmu}L電動ピペットで40{\textmu}Lずつ分注する
-\item 12連100{\textmu}Lピペットを用いて96ウェルプレート上の磁気ビーズ精製済みPCR産物 40{\textmu}Lを3の96ウェルプレートの1行(12ウェル)に加える
+\item 12連200{\textmu}Lピペットを用いて96ウェルプレート上の磁気ビーズ精製済みPCR産物 40{\textmu}Lを3の96ウェルプレートの1行(12ウェル)に加える
 \item プレートシールをしっかり貼って3500rpmで10秒ボルテックス (目視確認して混ざってなければ繰り返す)
 \item 500×gで5秒遠心してスピンダウン
 \item 20℃5分インキュベート
+\item 70\%エタノールを50mL遠沈管で量り取ってリザーバーに入れる
 \item プレートシールを剥がして磁気スタンドに立て、2分静置する
 \item ビーズに触れないよう注意して溶液を12連200{\textmu}Lピペットで吸い取って捨てる
-\item 磁気スタンドに立てたまま、1000{\textmu}L電動ピペットで70\%エタノールを150{\textmu}Lずつ加える
-\item エタノールを12連200{\textmu}Lピペットで吸い取って捨てる(できるだけ除去)
+\item 磁気スタンドに立てたまま、12連200{\textmu}Lピペットで70\%エタノールを150{\textmu}Lずつ加えて、泡立たないよう数回ピペッティングしてから吸い取って捨てる(できるだけ除去)
 \item 磁気スタンドから外して20℃で3分インキュベート (磁気ビーズを適度に乾かす。乾かしすぎるとビーズが割れて回収率低下するので注意)
-\item IDTEを200{\textmu}L電動ピペットで20{\textmu}Lずつ加えてプレートシールをしっかり貼る
+\item IDTEを200{\textmu}L電動ピペットで21{\textmu}Lずつ加えてプレートシールをしっかり貼る
 \item 3500rpmで10秒ボルテックス (目視確認して混ざってなければ繰り返す)
 \item 500×gで5秒遠心してスピンダウン
 \item サーマルサイクラーにセットして37℃で5分インキュベート
-\item 冷蔵庫に一時保管 (1ヶ月以上の長期の場合は冷凍庫へ)
+\item 磁気ビーズを除くなら、プレートシールを剥がして12連100{\textmu}Lピペットで20{\textmu}Lを吸って新しい96ウェルプレートに移す
+\item プレートシールをしっかり貼って冷蔵庫に一時保管 (1ヶ月以上の長期の場合は冷凍庫へ)
 \end{enumerate}
 
-磁気ビーズは長期間でなければ入れっぱなしで構いません。
+作業は磁気ビーズが乾きすぎないように迅速に行います。
+
+磁気ビーズは長期間でなければ入れっぱなしでも構いません。
+ただし、溶液を使用する際に磁気ビーズが混入しないように注意する必要があります。
 
 \subsection{蛍光色素を用いた濃度測定結果に基づく濃度均一化プロトコル}
 
@@ -1707,12 +1714,18 @@ Pipetty TLIC01-250で20{\textmu}L以下の容量の分注を行うと、設定�
 \item 蛍光マイクロプレートリーダーを用いてスタンダードを測定
 \item 蛍光マイクロプレートリーダーを用いてサンプルを測定 (少し間を空けて3回測定して平均値を用いる)
 \item 測定結果をPCに取り込んで、表計算ソフトで濃度均一化に必要なSPW量をウェルごとに計算する
+\item Bluetooth対応PCでウェルごとに分注するSPW量を電動ピペットに送信
 \item Bluetooth対応200{\textmu}L電動ピペットを用いて、1ウェルごとに異なる量のSPWを96ウェルプレートに分注する (連続分注はしないこと)
 \item 12連100{\textmu}Lピペットを用いてサンプルDNA溶液30{\textmu}Lを96ウェルプレートに加えてピペッティング
 \item プレートシールを貼って冷蔵庫に一時保管 (1ヶ月以上の場合は冷凍庫へ)
 \end{enumerate}
 
-濃度均一化に必要なSPW量を計算する際には、ネガティブコントロールやほとんどPCR産物ができていないと思われるサンプルは無視し、加える量が最少20{\textmu}L、最大170{\textmu}Lになるよう標的濃度を決めます(ただしネガティブコントロールがPCR産物を高濃度で含む場合は考慮します)。
+濃度均一化に必要なSPW量を計算する際には、ネガティブコントロールやほとんどPCR産物ができていないと思われるサンプルは無視し、加える量が最小20{\textmu}L、最大170{\textmu}Lになるよう標的濃度を決めます(ただしネガティブコントロールがPCR産物を高濃度で含む場合は考慮します)。
+
+予算を抑えたい方には、Promega QuantiFluor dsDNA Systemを使用することをおすすめします。
+Quant-iT dsDNA HS Assay Kitや、Quant-iT PicoGreen dsDNA Assay Kitよりも大幅に安価な二本鎖DNA蛍光検出定量キットです。
+使用方法はおおよそ同じですが、蛍光色素の希釈倍率が400倍なのと、スタンダードを自分で希釈して希釈系列を作成しないといけないこと、励起波長と蛍光波長がわずかに異なるのがQuant-iT dsDNA HS Assay Kitとの違いです。
+逆に、バッファーによる希釈操作が必要ないキットもありますので、ランニングコストは上がりますが、手間を減らすことも可能です。
 
 \subsection{Exonuclease Iを用いたPCR産物の精製プロトコル}
 
@@ -2027,6 +2040,7 @@ Pipetty TLIC01-250で20{\textmu}L以下の容量の分注を行うと、設定�
 
 回収したDNA濃度を上げたい場合は、最初に磁気ビーズ精製に使用するライブラリ溶液量を増やします。
 回収する溶液量を増やしたい場合は、レプリケート数を増やして回収した溶液を混合します。
+溶出時にバッファーを使用するため、DNAの定量に影響を及ぼす可能性がないとは言い切れませんので注意して下さい。
 
 \section{ライブラリのクオリティチェック}
 
@@ -2037,6 +2051,8 @@ Pipetty TLIC01-250で20{\textmu}L以下の容量の分注を行うと、設定�
 Qubitはその代表的な機材です。
 類似品が他社からも出ており、測定精度も大差ありませんので、どの装置を用いていただいても構いません。
 もちろん、蛍光マイクロプレートリーダーでも構いません。
+ランニングコストは、PromegaのQuantusとQuantiFluor dsDNA Systemが一番安いと思います。
+また、Qubit、Quantusともに、バッファーによる希釈操作が必要ないキットも出ていますので、それらを使用すると手間が多少減ります。
 
 \subsubsection{必要な機材}
 \begin{itemize}
@@ -2086,6 +2102,7 @@ Qubitでの測定値\textit{x} ng/{\textmu}L ({\textmu}g/mLでも同じ)と、�
 \end{align*}
 
 なお、期待されるDNA断片長は、以下の式で求められます。
+アダプター配列がNextera型でもTruSeq型でも同じです。
 
 \begin{align*}
 \mathrm{Final~fragment~length~(bp)} &= \mathrm{Insert~length} \\
@@ -3312,6 +3329,8 @@ X & R277-CCTGATGA & CAAGCAGAAGACGGCATACGAGATCCTGATGAGTCTCGTGGGCTCGG \\
 \chapter{Illumina Experiment Manager用ファイル}
 
 いずれのファイルも \url{https://github.com/astanabe/NexteraStyleIndexPrimers} で配布しています。
+Illumina Experiment Managerは、v1.14以降を想定しています。
+v1.13以前のIllumina Experiment Managerはフォーマットが異なりますので、自力で改変するか、v1.14以降に更新して下さい。
 
 ファイルの内容は以下のように記述しています。
 
@@ -3325,8 +3344,8 @@ X & R277-CCTGATGA & CAAGCAGAAGACGGCATACGAGATCCTGATGAGTCTCGTGGGCTCGG \\
 
 \section{GenerateFASTQ.txt}
 
-Illumina Experiment Managerのインストール先フォルダ内にあるApplicationsフォルダ (通常は C:{\textbackslash}Program Files (x86){\textbackslash}Illumina{\textbackslash}Illumina Experiment Manager{\textbackslash}Applications) に上書きインストールする。
-元のファイルはバックアップしておくこと。
+Illumina Experiment Managerのインストール先フォルダ内にあるApplicationsフォルダ (通常は C:{\textbackslash}Program Files (x86){\textbackslash}Illumina{\textbackslash}Illumina Experiment Manager{\textbackslash}Applications) に元のファイルが存在します。
+これを一旦デスクトップなどにコピーして、メモ帳などのテキストエディタで開き、\texttt{Tanabe-v2-SamplePrepKit}の行を下記のように追加します。
 
 \begin{content}
 | [Version]\\
@@ -3379,9 +3398,13 @@ Illumina Experiment Managerのインストール先フォルダ内にあるAppli
 | Reverse Complement	BOOL	ReverseComplement	1	0	FALSE	FALSE	FALSE
 \end{content}
 
+上記の内容は、Illumina Experiment Managerのバージョンによって変わります。
+行を追加するだけで、削除はしないようにご注意願います。
+また、書き換え前のファイルはバックアップしておきましょう。
+
 \section{Tanabe-v2-IndexKit.txt}
 
-Illumina Experiment Managerのインストール先フォルダ内にあるIndexKitsフォルダ (通常は C:{\textbackslash}Program Files (x86){\textbackslash}Illumina{\textbackslash}Illumina Experiment Manager{\textbackslash}IndexKits)にインストールする。
+Illumina Experiment Managerのインストール先フォルダ内にあるIndexKitsフォルダ (通常は C:{\textbackslash}Program Files (x86){\textbackslash}Illumina{\textbackslash}Illumina Experiment Manager{\textbackslash}IndexKits)にインストールします。
 
 \begin{content}
 | [Version]\\
@@ -3881,7 +3904,7 @@ Illumina Experiment Managerのインストール先フォルダ内にあるIndex
 
 \section{Tanabe-v2-SamplePrepKit.txt}
 
-Illumina Experiment Managerのインストール先フォルダ内にあるSamplePrepKitsフォルダ (通常は C:{\textbackslash}Program Files (x86){\textbackslash}Illumina{\textbackslash}Illumina Experiment Manager{\textbackslash}SamplePrepKits) にインストールする。
+Illumina Experiment Managerのインストール先フォルダ内にあるSamplePrepKitsフォルダ (通常は C:{\textbackslash}Program Files (x86){\textbackslash}Illumina{\textbackslash}Illumina Experiment Manager{\textbackslash}SamplePrepKits) にインストールします。
 
 \begin{content}
 | [Version]\\
