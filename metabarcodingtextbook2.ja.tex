@@ -2144,7 +2144,7 @@ uchime {-}{-}minh 0.1 {-}{-}mindiv 0.8 end {\textbackslash}\\
 
 \section{bcl2fastqのインストール}
 
-Illuminaから提供されている、BCL形式のベースコールデータからFASTQを生成するプログラムbcl2fastqはRTA version 1.18.54より前の機種用のv1.8.4およびRTA version 1.18.54以降の機種用のv2.18.0.12が\\
+Illuminaから提供されている、BCL形式のベースコールデータからFASTQを生成するプログラムbcl2fastqはRTA version 1.18.54より前の機種用のv1.8.4およびRTA version 1.18.54以降の機種用のv2.20.0.422が\\
 \href{http://support.illumina.com/downloads/bcl2fastq_conversion_software.html}{http://support.illumina.com/downloads/bcl2fastq{\textunderscore}conversion{\textunderscore}software.html}\\
 からダウンロードできます。
 v1.8.4は以下のようにインストールできます。
@@ -2162,7 +2162,7 @@ bcl2fastq-1.8.4-Linux-x86{\textunderscore}64.rpm\\
 \$ sudo apt-get install libxml-simple-perl xsltproc
 \end{cmd}
 
-Ubuntu・Xubuntu・Lubuntuの14.04LTSでは、Perlのバージョンが新しすぎ、より古いバージョンを前提として書かれたbcl2fastqが動作しません。
+Ubuntu・Xubuntu・Lubuntuの18.04LTSでは、Perlのバージョンが新しすぎ、より古いバージョンを前提として書かれたbcl2fastqが動作しません。
 そこで以下のようにして問題の部分を書き換えます。
 
 \begin{cmd}
