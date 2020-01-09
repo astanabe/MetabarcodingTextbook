@@ -1,7 +1,14 @@
-\documentclass[titlepage,10pt,a4paper]{jsbook}
+\documentclass[titlepage,10pt,a4paper,uplatex]{jsbook}
 
-\setcounter{tocdepth}{4}
-\setcounter{chapter}{-1}
+\usepackage[utf8]{inputenc}
+
+\usepackage[T1]{fontenc}
+
+\usepackage[uplatex,deluxe]{otf}
+
+\usepackage[noto]{pxchfon}
+
+\setcounter{tocdepth}{3}
 
 \usepackage[round,colon,authoryear]{natbib}
 
@@ -21,13 +28,40 @@ citecolor=black,%       cite の枠の色 black
 urlcolor=black,%        url の枠の色 black
 pdftitle={生態学のためのメタバーコーディングとDNAバーコーディング：シーケンス解析編},%
 pdfauthor={田辺晶史},
-pdfkeywords={メタゲノム, 環境DNA, 次世代シーケンサー, 454, IonTorrent, Illumina}%
+pdfkeywords={メタゲノム, 環境DNA, eDNA}%
 ]{hyperref}
+
 \usepackage{pxjahyper}
 
-\usepackage{pxfonts}
+\usepackage{amsmath,amssymb}
 
-\bibliographystyle{jecon}
+\AtBeginDocument{
+  \abovedisplayskip     =0.5\abovedisplayskip
+  \abovedisplayshortskip=0.5\abovedisplayshortskip
+  \belowdisplayskip     =0.5\belowdisplayskip
+  \belowdisplayshortskip=0.5\belowdisplayshortskip}
+
+\usepackage{newtxtext,newtxmath}
+
+\usepackage{textcomp}
+
+\usepackage[prefernoncjk]{pxcjkcat}
+
+\cjkcategory{sym18,grek}{cjk}
+
+\usepackage{url}
+
+\usepackage{booktabs}
+
+\usepackage{multirow}
+
+\usepackage{threeparttable}
+
+\usepackage{longtable}
+
+\usepackage{lineno}
+
+\usepackage{lscape}
 
 \makeatletter
 \def\maketitle{%
@@ -107,6 +141,10 @@ pdfkeywords={メタゲノム, 環境DNA, 次世代シーケンサー, 454, IonTo
   \secdef\@chapter\@schapter}
 \makeatother
 
+\renewcommand{\textbf}[1]{{\bfseries\sffamily#1}}
+
+\bibliographystyle{jecon}
+
 \begin{document}
 \thispagestyle{empty}
 \maketitle
@@ -128,11 +166,11 @@ pdfkeywords={メタゲノム, 環境DNA, 次世代シーケンサー, 454, IonTo
 また、原著作者の明示と本ライセンスまたは互換性のあるライセンスの適用を行う限り、本書を改変した二次著作物の作成・配布も自由に行うことができます。
 詳しい使用許諾条件を見るには\\
 \href{https://creativecommons.org/licenses/by-sa/4.0/}{https://creativecommons.org/licenses/by-sa/4.0/}\\
-をチェックするか、クリエイティブ・コモンズに郵便にてお問い合わせください。
+をチェックするか、クリエイティブ・コモンズに郵便にてお問い合わせ下さい。
 住所は Creative Commons, PO Box 1866, Mountain View, CA 94042, USA です。
 
 本書が皆さんの役に立つことができましたら幸いです。
-この機会を与えて下さった京都大学生態学研究センターの東樹宏和博士、水産研究・教育機構中央水産研究所の長井敏博士、龍谷大学の山中裕樹博士と、本書をお読みの皆さんに感謝します。
+この機会を与えて下さった京都大学生態学研究センターの東樹宏和博士、宇野裕美博士、神戸大学の末次健司博士、佐藤拓哉博士、水産研究・教育機構中央水産研究所の長井敏博士、龍谷大学の山中裕樹博士、東北大学の近藤倫生博士と、本書をお読みの皆さんに感謝します。
 
 \chapter*{凡例}
 \addcontentsline{toc}{chapter}{凡例}

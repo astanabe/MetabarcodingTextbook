@@ -1,7 +1,14 @@
-\documentclass[titlepage,10pt,a4paper,english]{jsbook}
+\documentclass[titlepage,10pt,a4paper,uplatex,english]{jsbook}
 
-\setcounter{tocdepth}{4}
-\setcounter{chapter}{-1}
+\usepackage[utf8]{inputenc}
+
+\usepackage[T1]{fontenc}
+
+\usepackage[uplatex,deluxe]{otf}
+
+\usepackage[noto]{pxchfon}
+
+\setcounter{tocdepth}{3}
 
 \usepackage[round,colon,authoryear]{natbib}
 
@@ -21,12 +28,40 @@ citecolor=black,%       cite の枠の色 black
 urlcolor=black,%        url の枠の色 black
 pdftitle={Metabarcoding and DNA barcoding for Ecologists: Sequence analysis},%
 pdfauthor={Akifumi S. Tanabe},
-pdfkeywords={Metagenome, Environmental DNA, Next-Generation Sequencer, 454, IonTorrent, Illumina}%
+pdfkeywords={Metagenome, Environmental DNA, eDNA}%
 ]{hyperref}
 
-\usepackage{pxfonts}
+\usepackage{pxjahyper}
 
-\bibliographystyle{econ}
+\usepackage{amsmath,amssymb}
+
+\AtBeginDocument{
+  \abovedisplayskip     =0.5\abovedisplayskip
+  \abovedisplayshortskip=0.5\abovedisplayshortskip
+  \belowdisplayskip     =0.5\belowdisplayskip
+  \belowdisplayshortskip=0.5\belowdisplayshortskip}
+
+\usepackage{newtxtext,newtxmath}
+
+\usepackage{textcomp}
+
+\usepackage[prefernoncjk]{pxcjkcat}
+
+\cjkcategory{sym18,grek}{cjk}
+
+\usepackage{url}
+
+\usepackage{booktabs}
+
+\usepackage{multirow}
+
+\usepackage{threeparttable}
+
+\usepackage{longtable}
+
+\usepackage{lineno}
+
+\usepackage{lscape}
 
 \makeatletter
 \def\maketitle{%
@@ -105,6 +140,10 @@ pdfkeywords={Metagenome, Environmental DNA, Next-Generation Sequencer, 454, IonT
   \global\@topnum\z@
   \secdef\@chapter\@schapter}
 \makeatother
+
+\renewcommand{\textbf}[1]{{\bfseries\sffamily#1}}
+
+\bibliographystyle{econ}
 
 \begin{document}
 \thispagestyle{empty}
