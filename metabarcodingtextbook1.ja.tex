@@ -666,7 +666,7 @@ DNA抽出では汚れたものも扱うため、DNA抽出とPCR前の準備も�
 \section{DNA抽出}
 
 ここでは、自作バッファーと単体販売されているスピンカラムを組み合わせたDNA抽出方法を説明します。
-既製のDNA抽出キットを用いる場合、QIAGENのDNeasy Blood \& Tissue KitまたはSIGMA GenElute Mammalian Genomic DNA Miniprep Kitに置き換えることができます。
+既製のDNA抽出キットを用いる場合、QIAGENのDNeasy Blood \& Tissue Kit、またはSIGMA GenElute Mammalian Genomic DNA Miniprep Kit、またはNew England BioLabs Monarch Genomic DNA Purification Kitに置き換えることができます。
 バッファー類の対応関係は下記の通りです。
 
 \begin{itemize}
@@ -674,26 +674,31 @@ DNA抽出では汚れたものも扱うため、DNA抽出とPCR前の準備も�
 \begin{itemize}
 \item QIAGEN Buffer ATL
 \item SIGMA Lysis Solution T
+\item New England BioLabs Monarch gDNA Cell Lysis Buffer
 \end{itemize}
 \item Binding Buffer
 \begin{itemize}
 \item QIAGEN Buffer AL
 \item SIGMA Lysis Solution C
+\item New England BioLabs Monarch gDNA Binding Buffer (アルコール類含有のため、別途エタノールは不要)
 \end{itemize}
 \item Wash Buffer 1
 \begin{itemize}
 \item QIAGEN Buffer AW1
 \item SIGMA Wash Solution
+\item New England BioLabs Monarch gDNA Wash Buffer
 \end{itemize}
 \item Wash Buffer 2
 \begin{itemize}
 \item QIAGEN Buffer AW2
 \item SIGMA Wash Solution
+\item New England BioLabs Monarch gDNA Wash Buffer
 \end{itemize}
 \item IDTE (溶出用)
 \begin{itemize}
 \item QIAGEN Buffer AE
 \item SIGMA Elution Solution
+\item New England BioLabs Monarch gDNA Elution Buffer
 \end{itemize}
 \end{itemize}
 
@@ -1202,12 +1207,16 @@ Sterivexのフィルターは、Binding BufferがあってもDNAを吸着しな�
 96ウェルプレートは使いやすいもので構いませんが、縁が盛り上がっていないタイプ(ウェルの縁ではなくプレートの縁です)の方がプレートシールをしっかりと貼りやすいので、縁が盛り上がっているタイプは避けた方が無難です。
 
 プレートシールは、スリオンテック No. 8160 幅100mm または 寺岡製作所 No. 8370 幅100mm というアルミロールテープを筆者は使用しています。
+幅75mmでも貼れますが、少しでも斜めになるとうまくシールできなくなってしまうので、慣れるまでは幅100mmをおすすめします。
+幅100mmだとはみ出た部分をハサミで切る必要があるため、幅75mmの方が楽なこともあるかもしれません。
+購入してすぐに事務用のペーパーカッター(カール事務器DC-200Nとフッ素コート刃K-18など)で125mm程度にカットしておきます。
+50m品なら400枚は取れる計算になります。
 専用のプレートシールに比べてはるかに安価で、一時的に貼るような用途にも気楽に使えますし、しっかり貼り付くので長期保管も問題ありません。
 少し厚めなので、シールアプリケーターを強く押し付けても簡単には破れません。
 ただし、PCRに使用すると、PCR後は剥がれやすくなっているので、新品に交換するようにします。
 メーカー品では、BM機器のSureSeal AL MAX (BMF-AF-100)やSureSeal AL Raised-skirt (BMF-F-96-100)がおすすめです。
 メーカーに言えばサンプルをもらえますので、購入前にテストするといいでしょう。
-プレートシールを選ぶ際には、「PCRで蒸気漏れしない」、「ピアシングできる(Pierceable)」といった辺りに注意して下さい。
+プレートシールを選ぶ際には、「PCRで蒸気漏れしない」、「ピアシングできる(Pierceable)」といった辺りに注意して下さい(Pierceableが必要かどうかは人によります)。
 また、冷蔵庫・冷凍庫でのサンプル保管の際はシールの使用温度下限にも注意が必要です。
 アルミロールテープは通常の冷凍庫は問題ありませんが、-80℃のディープフリーザーには対応していません。
 
@@ -1219,16 +1228,23 @@ Sterivexのフィルターは、Binding BufferがあってもDNAを吸着しな�
 他社より少し高いですが、キャップを使うよりもはるかにランニングコストが安いので、すぐに元は取れます。
 蒸気漏れしづらく、PCR後の側面への結露量も非常に少ないので、大変おすすめです。
 故障の際は海外での修理になるので時間がかかりますが、通常は代替品を貸してもらえるはずです。
+どうにもならない場合、分子生物学グレードのミネラルオイル(ナカライテスク23306-84など)を15{\textmu}L程度重層させた上で、ヒートリッドの温度を下げるかオフにすることで解決します。
+ミネラルオイルの重層は、古式ゆかしい方法ですが、蒸気漏れも内側面への結露も解決するので、おすすめします。
+ミネラルオイルはPCR以降の処理には基本的に影響しませんが、磁気ビーズ精製の際に多量に混入するとよくないのでPCR産物を回収する際にはできるだけミネラルオイルが入らないように注意します。
 
 ライブラリ調製では電動ピペットも多用します。
 シングルの電動ピペットはエー・アンド・デイのMPAシリーズやアイカムス・ラボのPipettyシリーズなど、大変安価なものが出ており、十分使い物になります。
 マルチチャネルの電動ピペットはあまり多くのメーカーから出ていませんが、100{\textmu}Lサイズ12連のEppendorf Xplorer PlusやSartorius Picusなど、「等量連続吸引」に対応した機種を持っておくと、96ウェルプレート上の8レプリケートのPCR産物12サンプル分を一気にまとめることができ、効率的に作業できます。
 また、インデックス配列付きプライマーを使用する際にも、10{\textmu}Lサイズ12連のEppendorf Xplorer (分注だけならPlusである必要はない)やSartorius Picusがあると便利です。
+最近になってエー・アンド・デイから8連のMPBシリーズが出ました。
+8連でよければ検討してもいいでしょう。
+なお、電動ピペットには、「連続分注モードでは最初の1回目の吐出は捨て分注をしなければならない」機種があります。
+実験室で混在していると間違えやすいので注意が必要です。
 
 さらに大量のサンプルを迅速に処理したい場合、384ウェルプレートの使用も視野に入れた方がよいでしょう。
 この場合、サーマルサイクラーも専用のものが必要になります。
 384ウェルプレートは大変穴が小さく、手作業では分注ミスが頻発しますので、Gilson TrackmanなどのLEDを用いた補助器具、Gilson PlatemasterやEppendorf epMotion 96などの96連ピペット、FORMULATRIX MANTISなどの自動分注ロボットの導入も考慮すべきだと思います。
-気合で何とかすることもできなくはありませんが、学生やパートの実験補助員に要求するのは酷でしょう。
+気合で何とかすることもできなくはありませんが、学生や実験補助員に要求するのは酷でしょう。
 
 \subsection{プライマーの設計と発注の方法}
 
@@ -1403,6 +1419,7 @@ PCRのプログラムを作成する際、可能であれば変性温度から�
 \subsubsection{必要な機材}
 \begin{itemize}
 \item 12連10{\textmu}L電動ピペット Eppendorf Xplorer 4861000112 または Sartorius Picus 735421: 1本 (ない場合は20{\textmu}L電動ピペットで12回連続分注する)
+\item 8連200{\textmu}L電動ピペット エー・アンド・デイ MPB-200-8 または Eppendorf Xplorer 4861000147 または Sartorius Picus 735361: 1本 (ない場合は200{\textmu}L電動ピペットで96回連続分注する)
 \item 20{\textmu}L電動ピペット アイカムス・ラボ Pipetty TLIC01-20 または エー・アンド・デイ MPA-20: 1本
 \item 200{\textmu}L電動ピペット アイカムス・ラボ Pipetty TLIC01-250 または エー・アンド・デイ MPA-200: 1本
 \item アイソフリーズラックPCRラック: 1個
@@ -1428,6 +1445,8 @@ PCRのプログラムを作成する際、可能であれば変性温度から�
 \item SPW: 14{\textmu}L / 1サンプル
 \item SPW: 5{\textmu}L / 1サンプル
 \item SPW: 7.5{\textmu}L / 1サンプル
+\item ミネラルオイル: 15{\textmu}L / 1ウェル
+\item 8連チューブ: 1本 / 96ウェル
 \end{itemize}
 
 \subsubsection{作業手順}
@@ -1444,8 +1463,10 @@ PCRのプログラムを作成する際、可能であれば変性温度から�
 \item アイソフリーズPCRラックに96ウェルプレートを置く
 \item 2にQ5 High-Fidelity DNA Polymerase (2U/{\textmu}L) 0.1{\textmu}L×(ウェル数+X)を加えて転倒混和してスピンダウンして、\textbf{入れたことがわかるよう目印を付ける}
 \item 96ウェルプレート全体に10の混合液を200{\textmu}L電動ピペットで12{\textmu}Lずつ分注する
+\item ミネラルオイル 190{\textmu}Lを新しい8連チューブに分注する
+\item ミネラルオイルを8連200{\textmu}L電動ピペットで96ウェルプレート全体に15{\textmu}Lずつ分注する
 \item 96ウェルプレートの各列の8ウェルに鋳型5・10・20倍希釈液を12連10{\textmu}L電動ピペットまたは20{\textmu}L電動ピペットで1{\textmu}Lずつ分注する
-\item 96ウェルプレートにプレートシールをしっかりと貼ってスピンダウンして容量のずれがないか目視確認
+\item 96ウェルプレートにプレートシールをしっかりと貼ってスピンダウンして容量のずれがないか、鋳型溶液がミネラルオイル内に隔離されていないか目視確認
 \item 96ウェルプレートをアイソフリーズラックに乗せたままサーマルサイクラーのある部屋に移動
 \item 96ウェルプレートをセットせずにサーマルサイクラーのプログラムをスタートさせ、初期変性温度に達したら一時停止する
 \item 96ウェルプレートをセットしてプログラムを再開する
@@ -1530,6 +1551,7 @@ PCR産物がローディングダイ入ではない場合、PCR産物 5{\textmu}
 \subsubsection{必要な機材}
 \begin{itemize}
 \item 12連10{\textmu}L電動ピペット Eppendorf Xplorer 4861000112 または Sartorius Picus 735421: 1本 (ない場合は20{\textmu}L電動ピペットで12回連続分注する)
+\item 8連200{\textmu}L電動ピペット エー・アンド・デイ MPB-200-8 または Eppendorf Xplorer 4861000147 または Sartorius Picus 735361: 1本 (ない場合は200{\textmu}L電動ピペットで96回連続分注する)
 \item 20{\textmu}L電動ピペット アイカムス・ラボ Pipetty TLIC01-20 または エー・アンド・デイ MPA-20: 1本
 \item 200{\textmu}L電動ピペット アイカムス・ラボ Pipetty TLIC01-250 または エー・アンド・デイ MPA-200: 1本
 \item アイソフリーズラックPCRラック: 1個
@@ -1552,6 +1574,8 @@ PCR産物がローディングダイ入ではない場合、PCR産物 5{\textmu}
 \item 鋳型DNA溶液: 1.8{\textmu}L / 1サンプル
 \item 8連チューブ: 12/8本 / 12サンプル
 \item SPW: 16.2{\textmu}L / 1サンプル
+\item ミネラルオイル: 15{\textmu}L / 1ウェル
+\item 8連チューブ: 1本 / 96ウェル
 \end{itemize}
 
 \subsubsection{作業手順}
@@ -1564,8 +1588,10 @@ PCR産物がローディングダイ入ではない場合、PCR産物 5{\textmu}
 \item アイソフリーズPCRラックに96ウェルプレートを置く
 \item 2にQ5 High-Fidelity DNA Polymerase (2U/{\textmu}L) 0.1{\textmu}L×(ウェル数+X)を加えて転倒混和してスピンダウンして、\textbf{入れたことがわかるよう目印を付ける}
 \item 96ウェルプレート全体に7の混合液を200{\textmu}L電動ピペットで11{\textmu}Lずつ分注する
+\item ミネラルオイル 190{\textmu}Lを新しい8連チューブに分注する
+\item ミネラルオイルを8連200{\textmu}L電動ピペットで96ウェルプレート全体に15{\textmu}Lずつ分注する
 \item 96ウェルプレートの各列の8ウェルに鋳型10倍希釈液を12連10{\textmu}L電動ピペットまたは20{\textmu}L電動ピペットで2{\textmu}Lずつ分注する
-\item 96ウェルプレートにプレートシールをしっかりと貼ってスピンダウンして容量のずれがないか目視確認
+\item 96ウェルプレートにプレートシールをしっかりと貼ってスピンダウンして容量のずれがないか、鋳型溶液がミネラルオイル内に隔離されていないか目視確認
 \item 96ウェルプレートをアイソフリーズラックに乗せたままサーマルサイクラーのある部屋に移動
 \item 96ウェルプレートをセットせずにサーマルサイクラーのプログラムをスタートさせ、初期変性温度に達したら一時停止する
 \item 96ウェルプレートをセットしてプログラムを再開する
@@ -1815,6 +1841,7 @@ PCR産物は1サンプル当たり8レプリケート分あり、ここで8レ�
 \subsubsection{必要な機材}
 \begin{itemize}
 \item 12連10{\textmu}L電動ピペット Eppendorf Xplorer 4861000112 または Sartorius Picus 735421: 1本 (ない場合は20{\textmu}L電動ピペットで12回連続分注する)
+\item 8連200{\textmu}L電動ピペット エー・アンド・デイ MPB-200-8 または Eppendorf Xplorer 4861000147 または Sartorius Picus 735361: 1本 (ない場合は200{\textmu}L電動ピペットで96回連続分注する)
 \item 20{\textmu}L電動ピペット アイカムス・ラボ Pipetty TLIC01-20 または エー・アンド・デイ MPA-20: 1本
 \item 200{\textmu}L電動ピペット アイカムス・ラボ Pipetty TLIC01-250 または エー・アンド・デイ MPA-200: 1本
 \item 12連10{\textmu}Lピペット: 1本
@@ -1840,6 +1867,8 @@ PCR産物は1サンプル当たり8レプリケート分あり、ここで8レ�
 \item 50{\textmu}M リバースインデックスプライマー: 1.2{\textmu}L / 8ウェル × 12種類
 \item SPW: 10.8{\textmu}L / 1リバースインデックスプライマー
 \item PCR産物: 2{\textmu}L / 1サンプル × 96サンプル
+\item ミネラルオイル: 15{\textmu}L / 1ウェル
+\item 8連チューブ: 1本 / 96ウェル
 \end{itemize}
 
 \subsubsection{作業手順}
@@ -1853,13 +1882,15 @@ PCR産物は1サンプル当たり8レプリケート分あり、ここで8レ�
 \item アイソフリーズPCRラックに96ウェルプレートを置く
 \item 2にQ5 High-Fidelity DNA Polymerase (2U/{\textmu}L) 0.1{\textmu}L×(ウェル数+X)を加えて転倒混和して、\textbf{入れたことがわかるよう目印を付ける}
 \item 96ウェルプレート全体に8の混合液を200{\textmu}L電動ピペットで8.6{\textmu}Lずつ分注する
+\item ミネラルオイル 190{\textmu}Lを新しい8連チューブに分注する
+\item ミネラルオイルを8連200{\textmu}L電動ピペットで96ウェルプレート全体に15{\textmu}Lずつ分注する
 \item 96ウェルプレートの各列の8ウェルにそれぞれ異なる5{\textmu}M リバースインデックスプライマーを12連10{\textmu}L電動ピペットまたは20{\textmu}L電動ピペットで1.2{\textmu}Lずつ分注する
 \item 96ウェルプレートの各行の12ウェルにそれぞれ異なる5{\textmu}M フォワードインデックスプライマーを20{\textmu}L電動ピペットで1.2{\textmu}Lずつ側壁に付けるように分注する
 \item 96ウェルプレートをアイソフリーズラックに乗せたままサーマルサイクラーのある部屋に移動
-\item 96ウェルプレートにプレートシールを漏れない程度に軽く貼ってスピンダウンして容量のずれがないか目視確認してプレートシールを剥がす
+\item 96ウェルプレートにプレートシールを漏れない程度に軽く貼ってスピンダウンして容量のずれがないか、プライマー溶液がミネラルオイル内に隔離されていないか目視確認してプレートシールを剥がす
 \item PCR産物を冷凍しているなら解凍してスピンダウンしてプレートシールを剥がす
-\item PCR産物 2{\textmu}Lを12連10{\textmu}Lピペットで気泡が入らないようにリバースピペッティングで加える
-\item 96ウェルプレートに新しいプレートシールをしっかりと貼ってスピンダウンして容量のずれがないか目視確認
+\item PCR産物 2{\textmu}Lを12連10{\textmu}Lピペットで気泡が入らないようにリバースピペッティングで底部に加える
+\item 96ウェルプレートに新しいプレートシールをしっかりと貼ってスピンダウンして容量のずれがないか、鋳型溶液がミネラルオイル内に隔離されていないか目視確認
 \item 96ウェルプレートをセットせずにサーマルサイクラーのプログラムをスタートさせ、初期変性温度に達したら一時停止する
 \item 96ウェルプレートをセットしてプログラムを再開する
 \item 終わったら十分冷めるまで待って、96ウェルプレートをサーマルサイクラーから取り外す

@@ -20,7 +20,7 @@ rm metabarcodingtextbook1.ja.temp.tex
 perl convertxml2xml.pl < metabarcodingtextbook1.ja.xml > metabarcodingtextbook1.ja.temp.xml
 rm metabarcodingtextbook1.ja.xml
 mv metabarcodingtextbook1.ja.temp.xml metabarcodingtextbook1.ja.xml
-latexmlpost --format=html5 --crossref --index --mathimages --nomathsvg --nopresentationmathml --nocontentmathml --noopenmath --nomathtex --nomathlex --graphicimages --verbose --destination=metabarcodingtextbook1.ja.html metabarcodingtextbook1.ja.xml
+latexmlpost --format=html5 --crossref --index --mathimages --nomathsvg --nopresentationmathml --nocontentmathml --noopenmath --nomathtex --graphicimages --verbose --destination=metabarcodingtextbook1.ja.html metabarcodingtextbook1.ja.xml
 perl converthtml2html.ja.pl < metabarcodingtextbook1.ja.html > metabarcodingtextbook1.ja.temp.html
 rm metabarcodingtextbook1.ja.html
 mv metabarcodingtextbook1.ja.temp.html metabarcodingtextbook1.ja.html
