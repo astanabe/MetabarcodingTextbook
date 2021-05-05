@@ -26,4 +26,4 @@ rm metabarcodingtextbook1.ja.html
 mv metabarcodingtextbook1.ja.temp.html metabarcodingtextbook1.ja.html
 perl -i.bak -npe "s/<dc:date>.+<\/dc:date>/<dc:date>$t<\/dc:date>/" metabarcodingtextbook1.ja.opf
 ebook-convert metabarcodingtextbook1.ja.html metabarcodingtextbook1.ja.epub --max-toc-links=0 --toc-threshold=1 --level1-toc=//h:h2 --level2-toc=//h:h3 --level3-toc=//h:h4 --read-metadata-from-opf=metabarcodingtextbook1.ja.opf --cover=metabarcodingtextbook1.ja.title.png --preserve-cover-aspect-ratio
-kindlegen metabarcodingtextbook1.ja.epub
+ebook-convert metabarcodingtextbook1.ja.html metabarcodingtextbook1.ja.mobi --max-toc-links=0 --toc-threshold=1 --level1-toc=//h:h2 --level2-toc=//h:h3 --level3-toc=//h:h4 --read-metadata-from-opf=metabarcodingtextbook1.ja.opf --cover=metabarcodingtextbook1.ja.title.png --mobi-file-type=new

@@ -29,9 +29,14 @@ while (<>) {
 		$switch = 1;
 		s/^<span class="ltx_inline-block" /<p class="ltx_p ltx_align_left" /;
 	}
+	elsif ($switch && /<span /) {
+		$switch ++;
+	}
 	elsif ($switch && /^<\/span>/) {
-		$switch = 0;
-		s/^<\/span>/<\/p>/;
+		$switch --;
+		if ($switch == 0) {
+			s/^<\/span>/<\/p>/;
+		}
 	}
 	if (/<div class="ltx_date ltx_role_creation">/) {
 		s/January (\d+), (\d+)/$2年1月$1日/;

@@ -94,5 +94,8 @@ while (<>) {
 	elsif (/\\begin\{tabular\}\{.+\}/) {
 		s/p\{\d+(?:\.\d+)?[a-z]+\}/l/g;
 	}
+	elsif (/\\begin\{longtable\}(?:\[.+?\])\{.+\}/) {
+		s/p\{\d+(?:\.\d+)?[a-z]+\}/l/g;
+	}
 	print;
 }

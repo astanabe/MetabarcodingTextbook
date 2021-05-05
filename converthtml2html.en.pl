@@ -29,9 +29,14 @@ while (<>) {
 		$switch = 1;
 		s/^<span class="ltx_inline-block" /<p class="ltx_p ltx_align_left" /;
 	}
+	elsif ($switch && /<span /) {
+		$switch ++;
+	}
 	elsif ($switch && /^<\/span>/) {
-		$switch = 0;
-		s/^<\/span>/<\/p>/;
+		$switch --;
+		if ($switch == 0) {
+			s/^<\/span>/<\/p>/;
+		}
 	}
 	#s/(<cite class="ltx_cite[^\"]*">)(.+?)(<a href="\#bib\.bib\d+" title="" class="ltx_ref">)(.+?)(<\/a>)(.+?)(<\/cite>)/$1$3$2$4$6$5$7/g;
 	s/<li id="bib.bib\d+" class="ltx_bibitem"/$& style="padding:0em 0em 0.2em 0em;"/;
