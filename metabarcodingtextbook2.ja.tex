@@ -195,7 +195,7 @@ output of command
 ↓を入力しないようにして下さい。
 なお、コマンドとオプションを見やすくするためにコマンドやオプションの途中に改行を意図的に入れることがありますが、そのような改行の直前には\texttt{\textbackslash}を記してあります。
 したがって、\texttt{\textbackslash}が直前にある改行はコマンドの終端や改行入力の指示を意味しません。
-また、表示環境によってはワードラップ機能により筆者の意図しない改行が入ってしまうことがありますが、これもコマンドの終端や改行入力の指示を意味しませんので注意して下さい。
+また、閲覧環境によってはワードラップ機能により筆者の意図しない改行が入ってしまうことがありますが、これもコマンドの終端や改行入力の指示を意味しませんので注意して下さい。
 
 また、本書では様々なファイルを使用しますが、その内容は以下のように記述しています。
 
@@ -209,24 +209,27 @@ output of command
 
 \chapter{ソフトウェアのインストールと環境設定}
 
-本書では、Debian GNU/Linux 9 (stretch) (以下Debian)、Ubuntu Linux 18.04 LTS (以下Ubuntu)を利用環境として想定しています。
+本書では、Debian GNU/Linux 11 (bullseye) (以下Debian)、Ubuntu Linux 20.04 LTS (以下Ubuntu)を利用環境として想定しています。
 Windows環境の方は、Linuxのどちらかをインストールして環境を整えて下さい。
-動作が遅くても構わないなら、CygwinやWindows 10で提供されているWindows Subsystem for LinuxなどのWindows上で動作するUNIX互換環境にインストールすることも可能です。
+動作が遅くても構わないなら、Windowsで提供されているWindows Subsystem for LinuxなどのWindows上で動作するUNIX互換環境にインストールすることも可能です。
 Linuxのインストールには、インストール用CD・DVD・USBメモリが使えます。
 HDDやSSDが1台しかない場合、Windows用のEaseUS Partition Masterなどのパーティションリサイズが可能なソフトを使ったり、インストール用CD・DVD・USBメモリ内に用意されている機能を使ってWindows用の領域を縮小して容量を空ける必要があります。
 HDDまたはSSDを追加してスペースを確保していただいても良いでしょう。
 USBメモリやUSB接続HDDにインストールすることも可能です。
+内蔵のHDD・SSD以外から起動するには、BIOS・UEFI上で設定が必要な場合があります。
+お使いのPC、またはマザーボードのマニュアルをご参照下さい。
 Ubuntuは見た目・操作性の異なる何種類かがありますが、標準のUbuntuよりもXubuntuというのがおすすめです。
 
 Macでも、これらのOSがインストールできます。
 空きディスクがない場合はディスクユーティリティを用いてLinuxインストール用のスペースを空ける必要があります。
-ディスクユーティリティでHDD・SSDをクリックして、MacOS Xが使用している領域を縮小して下さい。
+ディスクユーティリティでHDD・SSDをクリックして、macOSが使用している領域を縮小して下さい。
 そしてrEFItやrEFIndというソフトをインストールして起動時に起動デバイス・起動OS選択メニューが出るようにします(インストール後に2回の再起動が必要です)。
 そうすると、Linuxインストール用CD・DVD・USBメモリから起動できるようになりますので、そこから起動してインストールして下さい。
 くれぐれも既存のOS用領域を誤って削除しないようにご注意下さい。
 空いているディスク領域がある場合はディスクユーティリティでの操作は必要ありません。
 rEFItやrEFIndを導入してインストールCD・DVD・USBメモリから起動し、空いている領域にLinuxをインストールしていただければ結構です。
 またMacでも、インストール先をUSBメモリやUSB接続HDDにすることができます。
+HomebrewやMacPortsのインストールされているMacであれば、macOS上にインストールすることも可能ですが、Linuxに比べると少し遅くなります。
 
 なお、本書は64bit対応のIntel・AMD製CPU搭載機しか想定していません。
 それ以外の環境でも動作するでしょうが、自力で解決していただく必要があります。
@@ -281,7 +284,7 @@ rEFItやrEFIndを導入してインストールCD・DVD・USBメモリから起�
 \subsection{バージョンアップの場合には}
 
 全てのプログラムとデータベースを更新する場合は、インストールと同様の手順でコマンドを実行して下さい。
-この手順では、Assams、Claident、PEAR、VSEARCH、Metaxa、ITSxが\texttt{/usr/local}以下へインストールされ、\texttt{/usr/local/share/claident}以下へNCBI BLAST+と同定用BLASTデータベース・Taxonomyデータベース、その他の依存プログラム等がインストールされます。
+この手順では、Claident、Metaxa2、ITSxが\texttt{/usr/local}以下へインストールされ、\texttt{/usr/local/share/claident}以下へNCBI BLAST+と同定用BLASTデータベース・Taxonomyデータベース、その他の依存プログラム等がインストールされます。
 NCBI BLAST+やBLASTデータベースが別途システムにインストールされている場合でも、Claidentが利用するBLAST+やデータベースとは共存可能です。
 
 なお、以下のコマンドを利用することで、一部の更新を無効化して他のものだけ更新することができます。
@@ -289,45 +292,49 @@ NCBI BLAST+やBLASTデータベースが別途システムにインストール�
 \begin{cmd}
 {\textgreater} mkdir -p {\textasciitilde}/workingdirectory↓\\
 {\textgreater} cd {\textasciitilde}/workingdirectory↓\\
-\# Assamsの更新を無効化\\
-{\textgreater} touch .assams↓\\
 \# Claidentの更新を無効化\\
 {\textgreater} touch .claident↓\\
-\# PEARの更新を無効化\\
-{\textgreater} touch .pear↓\\
+\# Swarmの更新を無効化\\
+{\textgreater} touch .swarm↓\\
 \# VSEARCHの更新を無効化\\
 {\textgreater} touch .vsearch↓\\
+\# VSEARCH5Dの更新を無効化\\
+{\textgreater} touch .vsearch5d↓\\
 \# NCBI BLAST+の更新を無効化\\
 {\textgreater} touch .blast↓\\
+\# RとDADA2の更新を無効化\\
+{\textgreater} touch .dada2↓\\
 \# プログラムを更新\\
 {\textgreater} wget https://www.claident.org/installClaident{\textunderscore}Debian.sh↓\\
 {\textgreater} sh installClaident{\textunderscore}Debian.sh↓\\
-\# sff{\textunderscore}extractの更新を無効化\\
-{\textgreater} touch .sffextract↓\\
 \# HMMerの更新を無効化\\
 {\textgreater} touch .hmmer↓\\
 \# MAFFTの更新を無効化\\
 {\textgreater} touch .mafft↓\\
-\# Metaxaの更新を無効化\\
+\# Metaxa2の更新を無効化\\
 {\textgreater} touch .metaxa↓\\
 \# ITSxの更新を無効化\\
 {\textgreater} touch .itsx↓\\
 \# オプションプログラムを更新\\
 {\textgreater} wget https://www.claident.org/installOptions{\textunderscore}Debian.sh↓\\
 {\textgreater} sh installOptions{\textunderscore}Debian.sh↓\\
-\# 同定用データベース「overall」の更新を無効化\\
-{\textgreater} touch .overall↓\\
+\# 同定用Taxonomyデータベースの更新を無効化\\
+{\textgreater} touch .taxdb↓\\
+\# 同定用BLASTデータベースの更新を無効化\\
+{\textgreater} touch .blastdb↓\\
 \# 同定用データベースを更新\\
 {\textgreater} wget https://www.claident.org/installDB{\textunderscore}Debian.sh↓\\
 {\textgreater} sh installDB{\textunderscore}Debian.sh↓\\
-\# キメラ検出用データベース「Claident Databases for UCHIME」の更新を無効化\\
-{\textgreater} touch .cdu↓\\
 \# キメラ検出用データベース「rdp」の更新を無効化\\
 {\textgreater} touch .rdp↓\\
+\# キメラ検出用データベース「DAIRYdb」の更新を無効化\\
+{\textgreater} touch .dairydb↓\\
 \# キメラ検出用データベース「silva」の更新を無効化\\
 {\textgreater} touch .silva↓\\
 \# キメラ検出用データベース「unite」の更新を無効化\\
 {\textgreater} touch .unite↓\\
+\# キメラ検出用データベース「Claident Databases for UCHIME」の更新を無効化\\
+{\textgreater} touch .cdu↓\\
 \# キメラ検出用データベースを更新\\
 {\textgreater} wget https://www.claident.org/installUCHIMEDB{\textunderscore}Debian.sh↓\\
 {\textgreater} sh installUCHIMEDB{\textunderscore}Debian.sh↓\\
@@ -372,25 +379,27 @@ Claidentは標準のインストール先にインストールすると以前の
 ただし、ユーザーのホームディレクトリ(\texttt{/home/ユーザー名})の直下もしくは\texttt{/etc/claident}に作成される設定ファイル\texttt{.claident}は共存できませんので、本設定ファイルは使用するバージョンに合わせて切り替える必要があります。
 ユーザーのホームディレクトリの設定ファイルが優先的に読み込まれますので、複数バージョンを共存させる場合はそれぞれ別のユーザーを用意してそのユーザーのホームディレクトリ以下にインストールしていただければ、ユーザーを切り替えることでバージョンを切り替えることができます。
 
-\chapter{次世代シーケンサーによる大量サンプルの塩基配列決定}
+\chapter{高スループットシーケンサーによる大量サンプルの塩基配列決定}
 
-ここでは、Roche GSシリーズシーケンサーや、Ion PGM、Illumina MiSeqによるタグ付き塩基配列決定法について簡単に説明します。
-これらのシーケンサーは、いずれも400bp以上の長さの塩基配列解読能力があり、メタバーコーディング、DNAバーコーディングに適しています。
-ただし、MiSeqは両側から解読したもの(ペアエンドリード)を連結する必要があります。
+ここでは、Illumina社製シーケンサーによるデュアルインデックス塩基配列決定法について簡単に説明します。
+Illumina社のHiSeq、MiSeq、NovaSeq等は、いずれも400bp以上の長さの塩基配列解読能力があり、メタバーコーディング、DNAバーコーディングに適しています。
+ただし、300bp以上の場合、2方向から解読したもの(ペアエンドリード)を連結する必要があります。
 したがって、両側の配列間でオーバーラップができるよう、できれば400bp程度、長くても500bp程度のアンプリコンができるようにPCRしなくてはなりません。
-連結せずに片側ずつ解析することもできますが、reverse側配列は質がかなり低いため、あまり有用ではないと思います。
+シーケンスには、両側合計で300～600塩基解読できる試薬を利用しますが、両側の配分は自由に決定できますので、300塩基解読できる試薬で片側300塩基解読することも可能ですし、両側150塩基ずつ解読することも可能です。
 
-次世代シーケンサーは非常に多くの塩基配列を解読できますが、かつてはランニングコストが高く、1度に多数のサンプル由来配列を由来サンプルがわかるように解読することができませんでした。
+高スループットシーケンサーは非常に多くの塩基配列を解読できますが、かつてはランニングコストが高く、1度に多数のサンプル由来配列を由来サンプルがわかるように解読することができませんでした。
 しかし、ランニングコストはかなり下がってきた上、塩基配列に由来サンプル識別用の数塩基の「MID (multiplex identifier)タグ」を予め付加して解読することで、多数のサンプルの塩基配列を混合(multiplex)して1度に解読できるようになりました。
 これにより、1サンプル当たりのコストも劇的に低下しています。
 MIDタグをバーコードと呼ぶことも多いですが、DNAバーコーディングでは利用する塩基配列をバーコードと呼び、紛らわしいのでここでは単にタグに統一します。
 なお、インデックス配列と呼ぶ場合もあります。
 他の文書を読まれる場合は注意して下さい。
 
-なお、後の解析では、PCRの際に生成されるキメラ配列や読み間違いの多い配列が多様性の把握の際に問題となりますが、PCRのレプリケートを確保して塩基配列決定を行うことで、全レプリケートで共通して見られる配列のみをキメラでなく読み間違いも少ない配列と考えることができます。
+なお、後の解析では、PCRの際に生成されるキメラ配列や読み間違いの多い配列が多様性の把握の際に問題となりますが、PCRのレプリケートを確保して塩基配列決定を行うことで、全レプリケートで共通して見られる配列のみをキメラでなく読み間違いも少ない配列と考えることもできます。
 これは、キメラのできる配列の組み合わせとキメラ配列の「継ぎ目」は多数あるが、キメラでない配列は非常に限られていてしかもPCR前からあって観測される数がキメラより多くなりやすいため、真の配列は全てのレプリケートで検出されやすいが、キメラはそうではないこと、同様に読み間違いのパターンも無数にあるが真の配列はただ一通りで真の配列が全レプリケートで検出されやすいことを利用するものです。
 ソフトウェアによる処理だけではキメラや読み間違いを十分に除去できませんが、この方法を併用することで検出効率を改善できると期待できます。
 キメラと読み間違いの検出後、レプリケートは足し合わせて解析することができます。
+ただし、この方法では、各レプリケートに十分なリード数が必要となりますので、実際に適用することはあまりないかもしれません。
+また、キメラのできる配列の組み合わせとキメラ配列の「継ぎ目」には再現性があり、全レプリケートで同一のキメラ配列が検出されることもあり得るため、レプリケート数も増やす必要があるかもしれません。
 
 \section{タグ・アダプター配列付きプライマーを用いたPCR}
 
