@@ -260,6 +260,7 @@ span.ltx_rowspan { position:absolute; top:0; bottom:0; }
 .ltx_tr      { display:table-row; }
 .ltx_td,
 .ltx_th      { display:table-cell; }
+th { font-weight:normal; }
 
 .ltx_framed  { border:1px solid black;}
 .ltx_tabular .ltx_td,
